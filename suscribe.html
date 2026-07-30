@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <title>Complete Your Profile | ClassyDate</title>
-    <meta name="description" content="Complete your profile to start your ClassyDate journey.">
+    <title>Get Credits | ClassyDate</title>
+    <meta name="description" content="Get credits to start chatting on ClassyDate.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +21,8 @@
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #ACC8E5;
-            color: #112A46;
+            background: #f3e8ff;
+            color: #1a0533;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -30,282 +30,377 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* Header */
-        .subscribe-header {
+        /* ============================================================ */
+        /* HEADER                                                      */
+        /* ============================================================ */
+        .credits-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(172, 200, 229, 0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(17, 42, 70, 0.08);
+            border-bottom: 1px solid rgba(108, 60, 179, 0.12);
             padding: 0 20px;
             height: 72px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
 
-        .subscribe-header .brand {
+        .credits-header .brand {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
             font-size: 24px;
             font-weight: 700;
-            color: #112A46;
+            color: #1a0533;
         }
 
-        .subscribe-header .brand span {
+        .credits-header .brand .heart {
+            color: #ff0000;
+            display: inline-block;
+        }
+
+        .credits-header .brand span {
             font-family: "Inter", sans-serif;
             font-weight: 300;
-            color: #2E5A88;
+            color: #6c3cb3;
         }
 
-        /* Main */
-        .subscribe-wrapper {
+        .credits-header .back-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: rgba(108, 60, 179, 0.08);
+            color: #1a0533;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+        }
+
+        .credits-header .back-btn:hover {
+            background: rgba(108, 60, 179, 0.15);
+        }
+
+        /* ============================================================ */
+        /* MAIN WRAPPER                                                */
+        /* ============================================================ */
+        .credits-wrapper {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 100px 20px 60px;
             min-height: 100vh;
-            background: radial-gradient(ellipse at center top, rgba(17, 42, 70, 0.04), transparent 70%);
+            background: radial-gradient(ellipse at center top, rgba(108, 60, 179, 0.06), transparent 70%);
         }
 
-        .subscribe-card {
-            max-width: 520px;
+        /* ============================================================ */
+        /* CREDIT CARD                                                 */
+        /* ============================================================ */
+        .credit-card {
+            max-width: 580px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(20px);
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 48px 40px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.30);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
         }
 
-        .subscribe-card__header {
+        /* Premium glow effect */
+        .credit-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(108, 60, 179, 0.03), transparent 60%);
+            pointer-events: none;
+        }
+
+        /* ============================================================ */
+        /* HEADER SECTION                                              */
+        /* ============================================================ */
+        .credit-card__header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
+            position: relative;
         }
 
-        .subscribe-card__header .icon {
-            font-size: 48px;
+        .credit-card__header .icon {
+            font-size: 56px;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
-        .subscribe-card__header h1 {
+        .credit-card__header .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .credit-card__header h1 {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
             font-size: 28px;
-            color: #112A46;
+            color: #1a0533;
             font-weight: 700;
-        }
-
-        .subscribe-card__header p {
-            color: rgba(17, 42, 70, 0.5);
-            font-size: 15px;
             margin-top: 4px;
+        }
+
+        .credit-card__header .subtitle {
+            color: rgba(26, 5, 51, 0.5);
+            font-size: 14px;
+            margin-top: 2px;
             font-family: "Inter", sans-serif;
         }
 
-        /* Steps */
-        .steps {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-
-        .step {
+        /* ============================================================ */
+        /* PROMO CODE BANNER                                           */
+        /* ============================================================ */
+        .promo-banner {
+            background: linear-gradient(135deg, rgba(108, 60, 179, 0.06), rgba(74, 26, 107, 0.06));
+            border: 1px solid rgba(108, 60, 179, 0.12);
+            border-radius: 14px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .promo-banner .promo-label {
             font-size: 13px;
             font-weight: 600;
-            color: rgba(17, 42, 70, 0.3);
-            font-family: "Inter", sans-serif;
+            color: rgba(26, 5, 51, 0.5);
         }
 
-        .step .num {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(17, 42, 70, 0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
+        .promo-banner .promo-code {
+            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
+            font-size: 18px;
             font-weight: 700;
-            color: rgba(17, 42, 70, 0.2);
+            color: #6c3cb3;
+            letter-spacing: 1px;
+            background: rgba(108, 60, 179, 0.08);
+            padding: 4px 16px;
+            border-radius: 8px;
         }
 
-        .step.active .num {
-            background: #112A46;
-            color: #fff;
+        .promo-banner .promo-check {
+            color: #28a745;
+            font-size: 18px;
+            font-weight: 700;
         }
 
-        .step.active {
-            color: #112A46;
-        }
-
-        .step .line {
-            width: 30px;
-            height: 2px;
-            background: rgba(17, 42, 70, 0.06);
-        }
-
-        .step.active .line {
-            background: #112A46;
-        }
-
-        /* Form */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(17, 42, 70, 0.7);
-            margin-bottom: 6px;
-            font-family: "Inter", sans-serif;
-        }
-
-        .form-group label .required {
-            color: #dc3545;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            color: #112A46;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            outline: none;
-            font-family: "Inter", sans-serif;
-        }
-
-        .form-group select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23112A46' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-        }
-
-        .form-group select option {
-            background: #ACC8E5;
-            color: #112A46;
-        }
-
-        .form-group input::placeholder {
-            color: rgba(17, 42, 70, 0.3);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #112A46;
-            background: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 0 4px rgba(17, 42, 70, 0.08);
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .radio-option {
-            flex: 1;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+        /* ============================================================ */
+        /* PRICE DISPLAY                                               */
+        /* ============================================================ */
+        .price-display {
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .price-display .credits-amount {
+            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: #1a0533;
+            line-height: 1;
+        }
+
+        .price-display .credits-label {
+            font-size: 18px;
+            color: rgba(26, 5, 51, 0.5);
+            font-weight: 500;
+        }
+
+        .price-display .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .price-display .price-old {
+            font-size: 20px;
+            color: rgba(26, 5, 51, 0.3);
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .price-display .price-new {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a0533;
+        }
+
+        .price-display .discount-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 800;
+            animation: pulse-badge 2s infinite;
+            margin-top: 4px;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ============================================================ */
+        /* FEATURES LIST                                               */
+        /* ============================================================ */
+        .features-list {
+            margin: 20px 0 24px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(108, 60, 179, 0.04);
             font-size: 15px;
-            color: rgba(17, 42, 70, 0.4);
-            font-family: "Inter", sans-serif;
+            color: rgba(26, 5, 51, 0.7);
+            font-weight: 500;
         }
 
-        .radio-option:hover {
-            border-color: rgba(17, 42, 70, 0.3);
+        .features-list li:last-child {
+            border-bottom: none;
         }
 
-        .radio-option.active {
-            border-color: #112A46;
-            background: rgba(17, 42, 70, 0.06);
-            color: #112A46;
+        .features-list li .check {
+            color: #6c3cb3;
+            font-size: 20px;
+            font-weight: 700;
+            width: 28px;
+            flex-shrink: 0;
         }
 
-        .radio-option input[type="radio"] {
-            display: none;
+        /* ============================================================ */
+        /* SECURITY BADGE                                              */
+        /* ============================================================ */
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.4);
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
-        /* Button */
-        .btn-proceed {
+        .security-badge .lock {
+            font-size: 16px;
+        }
+
+        /* ============================================================ */
+        /* BUTTON - PULSATING & EYE-CATCHING                           */
+        /* ============================================================ */
+        .btn-get-credits {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #112A46, #2E5A88);
+            padding: 18px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             border: none;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 18px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
-            margin-top: 8px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-btn 2s infinite;
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
         }
 
-        .btn-proceed:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(17, 42, 70, 0.35);
-            background: linear-gradient(135deg, #2E5A88, #112A46);
+        @keyframes pulse-btn {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 12px 40px rgba(108, 60, 179, 0.45);
+            }
         }
 
-        .btn-proceed:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
+        .btn-get-credits:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
 
-        /* Error */
-        .error-message {
-            display: none;
-            background: rgba(220, 53, 69, 0.08);
-            border: 1px solid rgba(220, 53, 69, 0.15);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: #dc3545;
-            font-size: 14px;
-            margin-bottom: 16px;
-            font-family: "Inter", sans-serif;
+        .btn-get-credits:active {
+            transform: scale(0.98);
         }
 
-        .error-message.show {
-            display: block;
-            animation: shake 0.5s ease;
+        /* Shine effect on button */
+        .btn-get-credits::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            animation: shine 3s infinite;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-10px); }
-            40% { transform: translateX(10px); }
-            60% { transform: translateX(-6px); }
-            80% { transform: translateX(6px); }
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
 
+        .btn-get-credits .arrow {
+            display: inline-block;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-get-credits:hover .arrow {
+            transform: translateX(6px);
+        }
+
+        /* ============================================================ */
+        /* TOAST                                                       */
+        /* ============================================================ */
         .toast {
             position: fixed;
             bottom: 30px;
             right: 30px;
             padding: 14px 24px;
-            background: #112A46;
+            background: #1a0533;
             color: #fff;
             border-radius: 12px;
             font-family: "Inter", sans-serif;
@@ -330,26 +425,49 @@
             background: #dc3545;
         }
 
-        /* Responsive */
+        /* ============================================================ */
+        /* RESPONSIVE                                                  */
+        /* ============================================================ */
         @media (max-width: 480px) {
-            .subscribe-card {
-                padding: 32px 24px 28px;
+            .credit-card {
+                padding: 32px 20px 28px;
+                border-radius: 20px;
             }
-            .subscribe-card__header h1 {
+            .credit-card__header h1 {
                 font-size: 24px;
             }
-            .steps {
-                flex-wrap: wrap;
-                justify-content: center;
+            .credit-card__header .icon {
+                font-size: 44px;
             }
-            .step .line {
-                display: none;
+            .price-display .credits-amount {
+                font-size: 48px;
             }
-            .radio-group {
+            .price-display .price-new {
+                font-size: 26px;
+            }
+            .promo-banner {
                 flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                padding: 12px 16px;
             }
-            .subscribe-header .brand {
+            .promo-banner .promo-code {
+                font-size: 16px;
+            }
+            .features-list li {
+                font-size: 14px;
+                padding: 8px 0;
+            }
+            .btn-get-credits {
+                font-size: 17px;
+                padding: 16px;
+            }
+            .credits-header .brand {
                 font-size: 20px;
+            }
+            .credits-header .back-btn {
+                font-size: 12px;
+                padding: 6px 14px;
             }
             .toast {
                 bottom: 20px;
@@ -357,106 +475,121 @@
                 left: 20px;
                 text-align: center;
             }
+            .credit-card__header .subtitle {
+                font-size: 13px;
+            }
+            .security-badge {
+                font-size: 12px;
+                flex-wrap: wrap;
+            }
+            .price-display .discount-badge {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .credit-card {
+                padding: 24px 16px 20px;
+            }
+            .price-display .credits-amount {
+                font-size: 40px;
+            }
+            .price-display .price-new {
+                font-size: 22px;
+            }
+            .btn-get-credits {
+                font-size: 15px;
+                padding: 14px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="subscribe-header">
-        <a class="brand" href="/">Classy<span>Date</span></a>
+    <!-- ============================================================ -->
+    <!-- HEADER                                                      -->
+    <!-- ============================================================ -->
+    <header class="credits-header">
+        <a class="brand" href="/">Classy<span class="heart">❤️</span><span>Date</span></a>
+        <button class="back-btn" onclick="window.location.href='members.html'">← Back</button>
     </header>
 
-    <!-- Main -->
-    <main class="subscribe-wrapper">
-        <div class="subscribe-card">
-            <div class="subscribe-card__header">
-                <span class="icon">📋</span>
-                <h1>Complete Your Profile</h1>
-                <p>Tell us a bit about yourself</p>
+    <!-- ============================================================ -->
+    <!-- MAIN CONTENT                                                -->
+    <!-- ============================================================ -->
+    <main class="credits-wrapper">
+        <div class="credit-card">
+
+            <!-- Header -->
+            <div class="credit-card__header">
+                <span class="icon">💎</span>
+                <div class="badge">🔥 WELCOME OFFER</div>
+                <h1>No subscription. One-time payment.</h1>
+                <p class="subtitle">Your promo code applied</p>
             </div>
 
-            <!-- Steps -->
-            <div class="steps">
-                <div class="step active">
-                    <span class="num">1</span> Details
-                    <span class="line"></span>
-                </div>
-                <div class="step">
-                    <span class="num">2</span> Payment
-                    <span class="line"></span>
-                </div>
-                <div class="step">
-                    <span class="num">3</span> Complete
-                </div>
+            <!-- Promo Code Banner -->
+            <div class="promo-banner">
+                <span class="promo-label">🎯 Promo Code</span>
+                <span class="promo-code">Amos_jul2026</span>
+                <span class="promo-check">✅</span>
             </div>
 
-            <!-- Error Message -->
-            <div class="error-message" id="error-message">
-                ⚠️ Please fill in all required fields.
+            <!-- Price Display -->
+            <div class="price-display">
+                <div>
+                    <span class="credits-amount">200</span>
+                    <span class="credits-label"> credits</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-old">$100</span>
+                    <span class="price-new">$19.99</span>
+                </div>
+                <div class="discount-badge">🔥 -80% SAVINGS</div>
             </div>
 
-            <!-- Form -->
-            <form id="subscribe-form" onsubmit="return handleSubmit(event)">
-                <div class="form-group">
-                    <label for="fullname">Full Name <span class="required">*</span></label>
-                    <input type="text" id="fullname" placeholder="e.g. John Doe" required>
-                </div>
+            <!-- Features -->
+            <ul class="features-list">
+                <li>
+                    <span class="check">✓</span>
+                    Chat with anyone you like
+                </li>
+                <li>
+                    <span class="check">✓</span>
+                    View hidden private content
+                </li>
+                <li>
+                    <span class="check">✓</span>
+                    Reply with stickers in chats
+                </li>
+            </ul>
 
-                <div class="form-group">
-                    <label for="age">Age <span class="required">*</span></label>
-                    <input type="number" id="age" placeholder="e.g. 25" min="18" max="99" required>
-                </div>
+            <!-- Security Badge -->
+            <div class="security-badge">
+                <span class="lock">🔒</span>
+                Secure payment • 100% protected
+                <span style="margin:0 4px;">•</span>
+                💳 All major cards accepted
+            </div>
 
-                <div class="form-group">
-                    <label>Do you have kids? <span class="required">*</span></label>
-                    <div class="radio-group">
-                        <label class="radio-option" id="kids-yes" onclick="selectKids('yes')">
-                            <input type="radio" name="kids" value="yes"> Yes
-                        </label>
-                        <label class="radio-option" id="kids-no" onclick="selectKids('no')">
-                            <input type="radio" name="kids" value="no"> No
-                        </label>
-                    </div>
-                </div>
+            <!-- CTA Button - Pulsating -->
+            <button class="btn-get-credits" onclick="handlePurchase()">
+                🚀 Get 200 Credits
+                <span class="arrow">→</span>
+            </button>
 
-                <div class="form-group">
-                    <label for="country">Country <span class="required">*</span></label>
-                    <select id="country" required>
-                        <option value="">Select your country...</option>
-                        <option value="zimbabwe">🇿🇼 Zimbabwe</option>
-                        <option value="kenya">🇰🇪 Kenya</option>
-                        <option value="ghana">🇬🇭 Ghana</option>
-                        <option value="south-africa">🇿🇦 South Africa</option>
-                        <option value="zambia">🇿🇲 Zambia</option>
-                        <option value="uganda">🇺🇬 Uganda</option>
-                        <option value="tanzania">🇹🇿 Tanzania</option>
-                        <option value="botswana">🇧🇼 Botswana</option>
-                        <option value="other">🌍 Other</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-proceed" id="proceed-btn">➡️ Proceed to Payment</button>
-            </form>
         </div>
     </main>
 
-    <!-- Toast -->
+    <!-- ============================================================ -->
+    <!-- TOAST                                                       -->
+    <!-- ============================================================ -->
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
     <!-- SCRIPTS                                                      -->
     <!-- ============================================================ -->
     <script>
-        // ============================================================
-        // KIDS SELECTION
-        // ============================================================
-        function selectKids(value) {
-            document.querySelectorAll('.radio-option').forEach(el => el.classList.remove('active'));
-            document.getElementById(`kids-${value}`).classList.add('active');
-            document.querySelector(`input[name="kids"][value="${value}"]`).checked = true;
-        }
-
         // ============================================================
         // TOAST
         // ============================================================
@@ -474,131 +607,95 @@
         }
 
         // ============================================================
-        // HANDLE SUBMIT - Country Redirect
+        // HANDLE PURCHASE
         // ============================================================
-        function handleSubmit(event) {
-            event.preventDefault();
+        function handlePurchase() {
+            const btn = document.querySelector('.btn-get-credits');
+            const originalText = btn.innerHTML;
 
-            const fullname = document.getElementById('fullname').value.trim();
-            const age = document.getElementById('age').value.trim();
-            const kids = document.querySelector('input[name="kids"]:checked');
-            const country = document.getElementById('country').value;
+            // Disable and show loading
+            btn.innerHTML = '⏳ Processing...';
+            btn.disabled = true;
+            btn.style.animation = 'none';
+            btn.style.cursor = 'not-allowed';
+            btn.style.opacity = '0.7';
 
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.classList.remove('show');
+            showToast('💳 Redirecting to payment...', 'success');
 
-            // Validate
-            if (!fullname || fullname.length < 2) {
-                errorMessage.textContent = '⚠️ Please enter your full name.';
-                errorMessage.classList.add('show');
-                return false;
-            }
-
-            if (!age || age < 18 || age > 99) {
-                errorMessage.textContent = '⚠️ Please enter a valid age (18-99).';
-                errorMessage.classList.add('show');
-                return false;
-            }
-
-            if (!kids) {
-                errorMessage.textContent = '⚠️ Please select if you have kids.';
-                errorMessage.classList.add('show');
-                return false;
-            }
-
-            if (!country) {
-                errorMessage.textContent = '⚠️ Please select your country.';
-                errorMessage.classList.add('show');
-                return false;
-            }
-
-            // Save user details
-            const userData = {
-                fullname: fullname,
-                age: age,
-                kids: kids.value,
-                country: country
-            };
-            localStorage.setItem('classydate_user_details', JSON.stringify(userData));
-
-            // 🚀 COUNTRY-BASED REDIRECT
-            // Kenya → verifykenya.html
-            // Zimbabwe → zimbabwelogin.html
-            // Ghana → verifyghana.html
-            // All other countries (including Uganda, Tanzania, Botswana) → pricing.html
-            const redirectMap = {
-                'kenya': 'verifykenya.html',
-                'zimbabwe': 'zimbabwelogin.html',
-                'ghana': 'verifyghana.html'
-            };
-
-            // Get redirect URL or fallback to pricing
-            let redirectUrl = redirectMap[country] || 'pricing.html';
-
-            // Add member ID to URL if we have one from pending message
+            // Check if we have a pending message to return to
             const pendingMessage = localStorage.getItem('pending_message');
+            let redirectUrl = 'payment.html';
+
             if (pendingMessage) {
                 try {
                     const data = JSON.parse(pendingMessage);
                     if (data.memberId) {
-                        redirectUrl += `?user=${data.memberId}&name=${encodeURIComponent(data.memberName || '')}`;
+                        // Store that user purchased credits
+                        localStorage.setItem('credits_purchased', 'true');
+                        localStorage.setItem('credits_amount', '200');
+
+                        // Redirect to chat with the member after payment
+                        redirectUrl = `chat.html?user=${data.memberId}&name=${encodeURIComponent(data.memberName || '')}`;
                     }
                 } catch (e) {}
             }
 
-            const btn = document.getElementById('proceed-btn');
-            btn.textContent = '⏳ Redirecting...';
-            btn.disabled = true;
-
-            // Show which page they're going to
-            const pageName = redirectUrl.split('.')[0] || 'pricing';
-            showToast(`📍 Redirecting to ${pageName} page...`, 'success');
+            // Save that user has credits
+            localStorage.setItem('user_has_credits', 'true');
+            localStorage.setItem('user_credits_balance', '200');
 
             setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 1000);
+                // Show success before redirect
+                showToast('✅ Credits added! Redirecting...', 'success');
 
-            return false;
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 800);
+            }, 1500);
         }
 
         // ============================================================
-        // PRE-FILL FROM SESSION
+        // CHECK FOR PENDING MESSAGE
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            const saved = localStorage.getItem('classydate_user_details');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    if (data.fullname) document.getElementById('fullname').value = data.fullname;
-                    if (data.age) document.getElementById('age').value = data.age;
-                    if (data.kids) selectKids(data.kids);
-                    if (data.country) document.getElementById('country').value = data.country;
-                } catch (e) {}
-            }
-
-            // Check if there's a pending message
             const pendingMessage = localStorage.getItem('pending_message');
             if (pendingMessage) {
                 try {
                     const data = JSON.parse(pendingMessage);
                     if (data.memberName) {
-                        document.querySelector('.subscribe-card__header p').textContent =
-                            `Complete your details to start chatting with ${data.memberName}!`;
+                        // Update subtitle to show who they'll chat with
+                        const subtitle = document.querySelector('.credit-card__header .subtitle');
+                        subtitle.textContent = `🎯 Your promo code applied — ready to chat with ${data.memberName}!`;
                     }
                 } catch (e) {}
             }
 
-            console.log('📋 ClassyDate Subscribe Page loaded!');
-            console.log('🌍 Country redirects:');
-            console.log('  🇰🇪 Kenya → verifykenya.html');
-            console.log('  🇿🇼 Zimbabwe → zimbabwelogin.html');
-            console.log('  🇬🇭 Ghana → verifyghana.html');
-            console.log('  🇺🇬 Uganda → pricing.html');
-            console.log('  🇹🇿 Tanzania → pricing.html');
-            console.log('  🇧🇼 Botswana → pricing.html');
-            console.log('  🇿🇦 South Africa → pricing.html');
-            console.log('  🇿🇲 Zambia → pricing.html');
-            console.log('  🌍 Other → pricing.html');
+            // Check if user already has credits
+            const hasCredits = localStorage.getItem('user_has_credits');
+            if (hasCredits === 'true') {
+                const btn = document.querySelector('.btn-get-credits');
+                btn.innerHTML = '✅ Already Have Credits → Go Chat';
+                btn.onclick = function() {
+                    const pendingMessage = localStorage.getItem('pending_message');
+                    if (pendingMessage) {
+                        try {
+                            const data = JSON.parse(pendingMessage);
+                            if (data.memberId) {
+                                window.location.href = `chat.html?user=${data.memberId}&name=${encodeURIComponent(data.memberName || '')}`;
+                                return;
+                            }
+                        } catch (e) {}
+                    }
+                    window.location.href = 'members.html';
+                };
+                btn.style.animation = 'none';
+                btn.style.background = 'linear-gradient(135deg, #28a745, #1e7e34)';
+            }
+
+            console.log('💎 ClassyDate Credits Page loaded!');
+            console.log('📦 Package: 200 Credits for $19.99 (was $100)');
+            console.log('🎯 Promo Code: Amos_jul2026');
+            console.log('✅ Save 80%');
         });
     </script>
 

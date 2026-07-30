@@ -464,7 +464,7 @@
         }
 
         /* ============================================================ */
-        /* COINS POPUP                                                  */
+        /* COINS POPUP - UPDATED DESIGN                                */
         /* ============================================================ */
         .coins-popup-overlay {
             display: none;
@@ -489,12 +489,12 @@
         }
 
         .coins-popup-card {
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 32px 28px 28px;
+            padding: 40px 32px 28px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
             text-align: center;
@@ -502,33 +502,35 @@
         }
 
         .coins-popup-card .icon {
-            font-size: 48px;
+            font-size: 52px;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .coins-popup-card .title {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 22px;
-            font-weight: 700;
+            font-family: "Inter", sans-serif;
+            font-size: 20px;
+            font-weight: 500;
             color: #1a0533;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
         }
 
         .coins-popup-card .divider {
-            width: 32px;
-            height: 3px;
+            width: 40px;
+            height: 2px;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            margin: 6px auto 12px;
+            margin: 8px auto 16px;
             border-radius: 4px;
         }
 
         .coins-popup-card .message {
-            font-size: 14px;
-            color: rgba(26, 5, 51, 0.6);
+            font-size: 15px;
+            color: rgba(26, 5, 51, 0.7);
             line-height: 1.6;
             font-family: "Inter", sans-serif;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            font-weight: 400;
         }
 
         .coins-popup-card .message .member-name {
@@ -536,39 +538,64 @@
             font-weight: 700;
         }
 
-        .btn-proceed {
+        /* SAVE 80% BADGE */
+        .discount-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(238, 90, 36, 0.3);
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .discount-badge .fire {
+            margin-right: 4px;
+        }
+
+        .btn-welcome-offer {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             border: none;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
         }
 
-        .btn-proceed:hover {
+        .btn-welcome-offer:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.25);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
         }
 
-        .btn-maybe-later {
+        .btn-maybe-later-popup {
             background: none;
             border: none;
-            color: rgba(26, 5, 51, 0.3);
+            color: rgba(26, 5, 51, 0.35);
             font-size: 13px;
             cursor: pointer;
             font-family: "Inter", sans-serif;
             font-weight: 500;
             transition: color 0.3s ease;
-            padding: 4px 8px;
+            padding: 6px 12px;
         }
 
-        .btn-maybe-later:hover {
+        .btn-maybe-later-popup:hover {
             color: rgba(26, 5, 51, 0.6);
         }
 
@@ -663,10 +690,21 @@
                 font-size: 12px;
             }
             .coins-popup-card {
-                padding: 28px 20px 24px;
+                padding: 32px 24px 24px;
             }
             .coins-popup-card .title {
-                font-size: 20px;
+                font-size: 18px;
+            }
+            .coins-popup-card .message {
+                font-size: 14px;
+            }
+            .discount-badge {
+                font-size: 14px;
+                padding: 5px 16px;
+            }
+            .btn-welcome-offer {
+                font-size: 15px;
+                padding: 12px;
             }
             .toast {
                 bottom: 20px;
@@ -751,17 +789,21 @@
                 padding: 0 10px;
             }
             .coins-popup-card {
-                padding: 24px 16px 20px;
+                padding: 28px 16px 20px;
             }
             .coins-popup-card .title {
-                font-size: 18px;
+                font-size: 17px;
             }
             .coins-popup-card .message {
                 font-size: 13px;
             }
-            .btn-proceed {
-                padding: 10px;
+            .discount-badge {
+                font-size: 13px;
+                padding: 4px 14px;
+            }
+            .btn-welcome-offer {
                 font-size: 14px;
+                padding: 10px;
             }
             .typing-indicator {
                 font-size: 11px;
@@ -843,19 +885,21 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- COINS POPUP                                                  -->
+    <!-- COINS POPUP - UPDATED DESIGN                                -->
     <!-- ============================================================ -->
     <div class="coins-popup-overlay" id="coins-popup">
         <div class="coins-popup-card">
             <span class="icon">💎</span>
-            <h2 class="title">🔒 Not Enough Coins!</h2>
+            <h2 class="title">Low on credits...</h2>
             <div class="divider"></div>
             <p class="message" id="popup-message">
-                Not enough coins to unlock your conversation with <span class="member-name" id="popup-name">Sarah Johnson</span>.<br><br>
-                Proceed and fill your details then purchase coins to unlock your conversation.
+                Don't lose your connection with <span class="member-name" id="popup-name">Meagan</span>. Get credits now at a discount and keep your conversation going.
             </p>
-            <button class="btn-proceed" id="popup-proceed-btn">➡️ Proceed</button>
-            <button class="btn-maybe-later" id="popup-maybe-btn">❌ Maybe later</button>
+            <div class="discount-badge">
+                <span class="fire">🔥</span> SAVE 80%
+            </div>
+            <button class="btn-welcome-offer" id="popup-welcome-btn">✨ See Welcome Offer</button>
+            <button class="btn-maybe-later-popup" id="popup-maybe-btn">Maybe later</button>
         </div>
     </div>
 
@@ -1087,7 +1131,7 @@
                 }
             });
 
-            document.getElementById('popup-proceed-btn').addEventListener('click', proceedToSubscribe);
+            document.getElementById('popup-welcome-btn').addEventListener('click', proceedToSubscribe);
             document.getElementById('popup-maybe-btn').addEventListener('click', closeCoinsPopup);
 
             document.getElementById('coins-popup').addEventListener('click', function(e) {
@@ -1102,12 +1146,10 @@
         // ============================================================
         initChat();
 
-        console.log('💬 ClassyDate Chat Page - FINAL VERSION!');
-        console.log('✅ Modern Purple theme');
-        console.log('✅ ClassyDate❤️ at corner');
-        console.log('✅ Original pre-written message (no "Hello")');
-        console.log('✅ Location and Origin in pre-written message');
-        console.log('✅ Proceed → suscribe.html');
+        console.log('💬 ClassyDate Chat Page - UPDATED!');
+        console.log('✅ New popup design with SAVE 80% badge');
+        console.log('✅ See Welcome Offer → suscribe.html');
+        console.log('✅ Modern purple theme with ClassyDate❤️');
     </script>
 
 </body>

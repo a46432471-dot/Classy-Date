@@ -464,20 +464,22 @@
         }
 
         /* ============================================================ */
-        /* NEW: LOW ON CREDITS POPUP                                   */
+        /* COINS POPUP                                                  */
         /* ============================================================ */
-        .credits-popup-overlay {
+        .coins-popup-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            z-index: 9999;
-            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             animation: fadeInPopup 0.3s ease;
         }
 
-        .credits-popup-overlay.active {
+        .coins-popup-overlay.active {
             display: flex;
         }
 
@@ -486,109 +488,87 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        .credits-overlay-wrapper {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-        }
-
-        .credits-popup {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .coins-popup-card {
+            max-width: 400px;
             width: 100%;
-            max-width: 420px;
-        }
-
-        .credits-popup-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 32px 24px 28px;
-            width: 100%;
+            padding: 32px 28px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
         }
 
-        .credits-popup-title {
+        .coins-popup-card .icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .coins-popup-card .title {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #1a0533;
-            margin-bottom: 8px;
-            text-align: center;
+            margin-bottom: 6px;
         }
 
-        .credits-popup-message {
-            font-size: 15px;
-            color: rgba(26, 5, 51, 0.7);
+        .coins-popup-card .divider {
+            width: 32px;
+            height: 3px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            margin: 6px auto 12px;
+            border-radius: 4px;
+        }
+
+        .coins-popup-card .message {
+            font-size: 14px;
+            color: rgba(26, 5, 51, 0.6);
             line-height: 1.6;
             font-family: "Inter", sans-serif;
-            margin-bottom: 8px;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .credits-popup-message strong {
+        .coins-popup-card .message .member-name {
             color: #1a0533;
             font-weight: 700;
         }
 
-        .credits-popup-discount {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: #fff;
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 800;
-            text-align: center;
-            letter-spacing: 0.5px;
-            font-family: "Inter", sans-serif;
-            margin: 4px auto 12px;
-            box-shadow: 0 4px 16px rgba(238, 90, 36, 0.3);
-            align-self: center;
-        }
-
-        .credits-popup-btn-primary {
+        .btn-proceed {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             border: none;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
-            margin-top: 4px;
+            margin-bottom: 10px;
         }
 
-        .credits-popup-btn-primary:hover {
+        .btn-proceed:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.25);
         }
 
-        .credits-popup-btn-secondary {
+        .btn-maybe-later {
             background: none;
             border: none;
             color: rgba(26, 5, 51, 0.3);
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             font-family: "Inter", sans-serif;
             font-weight: 500;
-            padding: 10px 0 4px;
             transition: color 0.3s ease;
-            text-align: center;
+            padding: 4px 8px;
         }
 
-        .credits-popup-btn-secondary:hover {
+        .btn-maybe-later:hover {
             color: rgba(26, 5, 51, 0.6);
         }
 
@@ -682,22 +662,11 @@
                 padding: 4px 12px;
                 font-size: 12px;
             }
-            .credits-popup-wrapper {
-                padding: 24px 16px 20px;
+            .coins-popup-card {
+                padding: 28px 20px 24px;
             }
-            .credits-popup-title {
+            .coins-popup-card .title {
                 font-size: 20px;
-            }
-            .credits-popup-message {
-                font-size: 14px;
-            }
-            .credits-popup-discount {
-                font-size: 14px;
-                padding: 6px 18px;
-            }
-            .credits-popup-btn-primary {
-                font-size: 14px;
-                padding: 12px;
             }
             .toast {
                 bottom: 20px;
@@ -781,22 +750,18 @@
                 height: 52px;
                 padding: 0 10px;
             }
-            .credits-popup-wrapper {
-                padding: 20px 14px 16px;
+            .coins-popup-card {
+                padding: 24px 16px 20px;
             }
-            .credits-popup-title {
+            .coins-popup-card .title {
                 font-size: 18px;
             }
-            .credits-popup-message {
+            .coins-popup-card .message {
                 font-size: 13px;
             }
-            .credits-popup-discount {
-                font-size: 13px;
-                padding: 5px 14px;
-            }
-            .credits-popup-btn-primary {
-                font-size: 13px;
+            .btn-proceed {
                 padding: 10px;
+                font-size: 14px;
             }
             .typing-indicator {
                 font-size: 11px;
@@ -821,7 +786,7 @@
 <body>
 
     <!-- ============================================================ -->
-    /* HEADER - ClassyDate❤️ at corner                             */
+    <!-- HEADER - ClassyDate❤️ at corner                             -->
     <!-- ============================================================ -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
@@ -834,7 +799,7 @@
     </header>
 
     <!-- ============================================================ -->
-    /* CHAT PAGE                                                    */
+    <!-- CHAT PAGE                                                    -->
     <!-- ============================================================ -->
     <main class="chat-wrapper">
         <div class="chat-header" id="chat-header">
@@ -878,34 +843,29 @@
     </main>
 
     <!-- ============================================================ -->
-    /* NEW: LOW ON CREDITS POPUP                                    */
+    <!-- COINS POPUP                                                  -->
     <!-- ============================================================ -->
-    <div class="credits-popup-overlay" id="credits-popup">
-        <div class="credits-overlay-wrapper"></div>
-        <div class="credits-popup">
-            <div class="credits-popup-wrapper">
-                <div class="credits-popup-title">Low on credits...</div>
-
-                <div class="credits-popup-message" id="credits-popup-message">
-                    Don't lose your connection with <strong id="credits-member-name">Meagan</strong>. 
-                    Get credits now at a discount and keep your conversation going.
-                </div>
-
-                <div class="credits-popup-discount">save 80%</div>
-
-                <button class="credits-popup-btn-primary" id="credits-welcome-btn">See Welcome Offer</button>
-                <button class="credits-popup-btn-secondary" id="credits-maybe-btn">Maybe later</button>
-            </div>
+    <div class="coins-popup-overlay" id="coins-popup">
+        <div class="coins-popup-card">
+            <span class="icon">💎</span>
+            <h2 class="title">🔒 Not Enough Coins!</h2>
+            <div class="divider"></div>
+            <p class="message" id="popup-message">
+                Not enough coins to unlock your conversation with <span class="member-name" id="popup-name">Sarah Johnson</span>.<br><br>
+                Proceed and fill your details then purchase coins to unlock your conversation.
+            </p>
+            <button class="btn-proceed" id="popup-proceed-btn">➡️ Proceed</button>
+            <button class="btn-maybe-later" id="popup-maybe-btn">❌ Maybe later</button>
         </div>
     </div>
 
     <!-- ============================================================ -->
-    /* TOAST                                                       */
+    <!-- TOAST                                                       -->
     <!-- ============================================================ -->
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    /* SCRIPTS                                                      */
+    <!-- SCRIPTS                                                      -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
@@ -975,7 +935,7 @@
             // Update title
             document.title = `Chat with ${chatPartner.name} | ClassyDate`;
 
-            // Pre-written message with location and origin
+            // ✅ PRE-WRITTEN MESSAGE - Original message (no "Hello")
             const preWrittenMessage = `Nice to meet you! I'm from ${chatPartner.location} and originally from ${chatPartner.origin}.`;
 
             const now = new Date();
@@ -1004,7 +964,7 @@
             renderMessages();
 
             // Update popup name
-            document.getElementById('credits-member-name').textContent = chatPartner.name;
+            document.getElementById('popup-name').textContent = chatPartner.name;
 
             console.log('💬 Chat page ready with:', chatPartner.name);
             console.log('📍 Location:', chatPartner.location);
@@ -1043,7 +1003,7 @@
         }
 
         // ============================================================
-        // SEND MESSAGE - SHOW CREDITS POPUP
+        // SEND MESSAGE - SHOW COINS POPUP
         // ============================================================
         function sendMessage() {
             const input = document.getElementById('message-input');
@@ -1054,20 +1014,20 @@
                 return;
             }
 
-            openCreditsPopup();
+            openCoinsPopup();
             input.value = '';
         }
 
         // ============================================================
-        // CREDITS POPUP FUNCTIONS
+        // COINS POPUP FUNCTIONS
         // ============================================================
-        function openCreditsPopup() {
-            document.getElementById('credits-popup').classList.add('active');
+        function openCoinsPopup() {
+            document.getElementById('coins-popup').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeCreditsPopup() {
-            document.getElementById('credits-popup').classList.remove('active');
+        function closeCoinsPopup() {
+            document.getElementById('coins-popup').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
@@ -1090,7 +1050,7 @@
             // Save redirect URL to return to chat after subscription
             localStorage.setItem('redirect_after_subscribe', `chat.html?user=${chatPartner.id}&name=${encodeURIComponent(chatPartner.name)}&location=${encodeURIComponent(chatPartner.location)}&origin=${encodeURIComponent(chatPartner.origin)}`);
 
-            closeCreditsPopup();
+            closeCoinsPopup();
 
             // Navigate to suscribe.html
             setTimeout(() => {
@@ -1127,14 +1087,12 @@
                 }
             });
 
-            // Credits popup events
-            document.getElementById('credits-welcome-btn').addEventListener('click', proceedToSubscribe);
-            document.getElementById('credits-maybe-btn').addEventListener('click', closeCreditsPopup);
+            document.getElementById('popup-proceed-btn').addEventListener('click', proceedToSubscribe);
+            document.getElementById('popup-maybe-btn').addEventListener('click', closeCoinsPopup);
 
-            // Close on overlay click
-            document.getElementById('credits-popup').addEventListener('click', function(e) {
-                if (e.target === this || e.target.classList.contains('credits-overlay-wrapper')) {
-                    closeCreditsPopup();
+            document.getElementById('coins-popup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCoinsPopup();
                 }
             });
         });
@@ -1147,11 +1105,9 @@
         console.log('💬 ClassyDate Chat Page - FINAL VERSION!');
         console.log('✅ Modern Purple theme');
         console.log('✅ ClassyDate❤️ at corner');
-        console.log('✅ NEW Low on Credits popup');
-        console.log('✅ save 80% badge');
-        console.log('✅ See Welcome Offer → suscribe.html');
-        console.log('✅ Member name dynamically updates in popup');
+        console.log('✅ Original pre-written message (no "Hello")');
         console.log('✅ Location and Origin in pre-written message');
+        console.log('✅ Proceed → suscribe.html');
     </script>
 
 </body>

@@ -169,54 +169,43 @@
         }
 
         /* ============================================================ */
-        /* PROMO CODE BANNER - DYNAMIC USER NAME                       */
+        /* USER NAME BANNER - ONLY USER NAME                          */
         /* ============================================================ */
-        .promo-banner {
-            background: linear-gradient(135deg, rgba(108, 60, 179, 0.06), rgba(74, 26, 107, 0.06));
+        .user-banner {
+            background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.08));
             border: 1px solid rgba(108, 60, 179, 0.12);
             border-radius: 14px;
-            padding: 14px 20px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 12px;
             margin-bottom: 24px;
             position: relative;
-            flex-wrap: wrap;
-            gap: 8px;
         }
 
-        .promo-banner .promo-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(26, 5, 51, 0.5);
+        .user-banner .user-icon {
+            font-size: 22px;
         }
 
-        .promo-banner .promo-code {
+        .user-banner .user-name {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: #6c3cb3;
-            letter-spacing: 1px;
-            background: rgba(108, 60, 179, 0.08);
-            padding: 4px 16px;
-            border-radius: 8px;
-        }
-
-        .promo-banner .promo-check {
-            color: #28a745;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        /* Dynamic user name in promo */
-        .promo-banner .user-name-tag {
-            font-size: 14px;
+            font-size: 22px;
             font-weight: 700;
             color: #1a0533;
-            background: rgba(108, 60, 179, 0.1);
-            padding: 2px 12px;
-            border-radius: 50px;
-            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .user-banner .user-check {
+            color: #28a745;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .user-banner .welcome-text {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.4);
+            font-weight: 500;
         }
 
         /* ============================================================ */
@@ -407,7 +396,7 @@
         }
 
         /* ============================================================ */
-        /* FLOATING WHATSAPP TOGGLE - NO TEXT, ONLY ICON              */
+        /* FLOATING WHATSAPP TOGGLE - ONLY ICON                        */
         /* ============================================================ */
         .whatsapp-float {
             position: fixed;
@@ -554,14 +543,14 @@
             .price-display .price-new {
                 font-size: 26px;
             }
-            .promo-banner {
+            .user-banner {
                 flex-direction: column;
-                gap: 6px;
+                gap: 4px;
                 text-align: center;
-                padding: 12px 16px;
+                padding: 14px 16px;
             }
-            .promo-banner .promo-code {
-                font-size: 16px;
+            .user-banner .user-name {
+                font-size: 19px;
             }
             .features-list li {
                 font-size: 14px;
@@ -631,6 +620,9 @@
                 font-size: 15px;
                 padding: 14px;
             }
+            .user-banner .user-name {
+                font-size: 17px;
+            }
         }
     </style>
 </head>
@@ -658,12 +650,12 @@
                 <p class="subtitle" id="dynamic-subtitle">Your promo code applied</p>
             </div>
 
-            <!-- Promo Code Banner - Dynamic User Name -->
-            <div class="promo-banner">
-                <span class="promo-label">🎯 Promo Code</span>
-                <span class="promo-code" id="promo-code-display">Amos_jul2026</span>
-                <span class="promo-check">✅</span>
-                <span class="user-name-tag" id="user-name-tag">👤 Amos</span>
+            <!-- User Name Banner - Only User Name -->
+            <div class="user-banner">
+                <span class="user-icon">👤</span>
+                <span class="user-name" id="user-name-display">Amos</span>
+                <span class="user-check">✅</span>
+                <span class="welcome-text">Welcome!</span>
             </div>
 
             <!-- Price Display -->
@@ -760,26 +752,27 @@
                 } catch (e) {}
             }
 
+            // Try from URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameFromUrl = urlParams.get('name');
+            if (nameFromUrl) {
+                return decodeURIComponent(nameFromUrl);
+            }
+
             // Fallback
             return 'Amos';
         }
 
         // ============================================================
-        // UPDATE DYNAMIC USER NAME
+        // UPDATE USER NAME
         // ============================================================
         function updateUserName() {
             const userName = getUserName();
             
-            // Update promo code with user name
-            const promoDisplay = document.getElementById('promo-code-display');
-            if (promoDisplay) {
-                promoDisplay.textContent = `${userName}_jul2026`;
-            }
-
-            // Update user name tag
-            const nameTag = document.getElementById('user-name-tag');
-            if (nameTag) {
-                nameTag.textContent = `👤 ${userName}`;
+            // Update user name display
+            const nameDisplay = document.getElementById('user-name-display');
+            if (nameDisplay) {
+                nameDisplay.textContent = userName;
             }
 
             // Update subtitle
@@ -797,9 +790,9 @@
                 }
                 
                 if (targetName) {
-                    subtitle.textContent = `🎯 Ready to chat with ${targetName}! Your promo: ${userName}_jul2026`;
+                    subtitle.textContent = `🎯 Ready to chat with ${targetName}!`;
                 } else {
-                    subtitle.textContent = `🎯 Your promo code: ${userName}_jul2026 applied`;
+                    subtitle.textContent = `🎯 Welcome ${userName}! Get your credits now.`;
                 }
             }
 
@@ -827,13 +820,12 @@
         // ============================================================
         function openWhatsApp() {
             const phoneNumber = '+254707001191';
-            const message = encodeURIComponent('Hi! I need help with purchasing credits on ClassyDate. My name is: ' + getUserName());
+            const userName = getUserName();
+            const message = encodeURIComponent('Hi! I need help with purchasing credits on ClassyDate. My name is: ' + userName);
             const url = `https://wa.me/${phoneNumber}?text=${message}`;
             
-            // Show toast feedback
             showToast('💬 Opening WhatsApp...', 'info');
             
-            // Open in new window/tab
             setTimeout(() => {
                 window.open(url, '_blank');
             }, 300);
@@ -846,7 +838,6 @@
             const btn = document.querySelector('.btn-get-credits');
             const originalText = btn.innerHTML;
 
-            // Disable and show loading
             btn.innerHTML = '⏳ Processing...';
             btn.disabled = true;
             btn.style.animation = 'none';
@@ -855,7 +846,6 @@
 
             showToast('💳 Redirecting to payment...', 'success');
 
-            // Check if we have a pending message to return to
             const pendingMessage = localStorage.getItem('pending_message');
             let redirectUrl = 'payment.html';
 
@@ -863,24 +853,18 @@
                 try {
                     const data = JSON.parse(pendingMessage);
                     if (data.memberId) {
-                        // Store that user purchased credits
                         localStorage.setItem('credits_purchased', 'true');
                         localStorage.setItem('credits_amount', '200');
-
-                        // Redirect to chat with the member after payment
                         redirectUrl = `chat.html?user=${data.memberId}&name=${encodeURIComponent(data.memberName || '')}`;
                     }
                 } catch (e) {}
             }
 
-            // Save that user has credits
             localStorage.setItem('user_has_credits', 'true');
             localStorage.setItem('user_credits_balance', '200');
 
             setTimeout(() => {
-                // Show success before redirect
                 showToast('✅ Credits added! Redirecting...', 'success');
-
                 setTimeout(() => {
                     window.location.href = redirectUrl;
                 }, 800);
@@ -888,10 +872,10 @@
         }
 
         // ============================================================
-        // CHECK FOR PENDING MESSAGE
+        // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Update user name everywhere
+            // Update user name
             updateUserName();
 
             // Check if user already has credits
@@ -918,7 +902,7 @@
 
             console.log('💎 ClassyDate Credits Page loaded!');
             console.log('📦 Package: 200 Credits for $15 (was $100)');
-            console.log('🎯 Dynamic Promo Code: ' + getUserName() + '_jul2026');
+            console.log('👤 User: ' + getUserName());
             console.log('✅ Save 85%');
             console.log('📱 WhatsApp: +254707001191');
         });

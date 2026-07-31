@@ -155,11 +155,149 @@
         }
 
         /* ============================================================ */
+        /* ACTIVITY TICKER - HOT & CATCHY                             */
+        /* ============================================================ */
+        .activity-ticker {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            padding: 10px 0;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(108, 60, 179, 0.3);
+        }
+
+        .activity-ticker::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: shimmer-ticker 4s infinite;
+        }
+
+        @keyframes shimmer-ticker {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
+        }
+
+        .ticker-content {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            animation: ticker-scroll 25s linear infinite;
+            gap: 60px;
+            padding: 0 20px;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            font-family: "Inter", sans-serif;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+        }
+
+        .ticker-item .heart-pulse {
+            display: inline-block;
+            animation: heart-beat 1.2s infinite;
+            font-size: 16px;
+        }
+
+        @keyframes heart-beat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.15); }
+        }
+
+        .ticker-item .fire-icon {
+            font-size: 16px;
+            display: inline-block;
+            animation: fire-flicker 0.8s infinite alternate;
+        }
+
+        @keyframes fire-flicker {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(3deg); }
+        }
+
+        .ticker-item .time-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ticker-item .name-highlight {
+            color: #ffdd57;
+            font-weight: 700;
+        }
+
+        .ticker-item .name-highlight2 {
+            color: #ff9ff3;
+            font-weight: 700;
+        }
+
+        .ticker-item .separator {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+        }
+
+        .ticker-item .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            animation: live-pulse 1s infinite;
+            margin-right: 2px;
+        }
+
+        @keyframes live-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
+        }
+
+        .ticker-item .sparkle {
+            font-size: 14px;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        /* Pause on hover */
+        .activity-ticker:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        /* ============================================================ */
         /* MEMBERS WRAPPER                                             */
         /* ============================================================ */
         .members-wrapper {
             flex: 1;
-            padding: 100px 0 60px;
+            padding: 130px 0 60px;
             max-width: 100%;
             margin: 0;
             width: 100%;
@@ -740,8 +878,19 @@
         /* RESPONSIVE                                                  */
         /* ============================================================ */
         @media (max-width: 768px) {
+            .activity-ticker {
+                top: 60px;
+                padding: 8px 0;
+            }
+            .ticker-item {
+                font-size: 12px;
+            }
+            .ticker-item .time-badge {
+                font-size: 10px;
+                padding: 1px 10px;
+            }
             .members-wrapper {
-                padding: 90px 0 40px;
+                padding: 110px 0 40px;
             }
             .members-header {
                 padding: 0 10px;
@@ -819,8 +968,29 @@
         }
 
         @media (max-width: 480px) {
+            .activity-ticker {
+                top: 54px;
+                padding: 6px 0;
+            }
+            .ticker-item {
+                font-size: 10px;
+                gap: 4px;
+            }
+            .ticker-item .time-badge {
+                font-size: 8px;
+                padding: 1px 6px;
+            }
+            .ticker-item .heart-pulse {
+                font-size: 12px;
+            }
+            .ticker-item .fire-icon {
+                font-size: 12px;
+            }
+            .ticker-item .sparkle {
+                font-size: 10px;
+            }
             .members-wrapper {
-                padding: 80px 0 30px;
+                padding: 90px 0 30px;
             }
             .members-header h1 {
                 font-size: 18px;
@@ -938,6 +1108,15 @@
     </header>
 
     <!-- ============================================================ -->
+    <!-- ACTIVITY TICKER - HOT & CATCHY                              -->
+    <!-- ============================================================ -->
+    <div class="activity-ticker" id="activityTicker">
+        <div class="ticker-content" id="tickerContent">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
     <!-- MAIN CONTENT                                                  -->
     <!-- ============================================================ -->
     <main class="members-wrapper">
@@ -1016,21 +1195,122 @@
         // Store like counts for each member
         const likeCounts = {};
 
-        // Generate random like count (4 to 400)
+        // ============================================================
+        // TICKER DATA - RANDOM CONNECTIONS
+        // ============================================================
+        const firstNames = [
+            'Mark', 'Judith', 'Sarah', 'James', 'Emma', 'David', 'Lisa', 'Michael',
+            'Maria', 'John', 'Anna', 'Chris', 'Jessica', 'Daniel', 'Sophie', 'Peter',
+            'Linda', 'Robert', 'Grace', 'William', 'Karen', 'Joseph', 'Nancy', 'Charles',
+            'Betty', 'Thomas', 'Helen', 'Christopher', 'Sandra', 'Matthew', 'Donna', 'Anthony',
+            'Carol', 'Donald', 'Ruth', 'Paul', 'Sharon', 'Mark', 'Cynthia', 'George',
+            'Kathleen', 'Steven', 'Deborah', 'Kenneth', 'Stephanie', 'Edward', 'Laura', 'Brian'
+        ];
+
+        const countries = [
+            'USA', 'UK', 'Canada', 'Australia', 'Germany', 'France', 'Italy', 'Spain',
+            'Kenya', 'Nigeria', 'South Africa', 'Ghana', 'Uganda', 'Tanzania', 'Zimbabwe',
+            'Brazil', 'Mexico', 'Japan', 'China', 'India', 'Sweden', 'Norway', 'Denmark',
+            'Netherlands', 'Switzerland', 'New Zealand', 'Ireland', 'Portugal', 'Greece',
+            'Egypt', 'Morocco', 'Turkey', 'UAE', 'Singapore', 'Malaysia', 'Philippines'
+        ];
+
+        const timeAgo = [
+            '2 mins ago', '5 mins ago', '8 mins ago', '12 mins ago', '15 mins ago',
+            '22 mins ago', '30 mins ago', '45 mins ago', '1 hour ago', '2 hours ago',
+            '3 hours ago', '4 hours ago', '5 hours ago', '6 hours ago', '7 hours ago',
+            '8 hours ago', '10 hours ago', '12 hours ago', '14 hours ago', '16 hours ago',
+            '18 hours ago', '20 hours ago', '22 hours ago', '1 day ago', '2 days ago',
+            '3 days ago', '4 days ago', '5 days ago', '6 days ago', '1 week ago',
+            '2 weeks ago', '3 weeks ago', '1 month ago'
+        ];
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateTickerItems(count = 12) {
+            const items = [];
+            const usedPairs = new Set();
+
+            for (let i = 0; i < count; i++) {
+                let name1, name2, pairKey;
+                let attempts = 0;
+                
+                do {
+                    name1 = getRandomElement(firstNames);
+                    name2 = getRandomElement(firstNames);
+                    pairKey = [name1, name2].sort().join('-');
+                    attempts++;
+                } while ((name1 === name2 || usedPairs.has(pairKey)) && attempts < 50);
+
+                usedPairs.add(pairKey);
+
+                const country1 = getRandomElement(countries);
+                const country2 = getRandomElement(countries);
+                const time = getRandomElement(timeAgo);
+                const isOnline = Math.random() > 0.3;
+
+                items.push({
+                    name1,
+                    name2,
+                    country1,
+                    country2,
+                    time,
+                    isOnline,
+                    id: i
+                });
+            }
+
+            return items;
+        }
+
+        let tickerItems = generateTickerItems(12);
+
+        // ============================================================
+        // RENDER TICKER
+        // ============================================================
+        function renderTicker() {
+            const container = document.getElementById('tickerContent');
+            
+            // Create 2 sets for seamless looping
+            const allItems = [...tickerItems, ...tickerItems];
+            
+            container.innerHTML = allItems.map(item => `
+                <div class="ticker-item">
+                    <span class="live-dot"></span>
+                    <span class="sparkle">✨</span>
+                    <span class="name-highlight">${item.name1}</span>
+                    <span class="separator">(from ${item.country1})</span>
+                    <span class="separator">and</span>
+                    <span class="name-highlight2">${item.name2}</span>
+                    <span class="separator">(from ${item.country2})</span>
+                    <span class="separator">got connected</span>
+                    <span class="time-badge">${item.time}</span>
+                    <span class="heart-pulse">❤️</span>
+                    <span class="fire-icon">🔥</span>
+                </div>
+            `).join('');
+        }
+
+        // Refresh ticker items every 30 seconds
+        function refreshTicker() {
+            tickerItems = generateTickerItems(12);
+            renderTicker();
+        }
+
+        // ============================================================
+        // GENERATE RANDOM LIKES
+        // ============================================================
         function generateRandomLikes() {
-            // Make it more interesting: some members have very high likes
             const random = Math.random();
             if (random < 0.1) {
-                // 10% chance: superstar (200-400)
                 return Math.floor(Math.random() * 200) + 200;
             } else if (random < 0.3) {
-                // 20% chance: popular (100-200)
                 return Math.floor(Math.random() * 100) + 100;
             } else if (random < 0.6) {
-                // 30% chance: average (30-100)
                 return Math.floor(Math.random() * 70) + 30;
             } else {
-                // 40% chance: lower (4-30)
                 return Math.floor(Math.random() * 26) + 4;
             }
         }
@@ -1088,7 +1368,6 @@
                 totalCount.textContent = allMembers.length;
                 filteredMembers = [...allMembers];
                 
-                // Generate like counts for each member
                 allMembers.forEach(member => {
                     likeCounts[member.id] = generateRandomLikes();
                 });
@@ -1152,13 +1431,6 @@
             }, randomDelay);
         }
 
-        function stopCarousel(memberId) {
-            if (carouselIntervals[memberId]) {
-                clearInterval(carouselIntervals[memberId]);
-                delete carouselIntervals[memberId];
-            }
-        }
-
         // ============================================================
         // HANDLE LIKE
         // ============================================================
@@ -1172,7 +1444,6 @@
                 likedMembers.delete(memberId);
                 btn.classList.remove('liked');
                 btn.textContent = '🤍';
-                // Decrease like count
                 if (likeCounts[memberId] > 0) {
                     likeCounts[memberId]--;
                 }
@@ -1181,12 +1452,10 @@
                 likedMembers.add(memberId);
                 btn.classList.add('liked');
                 btn.textContent = '❤️';
-                // Increase like count
                 likeCounts[memberId] = (likeCounts[memberId] || 0) + 1;
                 showToast('❤️ Liked!', 'success');
             }
             
-            // Update the like count display
             updateLikeCountDisplay(memberId);
         }
 
@@ -1251,22 +1520,18 @@
                     `;
                 });
 
-                // Random online status
                 const isOnline = Math.random() > 0.5;
                 const onlineDot = isOnline ? 
                     `<span class="online-dot"></span>` : 
                     `<span class="online-dot offline"></span>`;
 
-                // Verified badge next to name
                 const verifiedBadgeName = member.verified ? 
                     `<span class="verified-badge-name">✓</span>` : '';
 
-                // Check if already liked
                 const isLiked = likedMembers.has(member.id);
                 const loveIcon = isLiked ? '❤️' : '🤍';
                 const likedClass = isLiked ? 'liked' : '';
 
-                // Get like count for this member
                 const likeCount = likeCounts[member.id] || generateRandomLikes();
                 likeCounts[member.id] = likeCount;
 
@@ -1544,6 +1809,11 @@ https://classydate.com/profile/${member.id}
         // ============================================================
         // INIT
         // ============================================================
+        renderTicker();
+        
+        // Refresh ticker every 30 seconds
+        setInterval(refreshTicker, 30000);
+
         loadMembers();
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1553,11 +1823,13 @@ https://classydate.com/profile/${member.id}
         });
 
         console.log('💎 ClassyDate Members Page - SUPER HOT!');
+        console.log('✅ Live activity ticker with random connections');
+        console.log('✅ Mark (Sweden) and Judith (Uganda) got connected');
+        console.log('✅ Random times: 2 mins ago, 4 hours ago, 1 week ago');
         console.log('✅ Bigger View & Message buttons');
-        console.log('✅ Random like counts (4-400) on each card');
-        console.log('✅ Like count updates when user likes/unlikes');
-        console.log('✅ Like count shows in share message');
-        console.log('✅ Modern Purple theme with shine effects');
+        console.log('✅ Random like counts (4-400)');
+        console.log('✅ Ticker updates every 30 seconds');
+        console.log('✅ Pauses on hover');
     </script>
 
 </body>

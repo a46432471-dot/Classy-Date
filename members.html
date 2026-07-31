@@ -54,7 +54,6 @@
             justify-content: space-between;
         }
 
-        /* ✅ Title starts at corner edge */
         .cb-shell-brand {
             display: flex;
             align-items: center;
@@ -249,6 +248,7 @@
             -webkit-user-select: none;
             width: 100%;
             border-radius: 0;
+            position: relative;
         }
 
         .member-card:hover {
@@ -405,6 +405,33 @@
         }
 
         /* ============================================================ */
+        /* LIKE COUNT BADGE - BOTTOM LEFT                             */
+        /* ============================================================ */
+        .like-count-badge {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 50px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: "Inter", sans-serif;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .like-count-badge .heart-icon {
+            font-size: 12px;
+        }
+
+        /* ============================================================ */
         /* VERIFIED BADGE - NEXT TO NAME                              */
         /* ============================================================ */
         .verified-badge-name {
@@ -453,6 +480,7 @@
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
+            margin-bottom: 2px;
         }
 
         .member-card__name-row h3 {
@@ -463,11 +491,11 @@
         }
 
         /* ============================================================ */
-        /* BUTTONS                                                     */
+        /* BUTTONS - BIGGER AND BETTER                                */
         /* ============================================================ */
         .member-card__actions {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             margin-top: 10px;
             padding-top: 10px;
             border-top: 1px solid rgba(108, 60, 179, 0.08);
@@ -475,33 +503,74 @@
 
         .member-card__actions button {
             flex: 1;
-            padding: 8px 10px;
+            padding: 10px 14px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 700;
-            font-size: 12px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
+            letter-spacing: 0.3px;
         }
 
         .btn-view {
             background: rgba(108, 60, 179, 0.1);
             color: #1a0533;
+            border: 1px solid rgba(108, 60, 179, 0.05);
         }
+
         .btn-view:hover {
             background: rgba(108, 60, 179, 0.2);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 60, 179, 0.1);
+        }
+
+        .btn-view:active {
+            transform: scale(0.97);
         }
 
         .btn-message {
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
+            border: none;
+            position: relative;
+            overflow: hidden;
         }
+
+        .btn-message::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.08) 50%,
+                transparent 70%
+            );
+            animation: btn-shine 4s infinite;
+        }
+
+        @keyframes btn-shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
         .btn-message:hover {
             background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.25);
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.3);
+        }
+
+        .btn-message:active {
+            transform: scale(0.97);
+        }
+
+        .btn-message .icon {
+            margin-right: 4px;
         }
 
         /* ============================================================ */
@@ -697,13 +766,14 @@
                 font-size: 14px;
             }
             .member-card__actions {
-                gap: 4px;
+                gap: 6px;
                 margin-top: 8px;
                 padding-top: 8px;
             }
             .member-card__actions button {
-                font-size: 10px;
-                padding: 6px 8px;
+                font-size: 12px;
+                padding: 8px 10px;
+                border-radius: 8px;
             }
             .online-dot {
                 width: 12px;
@@ -718,6 +788,15 @@
                 bottom: 6px;
                 right: 6px;
             }
+            .like-count-badge {
+                font-size: 10px;
+                padding: 2px 8px;
+                bottom: 6px;
+                left: 6px;
+            }
+            .like-count-badge .heart-icon {
+                font-size: 10px;
+            }
             .carousel-btn {
                 width: 20px;
                 height: 20px;
@@ -730,7 +809,6 @@
                 text-align: center;
                 max-width: 100%;
             }
-            /* ✅ Title smaller on mobile */
             .cb-shell-brand {
                 font-size: 20px;
             }
@@ -770,10 +848,19 @@
             .member-card__name-row h3 {
                 font-size: 12px;
             }
+            .member-card__name-row {
+                margin-bottom: 0px;
+            }
+            .member-card__actions {
+                gap: 4px;
+                margin-top: 6px;
+                padding-top: 6px;
+            }
             .member-card__actions button {
-                font-size: 9px;
-                padding: 4px 6px;
-                border-radius: 4px;
+                font-size: 10px;
+                padding: 6px 8px;
+                border-radius: 6px;
+                letter-spacing: 0;
             }
             .online-dot {
                 width: 10px;
@@ -789,6 +876,15 @@
                 bottom: 4px;
                 right: 4px;
             }
+            .like-count-badge {
+                font-size: 9px;
+                padding: 2px 6px;
+                bottom: 4px;
+                left: 4px;
+            }
+            .like-count-badge .heart-icon {
+                font-size: 9px;
+            }
             .carousel-btn {
                 width: 18px;
                 height: 18px;
@@ -803,13 +899,17 @@
                 font-size: 11px;
                 padding: 3px 10px;
             }
-            /* ✅ Title even smaller on small phones */
             .cb-shell-brand {
                 font-size: 17px;
             }
             .cb-shell-header__inner {
                 height: 54px;
                 padding: 0 10px;
+            }
+            .share-toast {
+                bottom: 80px;
+                padding: 10px 16px;
+                font-size: 12px;
             }
         }
 
@@ -913,6 +1013,28 @@
         // Track liked members
         const likedMembers = new Set();
 
+        // Store like counts for each member
+        const likeCounts = {};
+
+        // Generate random like count (4 to 400)
+        function generateRandomLikes() {
+            // Make it more interesting: some members have very high likes
+            const random = Math.random();
+            if (random < 0.1) {
+                // 10% chance: superstar (200-400)
+                return Math.floor(Math.random() * 200) + 200;
+            } else if (random < 0.3) {
+                // 20% chance: popular (100-200)
+                return Math.floor(Math.random() * 100) + 100;
+            } else if (random < 0.6) {
+                // 30% chance: average (30-100)
+                return Math.floor(Math.random() * 70) + 30;
+            } else {
+                // 40% chance: lower (4-30)
+                return Math.floor(Math.random() * 26) + 4;
+            }
+        }
+
         function getPhotoUrl(fileId) {
             if (!fileId) return null;
             try {
@@ -965,6 +1087,12 @@
                 
                 totalCount.textContent = allMembers.length;
                 filteredMembers = [...allMembers];
+                
+                // Generate like counts for each member
+                allMembers.forEach(member => {
+                    likeCounts[member.id] = generateRandomLikes();
+                });
+                
                 renderMembers(filteredMembers);
                 updatePagination(filteredMembers.length);
                 
@@ -1044,12 +1172,29 @@
                 likedMembers.delete(memberId);
                 btn.classList.remove('liked');
                 btn.textContent = '🤍';
+                // Decrease like count
+                if (likeCounts[memberId] > 0) {
+                    likeCounts[memberId]--;
+                }
                 showToast('💔 Unliked', 'success');
             } else {
                 likedMembers.add(memberId);
                 btn.classList.add('liked');
                 btn.textContent = '❤️';
+                // Increase like count
+                likeCounts[memberId] = (likeCounts[memberId] || 0) + 1;
                 showToast('❤️ Liked!', 'success');
+            }
+            
+            // Update the like count display
+            updateLikeCountDisplay(memberId);
+        }
+
+        function updateLikeCountDisplay(memberId) {
+            const badge = document.querySelector(`.like-count-badge[data-member="${memberId}"]`);
+            if (badge) {
+                const count = likeCounts[memberId] || 0;
+                badge.innerHTML = `<span class="heart-icon">❤️</span> ${count.toLocaleString()}`;
             }
         }
 
@@ -1121,6 +1266,10 @@
                 const loveIcon = isLiked ? '❤️' : '🤍';
                 const likedClass = isLiked ? 'liked' : '';
 
+                // Get like count for this member
+                const likeCount = likeCounts[member.id] || generateRandomLikes();
+                likeCounts[member.id] = likeCount;
+
                 const currentLocation = member.current_location || member.location || 'Location Unknown';
                 const homeCountry = member.home_country || member.origin || 'Not specified';
 
@@ -1134,6 +1283,9 @@
                             <button class="love-btn ${likedClass}" data-member="${member.id}" onclick="window.handleLike('${member.id}', event)">
                                 ${loveIcon}
                             </button>
+                            <div class="like-count-badge" data-member="${member.id}">
+                                <span class="heart-icon">❤️</span> ${likeCount.toLocaleString()}
+                            </div>
                             ${photos.length > 1 ? `
                                 <button class="carousel-btn prev" onclick="event.stopPropagation(); window.changePhoto('${member.id}', -1)">‹</button>
                                 <button class="carousel-btn next" onclick="event.stopPropagation(); window.changePhoto('${member.id}', 1)">›</button>
@@ -1311,12 +1463,14 @@
             const homeCountry = member.home_country || member.origin || 'Not specified';
             const age = member.age || '?';
             const verified = member.verified ? '✅ Verified Member' : '';
+            const likeCount = likeCounts[member.id] || 0;
 
             const message = `
 👤 *${name}* ${verified ? '✔️' : ''}
 📍 Location: ${currentLocation}
 🌍 Home Country: ${homeCountry}
 🎂 Age: ${age}
+❤️ ${likeCount.toLocaleString()} likes
 💎 ClassyDate Member
 
 ---
@@ -1398,13 +1552,12 @@ https://classydate.com/profile/${member.id}
             });
         });
 
-        console.log('💎 ClassyDate Members Page - FINAL!');
-        console.log('✅ ClassyDate❤️ at corner edge');
-        console.log('✅ Modern Purple theme');
-        console.log('✅ Love icon at bottom-right ❤️');
-        console.log('✅ Online dot at top-right 🟢');
-        console.log('✅ Label format: Name, Age, Location, Origin');
-        console.log('✅ Removed extra text from share toast');
+        console.log('💎 ClassyDate Members Page - SUPER HOT!');
+        console.log('✅ Bigger View & Message buttons');
+        console.log('✅ Random like counts (4-400) on each card');
+        console.log('✅ Like count updates when user likes/unlikes');
+        console.log('✅ Like count shows in share message');
+        console.log('✅ Modern Purple theme with shine effects');
     </script>
 
 </body>

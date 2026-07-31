@@ -647,18 +647,18 @@
                 <span class="icon">💎</span>
                 <div class="badge">🔥 WELCOME OFFER</div>
                 <h1>No subscription. One-time payment.</h1>
-                <p class="subtitle" id="dynamic-subtitle">Your promo code applied</p>
+                <p class="subtitle" id="dynamic-subtitle">Loading...</p>
             </div>
 
             <!-- User Name Banner - Only User Name -->
             <div class="user-banner">
                 <span class="user-icon">👤</span>
-                <span class="user-name" id="user-name-display">Amos</span>
+                <span class="user-name" id="user-name-display">Loading...</span>
                 <span class="user-check">✅</span>
                 <span class="welcome-text">Welcome!</span>
             </div>
 
-            <!-- Price Display -->
+            <!-- Price Display - UPDATED to $13 -->
             <div class="price-display">
                 <div>
                     <span class="credits-amount">200</span>
@@ -666,9 +666,9 @@
                 </div>
                 <div class="price-row">
                     <span class="price-old">$100</span>
-                    <span class="price-new">$15</span>
+                    <span class="price-new">$13</span>
                 </div>
-                <div class="discount-badge">🔥 -85% SAVINGS</div>
+                <div class="discount-badge">🔥 -87% SAVINGS</div>
             </div>
 
             <!-- Features -->
@@ -727,18 +727,14 @@
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        // GET USER DATA
+        // GET USER DATA - IMPROVED
         // ============================================================
         function getUserName() {
-            // Try to get user name from localStorage
-            const userDetails = localStorage.getItem('classydate_user_details');
-            if (userDetails) {
-                try {
-                    const data = JSON.parse(userDetails);
-                    if (data.fullname) {
-                        return data.fullname;
-                    }
-                } catch (e) {}
+            // Try from URL params first (most reliable for chat flow)
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameFromUrl = urlParams.get('name');
+            if (nameFromUrl) {
+                return decodeURIComponent(nameFromUrl);
             }
 
             // Try from pending message
@@ -752,24 +748,56 @@
                 } catch (e) {}
             }
 
-            // Try from URL params
-            const urlParams = new URLSearchParams(window.location.search);
-            const nameFromUrl = urlParams.get('name');
-            if (nameFromUrl) {
-                return decodeURIComponent(nameFromUrl);
+            // Try from user details
+            const userDetails = localStorage.getItem('classydate_user_details');
+            if (userDetails) {
+                try {
+                    const data = JSON.parse(userDetails);
+                    if (data.fullname) {
+                        return data.fullname;
+                    }
+                } catch (e) {}
+            }
+
+            // Try from classy_user
+            const classyUser = localStorage.getItem('classy_user');
+            if (classyUser) {
+                try {
+                    const data = JSON.parse(classyUser);
+                    if (data.name || data.fullname) {
+                        return data.name || data.fullname;
+                    }
+                } catch (e) {}
             }
 
             // Fallback
-            return 'Amos';
+            return 'Guest';
         }
 
         // ============================================================
-        // UPDATE USER NAME
+        // GET TARGET CHAT PARTNER NAME
+        // ============================================================
+        function getChatPartnerName() {
+            const pendingMessage = localStorage.getItem('pending_message');
+            if (pendingMessage) {
+                try {
+                    const data = JSON.parse(pendingMessage);
+                    if (data.memberName) {
+                        return data.memberName;
+                    }
+                } catch (e) {}
+            }
+            return null;
+        }
+
+        // ============================================================
+        // UPDATE USER NAME - BOTH PLACES
         // ============================================================
         function updateUserName() {
             const userName = getUserName();
+            const chatPartner = getChatPartnerName();
             
-            // Update user name display
+            // Update user name display in banner
             const nameDisplay = document.getElementById('user-name-display');
             if (nameDisplay) {
                 nameDisplay.textContent = userName;
@@ -778,25 +806,14 @@
             // Update subtitle
             const subtitle = document.getElementById('dynamic-subtitle');
             if (subtitle) {
-                const pendingMessage = localStorage.getItem('pending_message');
-                let targetName = '';
-                if (pendingMessage) {
-                    try {
-                        const data = JSON.parse(pendingMessage);
-                        if (data.memberName) {
-                            targetName = data.memberName;
-                        }
-                    } catch (e) {}
-                }
-                
-                if (targetName) {
-                    subtitle.textContent = `🎯 Ready to chat with ${targetName}!`;
+                if (chatPartner) {
+                    subtitle.textContent = `🎯 Ready to chat with ${chatPartner}! Get your credits now.`;
                 } else {
                     subtitle.textContent = `🎯 Welcome ${userName}! Get your credits now.`;
                 }
             }
 
-            console.log(`👤 User name updated to: ${userName}`);
+            console.log(`👤 User: ${userName} | Chatting with: ${chatPartner || 'No one'}`);
         }
 
         // ============================================================
@@ -816,13 +833,20 @@
         }
 
         // ============================================================
-        // OPEN WHATSAPP
+        // OPEN WHATSAPP - WITH USER NAME
         // ============================================================
         function openWhatsApp() {
             const phoneNumber = '+254707001191';
             const userName = getUserName();
-            const message = encodeURIComponent('Hi! I need help with purchasing credits on ClassyDate. My name is: ' + userName);
-            const url = `https://wa.me/${phoneNumber}?text=${message}`;
+            const chatPartner = getChatPartnerName();
+            
+            let messageText = `Hi! I need help with purchasing credits on ClassyDate. My name is: ${userName}`;
+            if (chatPartner) {
+                messageText += `\nI want to chat with: ${chatPartner}`;
+            }
+            
+            const encodedMessage = encodeURIComponent(messageText);
+            const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
             
             showToast('💬 Opening WhatsApp...', 'info');
             
@@ -836,7 +860,6 @@
         // ============================================================
         function handlePurchase() {
             const btn = document.querySelector('.btn-get-credits');
-            const originalText = btn.innerHTML;
 
             btn.innerHTML = '⏳ Processing...';
             btn.disabled = true;
@@ -875,7 +898,7 @@
         // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Update user name
+            // Update user name everywhere
             updateUserName();
 
             // Check if user already has credits
@@ -901,9 +924,10 @@
             }
 
             console.log('💎 ClassyDate Credits Page loaded!');
-            console.log('📦 Package: 200 Credits for $15 (was $100)');
+            console.log('📦 Package: 200 Credits for $13 (was $100)');
             console.log('👤 User: ' + getUserName());
-            console.log('✅ Save 85%');
+            console.log('💬 Chatting with: ' + (getChatPartnerName() || 'No one'));
+            console.log('✅ Save 87%');
             console.log('📱 WhatsApp: +254707001191');
         });
     </script>

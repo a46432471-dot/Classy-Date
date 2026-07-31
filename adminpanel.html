@@ -66,9 +66,6 @@
             color: #6c3cb3;
         }
 
-        /* ============================================================ */
-        /* 3-LINE HAMBURGER MENU - ADMIN                               */
-        /* ============================================================ */
         .menu-container {
             position: relative;
             display: inline-block;
@@ -163,9 +160,6 @@
             font-weight: 700;
         }
 
-        /* ============================================================ */
-        /* ADMIN WRAPPER                                               */
-        /* ============================================================ */
         .admin-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -210,9 +204,6 @@
             background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
 
-        /* ============================================================ */
-        /* SEARCH TOOLBAR                                              */
-        /* ============================================================ */
         .admin-toolbar {
             display: flex;
             flex-wrap: wrap;
@@ -249,9 +240,6 @@
             box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.08);
         }
 
-        /* ============================================================ */
-        /* TABLE WRAPPER                                               */
-        /* ============================================================ */
         .admin-table-wrapper {
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(12px);
@@ -342,6 +330,11 @@
         .badge-small--pending {
             background: rgba(255, 165, 0, 0.12);
             color: #b37400;
+        }
+
+        .badge-small--signed-up {
+            background: rgba(108, 60, 179, 0.12);
+            color: #6c3cb3;
         }
 
         .status-dot {
@@ -442,16 +435,10 @@
             cursor: not-allowed;
         }
 
-        /* ============================================================ */
-        /* USERS TABLE (Hidden by default)                             */
-        /* ============================================================ */
         #users-table-wrapper {
             display: none;
         }
 
-        /* ============================================================ */
-        /* MODAL                                                       */
-        /* ============================================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -573,7 +560,6 @@
             gap: 12px;
         }
 
-        /* PHOTO UPLOAD */
         .file-upload-section {
             margin-top: 8px;
         }
@@ -728,9 +714,6 @@
             background: rgba(108, 60, 179, 0.12);
         }
 
-        /* ============================================================ */
-        /* TOAST                                                       */
-        /* ============================================================ */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -780,9 +763,16 @@
             font-size: 18px;
         }
 
-        /* ============================================================ */
-        /* RESPONSIVE                                                   */
-        /* ============================================================ */
+        .tab-count {
+            background: rgba(108, 60, 179, 0.1);
+            padding: 0px 8px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #6c3cb3;
+            margin-left: 4px;
+        }
+
         @media (max-width: 768px) {
             .cb-shell-header__inner {
                 height: 60px;
@@ -959,7 +949,7 @@
 <body>
 
     <!-- ============================================================ -->
-    <!-- HEADER - WITH 3-LINE MENU                                    -->
+    <!-- HEADER                                                       -->
     <!-- ============================================================ -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
@@ -975,10 +965,10 @@
                             <span class="menu-icon">➕</span> Add New Member
                         </a>
                         <a href="#" onclick="showTab('members'); closeMenu();" id="tab-members-link">
-                            <span class="menu-icon">👥</span> Total Members
+                            <span class="menu-icon">👥</span> Admin Members <span class="tab-count" id="members-count">0</span>
                         </a>
                         <a href="#" onclick="showTab('users'); closeMenu();" id="tab-users-link">
-                            <span class="menu-icon">👤</span> Users
+                            <span class="menu-icon">👤</span> Sign-ups <span class="tab-count" id="users-count">0</span>
                         </a>
                         <div class="menu-divider"></div>
                         <a href="#" onclick="logoutAdmin(); closeMenu();" class="logout-btn">
@@ -991,7 +981,7 @@
     </header>
 
     <!-- ============================================================ -->
-    <!-- ADMIN PANEL                                                   -->
+    <!-- ADMIN PANEL                                                  -->
     <!-- ============================================================ -->
     <main class="admin-wrapper" id="admin-wrapper">
         <div class="admin-header">
@@ -1004,7 +994,7 @@
             <input type="text" id="search-input" placeholder="🔍 Search members..." oninput="filterMembers()">
         </div>
 
-        <!-- MEMBERS TABLE -->
+        <!-- ADMIN MEMBERS TABLE -->
         <div class="admin-table-wrapper" id="table-wrapper">
             <table class="admin-table">
                 <thead>
@@ -1029,7 +1019,7 @@
             <div class="admin-pagination" id="admin-pagination"></div>
         </div>
 
-        <!-- USERS TABLE (Hidden by default) -->
+        <!-- SIGN-UPS TABLE (Users who signed up) -->
         <div class="admin-table-wrapper" id="users-table-wrapper">
             <table class="admin-table">
                 <thead>
@@ -1040,13 +1030,14 @@
                         <th>Origin</th>
                         <th>Joined</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="users-table-body">
                     <tr>
-                        <td colspan="6" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
+                        <td colspan="7" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
                             <span style="display:inline-block;width:24px;height:24px;border:3px solid rgba(108,60,179,0.1);border-top-color:#6c3cb3;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
-                            <br><br>Loading users...
+                            <br><br>Loading sign-ups...
                         </td>
                     </tr>
                 </tbody>
@@ -1110,7 +1101,6 @@
                     <input type="text" id="form-looking" placeholder="e.g. Serious Relationship, Friendship, Casual Dating">
                 </div>
 
-                <!-- PHOTO UPLOAD -->
                 <div class="form-group file-upload-section">
                     <label>Photos</label>
                     <p class="hint">Select photos from your device to upload. You can upload multiple images.</p>
@@ -1187,10 +1177,10 @@
 
         console.log('🔗 Supabase connected!');
 
-        let members = [];
-        let users = [];
-        let filteredMembers = [];
-        let filteredUsers = [];
+        let adminMembers = [];
+        let signUpUsers = [];
+        let filteredAdminMembers = [];
+        let filteredSignUpUsers = [];
         let currentPage = 1;
         let currentUsersPage = 1;
         const perPage = 5;
@@ -1255,7 +1245,7 @@
             } else if (tab === 'users') {
                 tableWrapper.style.display = 'none';
                 usersTableWrapper.style.display = 'block';
-                document.getElementById('page-title').textContent = 'Users';
+                document.getElementById('page-title').textContent = 'User Sign-ups';
                 document.getElementById('add-member-btn').style.display = 'none';
                 document.getElementById('admin-toolbar').style.display = 'none';
                 document.getElementById('tab-users-link').style.background = 'rgba(108,60,179,0.08)';
@@ -1266,32 +1256,35 @@
         }
 
         // ============================================================
-        // LOAD MEMBERS
+        // LOAD ADMIN MEMBERS (verified = true)
         // ============================================================
-        async function loadMembers() {
+        async function loadAdminMembers() {
             try {
                 const { data, error } = await supabase
                     .from('members')
                     .select('*')
+                    .eq('verified', true)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                members = data || [];
+                adminMembers = data || [];
                 isLoading = false;
+                filteredAdminMembers = [...adminMembers];
+                document.getElementById('members-count').textContent = adminMembers.length;
+                console.log('📊 Admin Members loaded:', adminMembers.length);
                 filterMembers();
-                console.log('📊 Members loaded from Supabase:', members.length);
             } catch (error) {
-                console.error('Error loading members:', error);
-                showToast('Error loading members from Supabase: ' + error.message, 'error');
+                console.error('Error loading admin members:', error);
+                showToast('Error loading members: ' + error.message, 'error');
                 isLoading = false;
             }
         }
 
         // ============================================================
-        // LOAD USERS (verified = false)
+        // LOAD SIGN-UP USERS (verified = false)
         // ============================================================
-        async function loadUsers() {
+        async function loadSignUpUsers() {
             try {
                 const { data, error } = await supabase
                     .from('members')
@@ -1301,14 +1294,15 @@
 
                 if (error) throw error;
 
-                users = data || [];
+                signUpUsers = data || [];
                 isLoadingUsers = false;
-                filteredUsers = [...users];
-                console.log('👤 Users loaded from Supabase:', users.length);
+                filteredSignUpUsers = [...signUpUsers];
+                document.getElementById('users-count').textContent = signUpUsers.length;
+                console.log('👤 Sign-up Users loaded:', signUpUsers.length);
                 renderUsersTable();
                 renderUsersPagination();
             } catch (error) {
-                console.error('Error loading users:', error);
+                console.error('Error loading sign-up users:', error);
                 showToast('Error loading users: ' + error.message, 'error');
                 isLoadingUsers = false;
             }
@@ -1320,9 +1314,8 @@
         window.filterMembers = function() {
             const search = document.getElementById('search-input').value.toLowerCase().trim();
 
-            filteredMembers = members.filter(m => {
+            filteredAdminMembers = adminMembers.filter(m => {
                 const matchSearch = (m.name || '').toLowerCase().includes(search) ||
-                    (m.email || '').toLowerCase().includes(search) ||
                     (m.current_location || '').toLowerCase().includes(search) ||
                     (m.home_country || '').toLowerCase().includes(search);
                 return matchSearch;
@@ -1336,7 +1329,7 @@
         }
 
         // ============================================================
-        // RENDER TABLE
+        // RENDER ADMIN MEMBERS TABLE
         // ============================================================
         function renderTable() {
             if (isLoading) {
@@ -1352,16 +1345,16 @@
             }
 
             const start = (currentPage - 1) * perPage;
-            const pageMembers = filteredMembers.slice(start, start + perPage);
+            const pageMembers = filteredAdminMembers.slice(start, start + perPage);
 
             if (pageMembers.length === 0) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="6">
                             <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                                <div style="font-size:48px;margin-bottom:12px;">👤</div>
-                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No members found</h3>
-                                <p style="color:rgba(74,26,107,0.4);">Try adjusting your search or add a new member.</p>
+                                <div style="font-size:48px;margin-bottom:12px;">👥</div>
+                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No admin members</h3>
+                                <p style="color:rgba(74,26,107,0.4);">Add members using the "Add New Member" button.</p>
                             </div>
                         </td>
                     </tr>
@@ -1382,13 +1375,12 @@
 
                 const statusHTML = m.online ? '<span class="status-dot online"></span> Online' : '<span class="status-dot offline"></span> Offline';
                 const badgesHTML = `
-                    ${m.verified ? '<span class="badge-small badge-small--verified">✅ Verified</span>' : '<span class="badge-small badge-small--pending">⏳ Pending</span>'}
+                    ${m.verified ? '<span class="badge-small badge-small--verified">✅ Verified</span>' : ''}
                     ${m.premium ? '<span class="badge-small badge-small--premium">⭐ Premium</span>' : ''}
                     ${totalPhotos > 0 ? `<span class="badge-small" style="background:rgba(108,60,179,0.06);color:#4a1a6b;">📸 ${totalPhotos}</span>` : ''}
                 `;
 
                 const locationDisplay = m.current_location || m.location || '—';
-                const homeDisplay = m.home_country || m.origin || '—';
 
                 return `
                     <tr>
@@ -1417,15 +1409,15 @@
         }
 
         // ============================================================
-        // RENDER USERS TABLE
+        // RENDER SIGN-UP USERS TABLE
         // ============================================================
         function renderUsersTable() {
             if (isLoadingUsers) {
                 usersTbody.innerHTML = `
                     <tr>
-                        <td colspan="6" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
+                        <td colspan="7" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
                             <span style="display:inline-block;width:24px;height:24px;border:3px solid rgba(108,60,179,0.1);border-top-color:#6c3cb3;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
-                            <br><br>Loading users...
+                            <br><br>Loading sign-ups...
                         </td>
                     </tr>
                 `;
@@ -1433,16 +1425,16 @@
             }
 
             const start = (currentUsersPage - 1) * usersPerPage;
-            const pageUsers = filteredUsers.slice(start, start + usersPerPage);
+            const pageUsers = filteredSignUpUsers.slice(start, start + usersPerPage);
 
             if (pageUsers.length === 0) {
                 usersTbody.innerHTML = `
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
                                 <div style="font-size:48px;margin-bottom:12px;">👤</div>
-                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No users found</h3>
-                                <p style="color:rgba(74,26,107,0.4);">No registered users yet.</p>
+                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No sign-ups yet</h3>
+                                <p style="color:rgba(74,26,107,0.4);">Users who sign up will appear here.</p>
                             </div>
                         </td>
                     </tr>
@@ -1461,7 +1453,9 @@
                 }
 
                 const statusHTML = u.online ? '<span class="status-dot online"></span> Online' : '<span class="status-dot offline"></span> Offline';
-                const joinedDate = u.joined ? new Date(u.joined).toLocaleDateString() : '—';
+                const joinedDate = u.created_at ? new Date(u.created_at).toLocaleDateString() : '—';
+                const locationDisplay = u.current_location || u.location || '—';
+                const homeDisplay = u.home_country || u.origin || '—';
 
                 return `
                     <tr>
@@ -1475,10 +1469,16 @@
                             </div>
                         </td>
                         <td data-label="Gender">${u.gender === 'male' ? '👨 Male' : u.gender === 'female' ? '👩 Female' : '—'}</td>
-                        <td data-label="Location">${u.current_location || u.location || '—'}</td>
-                        <td data-label="Origin">${u.home_country || u.origin || '—'}</td>
+                        <td data-label="Location">${locationDisplay}</td>
+                        <td data-label="Origin">${homeDisplay}</td>
                         <td data-label="Joined">${joinedDate}</td>
                         <td data-label="Status">${statusHTML}</td>
+                        <td data-label="Actions">
+                            <div class="actions-cell">
+                                <button class="btn-action btn-edit" onclick="window.openEditModal('${u.id}')">✏️ Edit</button>
+                                <button class="btn-action btn-delete" onclick="window.deleteMember('${u.id}')">🗑️ Delete</button>
+                            </div>
+                        </td>
                     </tr>
                 `;
             }).join('');
@@ -1488,7 +1488,7 @@
         // PAGINATION
         // ============================================================
         function renderPagination() {
-            const totalPages = Math.ceil(filteredMembers.length / perPage);
+            const totalPages = Math.ceil(filteredAdminMembers.length / perPage);
 
             if (totalPages <= 1) {
                 paginationContainer.innerHTML = '';
@@ -1513,7 +1513,7 @@
         }
 
         function renderUsersPagination() {
-            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const totalPages = Math.ceil(filteredSignUpUsers.length / usersPerPage);
 
             if (totalPages <= 1) {
                 usersPaginationContainer.innerHTML = '';
@@ -1538,7 +1538,7 @@
         }
 
         window.goToPage = function(page) {
-            const totalPages = Math.ceil(filteredMembers.length / perPage);
+            const totalPages = Math.ceil(filteredAdminMembers.length / perPage);
             if (page < 1 || page > totalPages) return;
             currentPage = page;
             renderTable();
@@ -1546,7 +1546,7 @@
         }
 
         window.goToUsersPage = function(page) {
-            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const totalPages = Math.ceil(filteredSignUpUsers.length / usersPerPage);
             if (page < 1 || page > totalPages) return;
             currentUsersPage = page;
             renderUsersTable();
@@ -1655,7 +1655,7 @@
         }
 
         window.openEditModal = async function(id) {
-            const member = members.find(m => m.id === id);
+            const member = adminMembers.find(m => m.id === id) || signUpUsers.find(m => m.id === id);
             if (!member) {
                 showToast('Member not found', 'error');
                 return;
@@ -1701,7 +1701,7 @@
         }
 
         // ============================================================
-        // SAVE MEMBER - FIXED: Auto-generates email
+        // SAVE MEMBER
         // ============================================================
         window.saveMember = async function(event) {
             event.preventDefault();
@@ -1711,7 +1711,7 @@
 
             let existingMember = null;
             if (isEdit) {
-                existingMember = members.find(m => m.id === editId);
+                existingMember = adminMembers.find(m => m.id === editId) || signUpUsers.find(m => m.id === editId);
             }
 
             const name = document.getElementById('form-name').value.trim();
@@ -1720,8 +1720,10 @@
                 .map(s => s.trim())
                 .filter(Boolean);
 
-            // ✅ AUTO-GENERATE EMAIL
             const email = `${name.toLowerCase().replace(/\s/g, '.')}_${Date.now()}@classydate.com`;
+
+            // ✅ IMPORTANT: Keep verified = true for admin members
+            const isVerified = document.getElementById('form-verified').value === 'true';
 
             const formData = {
                 name: name,
@@ -1732,7 +1734,7 @@
                 home_country: document.getElementById('form-home-country').value.trim(),
                 bio: document.getElementById('form-bio').value.trim(),
                 looking_for: document.getElementById('form-looking').value.trim(),
-                verified: document.getElementById('form-verified').value === 'true',
+                verified: isVerified, // ✅ true for admin members
                 premium: document.getElementById('form-premium').value === 'true',
                 interests: interestsArray,
                 photo_file_ids: uploadedFileIds
@@ -1740,10 +1742,10 @@
 
             if (isEdit && existingMember) {
                 formData.online = existingMember.online || false;
-                formData.joined = existingMember.joined || new Date().toISOString().slice(0, 10);
+                formData.created_at = existingMember.created_at || new Date().toISOString();
             } else {
                 formData.online = false;
-                formData.joined = new Date().toISOString().slice(0, 10);
+                formData.created_at = new Date().toISOString();
             }
 
             if (!formData.name || !formData.age || !formData.gender) {
@@ -1751,7 +1753,7 @@
                 return;
             }
 
-            console.log('📤 Sending data to Supabase:', formData);
+            console.log('📤 Saving member:', formData);
 
             try {
                 let result;
@@ -1762,10 +1764,7 @@
                         .eq('id', editId)
                         .select();
                     
-                    if (error) {
-                        console.error('Update error:', error);
-                        throw error;
-                    }
+                    if (error) throw error;
                     result = data;
                     showToast(`✅ ${formData.name} updated successfully!`, 'success');
                 } else {
@@ -1774,15 +1773,10 @@
                         .insert([formData])
                         .select();
                     
-                    if (error) {
-                        console.error('Insert error:', error);
-                        throw error;
-                    }
+                    if (error) throw error;
                     result = data;
                     showToast(`✅ ${formData.name} added successfully!`, 'success');
                 }
-
-                console.log('✅ Save result:', result);
 
                 closeModal();
                 memberForm.reset();
@@ -1790,9 +1784,9 @@
                 uploadedFileUrls = [];
                 renderUploadedImages();
                 
-                await loadMembers();
+                await loadAdminMembers();
+                await loadSignUpUsers();
                 filterMembers();
-                await loadUsers();
                 
             } catch (error) {
                 console.error('❌ Error saving member:', error);
@@ -1804,7 +1798,7 @@
         // DELETE MEMBER
         // ============================================================
         window.deleteMember = async function(id) {
-            const member = members.find(m => m.id === id);
+            const member = adminMembers.find(m => m.id === id) || signUpUsers.find(m => m.id === id);
             if (!member) return;
 
             if (confirm(`Are you sure you want to delete ${member.name}? This action cannot be undone.`)) {
@@ -1823,9 +1817,9 @@
                     if (error) throw error;
                     
                     showToast(`🗑️ ${member.name} was deleted.`, 'success');
-                    await loadMembers();
+                    await loadAdminMembers();
+                    await loadSignUpUsers();
                     filterMembers();
-                    await loadUsers();
                 } catch (error) {
                     console.error('Error deleting member:', error);
                     showToast('Error deleting member: ' + error.message, 'error');
@@ -1868,16 +1862,17 @@
             if (e.target === this) closeModal();
         });
 
-        await loadMembers();
-        await loadUsers();
+        await loadAdminMembers();
+        await loadSignUpUsers();
         
         showTab('members');
 
-        console.log('💎 ClassyDate Admin Panel - MODERN PURPLE!');
-        console.log('✅ Removed: Stats boxes');
-        console.log('✅ Email auto-generated');
-        console.log('✅ Users tab shows all sign-ups');
-        console.log('✅ Modern Purple theme');
+        console.log('💎 ClassyDate Admin Panel - UPDATED!');
+        console.log('✅ Members Tab: Only admin-added members (verified = true)');
+        console.log('✅ Users Tab: Only sign-ups (verified = false)');
+        console.log('✅ Clean separation between admin and user data');
+        console.log('📊 Admin Members:', adminMembers.length);
+        console.log('👤 Sign-up Users:', signUpUsers.length);
     </script>
 
 </body>

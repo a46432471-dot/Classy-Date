@@ -13,11 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -43,119 +39,46 @@
         .cb-shell-header__inner {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            height: 64px;
+            padding: 0 16px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
         }
 
         .cb-shell-brand {
             display: flex;
             align-items: center;
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 700;
             color: #1a0533;
+            flex-shrink: 0;
         }
-        .cb-shell-brand .heart {
-            color: #ff0000;
-            display: inline-block;
-        }
+        .cb-shell-brand .heart { color: #ff0000; display: inline-block; }
         .cb-shell-brand span {
             font-family: "Inter", sans-serif;
             font-weight: 300;
             color: #6c3cb3;
         }
 
-        .menu-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px 12px;
-            font-size: 28px;
-            color: #4a1a6b;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-        }
-        .menu-btn:hover { background: rgba(108, 60, 179, 0.08); }
-
-        .menu-dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 50px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(16px);
-            min-width: 220px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-            z-index: 200;
-        }
-
-        .menu-dropdown.show {
-            display: block;
-            animation: slideDown 0.2s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .menu-dropdown a {
+        .header-right {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            color: #4a1a6b;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: "Inter", sans-serif;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid rgba(108, 60, 179, 0.06);
-        }
-        .menu-dropdown a:last-child { border-bottom: none; }
-        .menu-dropdown a:hover { background: rgba(108, 60, 179, 0.06); }
-
-        .menu-dropdown .menu-divider {
-            height: 1px;
-            background: rgba(108, 60, 179, 0.06);
-            margin: 4px 0;
+            gap: 6px;
         }
 
-        .menu-dropdown .logout-btn { color: #dc3545; font-weight: 600; }
-        .menu-dropdown .logout-btn:hover { background: rgba(220, 53, 69, 0.06); }
-        .menu-dropdown .menu-icon { font-size: 18px; }
-
-        .admin-badge-nav {
-            background: #6c3cb3;
-            color: #fff;
-            padding: 4px 14px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        /* HEARTBEAT INDICATOR */
         .heartbeat-badge {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 3px 10px;
+            gap: 4px;
+            padding: 3px 9px;
             border-radius: 50px;
             font-size: 10px;
             font-weight: 700;
             background: rgba(40, 167, 69, 0.1);
             color: #28a745;
-            margin-right: 8px;
         }
         .heartbeat-badge .dot {
             width: 6px;
@@ -170,163 +93,401 @@
         }
         .heartbeat-badge.stopped .dot { background: #adb5bd; animation: none; }
 
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .admin-badge-nav {
+            background: #6c3cb3;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .menu-container { position: relative; }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 8px;
+            font-size: 22px;
+            color: #4a1a6b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-btn:hover { background: rgba(108, 60, 179, 0.08); }
+
+        .menu-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 44px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(16px);
+            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            z-index: 200;
+        }
+        .menu-dropdown.show { display: block; animation: slideDown 0.2s ease; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            color: #4a1a6b;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(108, 60, 179, 0.06);
+        }
+        .menu-dropdown a:last-child { border-bottom: none; }
+        .menu-dropdown a:hover { background: rgba(108, 60, 179, 0.06); }
+        .menu-dropdown .logout-btn { color: #dc3545; font-weight: 600; }
+
+        /* ADMIN WRAPPER */
         .admin-wrapper {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 20px 60px;
+            padding: 68px 12px 60px;
         }
 
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .admin-header h1 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 32px;
-            color: #4a1a6b;
-            font-weight: 700;
-        }
-
-        .admin-header .btn-add {
-            padding: 10px 24px;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Inter", sans-serif;
-            display: flex;
-            align-items: center;
+        /* STATS ROW */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-        }
-        .admin-header .btn-add:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+            margin-bottom: 14px;
         }
 
-        .admin-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.4);
+        .stat-card {
+            background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(12px);
-            border-radius: 14px;
-            border: 1px solid rgba(108, 60, 179, 0.12);
-        }
-
-        .admin-toolbar input {
-            flex: 1;
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(108, 60, 179, 0.15);
-            border-radius: 8px;
-            color: #4a1a6b;
-            font-size: 14px;
-            font-family: "Inter", sans-serif;
-            outline: none;
-            min-width: 200px;
+            border-radius: 12px;
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            padding: 12px 10px;
+            text-align: center;
             transition: all 0.3s ease;
         }
-        .admin-toolbar input::placeholder { color: rgba(74, 26, 107, 0.3); }
-        .admin-toolbar input:focus {
-            border-color: #6c3cb3;
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.08);
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(108, 60, 179, 0.2);
+            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.08);
         }
 
-        .admin-table-wrapper {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            border-radius: 14px;
-            border: 1px solid rgba(108, 60, 179, 0.12);
-            overflow: hidden;
+        .stat-card .stat-icon {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 2px;
         }
 
-        .admin-table { width: 100%; border-collapse: collapse; }
-
-        .admin-table th {
-            padding: 12px 16px;
-            text-align: left;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: rgba(74, 26, 107, 0.4);
-            background: rgba(255, 255, 255, 0.3);
-            border-bottom: 1px solid rgba(108, 60, 179, 0.08);
-            font-family: "Inter", sans-serif;
+        .stat-card .stat-value {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a0533;
+            line-height: 1.1;
+            position: relative;
         }
 
-        .admin-table td {
-            padding: 10px 16px;
-            border-bottom: 1px solid rgba(108, 60, 179, 0.04);
-            font-size: 14px;
-            color: rgba(74, 26, 107, 0.8);
-            vertical-align: middle;
-        }
-        .admin-table tr:last-child td { border-bottom: none; }
-        .admin-table tr:hover td { background: rgba(255, 255, 255, 0.2); }
-
-        .admin-table .member-cell {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .admin-table .member-cell img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid rgba(108, 60, 179, 0.15);
-        }
-        .admin-table .member-cell .name { font-weight: 600; color: #4a1a6b; }
-        .admin-table .member-cell .email { font-size: 12px; color: rgba(74, 26, 107, 0.4); }
-
-        .badge-small {
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 10px;
-            font-weight: 600;
-            font-family: "Inter", sans-serif;
-            display: inline-block;
-            margin: 1px 2px;
-        }
-        .badge-small--verified { background: rgba(40, 167, 69, 0.12); color: #28a745; }
-        .badge-small--premium { background: rgba(255, 215, 0, 0.12); color: #b8960f; }
-        .badge-small--open { background: rgba(40, 167, 69, 0.12); color: #28a745; }
-        .badge-small--pending { background: rgba(255, 165, 0, 0.12); color: #b37400; }
-        .badge-small--closed { background: rgba(74, 26, 107, 0.08); color: rgba(74, 26, 107, 0.5); }
-
-        .status-dot {
-            display: inline-block;
+        .stat-card.has-unread .stat-value::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: -12px;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            margin-right: 4px;
+            background: #3b82f6;
+            animation: pulse-dot 1.5s infinite;
         }
-        .status-dot.online { background: #28a745; animation: pulse-dot 2s infinite; }
-        .status-dot.offline { background: rgba(74, 26, 107, 0.2); }
-        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .actions-cell { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-
-        .btn-action {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
+        .stat-card .stat-label {
+            font-size: 9.5px;
+            color: rgba(74, 26, 107, 0.55);
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+
+        /* TABS */
+        .tabs-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            border: 1px solid rgba(108, 60, 179, 0.1);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 12px;
+            background: none;
+            border: none;
+            border-radius: 9px;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 12.5px;
+            color: rgba(74, 26, 107, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.25);
+        }
+
+        .tab-btn .badge-count {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 1px 7px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tab-btn.active .badge-count {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .tab-btn:not(.active) .badge-count {
+            background: rgba(108, 60, 179, 0.12);
+            color: #6c3cb3;
+        }
+
+        .tab-btn .unread-dot {
+            position: absolute;
+            top: 6px;
+            right: 12px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #3b82f6;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        /* SEARCH + FILTERS */
+        .filter-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 140px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(108, 60, 179, 0.12);
+            border-radius: 10px;
+            color: #4a1a6b;
+            font-size: 13px;
+            font-family: "Inter", sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-input::placeholder { color: rgba(74, 26, 107, 0.35); }
+        .search-input:focus {
+            border-color: #6c3cb3;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(108, 60, 179, 0.08);
+        }
+
+        .filter-select {
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(108, 60, 179, 0.12);
+            border-radius: 10px;
+            color: #4a1a6b;
+            font-size: 12.5px;
+            font-family: "Inter", sans-serif;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236c3cb3' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 26px;
+        }
+
+        /* LIST WRAPPER */
+        .list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* CONVERSATION CARD */
+        .conv-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            padding: 12px 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conv-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(108, 60, 179, 0.25);
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.08);
+        }
+
+        /* Unread state */
+        .conv-card.unread {
+            border-left: 3px solid #3b82f6;
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        .conv-card.unread .conv-name {
+            font-weight: 700;
+        }
+
+        .conv-card.unread::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #3b82f6;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        /* TOP LINE: name + status + time */
+        .conv-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .conv-name {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a0533;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .conv-status {
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-size: 9.5px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .conv-status.open { background: rgba(40, 167, 69, 0.12); color: #28a745; }
+        .conv-status.pending { background: rgba(255, 165, 0, 0.12); color: #b37400; }
+        .conv-status.closed { background: rgba(74, 26, 107, 0.08); color: rgba(74, 26, 107, 0.5); }
+
+        .conv-time {
+            font-size: 10.5px;
+            color: rgba(74, 26, 107, 0.45);
+            margin-left: auto;
+            font-weight: 500;
+        }
+
+        /* INFO LINE */
+        .conv-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            font-size: 11.5px;
+            color: rgba(74, 26, 107, 0.75);
+            margin-bottom: 8px;
+        }
+
+        .conv-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-weight: 500;
+        }
+
+        .conv-info .wants {
+            color: #6c3cb3;
+            font-weight: 700;
+        }
+
+        /* LAST MESSAGE PREVIEW */
+        .conv-preview {
+            background: rgba(108, 60, 179, 0.05);
+            border-left: 2px solid rgba(108, 60, 179, 0.15);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: rgba(74, 26, 107, 0.7);
+            margin-bottom: 8px;
+            font-style: italic;
+            display: flex;
+            gap: 6px;
+            align-items: flex-start;
+        }
+
+        .conv-preview .sender-tag {
+            font-weight: 700;
+            font-style: normal;
+            color: #6c3cb3;
+            flex-shrink: 0;
+        }
+
+        .conv-preview.user .sender-tag { color: #dc3545; }
+        .conv-preview.admin .sender-tag { color: #28a745; }
+
+        .conv-preview-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ACTIONS */
+        .conv-actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .btn-conv {
+            padding: 7px 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
             font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -335,149 +496,158 @@
             align-items: center;
             gap: 4px;
         }
-        .btn-edit { background: rgba(108, 60, 179, 0.08); color: #4a1a6b; }
-        .btn-edit:hover { background: rgba(108, 60, 179, 0.18); transform: translateY(-2px); }
 
-        .btn-chat {
+        .btn-conv-chat {
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
-        }
-        .btn-chat:hover {
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.3);
-        }
-
-        .btn-delete { background: rgba(220, 53, 69, 0.08); color: #dc3545; }
-        .btn-delete:hover { background: rgba(220, 53, 69, 0.18); transform: translateY(-2px); }
-
-        .admin-pagination {
-            display: flex;
+            flex: 1;
             justify-content: center;
-            gap: 6px;
-            padding: 14px 16px;
-            border-top: 1px solid rgba(108, 60, 179, 0.08);
         }
-        .admin-pagination button {
-            padding: 5px 12px;
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(108, 60, 179, 0.08);
-            border-radius: 6px;
-            color: rgba(74, 26, 107, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Inter", sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .admin-pagination button:hover { background: rgba(255, 255, 255, 0.5); }
-        .admin-pagination button.active {
-            background: #6c3cb3;
-            color: #fff;
-            border-color: #6c3cb3;
-        }
-        .admin-pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
-
-        /* CONVERSATIONS VIEW */
-        #conversations-wrapper { display: none; }
-
-        .conv-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .btn-conv-chat:hover {
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(108, 60, 179, 0.3);
         }
 
-        .conv-card {
-            background: rgba(255, 255, 255, 0.5);
+        .btn-conv-delete {
+            background: rgba(220, 53, 69, 0.08);
+            color: #dc3545;
+        }
+        .btn-conv-delete:hover {
+            background: rgba(220, 53, 69, 0.18);
+        }
+
+        /* MEMBER CARD (for members tab) */
+        .member-card-item {
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(12px);
-            border-radius: 14px;
-            border: 1px solid rgba(108, 60, 179, 0.12);
-            padding: 16px 18px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .conv-card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(108, 60, 179, 0.25);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.08);
-        }
-
-        .conv-card__top {
+            border-radius: 12px;
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            padding: 12px 14px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 12px;
+            align-items: center;
+            transition: all 0.3s ease;
         }
 
-        .conv-card__name {
-            font-family: "Playfair Display", Georgia, serif;
-            font-size: 18px;
+        .member-card-item:hover {
+            border-color: rgba(108, 60, 179, 0.25);
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.08);
+        }
+
+        .member-card-item img {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(108, 60, 179, 0.15);
+            flex-shrink: 0;
+        }
+
+        .member-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .member-card-name {
             font-weight: 700;
+            font-size: 14px;
             color: #1a0533;
-        }
-
-        .conv-card__status { display: flex; align-items: center; gap: 6px; }
-
-        .conv-card__info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 8px 18px;
-            margin-bottom: 12px;
-        }
-
-        .conv-card__info-item {
-            font-size: 13px;
-            color: rgba(74, 26, 107, 0.7);
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-
-        .conv-card__info-item .icon { font-size: 14px; }
-        .conv-card__info-item .label {
-            font-weight: 600;
-            color: rgba(74, 26, 107, 0.5);
-        }
-
-        .conv-card__photos {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 5px;
             flex-wrap: wrap;
         }
 
-        .conv-card__photos img {
-            width: 55px;
-            height: 55px;
-            border-radius: 8px;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            box-shadow: 0 2px 8px rgba(108, 60, 179, 0.1);
-        }
-
-        .conv-card__actions {
+        .member-card-meta {
+            font-size: 11.5px;
+            color: rgba(74, 26, 107, 0.6);
+            margin-top: 2px;
             display: flex;
-            gap: 8px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(108, 60, 179, 0.08);
+            flex-wrap: wrap;
+            gap: 3px 10px;
         }
 
-        .conv-card__actions button {
-            padding: 8px 16px;
+        .member-card-actions {
+            display: flex;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        .btn-mini {
+            padding: 6px 10px;
             border: none;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 11px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
+        .btn-mini-edit {
+            background: rgba(108, 60, 179, 0.08);
+            color: #4a1a6b;
+        }
+        .btn-mini-edit:hover { background: rgba(108, 60, 179, 0.18); }
+        .btn-mini-delete {
+            background: rgba(220, 53, 69, 0.08);
+            color: #dc3545;
+        }
+        .btn-mini-delete:hover { background: rgba(220, 53, 69, 0.18); }
+
+        /* BADGES */
+        .badge-mini {
+            padding: 1px 7px;
+            border-radius: 50px;
+            font-size: 9px;
+            font-weight: 700;
+        }
+        .badge-mini-verified { background: rgba(40, 167, 69, 0.12); color: #28a745; }
+        .badge-mini-premium { background: rgba(255, 215, 0, 0.15); color: #b8960f; }
+        .badge-mini-photos { background: rgba(108, 60, 179, 0.08); color: #6c3cb3; }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: rgba(74, 26, 107, 0.35);
+        }
+        .empty-state .icon { font-size: 44px; margin-bottom: 10px; }
+        .empty-state h3 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 18px;
+            color: #4a1a6b;
+            margin-bottom: 6px;
+        }
+        .empty-state p { font-size: 13px; }
+
+        /* PAGINATION */
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            padding: 12px 0;
+            flex-wrap: wrap;
+        }
+        .pagination-bar button {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            border-radius: 8px;
+            color: rgba(74, 26, 107, 0.6);
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .pagination-bar button:hover { background: rgba(255, 255, 255, 0.9); }
+        .pagination-bar button.active {
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            border-color: transparent;
+        }
+        .pagination-bar button:disabled { opacity: 0.3; cursor: not-allowed; }
 
         /* MODAL */
         .modal-overlay {
@@ -489,23 +659,17 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            animation: fadeInModal 0.3s ease;
+            padding: 16px;
         }
         .modal-overlay.active { display: flex; }
 
-        @keyframes fadeInModal {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         .modal {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            max-width: 650px;
+            max-width: 600px;
             width: 100%;
-            padding: 32px 28px 28px;
+            padding: 24px 20px 22px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
             max-height: 90vh;
@@ -520,35 +684,33 @@
         }
         .modal .modal-header h2 {
             font-family: "Playfair Display", Georgia, serif;
-            font-size: 24px;
+            font-size: 20px;
             color: #4a1a6b;
         }
         .modal .modal-close {
             background: none;
             border: none;
-            font-size: 24px;
-            color: rgba(74, 26, 107, 0.3);
+            font-size: 22px;
+            color: rgba(74, 26, 107, 0.4);
             cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 0 8px;
+            padding: 0 6px;
         }
-        .modal .modal-close:hover { color: #4a1a6b; transform: rotate(90deg); }
+        .modal .modal-close:hover { color: #4a1a6b; }
 
         .modal .modal-subtitle {
-            color: rgba(74, 26, 107, 0.4);
-            font-size: 14px;
-            margin-bottom: 20px;
+            color: rgba(74, 26, 107, 0.5);
+            font-size: 12.5px;
+            margin-bottom: 16px;
             font-family: "Inter", sans-serif;
         }
 
-        .modal .form-group { margin-bottom: 14px; }
+        .modal .form-group { margin-bottom: 12px; }
         .modal .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(74, 26, 107, 0.6);
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(74, 26, 107, 0.7);
             margin-bottom: 4px;
-            font-family: "Inter", sans-serif;
         }
         .modal .form-group label .required { color: #dc3545; }
 
@@ -556,12 +718,12 @@
         .modal .form-group select,
         .modal .form-group textarea {
             width: 100%;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(108, 60, 179, 0.1);
-            border-radius: 8px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(108, 60, 179, 0.12);
+            border-radius: 10px;
             color: #4a1a6b;
-            font-size: 14px;
+            font-size: 13.5px;
             font-family: "Inter", sans-serif;
             outline: none;
             transition: all 0.3s ease;
@@ -570,42 +732,33 @@
         .modal .form-group select:focus,
         .modal .form-group textarea:focus {
             border-color: #6c3cb3;
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(108, 60, 179, 0.08);
         }
         .modal .form-group textarea { resize: vertical; min-height: 60px; }
 
         .modal .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .file-upload-section { margin-top: 8px; }
-        .file-upload-section .hint {
-            font-size: 12px;
-            color: rgba(74, 26, 107, 0.4);
-            margin-bottom: 6px;
-            font-family: "Inter", sans-serif;
+            gap: 10px;
         }
 
         .file-upload-zone {
-            border: 2px dashed rgba(108, 60, 179, 0.15);
+            border: 2px dashed rgba(108, 60, 179, 0.2);
             border-radius: 12px;
-            padding: 20px;
+            padding: 18px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             position: relative;
-            min-height: 100px;
         }
         .file-upload-zone:hover {
             border-color: #6c3cb3;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.5);
         }
-        .file-upload-zone .icon { font-size: 36px; display: block; margin-bottom: 4px; }
-        .file-upload-zone p { color: rgba(74, 26, 107, 0.4); font-size: 13px; font-family: "Inter", sans-serif; }
+        .file-upload-zone .icon { font-size: 32px; display: block; margin-bottom: 4px; }
+        .file-upload-zone p { color: rgba(74, 26, 107, 0.5); font-size: 12px; }
         .file-upload-zone input[type="file"] {
             position: absolute;
             top: 0; left: 0;
@@ -613,238 +766,163 @@
             opacity: 0;
             cursor: pointer;
         }
-        .file-upload-zone .upload-progress {
-            display: none;
-            margin-top: 8px;
-            width: 100%;
-            height: 4px;
-            background: rgba(108, 60, 179, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .file-upload-zone .upload-progress .bar {
-            height: 100%;
-            background: #6c3cb3;
-            width: 0%;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-        .file-upload-zone.uploading .upload-progress { display: block; }
-        .file-upload-zone.uploading .icon,
-        .file-upload-zone.uploading p { display: none; }
 
         .uploaded-images {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             margin-top: 8px;
         }
         .uploaded-image-item {
-            width: 80px;
-            height: 80px;
+            width: 66px;
+            height: 66px;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(108, 60, 179, 0.1);
+            border: 1px solid rgba(108, 60, 179, 0.15);
         }
         .uploaded-image-item img { width: 100%; height: 100%; object-fit: cover; }
         .uploaded-image-item .remove-image-btn {
             position: absolute;
             top: 2px; right: 2px;
-            background: rgba(220, 53, 69, 0.9);
+            background: rgba(220, 53, 69, 0.95);
             color: #fff;
             border: none;
             border-radius: 50%;
             width: 18px;
             height: 18px;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .modal .modal-actions {
+        .modal-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 16px;
         }
-        .modal .modal-actions button {
+        .modal-actions button {
             flex: 1;
             padding: 12px;
             border: none;
             border-radius: 10px;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
         }
-        .modal .btn-modal-save {
+        .btn-modal-save {
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
         }
-        .modal .btn-modal-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
+        .btn-modal-save:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.3);
         }
-        .modal .btn-modal-cancel {
+        .btn-modal-cancel {
             background: rgba(108, 60, 179, 0.06);
-            color: rgba(74, 26, 107, 0.5);
-            border: 1px solid rgba(108, 60, 179, 0.08);
+            color: rgba(74, 26, 107, 0.6);
         }
-        .modal .btn-modal-cancel:hover { background: rgba(108, 60, 179, 0.12); }
+        .btn-modal-cancel:hover { background: rgba(108, 60, 179, 0.12); }
 
+        /* TOAST */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 14px 24px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
-            z-index: 2000;
-            font-size: 14px;
+            bottom: 20px;
+            right: 16px;
+            left: 16px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: #1a0533;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.4s ease;
-            max-width: 400px;
-            font-weight: 600;
-            font-family: "Inter", sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #4a1a6b;
+            max-width: 420px;
+            margin: 0 auto;
+            z-index: 2000;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
         }
         .toast.show { transform: translateY(0); opacity: 1; }
-        .toast.success { border-color: rgba(40, 167, 69, 0.2); }
-        .toast.success .toast-icon { color: #28a745; }
-        .toast.error { border-color: rgba(220, 53, 69, 0.2); }
-        .toast.error .toast-icon { color: #dc3545; }
-        .toast .toast-icon { font-size: 18px; }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
 
-        .tab-count {
-            background: rgba(108, 60, 179, 0.1);
-            padding: 0px 8px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #6c3cb3;
-            margin-left: 4px;
-        }
-
+        /* LOADING */
         .loading-spinner {
             display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(108, 60, 179, 0.1);
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(108, 60, 179, 0.15);
             border-top-color: #6c3cb3;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        @media (max-width: 768px) {
-            .cb-shell-header__inner { height: 60px; padding: 0 12px; }
-            .cb-shell-brand { font-size: 18px; }
-            .admin-wrapper { padding: 76px 12px 40px; }
-            .admin-header h1 { font-size: 26px; }
-            .admin-header .btn-add { padding: 8px 16px; font-size: 13px; }
-            .admin-toolbar { padding: 12px 14px; }
-            .admin-toolbar input { min-width: 100%; }
+        /* TABLET / DESKTOP */
+        @media (min-width: 600px) {
+            .cb-shell-header__inner { height: 60px; padding: 0 20px; }
+            .cb-shell-brand { font-size: 20px; }
+            .admin-wrapper { padding: 76px 20px 60px; }
 
-            .admin-table thead { display: none; }
-            .admin-table tbody tr {
-                display: block;
-                padding: 14px 16px;
-                border-bottom: 1px solid rgba(108, 60, 179, 0.08);
-                background: rgba(255, 255, 255, 0.1);
-                margin: 4px 0;
-                border-radius: 12px;
-            }
-            .admin-table tbody tr:hover { background: rgba(255, 255, 255, 0.2); }
-            .admin-table tbody td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 6px 0;
-                border: none;
-                font-size: 13px;
-            }
-            .admin-table tbody td:last-child { border-bottom: none; }
-            .admin-table tbody td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: rgba(74, 26, 107, 0.4);
-                font-size: 12px;
-            }
-            .admin-table .member-cell { flex: 1; width: 100%; justify-content: flex-start; }
-            .admin-table .member-cell img { width: 36px; height: 36px; }
-            .actions-cell { gap: 4px; }
-            .btn-action { padding: 4px 10px; font-size: 11px; }
+            .stats-row { gap: 12px; margin-bottom: 18px; }
+            .stat-card { padding: 16px 12px; }
+            .stat-card .stat-icon { font-size: 20px; }
+            .stat-card .stat-value { font-size: 28px; }
+            .stat-card .stat-label { font-size: 10.5px; }
 
-            .modal { padding: 24px 16px 20px; }
-            .modal .form-row { grid-template-columns: 1fr; }
-            .modal .modal-actions { flex-direction: column; }
+            .tab-btn { padding: 12px 18px; font-size: 13.5px; }
 
-            .admin-pagination { flex-wrap: wrap; gap: 4px; }
-            .admin-pagination button { padding: 4px 10px; font-size: 12px; }
+            .conv-card { padding: 14px 18px; }
+            .conv-name { font-size: 16px; }
+            .conv-info { font-size: 12.5px; }
 
-            .uploaded-image-item { width: 60px; height: 60px; }
-            .toast { bottom: 20px; right: 20px; left: 20px; text-align: center; }
-            .menu-dropdown { min-width: 200px; right: -8px; }
-
-            .conv-card__info { grid-template-columns: 1fr; }
-            .conv-card__actions { flex-wrap: wrap; }
+            .member-card-item { padding: 14px 16px; }
+            .member-card-item img { width: 50px; height: 50px; }
         }
 
-        @media (max-width: 480px) {
-            .admin-header h1 { font-size: 22px; }
-            .admin-header .btn-add { padding: 6px 14px; font-size: 12px; }
-            .admin-table tbody td { font-size: 12px; padding: 4px 0; }
-            .admin-table tbody td::before { font-size: 11px; }
-            .btn-action { padding: 3px 8px; font-size: 10px; }
-            .uploaded-image-item { width: 50px; height: 50px; }
-            .menu-btn { font-size: 24px; padding: 4px 8px; }
-            .menu-dropdown { min-width: 180px; right: -8px; }
+        @media (min-width: 900px) {
+            .stats-row { grid-template-columns: repeat(4, 1fr); }
+        }
 
-            .conv-card { padding: 14px; }
-            .conv-card__name { font-size: 16px; }
-            .conv-card__photos img { width: 45px; height: 45px; }
+        /* TINY PHONES */
+        @media (max-width: 380px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .cb-shell-brand { font-size: 16px; }
+            .admin-badge-nav { font-size: 9px; padding: 3px 8px; }
+            .heartbeat-badge { font-size: 9px; padding: 2px 8px; }
         }
     </style>
 </head>
 <body>
 
     <!-- HEADER -->
-    <header class="cb-shell-header" role="banner">
+    <header class="cb-shell-header">
         <div class="cb-shell-header__inner">
             <a class="cb-shell-brand" href="index.html">
                 Classy<span>Date</span><span class="heart">❤️</span>
             </a>
-            <div class="cb-shell-actions">
-                <span class="heartbeat-badge" id="heartbeat-badge" title="Admin online indicator">
+            <div class="header-right">
+                <span class="heartbeat-badge" id="heartbeat-badge" title="Admin online">
                     <span class="dot"></span>
                     <span id="heartbeat-text">Online</span>
                 </span>
                 <span class="admin-badge-nav">🔑 Admin</span>
                 <div class="menu-container">
-                    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰</button>
+                    <button class="menu-btn" onclick="toggleMenu()">☰</button>
                     <div class="menu-dropdown" id="menuDropdown">
-                        <a href="#" onclick="openAddModal(); closeMenu();">
-                            <span class="menu-icon">➕</span> Add New Member
+                        <a href="#" onclick="openAddModal(); closeMenu(); return false;">
+                            <span>➕</span> Add New Member
                         </a>
-                        <a href="#" onclick="showTab('members'); closeMenu();" id="tab-members-link">
-                            <span class="menu-icon">👥</span> Admin Members <span class="tab-count" id="members-count">0</span>
-                        </a>
-                        <a href="#" onclick="showTab('conversations'); closeMenu();" id="tab-conversations-link">
-                            <span class="menu-icon">💬</span> Conversations <span class="tab-count" id="conversations-count">0</span>
-                        </a>
-                        <div class="menu-divider"></div>
-                        <a href="#" onclick="logoutAdmin(); closeMenu();" class="logout-btn">
-                            <span class="menu-icon">🚪</span> Log Out
+                        <div style="height:1px;background:rgba(108,60,179,0.06);margin:4px 0;"></div>
+                        <a href="#" onclick="logoutAdmin(); closeMenu(); return false;" class="logout-btn">
+                            <span>🚪</span> Log Out
                         </a>
                     </div>
                 </div>
@@ -852,53 +930,92 @@
         </div>
     </header>
 
-    <!-- ADMIN PANEL -->
-    <main class="admin-wrapper" id="admin-wrapper">
-        <div class="admin-header">
-            <h1 id="page-title">Admin Panel</h1>
-            <button class="btn-add" id="add-member-btn" onclick="openAddModal()">➕ Add New Member</button>
+    <!-- MAIN -->
+    <main class="admin-wrapper">
+
+        <!-- STATS ROW -->
+        <div class="stats-row" id="stats-row">
+            <div class="stat-card" onclick="showTab('members')" style="cursor:pointer;">
+                <span class="stat-icon">👥</span>
+                <div class="stat-value" id="stat-members">0</div>
+                <div class="stat-label">Members</div>
+            </div>
+            <div class="stat-card" onclick="showTab('conversations')" style="cursor:pointer;">
+                <span class="stat-icon">💬</span>
+                <div class="stat-value" id="stat-conversations">0</div>
+                <div class="stat-label">Chats</div>
+            </div>
+            <div class="stat-card" id="stat-card-unread" onclick="showTab('conversations')" style="cursor:pointer;">
+                <span class="stat-icon">🔵</span>
+                <div class="stat-value" id="stat-unread">0</div>
+                <div class="stat-label">Unread</div>
+            </div>
+            <div class="stat-card" onclick="showTab('conversations')" style="cursor:pointer;">
+                <span class="stat-icon">⏳</span>
+                <div class="stat-value" id="stat-pending">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
         </div>
 
-        <!-- SEARCH (only for members tab) -->
-        <div class="admin-toolbar" id="admin-toolbar">
-            <input type="text" id="search-input" placeholder="🔍 Search members..." oninput="filterMembers()">
+        <!-- TABS -->
+        <div class="tabs-row">
+            <button class="tab-btn active" id="tab-btn-members" onclick="showTab('members')">
+                👥 Members
+                <span class="badge-count" id="tab-members-count">0</span>
+            </button>
+            <button class="tab-btn" id="tab-btn-conversations" onclick="showTab('conversations')">
+                💬 Conversations
+                <span class="badge-count" id="tab-conv-count">0</span>
+                <span class="unread-dot" id="tab-conv-unread" style="display:none;"></span>
+            </button>
         </div>
 
-        <!-- ADMIN MEMBERS TABLE -->
-        <div class="admin-table-wrapper" id="table-wrapper">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Member</th>
-                        <th>Gender</th>
-                        <th>Location</th>
-                        <th>Status</th>
-                        <th>Badges</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-table-body">
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                            <span class="loading-spinner"></span>
-                            <br><br>Loading members...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="admin-pagination" id="admin-pagination"></div>
-        </div>
+        <!-- ============================================================ -->
+        <!-- MEMBERS TAB -->
+        <!-- ============================================================ -->
+        <div id="tab-content-members">
+            <div class="filter-row">
+                <input type="text" class="search-input" id="search-members" placeholder="🔍 Search members..." oninput="filterMembers()">
+                <button class="btn-conv btn-conv-chat" style="flex:0 0 auto; padding:10px 16px; font-size:12px;" onclick="openAddModal()">
+                    ➕ Add
+                </button>
+            </div>
 
-        <!-- CONVERSATIONS -->
-        <div id="conversations-wrapper">
-            <div class="conv-list" id="conv-list">
-                <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
+            <div class="list-wrapper" id="members-list">
+                <div class="empty-state">
                     <span class="loading-spinner"></span>
-                    <br><br>Loading conversations...
+                    <p style="margin-top:10px;">Loading members...</p>
                 </div>
             </div>
-            <div class="admin-pagination" id="conversations-pagination"></div>
+
+            <div class="pagination-bar" id="members-pagination"></div>
         </div>
+
+        <!-- ============================================================ -->
+        <!-- CONVERSATIONS TAB -->
+        <!-- ============================================================ -->
+        <div id="tab-content-conversations" style="display:none;">
+            <div class="filter-row">
+                <input type="text" class="search-input" id="search-conv" placeholder="🔍 Search conversations..." oninput="filterConversations()">
+                <select class="filter-select" id="filter-status" onchange="filterConversations()">
+                    <option value="all">All</option>
+                    <option value="unread">🔵 Unread</option>
+                    <option value="open">🟢 Open</option>
+                    <option value="pending">🟡 Pending</option>
+                    <option value="closed">⚪ Closed</option>
+                </select>
+            </div>
+
+            <div class="list-wrapper" id="conversations-list">
+                <div class="empty-state">
+                    <span class="loading-spinner"></span>
+                    <p style="margin-top:10px;">Loading conversations...</p>
+                </div>
+            </div>
+
+            <div class="pagination-bar" id="conversations-pagination"></div>
+        </div>
+
     </main>
 
     <!-- MODAL -->
@@ -956,23 +1073,16 @@
 
                 <div class="form-group">
                     <label for="form-looking">Looking For</label>
-                    <input type="text" id="form-looking" placeholder="e.g. Serious Relationship, Friendship, Casual Dating">
+                    <input type="text" id="form-looking" placeholder="e.g. Serious Relationship, Friendship">
                 </div>
 
-                <div class="form-group file-upload-section">
+                <div class="form-group">
                     <label>Photos</label>
-                    <p class="hint">Select photos from your device to upload. You can upload multiple images.</p>
-
                     <div class="file-upload-zone" id="file-upload-zone">
                         <span class="icon">📸</span>
                         <p>Tap to select photos</p>
-                        <p style="font-size:11px;color:rgba(74,26,107,0.3);">JPG, PNG, GIF up to 5MB each</p>
                         <input type="file" id="file-input" accept="image/*" multiple onchange="handleFileSelect(event)">
-                        <div class="upload-progress">
-                            <div class="bar" id="upload-progress-bar"></div>
-                        </div>
                     </div>
-
                     <div class="uploaded-images" id="uploaded-images"></div>
                 </div>
 
@@ -1007,13 +1117,10 @@
     </div>
 
     <!-- TOAST -->
-    <div class="toast" id="toast">
-        <span class="toast-icon" id="toast-icon">✅</span>
-        <span id="toast-message">Member saved successfully!</span>
-    </div>
+    <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
-    <!-- SCRIPTS - Supabase                                           -->
+    <!-- SCRIPTS -->
     <!-- ============================================================ -->
     <script type="importmap">
         {
@@ -1034,20 +1141,15 @@
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         // ============================================================
-        // ADMIN HEARTBEAT — keeps admin "Online" for users
+        // ADMIN HEARTBEAT
         // ============================================================
         let heartbeatInterval = null;
-        let heartbeatActive = false;
         let consecutiveFailures = 0;
 
         async function sendHeartbeat() {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
-                if (!session || !session.user) {
-                    console.warn('💓 No session — skipping heartbeat');
-                    setHeartbeatStatus(false);
-                    return;
-                }
+                if (!session || !session.user) return;
 
                 const { error } = await supabase
                     .from('admin_status')
@@ -1058,34 +1160,24 @@
 
                 if (error) {
                     consecutiveFailures++;
-                    console.warn('💓 Heartbeat failed:', error.message);
                     if (consecutiveFailures >= 3) setHeartbeatStatus(false);
                 } else {
                     consecutiveFailures = 0;
-                    heartbeatActive = true;
                     setHeartbeatStatus(true);
                 }
-            } catch (err) {
-                console.warn('💓 Heartbeat error:', err);
-                consecutiveFailures++;
-                if (consecutiveFailures >= 3) setHeartbeatStatus(false);
-            }
+            } catch (err) {}
         }
 
         function startHeartbeat() {
             if (heartbeatInterval) clearInterval(heartbeatInterval);
             sendHeartbeat();
             heartbeatInterval = setInterval(sendHeartbeat, 20000);
-            console.log('💓 Heartbeat started (every 20s)');
         }
 
         function stopHeartbeat() {
-            if (heartbeatInterval) {
-                clearInterval(heartbeatInterval);
-                heartbeatInterval = null;
-            }
+            if (heartbeatInterval) clearInterval(heartbeatInterval);
+            heartbeatInterval = null;
             setHeartbeatStatus(false);
-            console.log('💓 Heartbeat stopped');
         }
 
         function setHeartbeatStatus(active) {
@@ -1101,23 +1193,8 @@
             }
         }
 
-        // Stop heartbeat when tab is hidden (optional pause to reduce writes)
-        document.addEventListener('visibilitychange', async function() {
-            if (document.hidden) {
-                // Send one last heartbeat so we're marked online as long as possible
-                sendHeartbeat();
-            } else {
-                // Came back — refresh heartbeat
-                sendHeartbeat();
-            }
-        });
-
-        // Send final heartbeat before closing
-        window.addEventListener('beforeunload', function() {
-            try {
-                const { data: { session } } = supabase.auth.getSession();
-                // can't await in beforeunload but the request will still fire
-            } catch (e) {}
+        document.addEventListener('visibilitychange', () => {
+            sendHeartbeat();
         });
 
         // ============================================================
@@ -1125,66 +1202,40 @@
         // ============================================================
         let adminMembers = [];
         let conversations = [];
-        let filteredAdminMembers = [];
+        let filteredMembers = [];
         let filteredConversations = [];
-        let currentPage = 1;
+        let currentMemberPage = 1;
         let currentConvPage = 1;
-        const perPage = 5;
-        const convPerPage = 5;
-        let isLoading = true;
-        let isLoadingConvs = true;
+        const membersPerPage = 10;
+        const convPerPage = 10;
+
+        let currentTab = 'members';
         let uploadedFileIds = [];
         let uploadedFileUrls = [];
         let editingId = null;
-        let currentTab = 'members';
         let currentAdmin = null;
 
-        const tbody = document.getElementById('admin-table-body');
-        const convList = document.getElementById('conv-list');
-        const paginationContainer = document.getElementById('admin-pagination');
-        const convPaginationContainer = document.getElementById('conversations-pagination');
-        const modalOverlay = document.getElementById('modal-overlay');
-        const memberForm = document.getElementById('member-form');
-        const editIdInput = document.getElementById('edit-id');
-        const toast = document.getElementById('toast');
-        const uploadedImagesContainer = document.getElementById('uploaded-images');
-        const fileInput = document.getElementById('file-input');
-        const uploadZone = document.getElementById('file-upload-zone');
-        const tableWrapper = document.getElementById('table-wrapper');
-        const conversationsWrapper = document.getElementById('conversations-wrapper');
-        const searchInput = document.getElementById('search-input');
-
         // ============================================================
-        // AUTH GUARD
+        // AUTH
         // ============================================================
         async function requireAdmin() {
-            try {
-                const { data: { session }, error } = await supabase.auth.getSession();
-                if (error || !session) {
-                    window.location.href = 'adminlogin.html';
-                    return false;
-                }
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) { window.location.href = 'adminlogin.html'; return false; }
 
-                const { data: adminRow, error: adminErr } = await supabase
-                    .from('admins')
-                    .select('id, email')
-                    .eq('id', session.user.id)
-                    .maybeSingle();
+            const { data: adminRow } = await supabase
+                .from('admins')
+                .select('id, email')
+                .eq('id', session.user.id)
+                .maybeSingle();
 
-                if (adminErr || !adminRow) {
-                    await supabase.auth.signOut();
-                    window.location.href = 'adminlogin.html';
-                    return false;
-                }
-
-                currentAdmin = adminRow;
-                console.log('✅ Admin verified:', adminRow.email);
-                return true;
-            } catch (err) {
-                console.error('Auth guard failed:', err);
+            if (!adminRow) {
+                await supabase.auth.signOut();
                 window.location.href = 'adminlogin.html';
                 return false;
             }
+
+            currentAdmin = adminRow;
+            return true;
         }
 
         // ============================================================
@@ -1196,12 +1247,9 @@
         window.closeMenu = function() {
             document.getElementById('menuDropdown').classList.remove('show');
         }
-
-        document.addEventListener('click', function(e) {
-            const container = document.querySelector('.menu-container');
-            if (container && !container.contains(e.target)) {
-                document.getElementById('menuDropdown').classList.remove('show');
-            }
+        document.addEventListener('click', (e) => {
+            const c = document.querySelector('.menu-container');
+            if (c && !c.contains(e.target)) closeMenu();
         });
 
         // ============================================================
@@ -1210,33 +1258,20 @@
         window.showTab = function(tab) {
             currentTab = tab;
 
-            if (tab === 'members') {
-                tableWrapper.style.display = 'block';
-                conversationsWrapper.style.display = 'none';
-                document.getElementById('page-title').textContent = 'Admin Panel';
-                document.getElementById('add-member-btn').style.display = 'flex';
-                document.getElementById('admin-toolbar').style.display = 'flex';
-                document.getElementById('tab-members-link').style.background = 'rgba(108,60,179,0.08)';
-                document.getElementById('tab-conversations-link').style.background = 'none';
-                renderTable();
-                renderPagination();
-            } else if (tab === 'conversations') {
-                tableWrapper.style.display = 'none';
-                conversationsWrapper.style.display = 'block';
-                document.getElementById('page-title').textContent = 'Conversations';
-                document.getElementById('add-member-btn').style.display = 'none';
-                document.getElementById('admin-toolbar').style.display = 'none';
-                document.getElementById('tab-conversations-link').style.background = 'rgba(108,60,179,0.08)';
-                document.getElementById('tab-members-link').style.background = 'none';
-                renderConversations();
-                renderConversationsPagination();
-            }
+            document.getElementById('tab-content-members').style.display = tab === 'members' ? 'block' : 'none';
+            document.getElementById('tab-content-conversations').style.display = tab === 'conversations' ? 'block' : 'none';
+
+            document.getElementById('tab-btn-members').classList.toggle('active', tab === 'members');
+            document.getElementById('tab-btn-conversations').classList.toggle('active', tab === 'conversations');
+
+            if (tab === 'members') renderMembers();
+            else renderConversations();
         }
 
         // ============================================================
-        // LOAD ADMIN MEMBERS
+        // LOAD MEMBERS
         // ============================================================
-        async function loadAdminMembers() {
+        async function loadMembers() {
             try {
                 const { data, error } = await supabase
                     .from('members')
@@ -1245,17 +1280,23 @@
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
-
                 adminMembers = data || [];
-                isLoading = false;
-                filteredAdminMembers = [...adminMembers];
-                document.getElementById('members-count').textContent = adminMembers.length;
-                console.log('📊 Admin Members loaded:', adminMembers.length);
-                filterMembers();
-            } catch (error) {
-                console.error('Error loading admin members:', error);
-                showToast('Error loading members: ' + error.message, 'error');
-                isLoading = false;
+                filteredMembers = [...adminMembers];
+
+                document.getElementById('stat-members').textContent = adminMembers.length;
+                document.getElementById('tab-members-count').textContent = adminMembers.length;
+
+                renderMembers();
+                updateStats();
+            } catch (err) {
+                console.error('Error loading members:', err);
+                document.getElementById('members-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">⚠️</div>
+                        <h3>Could not load members</h3>
+                        <p>Please refresh the page.</p>
+                    </div>
+                `;
             }
         }
 
@@ -1264,463 +1305,405 @@
         // ============================================================
         async function loadConversations() {
             try {
-                const { data, error } = await supabase
+                // Get conversations
+                const { data: convData, error: convErr } = await supabase
                     .from('conversations')
                     .select('*')
-                    .order('created_at', { ascending: false });
+                    .order('updated_at', { ascending: false });
 
-                if (error) throw error;
+                if (convErr) throw convErr;
 
-                conversations = data || [];
-                isLoadingConvs = false;
+                conversations = convData || [];
+
+                // For each conversation, get the last message
+                for (const conv of conversations) {
+                    const { data: msgs } = await supabase
+                        .from('messages')
+                        .select('text, sender_type, created_at, attachment_url, read_by_admin')
+                        .eq('conversation_id', conv.id)
+                        .order('created_at', { ascending: false })
+                        .limit(1);
+
+                    if (msgs && msgs[0]) {
+                        conv.lastMessage = msgs[0];
+                    } else {
+                        conv.lastMessage = null;
+                    }
+
+                    // Count unread (from user, unread by admin)
+                    const { count } = await supabase
+                        .from('messages')
+                        .select('*', { count: 'exact', head: true })
+                        .eq('conversation_id', conv.id)
+                        .eq('sender_type', 'user')
+                        .eq('read_by_admin', false);
+
+                    conv.unreadCount = count || 0;
+                }
+
                 filteredConversations = [...conversations];
-                document.getElementById('conversations-count').textContent = conversations.length;
-                console.log('💬 Conversations loaded:', conversations.length);
+
+                document.getElementById('stat-conversations').textContent = conversations.length;
+                document.getElementById('tab-conv-count').textContent = conversations.length;
+
+                updateStats();
                 renderConversations();
-                renderConversationsPagination();
-            } catch (error) {
-                console.error('Error loading conversations:', error);
-                showToast('Error loading conversations: ' + error.message, 'error');
-                isLoadingConvs = false;
+            } catch (err) {
+                console.error('Error loading conversations:', err);
+                document.getElementById('conversations-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">⚠️</div>
+                        <h3>Could not load conversations</h3>
+                        <p>Please refresh the page.</p>
+                    </div>
+                `;
             }
+        }
+
+        // ============================================================
+        // UPDATE STATS
+        // ============================================================
+        function updateStats() {
+            const unread = conversations.reduce((sum, c) => sum + (c.unreadCount || 0), 0);
+            const pending = conversations.filter(c => c.status === 'pending').length;
+
+            document.getElementById('stat-unread').textContent = unread;
+            document.getElementById('stat-pending').textContent = pending;
+
+            // Show pulse dot on unread stat card
+            const unreadCard = document.getElementById('stat-card-unread');
+            if (unread > 0) unreadCard.classList.add('has-unread');
+            else unreadCard.classList.remove('has-unread');
+
+            // Show unread dot on conversations tab
+            document.getElementById('tab-conv-unread').style.display = unread > 0 ? 'block' : 'none';
         }
 
         // ============================================================
         // FILTER MEMBERS
         // ============================================================
         window.filterMembers = function() {
-            const search = document.getElementById('search-input').value.toLowerCase().trim();
-
-            filteredAdminMembers = adminMembers.filter(m => {
-                return (m.name || '').toLowerCase().includes(search) ||
-                    (m.current_location || '').toLowerCase().includes(search) ||
-                    (m.home_country || '').toLowerCase().includes(search) ||
-                    (m.occupation || '').toLowerCase().includes(search);
-            });
-
-            currentPage = 1;
-            if (currentTab === 'members') {
-                renderTable();
-                renderPagination();
-            }
+            const q = (document.getElementById('search-members').value || '').toLowerCase().trim();
+            filteredMembers = adminMembers.filter(m =>
+                (m.name || '').toLowerCase().includes(q) ||
+                (m.current_location || '').toLowerCase().includes(q) ||
+                (m.home_country || '').toLowerCase().includes(q) ||
+                (m.occupation || '').toLowerCase().includes(q)
+            );
+            currentMemberPage = 1;
+            renderMembers();
         }
 
         // ============================================================
-        // RENDER ADMIN MEMBERS TABLE
+        // FILTER CONVERSATIONS
         // ============================================================
-        function renderTable() {
-            if (isLoading) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                            <span class="loading-spinner"></span>
-                            <br><br>Loading members...
-                        </td>
-                    </tr>
+        window.filterConversations = function() {
+            const q = (document.getElementById('search-conv').value || '').toLowerCase().trim();
+            const status = document.getElementById('filter-status').value;
+
+            filteredConversations = conversations.filter(c => {
+                const matchesSearch =
+                    (c.full_name || '').toLowerCase().includes(q) ||
+                    (c.email || '').toLowerCase().includes(q) ||
+                    (c.member_name || '').toLowerCase().includes(q) ||
+                    (c.whatsapp_no || '').includes(q);
+
+                let matchesStatus = true;
+                if (status === 'unread') matchesStatus = (c.unreadCount || 0) > 0;
+                else if (status !== 'all') matchesStatus = c.status === status;
+
+                return matchesSearch && matchesStatus;
+            });
+
+            currentConvPage = 1;
+            renderConversations();
+        }
+
+        // ============================================================
+        // RENDER MEMBERS
+        // ============================================================
+        function renderMembers() {
+            const container = document.getElementById('members-list');
+
+            if (filteredMembers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">👥</div>
+                        <h3>No members yet</h3>
+                        <p>Tap "Add" to create your first member.</p>
+                    </div>
                 `;
+                document.getElementById('members-pagination').innerHTML = '';
                 return;
             }
 
-            const start = (currentPage - 1) * perPage;
-            const pageMembers = filteredAdminMembers.slice(start, start + perPage);
+            const totalPages = Math.ceil(filteredMembers.length / membersPerPage);
+            const start = (currentMemberPage - 1) * membersPerPage;
+            const page = filteredMembers.slice(start, start + membersPerPage);
 
-            if (pageMembers.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6">
-                            <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                                <div style="font-size:48px;margin-bottom:12px;">👥</div>
-                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No members yet</h3>
-                                <p style="color:rgba(74,26,107,0.4);">Add members using the "Add New Member" button.</p>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            tbody.innerHTML = pageMembers.map(m => {
-                let mainPhoto = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(m.name || 'User') + '&background=6c3cb3&color=fff&size=100';
+            container.innerHTML = page.map(m => {
+                let photo = `https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'User')}&background=6c3cb3&color=fff&size=100`;
                 if (m.photo_file_ids && m.photo_file_ids.length > 0) {
                     const { data } = supabase.storage.from('member_photos').getPublicUrl(m.photo_file_ids[0]);
-                    if (data && data.publicUrl) mainPhoto = data.publicUrl;
+                    if (data && data.publicUrl) photo = data.publicUrl;
                 }
-                const totalPhotos = (m.photo_file_ids || []).length;
 
-                const statusHTML = m.online ? '<span class="status-dot online"></span> Online' : '<span class="status-dot offline"></span> Offline';
-                const badgesHTML = `
-                    ${m.verified ? '<span class="badge-small badge-small--verified">✅ Verified</span>' : ''}
-                    ${m.premium ? '<span class="badge-small badge-small--premium">⭐ Premium</span>' : ''}
-                    ${totalPhotos > 0 ? `<span class="badge-small" style="background:rgba(108,60,179,0.06);color:#4a1a6b;">📸 ${totalPhotos}</span>` : ''}
-                `;
-
-                const locationDisplay = m.current_location || '—';
+                const badges = [
+                    m.verified ? '<span class="badge-mini badge-mini-verified">✅</span>' : '',
+                    m.premium ? '<span class="badge-mini badge-mini-premium">⭐</span>' : '',
+                    m.photo_file_ids && m.photo_file_ids.length > 0
+                        ? `<span class="badge-mini badge-mini-photos">📸 ${m.photo_file_ids.length}</span>`
+                        : ''
+                ].filter(Boolean).join(' ');
 
                 return `
-                    <tr>
-                        <td data-label="Member">
-                            <div class="member-cell">
-                                <img src="${mainPhoto}" alt="${m.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'User')}&background=6c3cb3&color=fff&size=100'">
-                                <div>
-                                    <div class="name">${m.name || 'Unknown'}</div>
-                                    <div class="email">${m.occupation || m.email || '—'}</div>
-                                </div>
+                    <div class="member-card-item">
+                        <img src="${photo}" alt="${m.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'User')}&background=6c3cb3&color=fff&size=100'">
+                        <div class="member-card-info">
+                            <div class="member-card-name">
+                                ${escapeHtml(m.name || 'Unknown')}
+                                ${badges}
                             </div>
-                        </td>
-                        <td data-label="Gender">${m.gender === 'male' ? '👨 Male' : m.gender === 'female' ? '👩 Female' : '—'}</td>
-                        <td data-label="Location">${locationDisplay}</td>
-                        <td data-label="Status">${statusHTML}</td>
-                        <td data-label="Badges">${badgesHTML}</td>
-                        <td data-label="Actions">
-                            <div class="actions-cell">
-                                <button class="btn-action btn-edit" onclick="window.openEditModal('${m.id}')">✏️ Edit</button>
-                                <button class="btn-action btn-delete" onclick="window.deleteMember('${m.id}')">🗑️ Delete</button>
+                            <div class="member-card-meta">
+                                <span>${m.age ? '🎂 ' + m.age : ''}</span>
+                                <span>${m.current_location ? '📍 ' + escapeHtml(m.current_location) : ''}</span>
+                                <span>${m.occupation ? '💼 ' + escapeHtml(m.occupation) : ''}</span>
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                        <div class="member-card-actions">
+                            <button class="btn-mini btn-mini-edit" onclick="openEditModal('${m.id}')">✏️</button>
+                            <button class="btn-mini btn-mini-delete" onclick="deleteMember('${m.id}')">🗑️</button>
+                        </div>
+                    </div>
                 `;
             }).join('');
+
+            renderMembersPagination(totalPages);
         }
 
         // ============================================================
         // RENDER CONVERSATIONS
         // ============================================================
         function renderConversations() {
-            if (isLoadingConvs) {
-                convList.innerHTML = `
-                    <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                        <span class="loading-spinner"></span>
-                        <br><br>Loading conversations...
+            const container = document.getElementById('conversations-list');
+
+            if (filteredConversations.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">💬</div>
+                        <h3>No conversations</h3>
+                        <p>When users tap "Connect", their details appear here.</p>
                     </div>
                 `;
+                document.getElementById('conversations-pagination').innerHTML = '';
                 return;
             }
 
+            const totalPages = Math.ceil(filteredConversations.length / convPerPage);
             const start = (currentConvPage - 1) * convPerPage;
-            const pageConvs = filteredConversations.slice(start, start + convPerPage);
+            const page = filteredConversations.slice(start, start + convPerPage);
 
-            if (pageConvs.length === 0) {
-                convList.innerHTML = `
-                    <div style="text-align:center;padding:60px 20px;color:rgba(74,26,107,0.3);">
-                        <div style="font-size:48px;margin-bottom:12px;">💬</div>
-                        <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No conversations yet</h3>
-                        <p style="color:rgba(74,26,107,0.4);">When users click "Connect" on a member profile, their details will appear here.</p>
-                    </div>
-                `;
-                return;
-            }
+            container.innerHTML = page.map(c => {
+                const isUnread = (c.unreadCount || 0) > 0;
+                const statusClass = c.status === 'open' ? 'open' : c.status === 'pending' ? 'pending' : 'closed';
+                const statusLabel = c.status === 'open' ? '🟢 Open' : c.status === 'pending' ? '🟡 Pending' : '⚪ Closed';
 
-            convList.innerHTML = pageConvs.map(c => {
-                const statusClass = c.status === 'open' ? 'badge-small--open'
-                    : c.status === 'pending' ? 'badge-small--pending'
-                    : 'badge-small--closed';
-                const statusLabel = c.status === 'open' ? '🟢 Open'
-                    : c.status === 'pending' ? '🟡 Pending'
-                    : '⚪ Closed';
+                const timeAgo = c.lastMessage?.created_at
+                    ? formatTimeAgo(new Date(c.lastMessage.created_at))
+                    : formatTimeAgo(new Date(c.created_at));
 
-                const createdDate = c.created_at ? new Date(c.created_at).toLocaleString() : '—';
-
-                let photosHTML = '';
-                if (c.user_photo_ids && c.user_photo_ids.length > 0) {
-                    photosHTML = `<div class="conv-card__photos">${
-                        c.user_photo_ids.map(id => {
-                            const { data } = supabase.storage.from('user_uploads').getPublicUrl(id);
-                            return data && data.publicUrl
-                                ? `<img src="${data.publicUrl}" alt="User photo" onerror="this.style.display='none'">`
-                                : '';
-                        }).join('')
-                    }</div>`;
+                // Last message preview
+                let previewHTML = '';
+                if (c.lastMessage) {
+                    const senderTag = c.lastMessage.sender_type === 'user' ? '👤 User' : '🛡️ You';
+                    const senderClass = c.lastMessage.sender_type === 'user' ? 'user' : 'admin';
+                    let text = c.lastMessage.text || '';
+                    if (!text && c.lastMessage.attachment_url) text = '📸 Photo';
+                    previewHTML = `
+                        <div class="conv-preview ${senderClass}">
+                            <span class="sender-tag">${senderTag}:</span>
+                            <span class="conv-preview-text">${escapeHtml(text)}</span>
+                        </div>
+                    `;
+                } else {
+                    previewHTML = `
+                        <div class="conv-preview">
+                            <span class="conv-preview-text" style="font-style:italic;opacity:0.6;">No messages yet</span>
+                        </div>
+                    `;
                 }
 
                 return `
-                    <div class="conv-card" onclick="openChat('${c.id}')">
-                        <div class="conv-card__top">
-                            <div class="conv-card__name">👤 ${c.full_name || 'Unknown'}</div>
-                            <div class="conv-card__status">
-                                <span class="badge-small ${statusClass}">${statusLabel}</span>
-                            </div>
+                    <div class="conv-card ${isUnread ? 'unread' : ''}" onclick="openChat('${c.id}')">
+                        <div class="conv-top">
+                            <div class="conv-name">👤 ${escapeHtml(c.full_name || 'Unknown')}</div>
+                            <span class="conv-status ${statusClass}">${statusLabel}</span>
+                            <span class="conv-time">${timeAgo}</span>
                         </div>
 
-                        <div class="conv-card__info">
-                            <div class="conv-card__info-item">
-                                <span class="icon">📧</span>
-                                <span class="label">Email:</span> ${c.email || '—'}
-                            </div>
-                            <div class="conv-card__info-item">
-                                <span class="icon">📱</span>
-                                <span class="label">WhatsApp:</span> ${c.whatsapp_no || '—'}
-                            </div>
-                            <div class="conv-card__info-item">
-                                <span class="icon">💎</span>
-                                <span class="label">Wants:</span> ${c.member_name || '—'}
-                            </div>
-                            <div class="conv-card__info-item">
-                                <span class="icon">🎂</span>
-                                <span class="label">Age:</span> ${c.age || '—'}
-                            </div>
-                            <div class="conv-card__info-item">
-                                <span class="icon">📍</span>
-                                <span class="label">Location:</span> ${c.location || '—'}
-                            </div>
-                            <div class="conv-card__info-item">
-                                <span class="icon">💼</span>
-                                <span class="label">Occupation:</span> ${c.occupation || '—'}
-                            </div>
-                            <div class="conv-card__info-item">
-                                <span class="icon">⏱</span>
-                                <span class="label">Submitted:</span> ${createdDate}
-                            </div>
+                        <div class="conv-info">
+                            <span class="wants">💎 Wants: <strong>${escapeHtml(c.member_name || '—')}</strong></span>
+                            ${c.whatsapp_no ? `<span>📱 ${escapeHtml(c.whatsapp_no)}</span>` : ''}
+                            ${c.location ? `<span>📍 ${escapeHtml(c.location)}</span>` : ''}
                         </div>
 
-                        ${photosHTML}
+                        ${previewHTML}
 
-                        <div class="conv-card__actions">
-                            <button class="btn-action btn-chat" onclick="event.stopPropagation(); openChat('${c.id}')">
+                        <div class="conv-actions">
+                            <button class="btn-conv btn-conv-chat" onclick="event.stopPropagation(); openChat('${c.id}')">
                                 💬 Open Chat
                             </button>
-                            <button class="btn-action btn-delete" onclick="event.stopPropagation(); deleteConversation('${c.id}', '${(c.full_name || 'this conversation').replace(/'/g, "\\'")}')">
-                                🗑️ Delete
+                            <button class="btn-conv btn-conv-delete" onclick="event.stopPropagation(); deleteConversation('${c.id}', '${(c.full_name || '').replace(/'/g, "\\'")}')">
+                                🗑️
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
+
+            renderConversationsPagination(totalPages);
         }
 
         // ============================================================
-        // OPEN CHAT
+        // TIME AGO
         // ============================================================
-        window.openChat = function(conversationId) {
-            window.location.href = `chat.html?conversation=${conversationId}`;
-        }
-
-        // ============================================================
-        // DELETE CONVERSATION
-        // ============================================================
-        window.deleteConversation = async function(id, name) {
-            if (!confirm(`Delete conversation with ${name}? This will also delete all messages.`)) return;
-
-            try {
-                const conv = conversations.find(c => c.id === id);
-
-                if (conv && conv.user_photo_ids && conv.user_photo_ids.length > 0) {
-                    await supabase.storage.from('user_uploads').remove(conv.user_photo_ids);
-                }
-
-                const { error } = await supabase
-                    .from('conversations')
-                    .delete()
-                    .eq('id', id);
-
-                if (error) throw error;
-
-                showToast(`🗑️ Conversation deleted.`, 'success');
-                await loadConversations();
-            } catch (error) {
-                console.error('Delete error:', error);
-                showToast('Error deleting: ' + error.message, 'error');
-            }
+        function formatTimeAgo(date) {
+            const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+            if (seconds < 60) return 'just now';
+            const mins = Math.floor(seconds / 60);
+            if (mins < 60) return mins + 'm ago';
+            const hours = Math.floor(mins / 60);
+            if (hours < 24) return hours + 'h ago';
+            const days = Math.floor(hours / 24);
+            if (days === 1) return 'yesterday';
+            if (days < 7) return days + 'd ago';
+            return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
         }
 
         // ============================================================
         // PAGINATION
         // ============================================================
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredAdminMembers.length / perPage);
-            if (totalPages <= 1) { paginationContainer.innerHTML = ''; return; }
-
-            let html = `<button onclick="window.goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
-            for (let i = 1; i <= Math.min(totalPages, 5); i++) {
-                html += `<button class="${i === currentPage ? 'active' : ''}" onclick="window.goToPage(${i})">${i}</button>`;
+        function renderMembersPagination(totalPages) {
+            const el = document.getElementById('members-pagination');
+            if (totalPages <= 1) { el.innerHTML = ''; return; }
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === currentMemberPage ? 'active' : ''}" onclick="goToMemberPage(${i})">${i}</button>`;
             }
-            if (totalPages > 5) {
-                html += `<span style="color:rgba(74,26,107,0.15);padding:6px;">…</span>`;
-                html += `<button onclick="window.goToPage(${totalPages})">${totalPages}</button>`;
-            }
-            html += `<button onclick="window.goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
-            paginationContainer.innerHTML = html;
+            el.innerHTML = html;
         }
 
-        function renderConversationsPagination() {
-            const totalPages = Math.ceil(filteredConversations.length / convPerPage);
-            if (totalPages <= 1) { convPaginationContainer.innerHTML = ''; return; }
-
-            let html = `<button onclick="window.goToConvPage(${currentConvPage - 1})" ${currentConvPage === 1 ? 'disabled' : ''}>‹</button>`;
-            for (let i = 1; i <= Math.min(totalPages, 5); i++) {
-                html += `<button class="${i === currentConvPage ? 'active' : ''}" onclick="window.goToConvPage(${i})">${i}</button>`;
+        function renderConversationsPagination(totalPages) {
+            const el = document.getElementById('conversations-pagination');
+            if (totalPages <= 1) { el.innerHTML = ''; return; }
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === currentConvPage ? 'active' : ''}" onclick="goToConvPage(${i})">${i}</button>`;
             }
-            if (totalPages > 5) {
-                html += `<span style="color:rgba(74,26,107,0.15);padding:6px;">…</span>`;
-                html += `<button onclick="window.goToConvPage(${totalPages})">${totalPages}</button>`;
-            }
-            html += `<button onclick="window.goToConvPage(${currentConvPage + 1})" ${currentConvPage === totalPages ? 'disabled' : ''}>›</button>`;
-            convPaginationContainer.innerHTML = html;
+            el.innerHTML = html;
         }
 
-        window.goToPage = function(page) {
-            const totalPages = Math.ceil(filteredAdminMembers.length / perPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderTable();
-            renderPagination();
-        }
+        window.goToMemberPage = (p) => { currentMemberPage = p; renderMembers(); };
+        window.goToConvPage = (p) => { currentConvPage = p; renderConversations(); };
 
-        window.goToConvPage = function(page) {
-            const totalPages = Math.ceil(filteredConversations.length / convPerPage);
-            if (page < 1 || page > totalPages) return;
-            currentConvPage = page;
-            renderConversations();
-            renderConversationsPagination();
+        // ============================================================
+        // OPEN CHAT
+        // ============================================================
+        window.openChat = (id) => {
+            window.location.href = `chat.html?conversation=${id}`;
         }
 
         // ============================================================
-        // FILE UPLOAD
+        // DELETE CONVERSATION
         // ============================================================
-        window.handleFileSelect = async function(event) {
-            const files = event.target.files;
-            if (!files || files.length === 0) return;
-
-            const zone = document.getElementById('file-upload-zone');
-            const progressBar = document.getElementById('upload-progress-bar');
-            zone.classList.add('uploading');
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                if (file.size > 5 * 1024 * 1024) {
-                    showToast(`⚠️ ${file.name} too large (max 5MB)`, 'error');
-                    continue;
+        window.deleteConversation = async (id, name) => {
+            if (!confirm(`Delete conversation with ${name}? All messages will also be deleted.`)) return;
+            try {
+                const conv = conversations.find(c => c.id === id);
+                if (conv?.user_photo_ids?.length) {
+                    await supabase.storage.from('user_uploads').remove(conv.user_photo_ids);
                 }
-                if (!file.type.startsWith('image/')) {
-                    showToast(`⚠️ ${file.name} is not an image`, 'error');
-                    continue;
-                }
-
-                try {
-                    const fileExt = file.name.split('.').pop();
-                    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 10)}.${fileExt}`;
-
-                    const { data, error } = await supabase.storage
-                        .from('member_photos')
-                        .upload(fileName, file);
-
-                    if (error) throw error;
-
-                    uploadedFileIds.push(data.path);
-
-                    const { data: urlData } = supabase.storage
-                        .from('member_photos')
-                        .getPublicUrl(data.path);
-
-                    if (urlData && urlData.publicUrl) {
-                        uploadedFileUrls.push(urlData.publicUrl);
-                    }
-
-                    const progress = ((i + 1) / files.length) * 100;
-                    progressBar.style.width = progress + '%';
-                    renderUploadedImages();
-                    showToast(`✅ ${file.name} uploaded!`, 'success');
-                } catch (error) {
-                    console.error('Upload error:', error);
-                    showToast(`❌ Failed: ${error.message}`, 'error');
-                }
+                await supabase.from('conversations').delete().eq('id', id);
+                showToast('🗑️ Conversation deleted', 'success');
+                await loadConversations();
+            } catch (err) {
+                showToast('Error: ' + err.message, 'error');
             }
-
-            zone.classList.remove('uploading');
-            progressBar.style.width = '0%';
-            fileInput.value = '';
-        }
-
-        function renderUploadedImages() {
-            if (uploadedFileUrls.length === 0) { uploadedImagesContainer.innerHTML = ''; return; }
-            uploadedImagesContainer.innerHTML = uploadedFileUrls.map((url, index) => `
-                <div class="uploaded-image-item">
-                    <img src="${url}" alt="Photo ${index + 1}">
-                    <button class="remove-image-btn" onclick="window.removeUploadedImage(${index})">✕</button>
-                </div>
-            `).join('');
-        }
-
-        window.removeUploadedImage = function(index) {
-            uploadedFileIds.splice(index, 1);
-            uploadedFileUrls.splice(index, 1);
-            renderUploadedImages();
-            showToast('🗑️ Image removed', 'success');
         }
 
         // ============================================================
-        // MODAL / CRUD
+        // MODAL — ADD/EDIT MEMBER
         // ============================================================
-        window.openAddModal = function() {
+        window.openAddModal = () => {
             editingId = null;
             document.getElementById('modal-title').textContent = 'Add New Member';
             document.getElementById('modal-subtitle').textContent = 'Fill in the details to add a new member.';
             document.getElementById('modal-save-btn').textContent = '💾 Save Member';
-            memberForm.reset();
-            editIdInput.value = '';
+            document.getElementById('member-form').reset();
+            document.getElementById('edit-id').value = '';
             uploadedFileIds = [];
             uploadedFileUrls = [];
             renderUploadedImages();
-            modalOverlay.classList.add('active');
+            document.getElementById('modal-overlay').classList.add('active');
             closeMenu();
         }
 
-        window.openEditModal = async function(id) {
-            const member = adminMembers.find(m => m.id === id);
-            if (!member) { showToast('Member not found', 'error'); return; }
+        window.openEditModal = (id) => {
+            const m = adminMembers.find(x => x.id === id);
+            if (!m) return;
 
             editingId = id;
             document.getElementById('modal-title').textContent = 'Edit Member';
             document.getElementById('modal-subtitle').textContent = 'Update the member details below.';
             document.getElementById('modal-save-btn').textContent = '💾 Update Member';
 
-            editIdInput.value = id;
-            document.getElementById('form-name').value = member.name || '';
-            document.getElementById('form-age').value = member.age || '';
-            document.getElementById('form-gender').value = member.gender || '';
-            document.getElementById('form-current-location').value = member.current_location || '';
-            document.getElementById('form-home-country').value = member.home_country || '';
-            document.getElementById('form-occupation').value = member.occupation || '';
-            document.getElementById('form-bio').value = member.bio || member.about_me || '';
-            document.getElementById('form-looking').value = member.looking_for || '';
-            document.getElementById('form-verified').value = member.verified ? 'true' : 'false';
-            document.getElementById('form-premium').value = member.premium ? 'true' : 'false';
-            document.getElementById('form-interests').value = (member.interests || []).join(', ');
+            document.getElementById('edit-id').value = id;
+            document.getElementById('form-name').value = m.name || '';
+            document.getElementById('form-age').value = m.age || '';
+            document.getElementById('form-gender').value = m.gender || '';
+            document.getElementById('form-current-location').value = m.current_location || '';
+            document.getElementById('form-home-country').value = m.home_country || '';
+            document.getElementById('form-occupation').value = m.occupation || '';
+            document.getElementById('form-bio').value = m.bio || m.about_me || '';
+            document.getElementById('form-looking').value = m.looking_for || '';
+            document.getElementById('form-verified').value = m.verified ? 'true' : 'false';
+            document.getElementById('form-premium').value = m.premium ? 'true' : 'false';
+            document.getElementById('form-interests').value = (m.interests || []).join(', ');
 
-            uploadedFileIds = member.photo_file_ids || [];
+            uploadedFileIds = m.photo_file_ids || [];
             uploadedFileUrls = [];
-            for (const fileId of uploadedFileIds) {
-                const { data } = supabase.storage.from('member_photos').getPublicUrl(fileId);
-                if (data && data.publicUrl) uploadedFileUrls.push(data.publicUrl);
+            for (const fid of uploadedFileIds) {
+                const { data } = supabase.storage.from('member_photos').getPublicUrl(fid);
+                if (data?.publicUrl) uploadedFileUrls.push(data.publicUrl);
             }
             renderUploadedImages();
-            modalOverlay.classList.add('active');
+            document.getElementById('modal-overlay').classList.add('active');
             closeMenu();
         }
 
-        window.closeModal = function() {
-            modalOverlay.classList.remove('active');
+        window.closeModal = () => {
+            document.getElementById('modal-overlay').classList.remove('active');
             uploadedFileIds = [];
             uploadedFileUrls = [];
             renderUploadedImages();
         }
 
-        window.saveMember = async function(event) {
+        // ============================================================
+        // SAVE MEMBER
+        // ============================================================
+        window.saveMember = async (event) => {
             event.preventDefault();
-
-            const editId = editIdInput.value;
-            const isEdit = !!editId;
-            let existingMember = isEdit ? adminMembers.find(m => m.id === editId) : null;
+            const id = document.getElementById('edit-id').value;
+            const isEdit = !!id;
+            const existing = isEdit ? adminMembers.find(m => m.id === id) : null;
 
             const name = document.getElementById('form-name').value.trim();
-            const interestsArray = document.getElementById('form-interests').value
+            const interests = document.getElementById('form-interests').value
                 .split(',').map(s => s.trim()).filter(Boolean);
 
-            const email = `${name.toLowerCase().replace(/\s/g, '.')}_${Date.now()}@classydate.com`;
-            const isVerified = document.getElementById('form-verified').value === 'true';
-
-            const formData = {
-                name: name,
-                email: email,
+            const data = {
+                name,
+                email: `${name.toLowerCase().replace(/\s/g, '.')}_${Date.now()}@classydate.com`,
                 age: parseInt(document.getElementById('form-age').value),
                 gender: document.getElementById('form-gender').value,
                 current_location: document.getElementById('form-current-location').value.trim(),
@@ -1728,77 +1711,114 @@
                 occupation: document.getElementById('form-occupation').value.trim(),
                 bio: document.getElementById('form-bio').value.trim(),
                 looking_for: document.getElementById('form-looking').value.trim(),
-                verified: isVerified,
+                verified: document.getElementById('form-verified').value === 'true',
                 premium: document.getElementById('form-premium').value === 'true',
-                interests: interestsArray,
-                photo_file_ids: uploadedFileIds
+                interests,
+                photo_file_ids: uploadedFileIds,
+                online: existing?.online || false,
+                created_at: existing?.created_at || new Date().toISOString()
             };
 
-            if (isEdit && existingMember) {
-                formData.online = existingMember.online || false;
-                formData.created_at = existingMember.created_at || new Date().toISOString();
-            } else {
-                formData.online = false;
-                formData.created_at = new Date().toISOString();
-            }
-
-            if (!formData.name || !formData.age || !formData.gender) {
-                showToast('Please fill in all required fields.', 'error');
+            if (!data.name || !data.age || !data.gender) {
+                showToast('Please fill in required fields', 'error');
                 return;
             }
 
             try {
                 if (isEdit) {
-                    const { error } = await supabase.from('members').update(formData).eq('id', editId);
-                    if (error) throw error;
-                    showToast(`✅ ${formData.name} updated!`, 'success');
+                    await supabase.from('members').update(data).eq('id', id);
+                    showToast('✅ Member updated', 'success');
                 } else {
-                    const { error } = await supabase.from('members').insert([formData]);
-                    if (error) throw error;
-                    showToast(`✅ ${formData.name} added!`, 'success');
+                    await supabase.from('members').insert([data]);
+                    showToast('✅ Member added', 'success');
                 }
-
                 closeModal();
-                memberForm.reset();
-                uploadedFileIds = [];
-                uploadedFileUrls = [];
-                renderUploadedImages();
-                await loadAdminMembers();
-                filterMembers();
-            } catch (error) {
-                console.error('❌ Save error:', error);
-                showToast('Error saving: ' + error.message, 'error');
+                await loadMembers();
+                showTab('members');
+            } catch (err) {
+                showToast('Error: ' + err.message, 'error');
             }
         }
 
-        window.deleteMember = async function(id) {
-            const member = adminMembers.find(m => m.id === id);
-            if (!member) return;
+        // ============================================================
+        // DELETE MEMBER
+        // ============================================================
+        window.deleteMember = async (id) => {
+            const m = adminMembers.find(x => x.id === id);
+            if (!m) return;
+            if (!confirm(`Delete ${m.name}? This cannot be undone.`)) return;
 
-            if (confirm(`Delete ${member.name}? This cannot be undone.`)) {
+            try {
+                if (m.photo_file_ids?.length) {
+                    await supabase.storage.from('member_photos').remove(m.photo_file_ids);
+                }
+                await supabase.from('members').delete().eq('id', id);
+                showToast('🗑️ Member deleted', 'success');
+                await loadMembers();
+            } catch (err) {
+                showToast('Error: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // FILE UPLOAD
+        // ============================================================
+        window.handleFileSelect = async (event) => {
+            const files = event.target.files;
+            if (!files?.length) return;
+
+            for (const file of files) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast(`${file.name} too large (max 5MB)`, 'error');
+                    continue;
+                }
+                if (!file.type.startsWith('image/')) {
+                    showToast(`${file.name} is not an image`, 'error');
+                    continue;
+                }
+
                 try {
-                    if (member.photo_file_ids && member.photo_file_ids.length > 0) {
-                        await supabase.storage.from('member_photos').remove(member.photo_file_ids);
-                    }
-                    const { error } = await supabase.from('members').delete().eq('id', id);
+                    const ext = file.name.split('.').pop();
+                    const fname = `${Date.now()}_${Math.random().toString(36).substring(2, 10)}.${ext}`;
+                    const { data, error } = await supabase.storage
+                        .from('member_photos')
+                        .upload(fname, file);
                     if (error) throw error;
-                    showToast(`🗑️ ${member.name} deleted.`, 'success');
-                    await loadAdminMembers();
-                    filterMembers();
-                } catch (error) {
-                    showToast('Error deleting: ' + error.message, 'error');
+
+                    uploadedFileIds.push(data.path);
+                    const { data: urlData } = supabase.storage.from('member_photos').getPublicUrl(data.path);
+                    if (urlData?.publicUrl) uploadedFileUrls.push(urlData.publicUrl);
+                    renderUploadedImages();
+                } catch (err) {
+                    showToast('Upload failed: ' + err.message, 'error');
                 }
             }
+            document.getElementById('file-input').value = '';
+        }
+
+        function renderUploadedImages() {
+            const el = document.getElementById('uploaded-images');
+            if (uploadedFileUrls.length === 0) { el.innerHTML = ''; return; }
+            el.innerHTML = uploadedFileUrls.map((url, i) => `
+                <div class="uploaded-image-item">
+                    <img src="${url}" alt="Photo ${i + 1}">
+                    <button type="button" class="remove-image-btn" onclick="removeUploadedImage(${i})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        window.removeUploadedImage = (i) => {
+            uploadedFileIds.splice(i, 1);
+            uploadedFileUrls.splice(i, 1);
+            renderUploadedImages();
         }
 
         // ============================================================
         // LOGOUT
         // ============================================================
-        window.logoutAdmin = async function() {
+        window.logoutAdmin = async () => {
             stopHeartbeat();
-            try {
-                await supabase.auth.signOut();
-            } catch (e) {}
+            try { await supabase.auth.signOut(); } catch (e) {}
             window.location.href = 'adminlogin.html';
         }
 
@@ -1806,40 +1826,51 @@
         // TOAST
         // ============================================================
         let toastTimeout;
-        function showToast(message, type = 'success') {
-            const icon = document.getElementById('toast-icon');
-            const msg = document.getElementById('toast-message');
-            toast.className = 'toast ' + type;
-            icon.textContent = type === 'success' ? '✅' : '⚠️';
-            msg.textContent = message;
-            toast.classList.add('show');
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast ' + type;
+            t.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3500);
+            toastTimeout = setTimeout(() => t.classList.remove('show'), 3200);
+        }
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
 
         // ============================================================
         // INIT
         // ============================================================
-        modalOverlay.addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-overlay') closeModal();
         });
 
         (async function init() {
             const ok = await requireAdmin();
             if (!ok) return;
 
-            // ✅ Start the heartbeat so users see you as Online
             startHeartbeat();
 
-            await loadAdminMembers();
+            await loadMembers();
             await loadConversations();
             showTab('members');
 
-            console.log('💎 ClassyDate Admin Panel — NEW BACKEND');
-            console.log('✅ Supabase:', SUPABASE_URL);
-            console.log('✅ Members:', adminMembers.length);
-            console.log('✅ Conversations:', conversations.length);
-            console.log('💓 Heartbeat active (every 20s)');
+            // Auto-refresh conversations every 30s
+            setInterval(() => {
+                if (currentTab === 'conversations') {
+                    loadConversations();
+                }
+            }, 30000);
         })();
     </script>
 

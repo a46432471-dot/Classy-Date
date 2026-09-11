@@ -144,6 +144,32 @@
             font-weight: 700;
         }
 
+        /* HEARTBEAT INDICATOR */
+        .heartbeat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            margin-right: 8px;
+        }
+        .heartbeat-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse-dot 1.5s infinite;
+        }
+        .heartbeat-badge.stopped {
+            background: rgba(173, 181, 189, 0.15);
+            color: #adb5bd;
+        }
+        .heartbeat-badge.stopped .dot { background: #adb5bd; animation: none; }
+
         .admin-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -799,6 +825,10 @@
                 Classy<span>Date</span><span class="heart">❤️</span>
             </a>
             <div class="cb-shell-actions">
+                <span class="heartbeat-badge" id="heartbeat-badge" title="Admin online indicator">
+                    <span class="dot"></span>
+                    <span id="heartbeat-text">Online</span>
+                </span>
                 <span class="admin-badge-nav">🔑 Admin</span>
                 <div class="menu-container">
                     <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">☰</button>
@@ -1004,6 +1034,93 @@
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         // ============================================================
+        // ADMIN HEARTBEAT — keeps admin "Online" for users
+        // ============================================================
+        let heartbeatInterval = null;
+        let heartbeatActive = false;
+        let consecutiveFailures = 0;
+
+        async function sendHeartbeat() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session || !session.user) {
+                    console.warn('💓 No session — skipping heartbeat');
+                    setHeartbeatStatus(false);
+                    return;
+                }
+
+                const { error } = await supabase
+                    .from('admin_status')
+                    .upsert({
+                        admin_id: session.user.id,
+                        last_seen: new Date().toISOString()
+                    }, { onConflict: 'admin_id' });
+
+                if (error) {
+                    consecutiveFailures++;
+                    console.warn('💓 Heartbeat failed:', error.message);
+                    if (consecutiveFailures >= 3) setHeartbeatStatus(false);
+                } else {
+                    consecutiveFailures = 0;
+                    heartbeatActive = true;
+                    setHeartbeatStatus(true);
+                }
+            } catch (err) {
+                console.warn('💓 Heartbeat error:', err);
+                consecutiveFailures++;
+                if (consecutiveFailures >= 3) setHeartbeatStatus(false);
+            }
+        }
+
+        function startHeartbeat() {
+            if (heartbeatInterval) clearInterval(heartbeatInterval);
+            sendHeartbeat();
+            heartbeatInterval = setInterval(sendHeartbeat, 20000);
+            console.log('💓 Heartbeat started (every 20s)');
+        }
+
+        function stopHeartbeat() {
+            if (heartbeatInterval) {
+                clearInterval(heartbeatInterval);
+                heartbeatInterval = null;
+            }
+            setHeartbeatStatus(false);
+            console.log('💓 Heartbeat stopped');
+        }
+
+        function setHeartbeatStatus(active) {
+            const badge = document.getElementById('heartbeat-badge');
+            const text = document.getElementById('heartbeat-text');
+            if (!badge || !text) return;
+            if (active) {
+                badge.classList.remove('stopped');
+                text.textContent = 'Online';
+            } else {
+                badge.classList.add('stopped');
+                text.textContent = 'Offline';
+            }
+        }
+
+        // Stop heartbeat when tab is hidden (optional pause to reduce writes)
+        document.addEventListener('visibilitychange', async function() {
+            if (document.hidden) {
+                // Send one last heartbeat so we're marked online as long as possible
+                sendHeartbeat();
+            } else {
+                // Came back — refresh heartbeat
+                sendHeartbeat();
+            }
+        });
+
+        // Send final heartbeat before closing
+        window.addEventListener('beforeunload', function() {
+            try {
+                const { data: { session } } = supabase.auth.getSession();
+                // can't await in beforeunload but the request will still fire
+            } catch (e) {}
+        });
+
+        // ============================================================
         // STATE
         // ============================================================
         let adminMembers = [];
@@ -1117,7 +1234,7 @@
         }
 
         // ============================================================
-        // LOAD ADMIN MEMBERS (verified = true)
+        // LOAD ADMIN MEMBERS
         // ============================================================
         async function loadAdminMembers() {
             try {
@@ -1678,6 +1795,7 @@
         // LOGOUT
         // ============================================================
         window.logoutAdmin = async function() {
+            stopHeartbeat();
             try {
                 await supabase.auth.signOut();
             } catch (e) {}
@@ -1710,6 +1828,9 @@
             const ok = await requireAdmin();
             if (!ok) return;
 
+            // ✅ Start the heartbeat so users see you as Online
+            startHeartbeat();
+
             await loadAdminMembers();
             await loadConversations();
             showTab('members');
@@ -1718,6 +1839,7 @@
             console.log('✅ Supabase:', SUPABASE_URL);
             console.log('✅ Members:', adminMembers.length);
             console.log('✅ Conversations:', conversations.length);
+            console.log('💓 Heartbeat active (every 20s)');
         })();
     </script>
 

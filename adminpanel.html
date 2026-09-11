@@ -26,11 +26,9 @@
             min-height: 100vh;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
 
+        /* HEADER */
         .cb-shell-header {
             position: fixed;
             top: 0;
@@ -58,7 +56,11 @@
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
             font-size: 22px;
             font-weight: 700;
-            color: #4a1a6b;
+            color: #1a0533;
+        }
+        .cb-shell-brand .heart {
+            color: #ff0000;
+            display: inline-block;
         }
         .cb-shell-brand span {
             font-family: "Inter", sans-serif;
@@ -81,10 +83,7 @@
             transition: all 0.3s ease;
             border-radius: 8px;
         }
-
-        .menu-btn:hover {
-            background: rgba(108, 60, 179, 0.08);
-        }
+        .menu-btn:hover { background: rgba(108, 60, 179, 0.08); }
 
         .menu-dropdown {
             display: none;
@@ -93,7 +92,7 @@
             top: 50px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
-            min-width: 200px;
+            min-width: 220px;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -123,14 +122,8 @@
             transition: all 0.2s ease;
             border-bottom: 1px solid rgba(108, 60, 179, 0.06);
         }
-
-        .menu-dropdown a:last-child {
-            border-bottom: none;
-        }
-
-        .menu-dropdown a:hover {
-            background: rgba(108, 60, 179, 0.06);
-        }
+        .menu-dropdown a:last-child { border-bottom: none; }
+        .menu-dropdown a:hover { background: rgba(108, 60, 179, 0.06); }
 
         .menu-dropdown .menu-divider {
             height: 1px;
@@ -138,18 +131,9 @@
             margin: 4px 0;
         }
 
-        .menu-dropdown .logout-btn {
-            color: #dc3545;
-            font-weight: 600;
-        }
-
-        .menu-dropdown .logout-btn:hover {
-            background: rgba(220, 53, 69, 0.06);
-        }
-
-        .menu-dropdown .menu-icon {
-            font-size: 18px;
-        }
+        .menu-dropdown .logout-btn { color: #dc3545; font-weight: 600; }
+        .menu-dropdown .logout-btn:hover { background: rgba(220, 53, 69, 0.06); }
+        .menu-dropdown .menu-icon { font-size: 18px; }
 
         .admin-badge-nav {
             background: #6c3cb3;
@@ -197,7 +181,6 @@
             align-items: center;
             gap: 8px;
         }
-
         .admin-header .btn-add:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
@@ -229,11 +212,7 @@
             min-width: 200px;
             transition: all 0.3s ease;
         }
-
-        .admin-toolbar input::placeholder {
-            color: rgba(74, 26, 107, 0.3);
-        }
-
+        .admin-toolbar input::placeholder { color: rgba(74, 26, 107, 0.3); }
         .admin-toolbar input:focus {
             border-color: #6c3cb3;
             background: rgba(255, 255, 255, 0.7);
@@ -248,10 +227,7 @@
             overflow: hidden;
         }
 
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        .admin-table { width: 100%; border-collapse: collapse; }
 
         .admin-table th {
             padding: 12px 16px;
@@ -273,21 +249,14 @@
             color: rgba(74, 26, 107, 0.8);
             vertical-align: middle;
         }
-
-        .admin-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .admin-table tr:hover td {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .admin-table tr:last-child td { border-bottom: none; }
+        .admin-table tr:hover td { background: rgba(255, 255, 255, 0.2); }
 
         .admin-table .member-cell {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .admin-table .member-cell img {
             width: 40px;
             height: 40px;
@@ -296,16 +265,8 @@
             background: rgba(255, 255, 255, 0.3);
             border: 2px solid rgba(108, 60, 179, 0.15);
         }
-
-        .admin-table .member-cell .name {
-            font-weight: 600;
-            color: #4a1a6b;
-        }
-
-        .admin-table .member-cell .email {
-            font-size: 12px;
-            color: rgba(74, 26, 107, 0.4);
-        }
+        .admin-table .member-cell .name { font-weight: 600; color: #4a1a6b; }
+        .admin-table .member-cell .email { font-size: 12px; color: rgba(74, 26, 107, 0.4); }
 
         .badge-small {
             padding: 2px 10px;
@@ -316,26 +277,11 @@
             display: inline-block;
             margin: 1px 2px;
         }
-
-        .badge-small--verified {
-            background: rgba(40, 167, 69, 0.12);
-            color: #28a745;
-        }
-
-        .badge-small--premium {
-            background: rgba(255, 215, 0, 0.12);
-            color: #b8960f;
-        }
-
-        .badge-small--pending {
-            background: rgba(255, 165, 0, 0.12);
-            color: #b37400;
-        }
-
-        .badge-small--signed-up {
-            background: rgba(108, 60, 179, 0.12);
-            color: #6c3cb3;
-        }
+        .badge-small--verified { background: rgba(40, 167, 69, 0.12); color: #28a745; }
+        .badge-small--premium { background: rgba(255, 215, 0, 0.12); color: #b8960f; }
+        .badge-small--open { background: rgba(40, 167, 69, 0.12); color: #28a745; }
+        .badge-small--pending { background: rgba(255, 165, 0, 0.12); color: #b37400; }
+        .badge-small--closed { background: rgba(74, 26, 107, 0.08); color: rgba(74, 26, 107, 0.5); }
 
         .status-dot {
             display: inline-block;
@@ -344,26 +290,11 @@
             border-radius: 50%;
             margin-right: 4px;
         }
+        .status-dot.online { background: #28a745; animation: pulse-dot 2s infinite; }
+        .status-dot.offline { background: rgba(74, 26, 107, 0.2); }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .status-dot.online {
-            background: #28a745;
-            animation: pulse-dot 2s infinite;
-        }
-
-        .status-dot.offline {
-            background: rgba(74, 26, 107, 0.2);
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .actions-cell {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
+        .actions-cell { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 
         .btn-action {
             padding: 6px 12px;
@@ -378,26 +309,21 @@
             align-items: center;
             gap: 4px;
         }
+        .btn-edit { background: rgba(108, 60, 179, 0.08); color: #4a1a6b; }
+        .btn-edit:hover { background: rgba(108, 60, 179, 0.18); transform: translateY(-2px); }
 
-        .btn-edit {
-            background: rgba(108, 60, 179, 0.08);
-            color: #4a1a6b;
+        .btn-chat {
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
         }
-
-        .btn-edit:hover {
-            background: rgba(108, 60, 179, 0.18);
+        .btn-chat:hover {
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
             transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.3);
         }
 
-        .btn-delete {
-            background: rgba(220, 53, 69, 0.08);
-            color: #dc3545;
-        }
-
-        .btn-delete:hover {
-            background: rgba(220, 53, 69, 0.18);
-            transform: translateY(-2px);
-        }
+        .btn-delete { background: rgba(220, 53, 69, 0.08); color: #dc3545; }
+        .btn-delete:hover { background: rgba(220, 53, 69, 0.18); transform: translateY(-2px); }
 
         .admin-pagination {
             display: flex;
@@ -406,7 +332,6 @@
             padding: 14px 16px;
             border-top: 1px solid rgba(108, 60, 179, 0.08);
         }
-
         .admin-pagination button {
             padding: 5px 12px;
             background: rgba(255, 255, 255, 0.3);
@@ -419,26 +344,116 @@
             font-weight: 600;
             font-size: 13px;
         }
-
-        .admin-pagination button:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
+        .admin-pagination button:hover { background: rgba(255, 255, 255, 0.5); }
         .admin-pagination button.active {
             background: #6c3cb3;
             color: #fff;
             border-color: #6c3cb3;
         }
+        .admin-pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        .admin-pagination button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
+        /* CONVERSATIONS VIEW */
+        #conversations-wrapper { display: none; }
+
+        .conv-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        #users-table-wrapper {
-            display: none;
+        .conv-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            border: 1px solid rgba(108, 60, 179, 0.12);
+            padding: 16px 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
+        .conv-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(108, 60, 179, 0.25);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.08);
+        }
+
+        .conv-card__top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .conv-card__name {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a0533;
+        }
+
+        .conv-card__status { display: flex; align-items: center; gap: 6px; }
+
+        .conv-card__info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px 18px;
+            margin-bottom: 12px;
+        }
+
+        .conv-card__info-item {
+            font-size: 13px;
+            color: rgba(74, 26, 107, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .conv-card__info-item .icon { font-size: 14px; }
+        .conv-card__info-item .label {
+            font-weight: 600;
+            color: rgba(74, 26, 107, 0.5);
+        }
+
+        .conv-card__photos {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .conv-card__photos img {
+            width: 55px;
+            height: 55px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(108, 60, 179, 0.1);
+        }
+
+        .conv-card__actions {
+            display: flex;
+            gap: 8px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(108, 60, 179, 0.08);
+        }
+
+        .conv-card__actions button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -451,10 +466,7 @@
             padding: 20px;
             animation: fadeInModal 0.3s ease;
         }
-
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         @keyframes fadeInModal {
             from { opacity: 0; transform: scale(0.95); }
@@ -480,13 +492,11 @@
             align-items: center;
             margin-bottom: 4px;
         }
-
         .modal .modal-header h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
+            font-family: "Playfair Display", Georgia, serif;
             font-size: 24px;
             color: #4a1a6b;
         }
-
         .modal .modal-close {
             background: none;
             border: none;
@@ -496,11 +506,7 @@
             transition: all 0.3s ease;
             padding: 0 8px;
         }
-
-        .modal .modal-close:hover {
-            color: #4a1a6b;
-            transform: rotate(90deg);
-        }
+        .modal .modal-close:hover { color: #4a1a6b; transform: rotate(90deg); }
 
         .modal .modal-subtitle {
             color: rgba(74, 26, 107, 0.4);
@@ -509,10 +515,7 @@
             font-family: "Inter", sans-serif;
         }
 
-        .modal .form-group {
-            margin-bottom: 14px;
-        }
-
+        .modal .form-group { margin-bottom: 14px; }
         .modal .form-group label {
             display: block;
             font-size: 13px;
@@ -521,10 +524,7 @@
             margin-bottom: 4px;
             font-family: "Inter", sans-serif;
         }
-
-        .modal .form-group label .required {
-            color: #dc3545;
-        }
+        .modal .form-group label .required { color: #dc3545; }
 
         .modal .form-group input,
         .modal .form-group select,
@@ -540,7 +540,6 @@
             outline: none;
             transition: all 0.3s ease;
         }
-
         .modal .form-group input:focus,
         .modal .form-group select:focus,
         .modal .form-group textarea:focus {
@@ -548,11 +547,7 @@
             background: rgba(255, 255, 255, 0.7);
             box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.08);
         }
-
-        .modal .form-group textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
+        .modal .form-group textarea { resize: vertical; min-height: 60px; }
 
         .modal .form-row {
             display: grid;
@@ -560,10 +555,7 @@
             gap: 12px;
         }
 
-        .file-upload-section {
-            margin-top: 8px;
-        }
-
+        .file-upload-section { margin-top: 8px; }
         .file-upload-section .hint {
             font-size: 12px;
             color: rgba(74, 26, 107, 0.4);
@@ -582,34 +574,19 @@
             position: relative;
             min-height: 100px;
         }
-
         .file-upload-zone:hover {
             border-color: #6c3cb3;
             background: rgba(255, 255, 255, 0.4);
         }
-
-        .file-upload-zone .icon {
-            font-size: 36px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .file-upload-zone p {
-            color: rgba(74, 26, 107, 0.4);
-            font-size: 13px;
-            font-family: "Inter", sans-serif;
-        }
-
+        .file-upload-zone .icon { font-size: 36px; display: block; margin-bottom: 4px; }
+        .file-upload-zone p { color: rgba(74, 26, 107, 0.4); font-size: 13px; font-family: "Inter", sans-serif; }
         .file-upload-zone input[type="file"] {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             opacity: 0;
             cursor: pointer;
         }
-
         .file-upload-zone .upload-progress {
             display: none;
             margin-top: 8px;
@@ -619,7 +596,6 @@
             border-radius: 4px;
             overflow: hidden;
         }
-
         .file-upload-zone .upload-progress .bar {
             height: 100%;
             background: #6c3cb3;
@@ -627,15 +603,9 @@
             border-radius: 4px;
             transition: width 0.3s ease;
         }
-
-        .file-upload-zone.uploading .upload-progress {
-            display: block;
-        }
-
+        .file-upload-zone.uploading .upload-progress { display: block; }
         .file-upload-zone.uploading .icon,
-        .file-upload-zone.uploading p {
-            display: none;
-        }
+        .file-upload-zone.uploading p { display: none; }
 
         .uploaded-images {
             display: flex;
@@ -643,7 +613,6 @@
             gap: 8px;
             margin-top: 8px;
         }
-
         .uploaded-image-item {
             width: 80px;
             height: 80px;
@@ -652,17 +621,10 @@
             position: relative;
             border: 1px solid rgba(108, 60, 179, 0.1);
         }
-
-        .uploaded-image-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .uploaded-image-item img { width: 100%; height: 100%; object-fit: cover; }
         .uploaded-image-item .remove-image-btn {
             position: absolute;
-            top: 2px;
-            right: 2px;
+            top: 2px; right: 2px;
             background: rgba(220, 53, 69, 0.9);
             color: #fff;
             border: none;
@@ -681,7 +643,6 @@
             gap: 12px;
             margin-top: 20px;
         }
-
         .modal .modal-actions button {
             flex: 1;
             padding: 12px;
@@ -693,26 +654,20 @@
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
         }
-
         .modal .btn-modal-save {
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
         }
-
         .modal .btn-modal-save:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
         }
-
         .modal .btn-modal-cancel {
             background: rgba(108, 60, 179, 0.06);
             color: rgba(74, 26, 107, 0.5);
             border: 1px solid rgba(108, 60, 179, 0.08);
         }
-
-        .modal .btn-modal-cancel:hover {
-            background: rgba(108, 60, 179, 0.12);
-        }
+        .modal .btn-modal-cancel:hover { background: rgba(108, 60, 179, 0.12); }
 
         .toast {
             position: fixed;
@@ -737,31 +692,12 @@
             gap: 10px;
             color: #4a1a6b;
         }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .toast.success {
-            border-color: rgba(40, 167, 69, 0.2);
-        }
-
-        .toast.success .toast-icon {
-            color: #28a745;
-        }
-
-        .toast.error {
-            border-color: rgba(220, 53, 69, 0.2);
-        }
-
-        .toast.error .toast-icon {
-            color: #dc3545;
-        }
-
-        .toast .toast-icon {
-            font-size: 18px;
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-color: rgba(40, 167, 69, 0.2); }
+        .toast.success .toast-icon { color: #28a745; }
+        .toast.error { border-color: rgba(220, 53, 69, 0.2); }
+        .toast.error .toast-icon { color: #dc3545; }
+        .toast .toast-icon { font-size: 18px; }
 
         .tab-count {
             background: rgba(108, 60, 179, 0.1);
@@ -773,41 +709,27 @@
             margin-left: 4px;
         }
 
+        .loading-spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(108, 60, 179, 0.1);
+            border-top-color: #6c3cb3;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         @media (max-width: 768px) {
-            .cb-shell-header__inner {
-                height: 60px;
-                padding: 0 12px;
-            }
+            .cb-shell-header__inner { height: 60px; padding: 0 12px; }
+            .cb-shell-brand { font-size: 18px; }
+            .admin-wrapper { padding: 76px 12px 40px; }
+            .admin-header h1 { font-size: 26px; }
+            .admin-header .btn-add { padding: 8px 16px; font-size: 13px; }
+            .admin-toolbar { padding: 12px 14px; }
+            .admin-toolbar input { min-width: 100%; }
 
-            .cb-shell-brand {
-                font-size: 18px;
-            }
-
-            .admin-wrapper {
-                padding: 76px 12px 40px;
-            }
-
-            .admin-header h1 {
-                font-size: 26px;
-            }
-
-            .admin-header .btn-add {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-
-            .admin-toolbar {
-                padding: 12px 14px;
-            }
-
-            .admin-toolbar input {
-                min-width: 100%;
-            }
-
-            .admin-table thead {
-                display: none;
-            }
-
+            .admin-table thead { display: none; }
             .admin-table tbody tr {
                 display: block;
                 padding: 14px 16px;
@@ -816,11 +738,7 @@
                 margin: 4px 0;
                 border-radius: 12px;
             }
-
-            .admin-table tbody tr:hover {
-                background: rgba(255, 255, 255, 0.2);
-            }
-
+            .admin-table tbody tr:hover { background: rgba(255, 255, 255, 0.2); }
             .admin-table tbody td {
                 display: flex;
                 justify-content: space-between;
@@ -829,132 +747,56 @@
                 border: none;
                 font-size: 13px;
             }
-
-            .admin-table tbody td:last-child {
-                border-bottom: none;
-            }
-
+            .admin-table tbody td:last-child { border-bottom: none; }
             .admin-table tbody td::before {
                 content: attr(data-label);
                 font-weight: 600;
                 color: rgba(74, 26, 107, 0.4);
                 font-size: 12px;
             }
+            .admin-table .member-cell { flex: 1; width: 100%; justify-content: flex-start; }
+            .admin-table .member-cell img { width: 36px; height: 36px; }
+            .actions-cell { gap: 4px; }
+            .btn-action { padding: 4px 10px; font-size: 11px; }
 
-            .admin-table .member-cell {
-                flex: 1;
-                width: 100%;
-                justify-content: flex-start;
-            }
+            .modal { padding: 24px 16px 20px; }
+            .modal .form-row { grid-template-columns: 1fr; }
+            .modal .modal-actions { flex-direction: column; }
 
-            .admin-table .member-cell img {
-                width: 36px;
-                height: 36px;
-            }
+            .admin-pagination { flex-wrap: wrap; gap: 4px; }
+            .admin-pagination button { padding: 4px 10px; font-size: 12px; }
 
-            .actions-cell {
-                gap: 4px;
-            }
+            .uploaded-image-item { width: 60px; height: 60px; }
+            .toast { bottom: 20px; right: 20px; left: 20px; text-align: center; }
+            .menu-dropdown { min-width: 200px; right: -8px; }
 
-            .btn-action {
-                padding: 4px 10px;
-                font-size: 11px;
-            }
-
-            .modal {
-                padding: 24px 16px 20px;
-            }
-
-            .modal .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .modal .modal-actions {
-                flex-direction: column;
-            }
-
-            .admin-pagination {
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-
-            .admin-pagination button {
-                padding: 4px 10px;
-                font-size: 12px;
-            }
-
-            .uploaded-image-item {
-                width: 60px;
-                height: 60px;
-            }
-
-            .toast {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
-                text-align: center;
-            }
-
-            .menu-dropdown {
-                min-width: 180px;
-                right: -8px;
-            }
+            .conv-card__info { grid-template-columns: 1fr; }
+            .conv-card__actions { flex-wrap: wrap; }
         }
 
         @media (max-width: 480px) {
-            .admin-header h1 {
-                font-size: 22px;
-            }
+            .admin-header h1 { font-size: 22px; }
+            .admin-header .btn-add { padding: 6px 14px; font-size: 12px; }
+            .admin-table tbody td { font-size: 12px; padding: 4px 0; }
+            .admin-table tbody td::before { font-size: 11px; }
+            .btn-action { padding: 3px 8px; font-size: 10px; }
+            .uploaded-image-item { width: 50px; height: 50px; }
+            .menu-btn { font-size: 24px; padding: 4px 8px; }
+            .menu-dropdown { min-width: 180px; right: -8px; }
 
-            .admin-header .btn-add {
-                padding: 6px 14px;
-                font-size: 12px;
-            }
-
-            .admin-table tbody td {
-                font-size: 12px;
-                padding: 4px 0;
-            }
-
-            .admin-table tbody td::before {
-                font-size: 11px;
-            }
-
-            .btn-action {
-                padding: 3px 8px;
-                font-size: 10px;
-            }
-
-            .uploaded-image-item {
-                width: 50px;
-                height: 50px;
-            }
-
-            .menu-btn {
-                font-size: 24px;
-                padding: 4px 8px;
-            }
-
-            .menu-dropdown {
-                min-width: 160px;
-                right: -8px;
-            }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            .conv-card { padding: 14px; }
+            .conv-card__name { font-size: 16px; }
+            .conv-card__photos img { width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================ -->
-    <!-- HEADER                                                       -->
-    <!-- ============================================================ -->
+    <!-- HEADER -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
             <a class="cb-shell-brand" href="index.html">
-                Classy<span>Date</span>
+                Classy<span>Date</span><span class="heart">❤️</span>
             </a>
             <div class="cb-shell-actions">
                 <span class="admin-badge-nav">🔑 Admin</span>
@@ -967,8 +809,8 @@
                         <a href="#" onclick="showTab('members'); closeMenu();" id="tab-members-link">
                             <span class="menu-icon">👥</span> Admin Members <span class="tab-count" id="members-count">0</span>
                         </a>
-                        <a href="#" onclick="showTab('users'); closeMenu();" id="tab-users-link">
-                            <span class="menu-icon">👤</span> Sign-ups <span class="tab-count" id="users-count">0</span>
+                        <a href="#" onclick="showTab('conversations'); closeMenu();" id="tab-conversations-link">
+                            <span class="menu-icon">💬</span> Conversations <span class="tab-count" id="conversations-count">0</span>
                         </a>
                         <div class="menu-divider"></div>
                         <a href="#" onclick="logoutAdmin(); closeMenu();" class="logout-btn">
@@ -980,16 +822,14 @@
         </div>
     </header>
 
-    <!-- ============================================================ -->
-    <!-- ADMIN PANEL                                                  -->
-    <!-- ============================================================ -->
+    <!-- ADMIN PANEL -->
     <main class="admin-wrapper" id="admin-wrapper">
         <div class="admin-header">
             <h1 id="page-title">Admin Panel</h1>
             <button class="btn-add" id="add-member-btn" onclick="openAddModal()">➕ Add New Member</button>
         </div>
 
-        <!-- SEARCH -->
+        <!-- SEARCH (only for members tab) -->
         <div class="admin-toolbar" id="admin-toolbar">
             <input type="text" id="search-input" placeholder="🔍 Search members..." oninput="filterMembers()">
         </div>
@@ -1010,8 +850,8 @@
                 <tbody id="admin-table-body">
                     <tr>
                         <td colspan="6" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                            <span style="display:inline-block;width:24px;height:24px;border:3px solid rgba(108,60,179,0.1);border-top-color:#6c3cb3;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
-                            <br><br>Loading members from Supabase...
+                            <span class="loading-spinner"></span>
+                            <br><br>Loading members...
                         </td>
                     </tr>
                 </tbody>
@@ -1019,36 +859,19 @@
             <div class="admin-pagination" id="admin-pagination"></div>
         </div>
 
-        <!-- SIGN-UPS TABLE (Users who signed up) -->
-        <div class="admin-table-wrapper" id="users-table-wrapper">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Gender</th>
-                        <th>Location</th>
-                        <th>Origin</th>
-                        <th>Joined</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="users-table-body">
-                    <tr>
-                        <td colspan="7" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                            <span style="display:inline-block;width:24px;height:24px;border:3px solid rgba(108,60,179,0.1);border-top-color:#6c3cb3;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
-                            <br><br>Loading sign-ups...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="admin-pagination" id="users-pagination"></div>
+        <!-- CONVERSATIONS -->
+        <div id="conversations-wrapper">
+            <div class="conv-list" id="conv-list">
+                <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
+                    <span class="loading-spinner"></span>
+                    <br><br>Loading conversations...
+                </div>
+            </div>
+            <div class="admin-pagination" id="conversations-pagination"></div>
         </div>
     </main>
 
-    <!-- ============================================================ -->
-    <!-- MODAL - ADD/EDIT MEMBER                                     -->
-    <!-- ============================================================ -->
+    <!-- MODAL -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal">
             <div class="modal-header">
@@ -1092,6 +915,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="form-occupation">Occupation</label>
+                    <input type="text" id="form-occupation" placeholder="Software Engineer">
+                </div>
+
+                <div class="form-group">
                     <label for="form-bio">About Me</label>
                     <textarea id="form-bio" placeholder="Write a short bio about this member..."></textarea>
                 </div>
@@ -1122,8 +950,8 @@
                     <div class="form-group">
                         <label for="form-verified">Verified</label>
                         <select id="form-verified">
-                            <option value="true">✅ Yes</option>
-                            <option value="false" selected>❌ No</option>
+                            <option value="true" selected>✅ Yes</option>
+                            <option value="false">❌ No</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1148,9 +976,7 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- TOAST                                                       -->
-    <!-- ============================================================ -->
+    <!-- TOAST -->
     <div class="toast" id="toast">
         <span class="toast-icon" id="toast-icon">✅</span>
         <span id="toast-message">Member saved successfully!</span>
@@ -1170,32 +996,36 @@
     <script type="module">
         import { createClient } from "@supabase/supabase-js";
 
-        const SUPABASE_URL = 'https://ehfnzsfnsoiyiwpxqmli.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_ybgZxnGuU_Gt35rfqkEdBw_YkEdD8vl';
+        const SUPABASE_URL = 'https://eswlfgrzdmdwmfqncpew.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oeCfBt8Ci0xQ4mg6o2mnnA_mbgnwRVS';
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        console.log('🔗 Supabase connected!');
+        console.log('🔗 Supabase connected:', SUPABASE_URL);
 
+        // ============================================================
+        // STATE
+        // ============================================================
         let adminMembers = [];
-        let signUpUsers = [];
+        let conversations = [];
         let filteredAdminMembers = [];
-        let filteredSignUpUsers = [];
+        let filteredConversations = [];
         let currentPage = 1;
-        let currentUsersPage = 1;
+        let currentConvPage = 1;
         const perPage = 5;
-        const usersPerPage = 5;
+        const convPerPage = 5;
         let isLoading = true;
-        let isLoadingUsers = true;
+        let isLoadingConvs = true;
         let uploadedFileIds = [];
         let uploadedFileUrls = [];
         let editingId = null;
         let currentTab = 'members';
+        let currentAdmin = null;
 
         const tbody = document.getElementById('admin-table-body');
-        const usersTbody = document.getElementById('users-table-body');
+        const convList = document.getElementById('conv-list');
         const paginationContainer = document.getElementById('admin-pagination');
-        const usersPaginationContainer = document.getElementById('users-pagination');
+        const convPaginationContainer = document.getElementById('conversations-pagination');
         const modalOverlay = document.getElementById('modal-overlay');
         const memberForm = document.getElementById('member-form');
         const editIdInput = document.getElementById('edit-id');
@@ -1204,17 +1034,48 @@
         const fileInput = document.getElementById('file-input');
         const uploadZone = document.getElementById('file-upload-zone');
         const tableWrapper = document.getElementById('table-wrapper');
-        const usersTableWrapper = document.getElementById('users-table-wrapper');
+        const conversationsWrapper = document.getElementById('conversations-wrapper');
         const searchInput = document.getElementById('search-input');
 
         // ============================================================
-        // MENU FUNCTIONS
+        // AUTH GUARD
         // ============================================================
-        window.toggleMenu = function() {
-            const dropdown = document.getElementById('menuDropdown');
-            dropdown.classList.toggle('show');
+        async function requireAdmin() {
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                if (error || !session) {
+                    window.location.href = 'adminlogin.html';
+                    return false;
+                }
+
+                const { data: adminRow, error: adminErr } = await supabase
+                    .from('admins')
+                    .select('id, email')
+                    .eq('id', session.user.id)
+                    .maybeSingle();
+
+                if (adminErr || !adminRow) {
+                    await supabase.auth.signOut();
+                    window.location.href = 'adminlogin.html';
+                    return false;
+                }
+
+                currentAdmin = adminRow;
+                console.log('✅ Admin verified:', adminRow.email);
+                return true;
+            } catch (err) {
+                console.error('Auth guard failed:', err);
+                window.location.href = 'adminlogin.html';
+                return false;
+            }
         }
 
+        // ============================================================
+        // MENU
+        // ============================================================
+        window.toggleMenu = function() {
+            document.getElementById('menuDropdown').classList.toggle('show');
+        }
         window.closeMenu = function() {
             document.getElementById('menuDropdown').classList.remove('show');
         }
@@ -1227,31 +1088,31 @@
         });
 
         // ============================================================
-        // TAB FUNCTIONS
+        // TABS
         // ============================================================
         window.showTab = function(tab) {
             currentTab = tab;
-            
+
             if (tab === 'members') {
                 tableWrapper.style.display = 'block';
-                usersTableWrapper.style.display = 'none';
+                conversationsWrapper.style.display = 'none';
                 document.getElementById('page-title').textContent = 'Admin Panel';
                 document.getElementById('add-member-btn').style.display = 'flex';
                 document.getElementById('admin-toolbar').style.display = 'flex';
                 document.getElementById('tab-members-link').style.background = 'rgba(108,60,179,0.08)';
-                document.getElementById('tab-users-link').style.background = 'none';
+                document.getElementById('tab-conversations-link').style.background = 'none';
                 renderTable();
                 renderPagination();
-            } else if (tab === 'users') {
+            } else if (tab === 'conversations') {
                 tableWrapper.style.display = 'none';
-                usersTableWrapper.style.display = 'block';
-                document.getElementById('page-title').textContent = 'User Sign-ups';
+                conversationsWrapper.style.display = 'block';
+                document.getElementById('page-title').textContent = 'Conversations';
                 document.getElementById('add-member-btn').style.display = 'none';
                 document.getElementById('admin-toolbar').style.display = 'none';
-                document.getElementById('tab-users-link').style.background = 'rgba(108,60,179,0.08)';
+                document.getElementById('tab-conversations-link').style.background = 'rgba(108,60,179,0.08)';
                 document.getElementById('tab-members-link').style.background = 'none';
-                renderUsersTable();
-                renderUsersPagination();
+                renderConversations();
+                renderConversationsPagination();
             }
         }
 
@@ -1282,43 +1143,42 @@
         }
 
         // ============================================================
-        // LOAD SIGN-UP USERS (verified = false)
+        // LOAD CONVERSATIONS
         // ============================================================
-        async function loadSignUpUsers() {
+        async function loadConversations() {
             try {
                 const { data, error } = await supabase
-                    .from('members')
+                    .from('conversations')
                     .select('*')
-                    .eq('verified', false)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                signUpUsers = data || [];
-                isLoadingUsers = false;
-                filteredSignUpUsers = [...signUpUsers];
-                document.getElementById('users-count').textContent = signUpUsers.length;
-                console.log('👤 Sign-up Users loaded:', signUpUsers.length);
-                renderUsersTable();
-                renderUsersPagination();
+                conversations = data || [];
+                isLoadingConvs = false;
+                filteredConversations = [...conversations];
+                document.getElementById('conversations-count').textContent = conversations.length;
+                console.log('💬 Conversations loaded:', conversations.length);
+                renderConversations();
+                renderConversationsPagination();
             } catch (error) {
-                console.error('Error loading sign-up users:', error);
-                showToast('Error loading users: ' + error.message, 'error');
-                isLoadingUsers = false;
+                console.error('Error loading conversations:', error);
+                showToast('Error loading conversations: ' + error.message, 'error');
+                isLoadingConvs = false;
             }
         }
 
         // ============================================================
-        // FILTER
+        // FILTER MEMBERS
         // ============================================================
         window.filterMembers = function() {
             const search = document.getElementById('search-input').value.toLowerCase().trim();
 
             filteredAdminMembers = adminMembers.filter(m => {
-                const matchSearch = (m.name || '').toLowerCase().includes(search) ||
+                return (m.name || '').toLowerCase().includes(search) ||
                     (m.current_location || '').toLowerCase().includes(search) ||
-                    (m.home_country || '').toLowerCase().includes(search);
-                return matchSearch;
+                    (m.home_country || '').toLowerCase().includes(search) ||
+                    (m.occupation || '').toLowerCase().includes(search);
             });
 
             currentPage = 1;
@@ -1336,8 +1196,8 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="6" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                            <span style="display:inline-block;width:24px;height:24px;border:3px solid rgba(108,60,179,0.1);border-top-color:#6c3cb3;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
-                            <br><br>Loading members from Supabase...
+                            <span class="loading-spinner"></span>
+                            <br><br>Loading members...
                         </td>
                     </tr>
                 `;
@@ -1353,7 +1213,7 @@
                         <td colspan="6">
                             <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
                                 <div style="font-size:48px;margin-bottom:12px;">👥</div>
-                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No admin members</h3>
+                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No members yet</h3>
                                 <p style="color:rgba(74,26,107,0.4);">Add members using the "Add New Member" button.</p>
                             </div>
                         </td>
@@ -1365,11 +1225,8 @@
             tbody.innerHTML = pageMembers.map(m => {
                 let mainPhoto = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(m.name || 'User') + '&background=6c3cb3&color=fff&size=100';
                 if (m.photo_file_ids && m.photo_file_ids.length > 0) {
-                    const fileId = m.photo_file_ids[0];
-                    const { data } = supabase.storage.from('member_photos').getPublicUrl(fileId);
-                    if (data && data.publicUrl) {
-                        mainPhoto = data.publicUrl;
-                    }
+                    const { data } = supabase.storage.from('member_photos').getPublicUrl(m.photo_file_ids[0]);
+                    if (data && data.publicUrl) mainPhoto = data.publicUrl;
                 }
                 const totalPhotos = (m.photo_file_ids || []).length;
 
@@ -1380,7 +1237,7 @@
                     ${totalPhotos > 0 ? `<span class="badge-small" style="background:rgba(108,60,179,0.06);color:#4a1a6b;">📸 ${totalPhotos}</span>` : ''}
                 `;
 
-                const locationDisplay = m.current_location || m.location || '—';
+                const locationDisplay = m.current_location || '—';
 
                 return `
                     <tr>
@@ -1389,7 +1246,7 @@
                                 <img src="${mainPhoto}" alt="${m.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(m.name || 'User')}&background=6c3cb3&color=fff&size=100'">
                                 <div>
                                     <div class="name">${m.name || 'Unknown'}</div>
-                                    <div class="email">${m.email || 'No email'}</div>
+                                    <div class="email">${m.occupation || m.email || '—'}</div>
                                 </div>
                             </div>
                         </td>
@@ -1409,79 +1266,143 @@
         }
 
         // ============================================================
-        // RENDER SIGN-UP USERS TABLE
+        // RENDER CONVERSATIONS
         // ============================================================
-        function renderUsersTable() {
-            if (isLoadingUsers) {
-                usersTbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                            <span style="display:inline-block;width:24px;height:24px;border:3px solid rgba(108,60,179,0.1);border-top-color:#6c3cb3;border-radius:50%;animation:spin 0.8s linear infinite;"></span>
-                            <br><br>Loading sign-ups...
-                        </td>
-                    </tr>
+        function renderConversations() {
+            if (isLoadingConvs) {
+                convList.innerHTML = `
+                    <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
+                        <span class="loading-spinner"></span>
+                        <br><br>Loading conversations...
+                    </div>
                 `;
                 return;
             }
 
-            const start = (currentUsersPage - 1) * usersPerPage;
-            const pageUsers = filteredSignUpUsers.slice(start, start + usersPerPage);
+            const start = (currentConvPage - 1) * convPerPage;
+            const pageConvs = filteredConversations.slice(start, start + convPerPage);
 
-            if (pageUsers.length === 0) {
-                usersTbody.innerHTML = `
-                    <tr>
-                        <td colspan="7">
-                            <div style="text-align:center;padding:40px;color:rgba(74,26,107,0.3);">
-                                <div style="font-size:48px;margin-bottom:12px;">👤</div>
-                                <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No sign-ups yet</h3>
-                                <p style="color:rgba(74,26,107,0.4);">Users who sign up will appear here.</p>
-                            </div>
-                        </td>
-                    </tr>
+            if (pageConvs.length === 0) {
+                convList.innerHTML = `
+                    <div style="text-align:center;padding:60px 20px;color:rgba(74,26,107,0.3);">
+                        <div style="font-size:48px;margin-bottom:12px;">💬</div>
+                        <h3 style="color:#4a1a6b;font-size:20px;font-family:'Playfair Display',serif;">No conversations yet</h3>
+                        <p style="color:rgba(74,26,107,0.4);">When users click "Connect" on a member profile, their details will appear here.</p>
+                    </div>
                 `;
                 return;
             }
 
-            usersTbody.innerHTML = pageUsers.map(u => {
-                let userPhoto = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(u.name || 'User') + '&background=6c3cb3&color=fff&size=100';
-                if (u.photo_file_ids && u.photo_file_ids.length > 0) {
-                    const fileId = u.photo_file_ids[0];
-                    const { data } = supabase.storage.from('member_photos').getPublicUrl(fileId);
-                    if (data && data.publicUrl) {
-                        userPhoto = data.publicUrl;
-                    }
+            convList.innerHTML = pageConvs.map(c => {
+                const statusClass = c.status === 'open' ? 'badge-small--open'
+                    : c.status === 'pending' ? 'badge-small--pending'
+                    : 'badge-small--closed';
+                const statusLabel = c.status === 'open' ? '🟢 Open'
+                    : c.status === 'pending' ? '🟡 Pending'
+                    : '⚪ Closed';
+
+                const createdDate = c.created_at ? new Date(c.created_at).toLocaleString() : '—';
+
+                let photosHTML = '';
+                if (c.user_photo_ids && c.user_photo_ids.length > 0) {
+                    photosHTML = `<div class="conv-card__photos">${
+                        c.user_photo_ids.map(id => {
+                            const { data } = supabase.storage.from('user_uploads').getPublicUrl(id);
+                            return data && data.publicUrl
+                                ? `<img src="${data.publicUrl}" alt="User photo" onerror="this.style.display='none'">`
+                                : '';
+                        }).join('')
+                    }</div>`;
                 }
 
-                const statusHTML = u.online ? '<span class="status-dot online"></span> Online' : '<span class="status-dot offline"></span> Offline';
-                const joinedDate = u.created_at ? new Date(u.created_at).toLocaleDateString() : '—';
-                const locationDisplay = u.current_location || u.location || '—';
-                const homeDisplay = u.home_country || u.origin || '—';
-
                 return `
-                    <tr>
-                        <td data-label="User">
-                            <div class="member-cell">
-                                <img src="${userPhoto}" alt="${u.name}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(u.name || 'User')}&background=6c3cb3&color=fff&size=100'">
-                                <div>
-                                    <div class="name">${u.name || 'Unknown'}</div>
-                                    <div class="email">${u.email || 'No email'}</div>
-                                </div>
+                    <div class="conv-card" onclick="openChat('${c.id}')">
+                        <div class="conv-card__top">
+                            <div class="conv-card__name">👤 ${c.full_name || 'Unknown'}</div>
+                            <div class="conv-card__status">
+                                <span class="badge-small ${statusClass}">${statusLabel}</span>
                             </div>
-                        </td>
-                        <td data-label="Gender">${u.gender === 'male' ? '👨 Male' : u.gender === 'female' ? '👩 Female' : '—'}</td>
-                        <td data-label="Location">${locationDisplay}</td>
-                        <td data-label="Origin">${homeDisplay}</td>
-                        <td data-label="Joined">${joinedDate}</td>
-                        <td data-label="Status">${statusHTML}</td>
-                        <td data-label="Actions">
-                            <div class="actions-cell">
-                                <button class="btn-action btn-edit" onclick="window.openEditModal('${u.id}')">✏️ Edit</button>
-                                <button class="btn-action btn-delete" onclick="window.deleteMember('${u.id}')">🗑️ Delete</button>
+                        </div>
+
+                        <div class="conv-card__info">
+                            <div class="conv-card__info-item">
+                                <span class="icon">📧</span>
+                                <span class="label">Email:</span> ${c.email || '—'}
                             </div>
-                        </td>
-                    </tr>
+                            <div class="conv-card__info-item">
+                                <span class="icon">📱</span>
+                                <span class="label">WhatsApp:</span> ${c.whatsapp_no || '—'}
+                            </div>
+                            <div class="conv-card__info-item">
+                                <span class="icon">💎</span>
+                                <span class="label">Wants:</span> ${c.member_name || '—'}
+                            </div>
+                            <div class="conv-card__info-item">
+                                <span class="icon">🎂</span>
+                                <span class="label">Age:</span> ${c.age || '—'}
+                            </div>
+                            <div class="conv-card__info-item">
+                                <span class="icon">📍</span>
+                                <span class="label">Location:</span> ${c.location || '—'}
+                            </div>
+                            <div class="conv-card__info-item">
+                                <span class="icon">💼</span>
+                                <span class="label">Occupation:</span> ${c.occupation || '—'}
+                            </div>
+                            <div class="conv-card__info-item">
+                                <span class="icon">⏱</span>
+                                <span class="label">Submitted:</span> ${createdDate}
+                            </div>
+                        </div>
+
+                        ${photosHTML}
+
+                        <div class="conv-card__actions">
+                            <button class="btn-action btn-chat" onclick="event.stopPropagation(); openChat('${c.id}')">
+                                💬 Open Chat
+                            </button>
+                            <button class="btn-action btn-delete" onclick="event.stopPropagation(); deleteConversation('${c.id}', '${(c.full_name || 'this conversation').replace(/'/g, "\\'")}')">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
                 `;
             }).join('');
+        }
+
+        // ============================================================
+        // OPEN CHAT
+        // ============================================================
+        window.openChat = function(conversationId) {
+            window.location.href = `chat.html?conversation=${conversationId}`;
+        }
+
+        // ============================================================
+        // DELETE CONVERSATION
+        // ============================================================
+        window.deleteConversation = async function(id, name) {
+            if (!confirm(`Delete conversation with ${name}? This will also delete all messages.`)) return;
+
+            try {
+                const conv = conversations.find(c => c.id === id);
+
+                if (conv && conv.user_photo_ids && conv.user_photo_ids.length > 0) {
+                    await supabase.storage.from('user_uploads').remove(conv.user_photo_ids);
+                }
+
+                const { error } = await supabase
+                    .from('conversations')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                showToast(`🗑️ Conversation deleted.`, 'success');
+                await loadConversations();
+            } catch (error) {
+                console.error('Delete error:', error);
+                showToast('Error deleting: ' + error.message, 'error');
+            }
         }
 
         // ============================================================
@@ -1489,52 +1410,34 @@
         // ============================================================
         function renderPagination() {
             const totalPages = Math.ceil(filteredAdminMembers.length / perPage);
+            if (totalPages <= 1) { paginationContainer.innerHTML = ''; return; }
 
-            if (totalPages <= 1) {
-                paginationContainer.innerHTML = '';
-                return;
-            }
-
-            let html = '';
-            html += `<button onclick="window.goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
-
+            let html = `<button onclick="window.goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
             for (let i = 1; i <= Math.min(totalPages, 5); i++) {
                 html += `<button class="${i === currentPage ? 'active' : ''}" onclick="window.goToPage(${i})">${i}</button>`;
             }
-
             if (totalPages > 5) {
                 html += `<span style="color:rgba(74,26,107,0.15);padding:6px;">…</span>`;
                 html += `<button onclick="window.goToPage(${totalPages})">${totalPages}</button>`;
             }
-
             html += `<button onclick="window.goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
-
             paginationContainer.innerHTML = html;
         }
 
-        function renderUsersPagination() {
-            const totalPages = Math.ceil(filteredSignUpUsers.length / usersPerPage);
+        function renderConversationsPagination() {
+            const totalPages = Math.ceil(filteredConversations.length / convPerPage);
+            if (totalPages <= 1) { convPaginationContainer.innerHTML = ''; return; }
 
-            if (totalPages <= 1) {
-                usersPaginationContainer.innerHTML = '';
-                return;
-            }
-
-            let html = '';
-            html += `<button onclick="window.goToUsersPage(${currentUsersPage - 1})" ${currentUsersPage === 1 ? 'disabled' : ''}>‹</button>`;
-
+            let html = `<button onclick="window.goToConvPage(${currentConvPage - 1})" ${currentConvPage === 1 ? 'disabled' : ''}>‹</button>`;
             for (let i = 1; i <= Math.min(totalPages, 5); i++) {
-                html += `<button class="${i === currentUsersPage ? 'active' : ''}" onclick="window.goToUsersPage(${i})">${i}</button>`;
+                html += `<button class="${i === currentConvPage ? 'active' : ''}" onclick="window.goToConvPage(${i})">${i}</button>`;
             }
-
             if (totalPages > 5) {
                 html += `<span style="color:rgba(74,26,107,0.15);padding:6px;">…</span>`;
-                html += `<button onclick="window.goToUsersPage(${totalPages})">${totalPages}</button>`;
+                html += `<button onclick="window.goToConvPage(${totalPages})">${totalPages}</button>`;
             }
-
-            html += `<button onclick="window.goToUsersPage(${currentUsersPage + 1})" ${currentUsersPage === totalPages ? 'disabled' : ''}>›</button>`;
-
-            usersPaginationContainer.innerHTML = html;
+            html += `<button onclick="window.goToConvPage(${currentConvPage + 1})" ${currentConvPage === totalPages ? 'disabled' : ''}>›</button>`;
+            convPaginationContainer.innerHTML = html;
         }
 
         window.goToPage = function(page) {
@@ -1545,12 +1448,12 @@
             renderPagination();
         }
 
-        window.goToUsersPage = function(page) {
-            const totalPages = Math.ceil(filteredSignUpUsers.length / usersPerPage);
+        window.goToConvPage = function(page) {
+            const totalPages = Math.ceil(filteredConversations.length / convPerPage);
             if (page < 1 || page > totalPages) return;
-            currentUsersPage = page;
-            renderUsersTable();
-            renderUsersPagination();
+            currentConvPage = page;
+            renderConversations();
+            renderConversationsPagination();
         }
 
         // ============================================================
@@ -1562,17 +1465,14 @@
 
             const zone = document.getElementById('file-upload-zone');
             const progressBar = document.getElementById('upload-progress-bar');
-
             zone.classList.add('uploading');
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-
                 if (file.size > 5 * 1024 * 1024) {
-                    showToast(`⚠️ ${file.name} is too large (max 5MB)`, 'error');
+                    showToast(`⚠️ ${file.name} too large (max 5MB)`, 'error');
                     continue;
                 }
-
                 if (!file.type.startsWith('image/')) {
                     showToast(`⚠️ ${file.name} is not an image`, 'error');
                     continue;
@@ -1600,13 +1500,11 @@
 
                     const progress = ((i + 1) / files.length) * 100;
                     progressBar.style.width = progress + '%';
-
                     renderUploadedImages();
-                    showToast(`✅ ${file.name} uploaded successfully!`, 'success');
-
+                    showToast(`✅ ${file.name} uploaded!`, 'success');
                 } catch (error) {
                     console.error('Upload error:', error);
-                    showToast(`❌ Failed to upload ${file.name}: ${error.message}`, 'error');
+                    showToast(`❌ Failed: ${error.message}`, 'error');
                 }
             }
 
@@ -1616,14 +1514,10 @@
         }
 
         function renderUploadedImages() {
-            if (uploadedFileUrls.length === 0) {
-                uploadedImagesContainer.innerHTML = '';
-                return;
-            }
-
+            if (uploadedFileUrls.length === 0) { uploadedImagesContainer.innerHTML = ''; return; }
             uploadedImagesContainer.innerHTML = uploadedFileUrls.map((url, index) => `
                 <div class="uploaded-image-item">
-                    <img src="${url}" alt="Uploaded photo ${index + 1}">
+                    <img src="${url}" alt="Photo ${index + 1}">
                     <button class="remove-image-btn" onclick="window.removeUploadedImage(${index})">✕</button>
                 </div>
             `).join('');
@@ -1637,9 +1531,8 @@
         }
 
         // ============================================================
-        // CRUD OPERATIONS
+        // MODAL / CRUD
         // ============================================================
-
         window.openAddModal = function() {
             editingId = null;
             document.getElementById('modal-title').textContent = 'Add New Member';
@@ -1655,11 +1548,8 @@
         }
 
         window.openEditModal = async function(id) {
-            const member = adminMembers.find(m => m.id === id) || signUpUsers.find(m => m.id === id);
-            if (!member) {
-                showToast('Member not found', 'error');
-                return;
-            }
+            const member = adminMembers.find(m => m.id === id);
+            if (!member) { showToast('Member not found', 'error'); return; }
 
             editingId = id;
             document.getElementById('modal-title').textContent = 'Edit Member';
@@ -1670,9 +1560,10 @@
             document.getElementById('form-name').value = member.name || '';
             document.getElementById('form-age').value = member.age || '';
             document.getElementById('form-gender').value = member.gender || '';
-            document.getElementById('form-current-location').value = member.current_location || member.location || '';
-            document.getElementById('form-home-country').value = member.home_country || member.origin || '';
-            document.getElementById('form-bio').value = member.bio || '';
+            document.getElementById('form-current-location').value = member.current_location || '';
+            document.getElementById('form-home-country').value = member.home_country || '';
+            document.getElementById('form-occupation').value = member.occupation || '';
+            document.getElementById('form-bio').value = member.bio || member.about_me || '';
             document.getElementById('form-looking').value = member.looking_for || '';
             document.getElementById('form-verified').value = member.verified ? 'true' : 'false';
             document.getElementById('form-premium').value = member.premium ? 'true' : 'false';
@@ -1680,15 +1571,11 @@
 
             uploadedFileIds = member.photo_file_ids || [];
             uploadedFileUrls = [];
-
             for (const fileId of uploadedFileIds) {
                 const { data } = supabase.storage.from('member_photos').getPublicUrl(fileId);
-                if (data && data.publicUrl) {
-                    uploadedFileUrls.push(data.publicUrl);
-                }
+                if (data && data.publicUrl) uploadedFileUrls.push(data.publicUrl);
             }
             renderUploadedImages();
-
             modalOverlay.classList.add('active');
             closeMenu();
         }
@@ -1700,29 +1587,18 @@
             renderUploadedImages();
         }
 
-        // ============================================================
-        // SAVE MEMBER
-        // ============================================================
         window.saveMember = async function(event) {
             event.preventDefault();
 
             const editId = editIdInput.value;
             const isEdit = !!editId;
-
-            let existingMember = null;
-            if (isEdit) {
-                existingMember = adminMembers.find(m => m.id === editId) || signUpUsers.find(m => m.id === editId);
-            }
+            let existingMember = isEdit ? adminMembers.find(m => m.id === editId) : null;
 
             const name = document.getElementById('form-name').value.trim();
             const interestsArray = document.getElementById('form-interests').value
-                .split(',')
-                .map(s => s.trim())
-                .filter(Boolean);
+                .split(',').map(s => s.trim()).filter(Boolean);
 
             const email = `${name.toLowerCase().replace(/\s/g, '.')}_${Date.now()}@classydate.com`;
-
-            // ✅ IMPORTANT: Keep verified = true for admin members
             const isVerified = document.getElementById('form-verified').value === 'true';
 
             const formData = {
@@ -1732,9 +1608,10 @@
                 gender: document.getElementById('form-gender').value,
                 current_location: document.getElementById('form-current-location').value.trim(),
                 home_country: document.getElementById('form-home-country').value.trim(),
+                occupation: document.getElementById('form-occupation').value.trim(),
                 bio: document.getElementById('form-bio').value.trim(),
                 looking_for: document.getElementById('form-looking').value.trim(),
-                verified: isVerified, // ✅ true for admin members
+                verified: isVerified,
                 premium: document.getElementById('form-premium').value === 'true',
                 interests: interestsArray,
                 photo_file_ids: uploadedFileIds
@@ -1753,29 +1630,15 @@
                 return;
             }
 
-            console.log('📤 Saving member:', formData);
-
             try {
-                let result;
                 if (isEdit) {
-                    const { data, error } = await supabase
-                        .from('members')
-                        .update(formData)
-                        .eq('id', editId)
-                        .select();
-                    
+                    const { error } = await supabase.from('members').update(formData).eq('id', editId);
                     if (error) throw error;
-                    result = data;
-                    showToast(`✅ ${formData.name} updated successfully!`, 'success');
+                    showToast(`✅ ${formData.name} updated!`, 'success');
                 } else {
-                    const { data, error } = await supabase
-                        .from('members')
-                        .insert([formData])
-                        .select();
-                    
+                    const { error } = await supabase.from('members').insert([formData]);
                     if (error) throw error;
-                    result = data;
-                    showToast(`✅ ${formData.name} added successfully!`, 'success');
+                    showToast(`✅ ${formData.name} added!`, 'success');
                 }
 
                 closeModal();
@@ -1783,46 +1646,30 @@
                 uploadedFileIds = [];
                 uploadedFileUrls = [];
                 renderUploadedImages();
-                
                 await loadAdminMembers();
-                await loadSignUpUsers();
                 filterMembers();
-                
             } catch (error) {
-                console.error('❌ Error saving member:', error);
-                showToast('Error saving member: ' + error.message, 'error');
+                console.error('❌ Save error:', error);
+                showToast('Error saving: ' + error.message, 'error');
             }
         }
 
-        // ============================================================
-        // DELETE MEMBER
-        // ============================================================
         window.deleteMember = async function(id) {
-            const member = adminMembers.find(m => m.id === id) || signUpUsers.find(m => m.id === id);
+            const member = adminMembers.find(m => m.id === id);
             if (!member) return;
 
-            if (confirm(`Are you sure you want to delete ${member.name}? This action cannot be undone.`)) {
+            if (confirm(`Delete ${member.name}? This cannot be undone.`)) {
                 try {
                     if (member.photo_file_ids && member.photo_file_ids.length > 0) {
-                        for (const fileId of member.photo_file_ids) {
-                            await supabase.storage.from('member_photos').remove([fileId]);
-                        }
+                        await supabase.storage.from('member_photos').remove(member.photo_file_ids);
                     }
-
-                    const { error } = await supabase
-                        .from('members')
-                        .delete()
-                        .eq('id', id);
-                    
+                    const { error } = await supabase.from('members').delete().eq('id', id);
                     if (error) throw error;
-                    
-                    showToast(`🗑️ ${member.name} was deleted.`, 'success');
+                    showToast(`🗑️ ${member.name} deleted.`, 'success');
                     await loadAdminMembers();
-                    await loadSignUpUsers();
                     filterMembers();
                 } catch (error) {
-                    console.error('Error deleting member:', error);
-                    showToast('Error deleting member: ' + error.message, 'error');
+                    showToast('Error deleting: ' + error.message, 'error');
                 }
             }
         }
@@ -1830,8 +1677,10 @@
         // ============================================================
         // LOGOUT
         // ============================================================
-        window.logoutAdmin = function() {
-            localStorage.removeItem('admin_logged_in');
+        window.logoutAdmin = async function() {
+            try {
+                await supabase.auth.signOut();
+            } catch (e) {}
             window.location.href = 'adminlogin.html';
         }
 
@@ -1839,20 +1688,15 @@
         // TOAST
         // ============================================================
         let toastTimeout;
-
         function showToast(message, type = 'success') {
             const icon = document.getElementById('toast-icon');
             const msg = document.getElementById('toast-message');
-
             toast.className = 'toast ' + type;
             icon.textContent = type === 'success' ? '✅' : '⚠️';
             msg.textContent = message;
-
             toast.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
         // ============================================================
@@ -1862,17 +1706,19 @@
             if (e.target === this) closeModal();
         });
 
-        await loadAdminMembers();
-        await loadSignUpUsers();
-        
-        showTab('members');
+        (async function init() {
+            const ok = await requireAdmin();
+            if (!ok) return;
 
-        console.log('💎 ClassyDate Admin Panel - UPDATED!');
-        console.log('✅ Members Tab: Only admin-added members (verified = true)');
-        console.log('✅ Users Tab: Only sign-ups (verified = false)');
-        console.log('✅ Clean separation between admin and user data');
-        console.log('📊 Admin Members:', adminMembers.length);
-        console.log('👤 Sign-up Users:', signUpUsers.length);
+            await loadAdminMembers();
+            await loadConversations();
+            showTab('members');
+
+            console.log('💎 ClassyDate Admin Panel — NEW BACKEND');
+            console.log('✅ Supabase:', SUPABASE_URL);
+            console.log('✅ Members:', adminMembers.length);
+            console.log('✅ Conversations:', conversations.length);
+        })();
     </script>
 
 </body>

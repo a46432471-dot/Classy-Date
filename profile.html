@@ -30,7 +30,7 @@
         a { text-decoration: none; color: inherit; }
 
         /* ============================================================ */
-        /* HEADER - MODERN PURPLE                                      */
+        /* HEADER                                                       */
         /* ============================================================ */
         .profile-header {
             position: fixed;
@@ -41,782 +41,766 @@
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(108, 60, 179, 0.12);
-            padding: 0 16px;
-            height: 60px;
+            padding: 0 12px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
         }
 
-        .profile-header .brand {
+        .header-btn {
+            background: rgba(108, 60, 179, 0.08);
+            border: none;
+            color: #1a0533;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            flex-shrink: 0;
+        }
+        .header-btn:hover { background: rgba(108, 60, 179, 0.15); }
+
+        .brand {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #1a0533;
-            margin-left: -4px;
+            text-align: center;
+            flex: 1;
         }
-
-        .profile-header .brand .heart {
-            color: #ff0000;
-            display: inline-block;
-            font-size: 20px;
-        }
-
-        .profile-header .brand span {
+        .brand .heart { color: #ff0000; display: inline-block; }
+        .brand span {
             font-family: "Inter", sans-serif;
             font-weight: 300;
             color: #6c3cb3;
         }
 
-        .profile-header .back-btn {
-            padding: 6px 14px;
-            border-radius: 50px;
-            background: rgba(108, 60, 179, 0.08);
-            color: #1a0533;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            font-family: "Inter", sans-serif;
-            transition: all 0.3s ease;
+        .header-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
         }
 
-        .profile-header .back-btn:hover {
-            background: rgba(108, 60, 179, 0.15);
+        /* MENU */
+        .menu-container { position: relative; }
+
+        .menu-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 46px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(16px);
+            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            overflow: hidden;
+            z-index: 200;
+        }
+        .menu-dropdown.show {
+            display: block;
+            animation: slideDown 0.2s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 18px;
+            color: #1a0533;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(108, 60, 179, 0.06);
+        }
+        .menu-dropdown a:last-child { border-bottom: none; }
+        .menu-dropdown a:hover { background: rgba(108, 60, 179, 0.06); }
+        .menu-dropdown .logout-btn { color: #dc3545; font-weight: 600; }
+        .menu-dropdown .menu-divider {
+            height: 1px;
+            background: rgba(108, 60, 179, 0.06);
+            margin: 4px 0;
         }
 
         /* ============================================================ */
-        /* PROFILE WRAPPER                                             */
+        /* WRAPPER                                                     */
         /* ============================================================ */
         .profile-wrapper {
             flex: 1;
-            padding: 72px 0 0;
-            max-width: 100%;
-            margin: 0;
+            padding: 68px 0 90px;
             width: 100%;
             background: #f3e8ff;
         }
 
-        .profile-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(20px);
-            overflow: hidden;
-            border: none;
-            width: 100%;
-            margin: 0;
-            border-radius: 0;
+        .profile-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 14px;
         }
 
         /* ============================================================ */
-        /* TOP SECTION - AVATAR + NAME                                */
+        /* TOP — AVATAR + NAME                                          */
         /* ============================================================ */
         .profile-top {
-            text-align: center;
-            padding: 24px 16px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 4px 24px;
+        }
+
+        .profile-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
         }
 
         .profile-avatar {
-            width: 120px;
-            height: 120px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #FFFFFF;
-            box-shadow: 0 4px 24px rgba(108, 60, 179, 0.15);
-            margin: 0 auto 14px;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 20px rgba(108, 60, 179, 0.2);
             display: block;
+        }
+
+        .status-ring {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            background: #28a745;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.5);
+            animation: pulse-ring 2s infinite;
+        }
+        .status-ring.offline {
+            background: #adb5bd;
+            animation: none;
+            box-shadow: none;
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+        }
+
+        .profile-top-info {
+            flex: 1;
+            min-width: 0;
         }
 
         .profile-name {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 700;
             color: #1a0533;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            line-height: 1.2;
+            margin-bottom: 4px;
         }
 
-        .profile-name .verified-badge {
+        .verified-badge {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background: #1DA1F2;
             color: #fff;
             border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
             font-weight: 700;
             border: 2px solid #fff;
-            box-shadow: 0 2px 8px rgba(29, 161, 242, 0.4);
-            margin-left: 6px;
+            box-shadow: 0 1px 4px rgba(29, 161, 242, 0.4);
+            flex-shrink: 0;
         }
 
-        /* Status - Online/Offline */
-        .profile-status-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 6px;
-        }
-
-        .profile-status {
+        .profile-status-line {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 15px;
+            gap: 5px;
+            margin-bottom: 2px;
             font-weight: 600;
-            font-family: "Inter", sans-serif;
         }
 
-        .profile-status .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-        }
+        .profile-status-line .online-text { color: #28a745; }
+        .profile-status-line .offline-text { color: rgba(26, 5, 51, 0.4); }
 
-        .profile-status .dot.online {
-            background: #28a745;
-            animation: pulse-online 1.8s infinite;
-        }
-
-        .profile-status .dot.offline {
-            background: #adb5bd;
-        }
-
-        .profile-status .online-text {
-            color: #28a745;
-        }
-
-        .profile-status .offline-text {
-            color: rgba(26, 5, 51, 0.4);
-        }
-
-        @keyframes pulse-online {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.15); opacity: 0.7; }
-        }
-
-        /* ============================================================ */
-        /* DETAILS - NO BOXES (Plain text) - FONT CLEARER             */
-        /* ============================================================ */
-        .profile-details {
-            padding: 0 20px;
+        .profile-location-line {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.55);
             display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 18px;
-        }
-
-        .profile-details .detail-line {
-            font-size: 16px;
-            color: #1a0533;
-            font-family: "Inter", sans-serif;
-            padding: 4px 0;
-            line-height: 1.6;
+            align-items: center;
+            gap: 4px;
             font-weight: 500;
         }
 
-        .profile-details .detail-line .label {
-            font-weight: 700;
-            color: #2d0a4a;
-        }
-
-        .profile-details .detail-line .value {
-            font-weight: 500;
-            color: #1a0533;
-        }
-
         /* ============================================================ */
-        /* ABOUT ME - BOX                                              */
+        /* MAGAZINE SECTIONS                                            */
         /* ============================================================ */
-        .profile-about {
-            padding: 0 16px;
-            margin-bottom: 12px;
+        .mag-section {
+            padding: 22px 0 24px;
+            border-top: 1px solid rgba(108, 60, 179, 0.12);
         }
 
-        .profile-about .about-box {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 12px 14px;
-            border: 1px solid rgba(108, 60, 179, 0.08);
+        .mag-section:first-of-type {
+            border-top: 2px solid rgba(108, 60, 179, 0.2);
         }
 
-        .profile-about .about-box .about-label {
-            font-size: 11px;
-            color: rgba(26, 5, 51, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 4px;
-            font-family: "Inter", sans-serif;
-        }
-
-        .profile-about .about-box .about-text {
-            font-size: 15px;
-            color: #1a0533;
-            line-height: 1.6;
-            font-family: "Inter", sans-serif;
-            font-weight: 400;
-        }
-
-        /* ============================================================ */
-        /* LOOKING FOR - BOX                                           */
-        /* ============================================================ */
-        .profile-looking {
-            padding: 0 16px;
-            margin-bottom: 12px;
-        }
-
-        .profile-looking .looking-box {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 12px 14px;
-            border: 1px solid rgba(108, 60, 179, 0.08);
-        }
-
-        .profile-looking .looking-box .looking-label {
-            font-size: 11px;
-            color: rgba(26, 5, 51, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 4px;
-            font-family: "Inter", sans-serif;
-        }
-
-        .profile-looking .looking-box .looking-text {
-            font-size: 15px;
-            color: #1a0533;
-            line-height: 1.6;
-            font-family: "Inter", sans-serif;
-            font-weight: 400;
-        }
-
-        /* ============================================================ */
-        /* INTERESTS - BOX                                             */
-        /* ============================================================ */
-        .profile-interests {
-            padding: 0 16px;
+        .mag-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 16px;
         }
 
-        .profile-interests .interests-box {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 12px 14px;
-            border: 1px solid rgba(108, 60, 179, 0.08);
-        }
-
-        .profile-interests .interests-box .interests-label {
-            font-size: 11px;
-            color: rgba(26, 5, 51, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .mag-number {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 15px;
             font-weight: 700;
-            display: block;
-            margin-bottom: 6px;
-            font-family: "Inter", sans-serif;
-        }
-
-        .profile-interests .tag {
-            display: inline-block;
-            padding: 4px 14px;
+            color: #6c3cb3;
             background: rgba(108, 60, 179, 0.08);
-            border-radius: 50px;
-            font-size: 13px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mag-title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 15px;
+            font-weight: 700;
             color: #1a0533;
-            font-family: "Inter", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex: 1;
+        }
+
+        .mag-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(108, 60, 179, 0.25), transparent);
+        }
+
+        /* ============================================================ */
+        /* 01 · ABOUT                                                   */
+        /* ============================================================ */
+        .about-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .about-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: #1a0533;
+            line-height: 1.4;
+        }
+
+        .about-item .icon {
+            font-size: 15px;
+            width: 22px;
+            flex-shrink: 0;
+            text-align: center;
+            padding-top: 1px;
+        }
+
+        .about-item .text {
             font-weight: 500;
-            margin: 2px 4px 2px 0;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .about-item .text .label {
+            font-weight: 700;
+            color: rgba(26, 5, 51, 0.55);
+        }
+
+        .about-bio {
+            font-size: 14px;
+            color: rgba(26, 5, 51, 0.85);
+            line-height: 1.65;
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        .about-bio.empty {
+            color: rgba(26, 5, 51, 0.35);
+            font-style: italic;
         }
 
         /* ============================================================ */
-        /* PHOTOS CAROUSEL                                             */
+        /* 02 · LOOKING FOR                                             */
         /* ============================================================ */
-        .profile-photos {
-            padding: 0 0 16px;
-            margin: 0;
-            width: 100%;
+        .looking-text {
+            font-size: 14px;
+            color: #1a0533;
+            line-height: 1.6;
+            font-weight: 500;
         }
 
-        .profile-photos .photos-wrapper {
+        .looking-text.empty {
+            color: rgba(26, 5, 51, 0.35);
+            font-style: italic;
+        }
+
+        /* ============================================================ */
+        /* 03 · INTERESTS                                               */
+        /* ============================================================ */
+        .tags-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(108, 60, 179, 0.1);
+            border-radius: 50px;
+            font-size: 12px;
+            color: #6c3cb3;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background: rgba(108, 60, 179, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .tags-empty {
+            color: rgba(26, 5, 51, 0.35);
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        /* ============================================================ */
+        /* 04 · PHOTOS COLLAGE                                          */
+        /* ============================================================ */
+        .collage {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 120px;
+            gap: 6px;
+        }
+
+        /* Pattern per 5 photos:
+           IMG1: 2x2 (big)   IMG2: 1x1 (top right)
+           IMG3: 1x1         IMG4: 1x1
+           IMG5: 2x1 (wide) */
+
+        .collage-item {
             position: relative;
             overflow: hidden;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.05);
-            aspect-ratio: 16/10;
-            max-height: 300px;
-        }
-
-        .profile-photos .photos-slides {
-            display: flex;
-            transition: transform 0.5s ease;
-            touch-action: pan-y;
-            width: 100%;
-            height: 100%;
-        }
-
-        .profile-photos .photo-slide {
-            min-width: 100%;
-            height: 100%;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #d0d5da;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .profile-photos .photo-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #e8ecf0;
-        }
-
-        .photo-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(26, 5, 51, 0.4);
-            backdrop-filter: blur(4px);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 16px;
+            border-radius: 10px;
             cursor: pointer;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #e8d5f5;
             transition: all 0.3s ease;
         }
 
-        .photo-nav-btn:hover {
-            background: rgba(26, 5, 51, 0.7);
+        .collage-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(108, 60, 179, 0.2);
+            z-index: 2;
         }
 
-        .photo-nav-btn.prev { left: 8px; }
-        .photo-nav-btn.next { right: 8px; }
-
-        /* ============================================================ */
-        /* ACTION BUTTONS                                              */
-        /* ============================================================ */
-        .profile-actions {
-            padding: 0 16px 24px;
-            display: flex;
-            gap: 10px;
+        .collage-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .profile-actions button {
-            flex: 1;
-            padding: 12px;
+        .collage-item:hover img { transform: scale(1.05); }
+
+        /* Pattern positions */
+        .collage-item.p1 { grid-column: span 2; grid-row: span 2; }  /* BIG top-left */
+        .collage-item.p2 { grid-column: span 1; grid-row: span 1; }  /* top-right */
+        .collage-item.p3 { grid-column: span 1; grid-row: span 1; }  /* right below p2 */
+        .collage-item.p4 { grid-column: span 1; grid-row: span 1; }  /* bottom small */
+        .collage-item.p5 { grid-column: span 2; grid-row: span 1; }  /* bottom wide */
+
+        .collage-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: rgba(26, 5, 51, 0.35);
+            font-style: italic;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            border: 1px dashed rgba(108, 60, 179, 0.15);
+        }
+
+        /* ============================================================ */
+        /* CTA                                                          */
+        /* ============================================================ */
+        .profile-cta {
+            padding: 22px 0 8px;
+            border-top: 2px solid rgba(108, 60, 179, 0.2);
+            margin-top: 22px;
+        }
+
+        .btn-connect-big {
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
             border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 15px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
+            animation: pulse-btn 2.5s infinite;
         }
 
-        .btn-message-profile {
+        @keyframes pulse-btn {
+            0%, 100% { box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3); }
+            50% { box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5); }
+        }
+
+        .btn-connect-big:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
+        }
+
+        .btn-connect-big:active { transform: scale(0.98); }
+
+        /* ============================================================ */
+        /* LIGHTBOX                                                     */
+        /* ============================================================ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            cursor: zoom-out;
+            animation: fadeIn 0.2s ease;
+        }
+        .lightbox.show { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* ============================================================ */
+        /* SUPPORT FLOAT                                                */
+        /* ============================================================ */
+        .support-float {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            z-index: 500;
+        }
+
+        .support-float__btn {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            animation: float-support 3s ease-in-out infinite;
         }
 
-        .btn-message-profile:hover {
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.25);
+        @keyframes float-support {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
-        .btn-share {
-            background: rgba(108, 60, 179, 0.08);
-            color: #1a0533;
-            flex: 0.5;
-        }
+        .support-float__btn:active { transform: scale(0.92); }
 
-        .btn-share:hover {
-            background: rgba(108, 60, 179, 0.18);
-            transform: translateY(-2px);
+        .support-float__dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            border: 2px solid #fff;
+            animation: pulse-ring 1.8s infinite;
         }
 
         /* ============================================================ */
-        /* TOAST                                                       */
+        /* TOAST                                                        */
         /* ============================================================ */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 80px;
+            right: 16px;
+            left: 16px;
             padding: 12px 20px;
             background: #1a0533;
             color: #fff;
             border-radius: 10px;
-            font-family: "Inter", sans-serif;
             font-weight: 600;
             font-size: 13px;
             z-index: 999;
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.4s ease;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 360px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            max-width: 420px;
+            margin: 0 auto;
         }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .toast.success {
-            background: #28a745;
-        }
-        .toast.error {
-            background: #dc3545;
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
 
         /* ============================================================ */
-        /* RESPONSIVE                                                   */
+        /* TABLET + DESKTOP                                            */
         /* ============================================================ */
-        @media (max-width: 768px) {
-            .profile-wrapper {
-                padding: 68px 0 0;
-            }
+        @media (min-width: 600px) {
+            .profile-header { height: 60px; padding: 0 16px; }
+            .brand { font-size: 20px; }
+            .profile-wrapper { padding: 76px 0 100px; }
+            .profile-container { padding: 0 20px; }
 
-            .profile-top {
-                padding: 18px 14px 12px;
-            }
+            .profile-avatar { width: 110px; height: 110px; }
+            .profile-name { font-size: 26px; }
+            .profile-status-line { font-size: 14px; }
+            .profile-location-line { font-size: 14px; }
 
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
-            }
+            .mag-section { padding: 26px 0 28px; }
+            .mag-number { width: 36px; height: 36px; font-size: 16px; }
+            .mag-title { font-size: 16px; }
 
-            .profile-name {
-                font-size: 22px;
-            }
+            .about-item { font-size: 15px; }
+            .about-bio { font-size: 15px; }
+            .looking-text { font-size: 15px; }
 
-            .profile-status {
-                font-size: 14px;
-            }
+            .collage { grid-auto-rows: 160px; gap: 8px; }
 
-            .profile-status .dot {
-                width: 10px;
-                height: 10px;
-            }
-
-            .profile-details {
-                padding: 0 16px;
-                gap: 4px;
-                margin-bottom: 14px;
-            }
-
-            .profile-details .detail-line {
-                font-size: 15px;
-                padding: 3px 0;
-            }
-
-            .profile-about,
-            .profile-looking {
-                padding: 0 14px;
-                margin-bottom: 10px;
-            }
-
-            .profile-about .about-box,
-            .profile-looking .looking-box {
-                padding: 10px 12px;
-            }
-
-            .profile-about .about-box .about-text,
-            .profile-looking .looking-box .looking-text {
-                font-size: 14px;
-            }
-
-            .profile-interests {
-                padding: 0 14px;
-                margin-bottom: 14px;
-            }
-
-            .profile-interests .interests-box {
-                padding: 10px 12px;
-            }
-
-            .profile-interests .tag {
-                font-size: 12px;
-            }
-
-            .profile-photos .photos-wrapper {
-                aspect-ratio: 16/10;
-                max-height: 260px;
-            }
-
-            .profile-actions {
-                padding: 0 14px 18px;
-                gap: 8px;
-            }
-
-            .profile-actions button {
-                font-size: 14px;
-                padding: 10px;
-            }
-
-            .photo-nav-btn {
-                width: 26px;
-                height: 26px;
-                font-size: 14px;
-            }
-
-            .profile-header {
-                height: 56px;
-                padding: 0 14px;
-            }
-
-            .profile-header .brand {
-                font-size: 18px;
-            }
-
-            .profile-header .brand .heart {
-                font-size: 18px;
-            }
-
-            .profile-header .back-btn {
-                font-size: 13px;
-                padding: 5px 12px;
-            }
+            .btn-connect-big { font-size: 18px; padding: 18px 24px; }
         }
 
-        @media (max-width: 480px) {
-            .profile-wrapper {
-                padding: 62px 0 0;
-            }
+        @media (min-width: 900px) {
+            .profile-avatar { width: 130px; height: 130px; }
+            .profile-name { font-size: 30px; }
+            .collage { grid-auto-rows: 190px; gap: 10px; }
+        }
 
-            .profile-top {
-                padding: 14px 12px 10px;
-            }
-
-            .profile-avatar {
-                width: 85px;
-                height: 85px;
-                border-width: 3px;
-            }
-
-            .profile-name {
-                font-size: 19px;
-            }
-
-            .profile-status {
-                font-size: 13px;
-            }
-
-            .profile-status .dot {
-                width: 9px;
-                height: 9px;
-            }
-
-            .profile-details {
-                padding: 0 12px;
-                gap: 3px;
-                margin-bottom: 12px;
-            }
-
-            .profile-details .detail-line {
-                font-size: 14px;
-                padding: 2px 0;
-            }
-
-            .profile-about,
-            .profile-looking {
-                padding: 0 12px;
-                margin-bottom: 8px;
-            }
-
-            .profile-about .about-box,
-            .profile-looking .looking-box {
-                padding: 8px 10px;
-            }
-
-            .profile-about .about-box .about-label,
-            .profile-looking .looking-box .looking-label {
-                font-size: 10px;
-            }
-
-            .profile-about .about-box .about-text,
-            .profile-looking .looking-box .looking-text {
-                font-size: 13px;
-            }
-
-            .profile-interests {
-                padding: 0 12px;
-                margin-bottom: 12px;
-            }
-
-            .profile-interests .interests-box {
-                padding: 8px 10px;
-            }
-
-            .profile-interests .interests-label {
-                font-size: 10px;
-            }
-
-            .profile-interests .tag {
-                font-size: 11px;
-                padding: 2px 10px;
-            }
-
-            .profile-photos .photos-wrapper {
-                aspect-ratio: 16/10;
-                max-height: 200px;
-            }
-
-            .profile-actions {
-                padding: 0 12px 14px;
-                gap: 6px;
-            }
-
-            .profile-actions button {
-                font-size: 13px;
-                padding: 8px;
-                border-radius: 8px;
-            }
-
-            .photo-nav-btn {
-                width: 24px;
-                height: 24px;
-                font-size: 12px;
-            }
-
-            .profile-header {
-                height: 50px;
-                padding: 0 10px;
-            }
-
-            .profile-header .brand {
-                font-size: 16px;
-            }
-
-            .profile-header .brand .heart {
-                font-size: 16px;
-            }
-
-            .profile-header .back-btn {
-                font-size: 12px;
-                padding: 4px 10px;
-            }
-
-            .toast {
-                bottom: 16px;
-                right: 16px;
-                left: 16px;
-                text-align: center;
-                max-width: 100%;
-                font-size: 12px;
-                padding: 10px 16px;
-            }
+        /* Small phones */
+        @media (max-width: 360px) {
+            .profile-avatar { width: 76px; height: 76px; }
+            .profile-name { font-size: 19px; }
+            .collage { grid-auto-rows: 100px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================ -->
-    <!-- HEADER - ClassyDate❤️ (Corrected)                           -->
-    <!-- ============================================================ -->
+    <!-- HEADER -->
     <header class="profile-header">
-        <button class="back-btn" onclick="goBack()">← Back</button>
-        <a class="brand" href="/">Classy<span class="heart">❤️</span></a>
-        <div style="width:50px;"></div>
+        <button class="header-btn" onclick="goBack()" aria-label="Back">←</button>
+        <a class="brand" href="index.html">
+            Classy<span>Date</span><span class="heart">❤️</span>
+        </a>
+        <div class="header-actions">
+            <button class="header-btn" onclick="shareProfile()" aria-label="Share">↗</button>
+            <div class="menu-container">
+                <button class="header-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+                <div class="menu-dropdown" id="menuDropdown">
+                    <a href="chat.html" onclick="openSupport(event)">
+                        <span>💬</span> Chat with Support
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a href="#" onclick="logoutUser(); return false;" class="logout-btn">
+                        <span>🚪</span> Log out
+                    </a>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- ============================================================ -->
-    <!-- PROFILE CONTENT                                              -->
-    <!-- ============================================================ -->
+    <!-- MAIN -->
     <main class="profile-wrapper">
-        <div class="profile-card">
+        <div class="profile-container">
 
-            <!-- TOP SECTION - AVATAR + NAME + STATUS -->
-            <div class="profile-top">
-                <img class="profile-avatar" id="profile-avatar" src="" alt="Profile">
-                <h1 class="profile-name" id="profile-name">
-                    Loading...
-                    <span class="verified-badge">✓</span>
-                </h1>
-                <div class="profile-status-row">
-                    <span class="profile-status">
-                        <span class="dot online" id="status-dot"></span>
-                        <span class="online-text" id="status-text">Online</span>
-                    </span>
+            <!-- TOP — AVATAR + NAME -->
+            <section class="profile-top">
+                <div class="profile-avatar-wrap">
+                    <img class="profile-avatar" id="profile-avatar" src="" alt="Profile">
+                    <div class="status-ring" id="status-ring"></div>
                 </div>
-            </div>
-
-            <!-- DETAILS - NO BOXES (Plain text) -->
-            <div class="profile-details" id="profile-details">
-                <div class="detail-line">
-                    <span class="label">Current Location: </span>
-                    <span class="value" id="profile-location">Loading...</span>
-                </div>
-                <div class="detail-line">
-                    <span class="label">Origin Country: </span>
-                    <span class="value" id="profile-origin">Loading...</span>
-                </div>
-                <div class="detail-line">
-                    <span class="label">Age: </span>
-                    <span class="value" id="profile-age">—</span>
-                </div>
-                <div class="detail-line">
-                    <span class="label">Gender: </span>
-                    <span class="value" id="profile-gender">—</span>
-                </div>
-            </div>
-
-            <!-- ABOUT ME - BOX -->
-            <div class="profile-about">
-                <div class="about-box">
-                    <span class="about-label">📝 About Me</span>
-                    <span class="about-text" id="profile-bio">No bio available.</span>
-                </div>
-            </div>
-
-            <!-- LOOKING FOR - BOX -->
-            <div class="profile-looking">
-                <div class="looking-box">
-                    <span class="looking-label">🔍 Looking For</span>
-                    <span class="looking-text" id="profile-looking">Not specified</span>
-                </div>
-            </div>
-
-            <!-- INTERESTS - BOX -->
-            <div class="profile-interests">
-                <div class="interests-box">
-                    <span class="interests-label">🏷️ Interests</span>
-                    <div id="profile-interests">
-                        <span style="color:rgba(26,5,51,0.3);font-size:13px;">No interests listed</span>
+                <div class="profile-top-info">
+                    <h1 class="profile-name" id="profile-name">
+                        Loading...
+                    </h1>
+                    <div class="profile-status-line" id="profile-status-line">
+                        <span class="online-text">Online</span>
+                    </div>
+                    <div class="profile-location-line" id="profile-location-line">
+                        📍 Loading...
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- PHOTOS CAROUSEL -->
-            <div class="profile-photos">
-                <div class="photos-wrapper" id="photos-wrapper">
-                    <div class="photos-slides" id="photos-slides"></div>
-                    <button class="photo-nav-btn prev" onclick="changeProfilePhoto(-1)">‹</button>
-                    <button class="photo-nav-btn next" onclick="changeProfilePhoto(1)">›</button>
+            <!-- 01 · ABOUT -->
+            <section class="mag-section">
+                <div class="mag-header">
+                    <span class="mag-number">01</span>
+                    <span class="mag-title">About</span>
+                    <span class="mag-line"></span>
                 </div>
-            </div>
+                <div class="about-list">
+                    <div class="about-item">
+                        <span class="icon">📍</span>
+                        <span class="text"><span class="label">Current Location:</span> <span id="info-location">—</span></span>
+                    </div>
+                    <div class="about-item">
+                        <span class="icon">🌍</span>
+                        <span class="text"><span class="label">Origin Country:</span> <span id="info-origin">—</span></span>
+                    </div>
+                    <div class="about-item">
+                        <span class="icon">🎂</span>
+                        <span class="text"><span class="label">Age:</span> <span id="info-age">—</span></span>
+                    </div>
+                    <div class="about-item">
+                        <span class="icon">👤</span>
+                        <span class="text"><span class="label">Gender:</span> <span id="info-gender">—</span></span>
+                    </div>
+                    <div class="about-item">
+                        <span class="icon">💼</span>
+                        <span class="text"><span class="label">Occupation:</span> <span id="info-occupation">—</span></span>
+                    </div>
+                </div>
+                <p class="about-bio" id="info-bio">No bio available.</p>
+            </section>
 
-            <!-- ACTIONS -->
-            <div class="profile-actions">
-                <button class="btn-message-profile" id="message-btn" onclick="sendMessage()">💬 Send Message</button>
-                <button class="btn-share" onclick="shareProfile()">↗ Share</button>
+            <!-- 02 · LOOKING FOR -->
+            <section class="mag-section">
+                <div class="mag-header">
+                    <span class="mag-number">02</span>
+                    <span class="mag-title">Looking For</span>
+                    <span class="mag-line"></span>
+                </div>
+                <p class="looking-text" id="info-looking">Not specified</p>
+            </section>
+
+            <!-- 03 · INTERESTS -->
+            <section class="mag-section">
+                <div class="mag-header">
+                    <span class="mag-number">03</span>
+                    <span class="mag-title">Interests</span>
+                    <span class="mag-line"></span>
+                </div>
+                <div class="tags-wrap" id="info-interests">
+                    <span class="tags-empty">No interests listed</span>
+                </div>
+            </section>
+
+            <!-- 04 · PHOTOS -->
+            <section class="mag-section">
+                <div class="mag-header">
+                    <span class="mag-number">04</span>
+                    <span class="mag-title">Photos</span>
+                    <span class="mag-line"></span>
+                </div>
+                <div class="collage" id="collage">
+                    <div class="collage-empty" style="grid-column: 1 / -1;">Loading photos...</div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <div class="profile-cta">
+                <button class="btn-connect-big" id="connect-btn" onclick="connectWith()">
+                    💬 Connect with <span id="cta-name">this member</span>
+                </button>
             </div>
 
         </div>
     </main>
 
-    <!-- ============================================================ -->
-    <!-- TOAST                                                       -->
-    <!-- ============================================================ -->
+    <!-- SUPPORT FLOAT -->
+    <div class="support-float">
+        <button class="support-float__btn" onclick="openSupport(event)" aria-label="Support">
+            💬
+            <span class="support-float__dot"></span>
+        </button>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
+        <img id="lightbox-img" src="" alt="Photo">
+    </div>
+
+    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
     <!-- ============================================================ -->
@@ -833,17 +817,19 @@
     <script type="module">
         import { createClient } from "@supabase/supabase-js";
 
-        const SUPABASE_URL = 'https://ehfnzsfnsoiyiwpxqmli.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_ybgZxnGuU_Gt35rfqkEdBw_YkEdD8vl';
+        const SUPABASE_URL = 'https://eswlfgrzdmdwmfqncpew.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oeCfBt8Ci0xQ4mg6o2mnnA_mbgnwRVS';
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        console.log('🔥 Supabase connected!');
+        console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         let memberData = null;
         let profilePhotos = [];
-        let currentPhotoIndex = 0;
 
+        // ============================================================
+        // URL / ID
+        // ============================================================
         function getMemberIdFromURL() {
             const params = new URLSearchParams(window.location.search);
             return params.get('id');
@@ -854,10 +840,7 @@
             try {
                 const { data } = supabase.storage.from('member_photos').getPublicUrl(fileId);
                 return data?.publicUrl || null;
-            } catch (error) {
-                console.warn('Error getting photo URL for:', fileId, error);
-                return null;
-            }
+            } catch (err) { return null; }
         }
 
         // ============================================================
@@ -867,9 +850,7 @@
             const memberId = getMemberIdFromURL();
             if (!memberId) {
                 showToast('❌ No member specified', 'error');
-                setTimeout(() => {
-                    window.location.href = 'members.html';
-                }, 1500);
+                setTimeout(() => { window.location.href = 'members.html'; }, 1500);
                 return;
             }
 
@@ -881,22 +862,18 @@
                     .maybeSingle();
 
                 if (error) throw error;
-
                 if (!data) {
                     showToast('❌ Member not found', 'error');
-                    setTimeout(() => {
-                        window.location.href = 'members.html';
-                    }, 1500);
+                    setTimeout(() => { window.location.href = 'members.html'; }, 1500);
                     return;
                 }
 
                 memberData = data;
                 console.log('📊 Member loaded:', memberData);
                 renderProfile(memberData);
-
-            } catch (error) {
-                console.error('Error loading profile:', error);
-                showToast('Error loading profile: ' + error.message, 'error');
+            } catch (err) {
+                console.error('Error loading profile:', err);
+                showToast('Error loading profile: ' + err.message, 'error');
             }
         }
 
@@ -904,253 +881,270 @@
         // RENDER PROFILE
         // ============================================================
         function renderProfile(member) {
-            const memberName = member.name || 'User';
+            const name = member.name || 'Member';
+            const age = member.age || '';
+            const location = member.current_location || member.location || 'Location unknown';
+            const origin = member.home_country || member.origin || 'Not specified';
+            const occupation = member.occupation || 'Not specified';
+            const gender = member.gender || 'Not specified';
+            const isOnline = member.online === true;
+            const isVerified = member.verified === true;
 
-            // Get photos
+            // Build photos list
             let photos = [];
             if (member.photo_file_ids && member.photo_file_ids.length > 0) {
                 photos = member.photo_file_ids
                     .map(id => getPhotoUrl(id))
-                    .filter(url => url !== null && url !== '');
+                    .filter(u => u);
             }
+            if (photos.length === 0) {
+                photos = [`https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`];
+            }
+            profilePhotos = photos;
 
-            // Avatar (first photo or avatar)
-            const avatarUrl = photos.length > 0 ? photos[0] : 
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=200`;
-
-            document.getElementById('profile-avatar').src = avatarUrl;
-            document.getElementById('profile-avatar').onerror = function() {
-                this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=200`;
+            // Avatar
+            const avatarImg = document.getElementById('profile-avatar');
+            avatarImg.src = photos[0];
+            avatarImg.onerror = function() {
+                this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`;
             };
 
-            // Name with verified badge
-            let nameHTML = memberName;
-            if (member.verified) {
-                nameHTML += ' <span class="verified-badge">✓</span>';
-            }
-            document.getElementById('profile-name').innerHTML = nameHTML;
+            // Status ring
+            const ring = document.getElementById('status-ring');
+            ring.className = 'status-ring' + (isOnline ? '' : ' offline');
 
-            // Status - Show Online/Offline from database
-            const statusDot = document.getElementById('status-dot');
-            const statusText = document.getElementById('status-text');
-            if (member.online) {
-                statusDot.className = 'dot online';
-                statusText.textContent = 'Online';
-                statusText.style.color = '#28a745';
+            // Name + verified
+            const nameEl = document.getElementById('profile-name');
+            nameEl.innerHTML = `✨ ${name}${age ? ', ' + age : ''}` +
+                (isVerified ? ' <span class="verified-badge">✓</span>' : '');
+
+            // Status text
+            const statusLine = document.getElementById('profile-status-line');
+            statusLine.innerHTML = isOnline
+                ? '<span class="online-text">🟢 Online</span>'
+                : '<span class="offline-text">⚪ Offline</span>';
+
+            // Location line (below name)
+            document.getElementById('profile-location-line').textContent = `📍 ${location}`;
+
+            // About section values
+            document.getElementById('info-location').textContent = location;
+            document.getElementById('info-origin').textContent = origin;
+            document.getElementById('info-age').textContent = age || '—';
+            document.getElementById('info-gender').textContent = gender;
+            document.getElementById('info-occupation').textContent = occupation;
+
+            // Bio
+            const bio = member.about_me || member.bio || '';
+            const bioEl = document.getElementById('info-bio');
+            if (bio) {
+                bioEl.textContent = bio;
+                bioEl.classList.remove('empty');
             } else {
-                statusDot.className = 'dot offline';
-                statusText.textContent = 'Offline';
-                statusText.style.color = 'rgba(26,5,51,0.4)';
+                bioEl.textContent = 'No bio available.';
+                bioEl.classList.add('empty');
             }
 
-            // Details - No boxes (plain text)
-            const currentLocation = member.current_location || member.location || 'Location Unknown';
-            document.getElementById('profile-location').textContent = currentLocation;
-
-            const homeCountry = member.home_country || member.origin || 'Not specified';
-            document.getElementById('profile-origin').textContent = homeCountry;
-
-            document.getElementById('profile-age').textContent = member.age || '—';
-            document.getElementById('profile-gender').textContent = member.gender || '—';
-
-            // About Me
-            document.getElementById('profile-bio').textContent = member.about_me || member.bio || 'No bio available.';
-
-            // Looking For
-            document.getElementById('profile-looking').textContent = member.looking_for || 'Not specified';
+            // Looking for
+            const looking = member.looking_for || '';
+            const lookingEl = document.getElementById('info-looking');
+            if (looking) {
+                lookingEl.textContent = looking;
+                lookingEl.classList.remove('empty');
+            } else {
+                lookingEl.textContent = 'Not specified';
+                lookingEl.classList.add('empty');
+            }
 
             // Interests
-            const interestsContainer = document.getElementById('profile-interests');
+            const interestsEl = document.getElementById('info-interests');
             if (member.interests && member.interests.length > 0) {
-                interestsContainer.innerHTML = member.interests.map(i => `<span class="tag">#${i}</span>`).join('');
+                interestsEl.innerHTML = member.interests
+                    .map(i => `<span class="tag">#${i}</span>`).join('');
             } else {
-                interestsContainer.innerHTML = '<span style="color:rgba(26,5,51,0.3);font-size:13px;">No interests listed</span>';
+                interestsEl.innerHTML = '<span class="tags-empty">No interests listed</span>';
             }
 
-            // Photos Carousel
-            profilePhotos = photos.length > 0 ? photos : [
-                `https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=400`
-            ];
-            renderPhotos();
+            // CTA name
+            document.getElementById('cta-name').textContent = name;
 
-            // Message button
-            document.getElementById('message-btn').onclick = function() {
-                sendMessage(member);
-            };
+            // Photos collage
+            renderCollage(photos, name);
+
+            // Update page title
+            document.title = `${name} | ClassyDate`;
         }
 
         // ============================================================
-        // RENDER PHOTOS
+        // RENDER COLLAGE (Pinterest-style)
         // ============================================================
-        function renderPhotos() {
-            const slidesContainer = document.getElementById('photos-slides');
-            
-            if (profilePhotos.length === 0) {
-                slidesContainer.innerHTML = `
-                    <div class="photo-slide" style="display:flex;align-items:center;justify-content:center;background:#d0d5da;color:rgba(26,5,51,0.3);font-family:'Inter',sans-serif;font-size:14px;">
-                        No photos available
+        function renderCollage(photos, memberName) {
+            const collage = document.getElementById('collage');
+
+            if (!photos || photos.length === 0) {
+                collage.innerHTML = '<div class="collage-empty" style="grid-column: 1 / -1;">No photos available</div>';
+                return;
+            }
+
+            // Pattern: p1 (big 2x2), p2, p3, p4, p5 (wide)
+            // Repeats every 5 photos
+            const patternClasses = ['p1', 'p2', 'p3', 'p4', 'p5'];
+
+            const html = photos.map((url, i) => {
+                const pattern = patternClasses[i % 5];
+                return `
+                    <div class="collage-item ${pattern}" onclick="openLightbox('${url}')">
+                        <img src="${url}" alt="${memberName} photo ${i + 1}" loading="lazy"
+                             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=400'">
                     </div>
                 `;
-                return;
-            }
+            }).join('');
 
-            slidesContainer.innerHTML = profilePhotos.map((photo, index) => `
-                <div class="photo-slide">
-                    <img src="${photo}" alt="Photo ${index + 1}" loading="lazy" onerror="this.style.display='none'">
-                </div>
-            `).join('');
-
-            currentPhotoIndex = 0;
-            slidesContainer.style.transform = 'translateX(0%)';
-
-            const prevBtn = document.querySelector('.photo-nav-btn.prev');
-            const nextBtn = document.querySelector('.photo-nav-btn.next');
-            if (profilePhotos.length <= 1) {
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
-            } else {
-                prevBtn.style.display = 'flex';
-                nextBtn.style.display = 'flex';
-            }
+            collage.innerHTML = html;
         }
 
         // ============================================================
-        // CHANGE PHOTO
+        // LIGHTBOX
         // ============================================================
-        window.changeProfilePhoto = function(direction) {
-            const slides = document.getElementById('photos-slides');
-            if (!slides) return;
-            
-            const totalSlides = slides.children.length;
-            if (totalSlides <= 1) return;
-            
-            let newIndex = currentPhotoIndex + direction;
-            if (newIndex < 0) newIndex = totalSlides - 1;
-            if (newIndex >= totalSlides) newIndex = 0;
-            
-            slides.style.transform = `translateX(-${newIndex * 100}%)`;
-            currentPhotoIndex = newIndex;
+        window.openLightbox = function(url) {
+            document.getElementById('lightbox-img').src = url;
+            document.getElementById('lightbox').classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
 
-        // ============================================================
-        // SEND MESSAGE
-        // ============================================================
-        window.sendMessage = function(member) {
-            const targetMember = member || memberData;
-            if (!targetMember) {
-                showToast('❌ Member not found', 'error');
-                return;
-            }
-
-            const user = localStorage.getItem('classy_user');
-            if (!user) {
-                showToast('🔒 Please log in to send messages', 'error');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-                return;
-            }
-
-            localStorage.setItem('classydate_selected_member', JSON.stringify(targetMember));
-            
-            const currentLocation = targetMember.current_location || targetMember.location || '';
-            const homeCountry = targetMember.home_country || targetMember.origin || '';
-            
-            window.location.href = `chat.html?user=${targetMember.id}&name=${encodeURIComponent(targetMember.name)}&location=${encodeURIComponent(currentLocation)}&origin=${encodeURIComponent(homeCountry)}`;
+        window.closeLightbox = function(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('lightbox').classList.remove('show');
+            document.body.style.overflow = '';
         }
 
+        // Close on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
         // ============================================================
-        // SHARE PROFILE
+        // MENU
         // ============================================================
-        window.shareProfile = function() {
+        window.toggleMenu = function() {
+            document.getElementById('menuDropdown').classList.toggle('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            const c = document.querySelector('.menu-container');
+            if (c && !c.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('show');
+            }
+        });
+
+        // ============================================================
+        // CONNECT
+        // ============================================================
+        window.connectWith = function() {
             if (!memberData) return;
+            // Send to connect form
+            window.location.href = `connect.html?member=${memberData.id}`;
+        }
 
+        // ============================================================
+        // SHARE
+        // ============================================================
+        window.shareProfile = async function() {
+            if (!memberData) return;
             const name = memberData.name || 'Member';
-            const currentLocation = memberData.current_location || memberData.location || 'Unknown';
-            const homeCountry = memberData.home_country || memberData.origin || 'Not specified';
-            const age = memberData.age || '?';
-            const verified = memberData.verified ? '✅ Verified Member' : '';
+            const location = memberData.current_location || memberData.location || 'Unknown';
+            const origin = memberData.home_country || memberData.origin || 'Not specified';
+            const url = window.location.href;
 
-            const message = `
-👤 *${name}* ${verified ? '✔️' : ''}
-📍 Location: ${currentLocation}
-🌍 Origin: ${homeCountry}
-🎂 Age: ${age}
-💎 ClassyDate Member
-
----
-Check out this profile on ClassyDate!
-${window.location.href}
+            const msg = `
+👤 *${name}*
+📍 ${location}
+🌍 From ${origin}
+💎 Check them out on ClassyDate:
+${url}
             `.trim();
 
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
-            showToast('📤 Opening WhatsApp...', 'success');
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: name, text: msg, url });
+                } catch (e) {}
+            } else {
+                window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+            }
         }
 
         // ============================================================
-        // GO BACK
+        // SUPPORT
+        // ============================================================
+        window.openSupport = async function(event) {
+            if (event) event.preventDefault();
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    window.location.href = 'login.html?redirect=chat.html';
+                    return;
+                }
+                const { data: conv } = await supabase
+                    .from('conversations')
+                    .select('id')
+                    .eq('user_id', session.user.id)
+                    .order('updated_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                if (conv) {
+                    window.location.href = `chat.html?conversation=${conv.id}`;
+                } else {
+                    window.location.href = 'chat.html';
+                }
+            } catch (e) {
+                window.location.href = 'chat.html';
+            }
+        }
+
+        // ============================================================
+        // LOGOUT
+        // ============================================================
+        window.logoutUser = async function() {
+            try { await supabase.auth.signOut(); } catch (e) {}
+            sessionStorage.removeItem('classydate_likes');
+            window.location.href = 'index.html';
+        }
+
+        // ============================================================
+        // BACK
         // ============================================================
         window.goBack = function() {
-            window.location.href = 'members.html';
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = 'members.html';
+            }
         }
 
         // ============================================================
         // TOAST
         // ============================================================
         let toastTimeout;
-
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type;
-            toast.classList.add('show');
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast ' + type;
+            t.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
         }
-
-        // ============================================================
-        // TOUCH SWIPE SUPPORT
-        // ============================================================
-        let touchStartX = 0;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const wrapper = document.getElementById('photos-wrapper');
-            
-            if (wrapper) {
-                wrapper.addEventListener('touchstart', function(e) {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-
-                wrapper.addEventListener('touchend', function(e) {
-                    const touchEndX = e.changedTouches[0].screenX;
-                    const diff = touchStartX - touchEndX;
-                    
-                    if (Math.abs(diff) > 40) {
-                        if (diff > 0) {
-                            window.changeProfilePhoto(1);
-                        } else {
-                            window.changeProfilePhoto(-1);
-                        }
-                    }
-                }, { passive: true });
-            }
-        });
 
         // ============================================================
         // INIT
         // ============================================================
         loadProfile();
 
-        console.log('💎 Profile View Page - FIXED!');
-        console.log('✅ Title: ClassyDate❤️ (corrected)');
-        console.log('✅ Fonts clearer and bigger');
-        console.log('✅ Avatar bigger (120px)');
-        console.log('✅ Status from database (online/offline)');
-        console.log('✅ Modern Purple theme');
+        console.log('💎 Profile — Magazine format + Collage photos');
+        console.log('✅ Supabase: new backend');
+        console.log('✅ CTA → connect.html?member=X');
+        console.log('✅ Occupation field added');
+        console.log('✅ Lightbox for photos');
     </script>
 
 </body>

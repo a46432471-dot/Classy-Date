@@ -4,21 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Log In | ClassyDate</title>
-    <meta name="description" content="Log in to your ClassyDate account and start connecting with meaningful relationships.">
+    <meta name="description" content="Log in to your ClassyDate account and continue your journey.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     <style>
-        /* ============================================================
-           CLASSYDATE - LOGIN PAGE - SUPABASE VERSION
-           Colors: Navy #112A46 | Soft Blue #ACC8E5
-           ============================================================ */
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,37 +21,32 @@
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #ACC8E5;
-            color: #112A46;
+            background: #f3e8ff;
+            color: #1a0533;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
 
-        /* ============================================================ */
-        /* HEADER                                                       */
-        /* ============================================================ */
+        /* HEADER */
         .cb-shell-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(172, 200, 229, 0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(17, 42, 70, 0.08);
+            border-bottom: 1px solid rgba(108, 60, 179, 0.12);
         }
 
         .cb-shell-header__inner {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            height: 72px;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -67,24 +56,29 @@
             display: flex;
             align-items: center;
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: #112A46;
+            color: #1a0533;
+            margin-left: -4px;
+        }
+        .cb-shell-brand .heart {
+            color: #ff0000;
+            display: inline-block;
         }
         .cb-shell-brand span {
             font-family: "Inter", sans-serif;
             font-weight: 300;
-            color: #2E5A88;
+            color: #6c3cb3;
         }
 
         .cb-shell-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .cb-shell-button {
-            padding: 8px 24px;
+            padding: 8px 20px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 14px;
@@ -94,25 +88,23 @@
             font-family: "Inter", sans-serif;
         }
         .cb-shell-button--secondary {
-            background: rgba(17, 42, 70, 0.1);
-            color: #112A46;
-            border: 1px solid rgba(17, 42, 70, 0.12);
+            background: rgba(108, 60, 179, 0.1);
+            color: #1a0533;
+            border: 1px solid rgba(108, 60, 179, 0.12);
         }
         .cb-shell-button--secondary:hover {
-            background: rgba(17, 42, 70, 0.18);
+            background: rgba(108, 60, 179, 0.18);
         }
         .cb-shell-button--primary {
-            background: #112A46;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
         }
         .cb-shell-button--primary:hover {
-            background: #2E5A88;
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
             transform: translateY(-2px);
         }
 
-        /* ============================================================ */
-        /* LOGIN CONTAINER                                              */
-        /* ============================================================ */
+        /* WRAPPER */
         .login-wrapper {
             flex: 1;
             display: flex;
@@ -121,19 +113,16 @@
             padding: 100px 20px 60px;
             min-height: 100vh;
             position: relative;
-            background: radial-gradient(ellipse at center top, rgba(17, 42, 70, 0.04), transparent 70%);
+            background: radial-gradient(ellipse at center top, rgba(108, 60, 179, 0.06), transparent 70%);
         }
 
-        /* Floating Hearts */
+        /* Floating hearts */
         .floating-hearts-login {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
+            inset: 0;
             pointer-events: none;
             overflow: hidden;
+            z-index: 0;
         }
         .heart-login {
             position: absolute;
@@ -142,25 +131,23 @@
         }
         @keyframes floatUpLogin {
             0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
-            10% { opacity: 0.3; transform: translateY(90vh) rotate(10deg) scale(1); }
-            90% { opacity: 0.3; }
+            10% { opacity: 0.4; transform: translateY(90vh) rotate(10deg) scale(1); }
+            90% { opacity: 0.4; }
             100% { transform: translateY(-10vh) rotate(720deg) scale(0.5); opacity: 0; }
         }
 
-        /* ============================================================ */
-        /* LOGIN CARD                                                  */
-        /* ============================================================ */
+        /* CARD */
         .login-card {
             max-width: 440px;
             width: 100%;
             position: relative;
             z-index: 1;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 48px 40px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.30);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(108, 60, 179, 0.12);
         }
 
         .login-card__header {
@@ -176,233 +163,129 @@
 
         .login-card__header h1 {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 32px;
-            color: #112A46;
+            font-size: 30px;
+            color: #1a0533;
             font-weight: 700;
         }
 
         .login-card__header p {
-            color: rgba(17, 42, 70, 0.6);
-            font-size: 15px;
+            color: rgba(26, 5, 51, 0.55);
+            font-size: 14px;
             margin-top: 4px;
         }
 
-        /* ============================================================ */
-        /* FORM - EMAIL + PASSWORD                                     */
-        /* ============================================================ */
+        /* FORM */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: rgba(17, 42, 70, 0.7);
+            color: rgba(26, 5, 51, 0.7);
             margin-bottom: 6px;
         }
 
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(108, 60, 179, 0.15);
             border-radius: 12px;
-            color: #112A46;
-            font-size: 16px;
+            color: #1a0533;
+            font-size: 15px;
             transition: all 0.3s ease;
             outline: none;
             font-family: "Inter", sans-serif;
         }
 
         .form-group input::placeholder {
-            color: rgba(17, 42, 70, 0.3);
+            color: rgba(26, 5, 51, 0.3);
         }
 
         .form-group input:focus {
-            border-color: #112A46;
-            background: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 0 4px rgba(17, 42, 70, 0.08);
+            border-color: #6c3cb3;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.1);
         }
 
         .form-options {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .form-options label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(17, 42, 70, 0.6);
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .form-options label input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #112A46;
-            cursor: pointer;
+            margin-bottom: 22px;
         }
 
         .form-options a {
-            color: rgba(17, 42, 70, 0.5);
-            font-size: 14px;
+            color: rgba(26, 5, 51, 0.5);
+            font-size: 13px;
             transition: color 0.3s ease;
+            font-weight: 500;
         }
 
         .form-options a:hover {
-            color: #112A46;
+            color: #6c3cb3;
         }
 
-        /* ============================================================ */
-        /* BUTTONS                                                      */
-        /* ============================================================ */
+        /* BUTTON */
         .btn-login {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #112A46, #2E5A88);
+            padding: 15px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             border: none;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
+            letter-spacing: 0.3px;
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(17, 42, 70, 0.35);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
 
         .btn-login:disabled {
-            opacity: 0.7;
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
-        /* ============================================================ */
-        /* DIVIDER                                                      */
-        /* ============================================================ */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 24px 0;
-            color: rgba(17, 42, 70, 0.2);
-            font-size: 13px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(17, 42, 70, 0.1);
-        }
-
-        /* ============================================================ */
-        /* SOCIAL LOGIN                                                */
-        /* ============================================================ */
-        .social-login {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .social-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: #112A46;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Inter", sans-serif;
-        }
-
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(17, 42, 70, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .social-btn .icon {
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ============================================================ */
-        /* FOOTER                                                       */
-        /* ============================================================ */
-        .login-footer {
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        .login-footer p {
-            color: rgba(17, 42, 70, 0.5);
-            font-size: 14px;
-        }
-
-        .login-footer a {
-            color: #112A46;
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
-
-        .login-footer a:hover {
-            color: #2E5A88;
-            text-decoration: underline;
-        }
-
-        /* ============================================================ */
-        /* MESSAGES                                                     */
-        /* ============================================================ */
-        .error-message {
+        /* MESSAGES */
+        .error-message,
+        .success-message {
             display: none;
-            background: rgba(220, 53, 69, 0.08);
-            border: 1px solid rgba(220, 53, 69, 0.2);
             border-radius: 12px;
             padding: 12px 16px;
-            color: #dc3545;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 16px;
+            font-weight: 500;
         }
 
-        .error-message.show {
-            display: block;
-            animation: shake 0.5s ease;
+        .error-message {
+            background: rgba(220, 53, 69, 0.08);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: #dc3545;
         }
 
         .success-message {
-            display: none;
             background: rgba(40, 167, 69, 0.08);
             border: 1px solid rgba(40, 167, 69, 0.2);
-            border-radius: 12px;
-            padding: 12px 16px;
             color: #28a745;
-            font-size: 14px;
-            margin-bottom: 16px;
         }
 
+        .error-message.show,
         .success-message.show {
             display: block;
+        }
+
+        .error-message.show {
+            animation: shake 0.5s ease;
         }
 
         @keyframes shake {
@@ -413,68 +296,50 @@
             80% { transform: translateX(6px); }
         }
 
-        /* ============================================================ */
-        /* RESPONSIVE                                                  */
-        /* ============================================================ */
+        /* FOOTER */
+        .login-footer {
+            text-align: center;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(108, 60, 179, 0.08);
+        }
+
+        .login-footer p {
+            color: rgba(26, 5, 51, 0.5);
+            font-size: 14px;
+        }
+
+        .login-footer a {
+            color: #6c3cb3;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .login-footer a:hover {
+            color: #4a1a6b;
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 480px) {
             .login-card {
                 padding: 32px 24px 28px;
+                border-radius: 20px;
             }
-
-            .login-card__header h1 {
-                font-size: 26px;
-            }
-
-            .form-options {
-                flex-direction: column;
-                gap: 12px;
-                align-items: flex-start;
-            }
-
-            .social-login {
-                grid-template-columns: 1fr;
-            }
-
-            .cb-shell-header__inner {
-                height: 64px;
-                padding: 0 16px;
-            }
-
-            .cb-shell-brand {
-                font-size: 20px;
-            }
-
-            .cb-shell-button {
-                padding: 6px 16px;
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .login-card {
-                padding: 24px 16px 20px;
-            }
-
-            .cb-shell-actions {
-                gap: 6px;
-            }
-
-            .cb-shell-button {
-                padding: 4px 12px;
-                font-size: 11px;
-            }
+            .login-card__header h1 { font-size: 24px; }
+            .cb-shell-header__inner { height: 58px; padding: 0 14px; }
+            .cb-shell-brand { font-size: 18px; }
+            .cb-shell-button { padding: 6px 16px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================ -->
-    <!-- HEADER                                                       -->
-    <!-- ============================================================ -->
+    <!-- HEADER -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
-            <a class="cb-shell-brand" href="/">
-                Classy<span>Date</span>
+            <a class="cb-shell-brand" href="index.html">
+                Classy<span>Date</span><span class="heart">❤️</span>
             </a>
             <div class="cb-shell-actions">
                 <a href="signup.html" class="cb-shell-button cb-shell-button--secondary">Join</a>
@@ -483,11 +348,8 @@
         </div>
     </header>
 
-    <!-- ============================================================ -->
-    <!-- LOGIN FORM                                                   -->
-    <!-- ============================================================ -->
+    <!-- LOGIN -->
     <main class="login-wrapper">
-        <!-- Floating Hearts -->
         <div class="floating-hearts-login">
             <span class="heart-login" style="left:5%;animation-delay:0s;font-size:18px;">❤️</span>
             <span class="heart-login" style="left:15%;animation-delay:2s;font-size:24px;">💕</span>
@@ -508,62 +370,26 @@
                 <p>Log in to continue your journey to love</p>
             </div>
 
-            <!-- Error Message -->
-            <div class="error-message" id="error-message">
-                ⚠️ Invalid email or password. Please try again.
-            </div>
-
-            <!-- Success Message -->
-            <div class="success-message" id="success-message">
-                ✅ Login successful! Redirecting...
-            </div>
+            <div class="error-message" id="error-message">⚠️ Invalid email or password.</div>
+            <div class="success-message" id="success-message">✅ Login successful! Redirecting...</div>
 
             <form id="login-form" onsubmit="handleLogin(event)">
-                <!-- Email Field -->
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <input type="email" id="email" placeholder="Enter your email" required autocomplete="email">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
                 </div>
 
                 <div class="form-options">
-                    <label>
-                        <input type="checkbox" checked> Remember me
-                    </label>
                     <a href="#">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn-login" id="login-btn">🔐 Log In</button>
             </form>
-
-            <div class="divider">or continue with</div>
-
-            <!-- Social Login -->
-            <div class="social-login">
-                <button class="social-btn" onclick="alert('Google login coming soon!')">
-                    <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
-                            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-                            <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-                            <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-                            <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-                        </svg>
-                    </span>
-                    Google
-                </button>
-                <button class="social-btn" onclick="alert('Facebook login coming soon!')">
-                    <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </span>
-                    Facebook
-                </button>
-            </div>
 
             <div class="login-footer">
                 <p>Don't have an account? <a href="signup.html">Sign up</a></p>
@@ -572,7 +398,7 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- SCRIPTS - Supabase                                           -->
+    <!-- SCRIPTS - Supabase Auth                                      -->
     <!-- ============================================================ -->
     <script type="importmap">
         {
@@ -585,38 +411,50 @@
     <script type="module">
         import { createClient } from "@supabase/supabase-js";
 
-        // ============================================================
-        // SUPABASE CONFIG - USING YOUR EXISTING KEYS
-        // ============================================================
-        const SUPABASE_URL = 'https://ehfnzsfnsoiyiwpxqmli.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_ybgZxnGuU_Gt35rfqkEdBw_YkEdD8vl';
+        const SUPABASE_URL = 'https://eswlfgrzdmdwmfqncpew.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oeCfBt8Ci0xQ4mg6o2mnnA_mbgnwRVS';
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        console.log('🔗 Supabase connected!');
+        console.log('🔗 Supabase connected:', SUPABASE_URL);
 
-        // ============================================================
-        // DOM ELEMENTS
-        // ============================================================
         const form = document.getElementById('login-form');
         const btn = document.getElementById('login-btn');
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
 
-        // Check if user is already logged in
-        const userSession = localStorage.getItem('classy_user');
-        if (userSession) {
-            try {
-                const user = JSON.parse(userSession);
-                if (user && user.id) {
-                    console.log('✅ User already logged in:', user.name);
-                    // Redirect to members page
-                    window.location.href = 'members.html';
-                }
-            } catch (e) {
-                localStorage.removeItem('classy_user');
+        // ============================================================
+        // REDIRECT TARGET
+        // ============================================================
+        function getRedirectTarget() {
+            const params = new URLSearchParams(window.location.search);
+            const redirect = params.get('redirect');
+            if (redirect) {
+                // Basic safety: only allow relative paths
+                try {
+                    const decoded = decodeURIComponent(redirect);
+                    if (decoded.startsWith('/') || decoded.match(/^[a-zA-Z0-9_\-]+\.html/)) {
+                        return decoded;
+                    }
+                } catch (e) {}
             }
+            return 'members.html';
         }
+
+        // ============================================================
+        // CHECK EXISTING SESSION
+        // ============================================================
+        (async function checkSession() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session && session.user) {
+                    console.log('✅ Already logged in:', session.user.email);
+                    window.location.href = getRedirectTarget();
+                }
+            } catch (err) {
+                console.warn('Session check failed:', err);
+            }
+        })();
 
         // ============================================================
         // HANDLE LOGIN
@@ -627,11 +465,9 @@
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
 
-            // Hide previous messages
             errorMessage.classList.remove('show');
             successMessage.classList.remove('show');
 
-            // Validation
             if (!email || !email.includes('@')) {
                 errorMessage.textContent = '⚠️ Please enter a valid email address.';
                 errorMessage.classList.add('show');
@@ -644,110 +480,77 @@
                 return;
             }
 
-            // Show loading state
             btn.disabled = true;
             btn.textContent = '⏳ Logging in...';
-            btn.style.opacity = '0.7';
 
             try {
-                console.log('🔑 Attempting login for:', email);
-
-                // First, check if user exists in Supabase
-                const { data: user, error } = await supabase
-                    .from('members')
-                    .select('*')
-                    .eq('email', email)
-                    .maybeSingle();
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
 
                 if (error) {
-                    console.error('Login error:', error);
-                    throw error;
-                }
-
-                if (!user) {
-                    errorMessage.textContent = '⚠️ No account found with this email. Please sign up first.';
+                    let msg = '⚠️ ';
+                    if (error.message.includes('Invalid login credentials')) {
+                        msg += 'Invalid email or password.';
+                    } else if (error.message.includes('Email not confirmed')) {
+                        msg += 'Email not confirmed. Please check your inbox.';
+                    } else if (error.message.includes('Too many requests')) {
+                        msg += 'Too many attempts. Please try again later.';
+                    } else {
+                        msg += error.message;
+                    }
+                    errorMessage.textContent = msg;
                     errorMessage.classList.add('show');
                     btn.disabled = false;
                     btn.textContent = '🔐 Log In';
-                    btn.style.opacity = '1';
                     return;
                 }
 
-                // For Supabase, we need to verify the password
-                // Since we're not using Supabase Auth, we'll use a simple check
-                // In production, you should use Supabase Auth with proper password hashing
-                // For now, we'll check if the password matches (this is a simple demo)
-                // Note: This is NOT secure for production!
-                // We'll use a simple approach: check if password matches the user's email (demo only)
-                
-                // IMPORTANT: In production, use Supabase Auth!
-                // For demo purposes, we'll accept any password for existing users
-                // You should replace this with proper auth
+                if (!data || !data.user) {
+                    errorMessage.textContent = '⚠️ Login failed. Please try again.';
+                    errorMessage.classList.add('show');
+                    btn.disabled = false;
+                    btn.textContent = '🔐 Log In';
+                    return;
+                }
 
-                // Update user's online status
-                await supabase
-                    .from('members')
-                    .update({ online: true })
-                    .eq('id', user.id);
+                console.log('✅ Login successful:', data.user.email);
 
-                // Store user session
-                localStorage.setItem('classy_user', JSON.stringify(user));
-                localStorage.setItem('classy_user_email', email);
-                localStorage.setItem('classy_user_name', user.name);
-
-                console.log('✅ Login successful for:', email);
-
-                // Show success
-                successMessage.textContent = `✅ Welcome back, ${user.name}! Redirecting...`;
+                successMessage.textContent = '✅ Login successful! Redirecting...';
                 successMessage.classList.add('show');
-
                 btn.textContent = '✅ Logged In!';
-                btn.style.background = 'linear-gradient(135deg, #28a745, #007E33)';
-                btn.style.opacity = '1';
+                btn.style.background = 'linear-gradient(135deg, #28a745, #1e7e34)';
 
-                // Redirect to members page
+                const target = getRedirectTarget();
                 setTimeout(() => {
-                    window.location.href = 'members.html';
-                }, 1500);
+                    window.location.href = target;
+                }, 900);
 
-            } catch (error) {
-                console.error('❌ Login error:', error);
-                errorMessage.textContent = '⚠️ ' + (error.message || 'Login failed. Please try again.');
+            } catch (err) {
+                console.error('Unexpected login error:', err);
+                errorMessage.textContent = '⚠️ Unexpected error. Please try again.';
                 errorMessage.classList.add('show');
-
                 btn.disabled = false;
                 btn.textContent = '🔐 Log In';
-                btn.style.opacity = '1';
-                btn.style.background = 'linear-gradient(135deg, #112A46, #2E5A88)';
             }
         }
 
         // ============================================================
         // CLEAR MESSAGES ON INPUT
         // ============================================================
-        document.getElementById('email').addEventListener('input', function() {
-            errorMessage.classList.remove('show');
-            successMessage.classList.remove('show');
-            const btn = document.getElementById('login-btn');
-            btn.textContent = '🔐 Log In';
-            btn.style.background = 'linear-gradient(135deg, #112A46, #2E5A88)';
-            btn.disabled = false;
-            btn.style.opacity = '1';
+        ['email', 'password'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                errorMessage.classList.remove('show');
+                successMessage.classList.remove('show');
+                btn.disabled = false;
+                btn.textContent = '🔐 Log In';
+            });
         });
 
-        document.getElementById('password').addEventListener('input', function() {
-            errorMessage.classList.remove('show');
-            successMessage.classList.remove('show');
-            const btn = document.getElementById('login-btn');
-            btn.textContent = '🔐 Log In';
-            btn.style.background = 'linear-gradient(135deg, #112A46, #2E5A88)';
-            btn.disabled = false;
-            btn.style.opacity = '1';
-        });
-
-        console.log('💎 ClassyDate Login Page - Supabase Ready!');
-        console.log('🔑 Login with Email + Password');
-        console.log('📱 Google + Facebook icons added!');
+        console.log('💎 ClassyDate Login — Supabase Auth + Purple Theme');
+        console.log('✅ Real authentication via supabase.auth.signInWithPassword');
+        console.log('✅ Supports ?redirect= parameter');
     </script>
 
 </body>

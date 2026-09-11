@@ -188,9 +188,9 @@
         .status-text--online { color: #28a745; }
         .status-text--offline { color: rgba(26, 5, 51, 0.4); }
 
-        /* USER DETAILS PANEL (ADMIN) */
+        /* ADMIN DETAILS PANEL — ONLY SHOWN TO ADMIN */
         .user-details-panel {
-            display: none;
+            display: none !important; /* hide by default */
             background: rgba(255, 255, 255, 0.55);
             border: 1px solid rgba(108, 60, 179, 0.1);
             border-radius: 12px;
@@ -199,7 +199,9 @@
             backdrop-filter: blur(10px);
             flex-shrink: 0;
         }
-        .user-details-panel.show { display: block; }
+        .user-details-panel.show {
+            display: block !important; /* only show when .show is added by admin JS */
+        }
 
         .user-details-panel .top-row {
             display: flex;
@@ -296,7 +298,7 @@
         .message {
             display: flex;
             flex-direction: column;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             animation: messageIn 0.3s ease;
         }
         @keyframes messageIn {
@@ -307,65 +309,123 @@
         .message--received { align-items: flex-start; }
         .message--sent { align-items: flex-end; }
 
+        /* WhatsApp-style bubble */
         .message__bubble {
             max-width: 78%;
-            padding: 9px 14px;
-            border-radius: 14px;
+            padding: 8px 12px 6px;
+            border-radius: 10px;
             font-size: 14px;
-            line-height: 1.45;
+            line-height: 1.4;
             word-wrap: break-word;
+            position: relative;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
         }
 
         .message--received .message__bubble {
-            background: rgba(255, 255, 255, 0.7);
+            background: #ffffff;
             color: #1a0533;
-            border-bottom-left-radius: 4px;
-            border: 1px solid rgba(108, 60, 179, 0.08);
+            border-top-left-radius: 2px;
         }
+
+        /* First received of a group: add tail */
+        .message--received.first-in-group .message__bubble {
+            border-top-left-radius: 2px;
+        }
+
         .message--sent .message__bubble {
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            color: #fff;
-            border-bottom-right-radius: 4px;
+            background: #d1e7dd; /* soft green like WhatsApp */
+            color: #1a0533;
+            border-top-right-radius: 2px;
         }
+
+        /* Tail on first of group */
+        .message--received.first-in-group .message__bubble::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid #ffffff;
+            border-left: 8px solid transparent;
+        }
+
+        .message--sent.first-in-group .message__bubble::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid #d1e7dd;
+            border-right: 8px solid transparent;
+        }
+
+        /* Message content wrapper for text + meta */
+        .message__content {
+            display: inline;
+            word-wrap: break-word;
+        }
+
+        /* Meta (time + ticks) inline at bottom-right */
+        .message__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 10.5px;
+            color: rgba(26, 5, 51, 0.5);
+            margin-left: 8px;
+            white-space: nowrap;
+            float: right;
+            margin-top: 4px;
+        }
+
+        .message--sent .message__meta {
+            color: rgba(26, 5, 51, 0.55);
+        }
+
+        .message__ticks {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            display: inline-block;
+        }
+
+        .message__ticks.single { color: rgba(26, 5, 51, 0.5); }
+        .message__ticks.double { color: #3b82c4; } /* whatsapp blue when read */
 
         .message__bubble img {
             max-width: 100%;
             max-height: 260px;
-            border-radius: 8px;
+            border-radius: 6px;
             display: block;
+            margin-bottom: 2px;
             cursor: pointer;
         }
 
-        .message__time {
-            font-size: 10px;
-            color: rgba(26, 5, 51, 0.35);
-            margin-top: 3px;
-            padding: 0 4px;
+        /* Photo-only message */
+        .message__bubble.photo-only {
+            padding: 4px;
+            background: #ffffff;
+        }
+        .message--sent .message__bubble.photo-only {
+            background: #d1e7dd;
         }
 
-        .message__sender {
-            font-size: 11px;
-            font-weight: 700;
-            color: rgba(26, 5, 51, 0.4);
-            margin-bottom: 3px;
-            padding: 0 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
+        /* DATE SEPARATOR */
         .date-separator {
             text-align: center;
             margin: 14px 0;
         }
         .date-separator span {
             font-size: 11px;
-            color: rgba(26, 5, 51, 0.4);
-            background: rgba(255, 255, 255, 0.5);
+            color: rgba(26, 5, 51, 0.5);
+            background: rgba(255, 255, 255, 0.85);
             padding: 3px 12px;
             border-radius: 50px;
             font-weight: 600;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(108, 60, 179, 0.08);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         /* INPUT */
@@ -577,7 +637,8 @@
             .chat-header__avatar { width: 38px; height: 38px; font-size: 18px; }
             .chat-header__info h2 { font-size: 14px; }
             .chat-header__info .subtext { font-size: 10px; }
-            .message__bubble { font-size: 13px; padding: 8px 12px; max-width: 85%; }
+            .message__bubble { font-size: 13px; padding: 7px 11px 5px; max-width: 85%; }
+            .message__meta { font-size: 10px; }
             .message-input-container { padding: 6px 10px; gap: 6px; }
             .message-input-container input[type="text"] { font-size: 13px; padding: 8px 12px; min-height: 36px; }
             .btn-send { padding: 8px 16px; font-size: 12px; min-height: 36px; }
@@ -592,8 +653,9 @@
             .chat-wrapper { padding: 62px 8px 6px; }
             .chat-header { padding: 8px 10px; gap: 6px; }
             .chat-header__avatar { width: 34px; height: 34px; font-size: 16px; }
-            .message__bubble { font-size: 12px; padding: 7px 11px; max-width: 88%; }
+            .message__bubble { font-size: 12px; padding: 6px 10px 4px; max-width: 88%; }
             .message__bubble img { max-height: 200px; }
+            .message__meta { font-size: 9px; }
             .message-input-container input[type="text"] { font-size: 12px; padding: 6px 10px; min-height: 34px; }
             .btn-send { padding: 6px 12px; font-size: 11px; min-height: 34px; }
             .icon-btn { padding: 6px 8px; font-size: 15px; min-height: 34px; min-width: 34px; }
@@ -631,16 +693,15 @@
                 <h2 id="chat-name">ClassyDate Support Team</h2>
                 <div class="subtext" id="chat-subtext">
                     <span>📧 support@classydate.com</span>
-                    <span>•</span>
-                    <span>Replies within minutes</span>
                 </div>
             </div>
-            <div class="chat-header__status">
+            <div class="chat-header__status" id="chat-header-status">
                 <span class="status-dot status-dot--offline" id="admin-status-dot"></span>
                 <span class="status-text--offline" id="admin-status-text">Offline</span>
             </div>
         </div>
 
+        <!-- ADMIN-ONLY DETAILS PANEL -->
         <div class="user-details-panel" id="user-details-panel">
             <div class="top-row">
                 <div class="user-name" id="ud-name">Loading...</div>
@@ -721,6 +782,7 @@
         const userDetailsPanel = document.getElementById('user-details-panel');
         const adminStatusDot = document.getElementById('admin-status-dot');
         const adminStatusText = document.getElementById('admin-status-text');
+        const chatHeaderStatus = document.getElementById('chat-header-status');
         const accessDenied = document.getElementById('access-denied');
         const chatMain = document.getElementById('chat-main');
 
@@ -743,7 +805,6 @@
         // REDIRECT: NO CONVERSATION
         // ============================================================
         function redirectToMembers(message) {
-            // Use URL param to trigger toast on members.html
             const encoded = encodeURIComponent(message || 'Choose a member to start a conversation');
             window.location.href = `members.html?toast=${encoded}`;
         }
@@ -754,7 +815,6 @@
         async function requireAuth() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session || !session.user) {
-                // Not logged in → redirect to login, then come back
                 const returnUrl = encodeURIComponent(window.location.pathname + window.location.search);
                 window.location.href = `login.html?redirect=${returnUrl}`;
                 return false;
@@ -777,14 +837,20 @@
                 if (adminRow) {
                     isAdmin = true;
                     roleBadge.style.display = 'inline-block';
+                    // Show details panel ONLY for admin
                     userDetailsPanel.classList.add('show');
                     console.log('🔑 Role: ADMIN');
                 } else {
                     isAdmin = false;
+                    // ⚠️ Force-hide the details panel for users (double safety)
+                    userDetailsPanel.classList.remove('show');
+                    userDetailsPanel.style.display = 'none';
                     console.log('👤 Role: USER');
                 }
             } catch (err) {
                 console.warn('Role detection failed:', err);
+                userDetailsPanel.classList.remove('show');
+                userDetailsPanel.style.display = 'none';
             }
         }
 
@@ -802,7 +868,6 @@
         // ============================================================
         async function loadConversation() {
             if (!conversationId) {
-                // No conversation id → go back to members
                 redirectToMembers('Choose a member to start a conversation');
                 return null;
             }
@@ -825,7 +890,6 @@
                 return null;
             }
 
-            // Ownership check: if user is NOT admin and NOT the owner → deny
             if (!isAdmin && data.user_id !== currentUser.id) {
                 console.warn('Access denied — not owner');
                 showAccessDenied('You do not have permission to view this conversation.');
@@ -843,14 +907,16 @@
             if (!conversation) return;
 
             if (isAdmin) {
-                document.getElementById('chat-name').textContent = `Chat with ${conversation.full_name || 'User'}`;
+                // ADMIN: show user's name + the member they want
+                document.getElementById('chat-name').textContent = conversation.full_name || 'User';
+
+                // Subtext: "Wants to connect with <member>"
                 document.getElementById('chat-subtext').innerHTML = `
-                    <span>📧 ${conversation.email || 'No email'}</span>
-                    <span>•</span>
-                    <span>📱 ${conversation.whatsapp_no || 'No WhatsApp'}</span>
+                    <span>💎 Wants to connect with <strong>${conversation.member_name || 'Unknown'}</strong></span>
                 `;
                 document.getElementById('support-avatar').textContent = '👤';
 
+                // Fill details panel
                 document.getElementById('ud-name').textContent = '👤 ' + (conversation.full_name || 'Unknown');
                 document.getElementById('ud-email').textContent = conversation.email || '—';
                 document.getElementById('ud-whatsapp').textContent = conversation.whatsapp_no || '—';
@@ -884,17 +950,19 @@
                     photosRow.innerHTML = '';
                 }
 
-                adminStatusDot.className = 'status-dot status-dot--online';
-                adminStatusText.className = 'status-text--online';
-                adminStatusText.textContent = 'You are Online';
+                // Admin: hide the online status (we show "You are Online" only if needed)
+                // Per requirement #3, admin side shows nothing about own status
+                chatHeaderStatus.style.display = 'none';
+
             } else {
+                // USER: show support team
                 document.getElementById('chat-name').textContent = 'ClassyDate Support Team';
                 document.getElementById('chat-subtext').innerHTML = `
                     <span>📧 support@classydate.com</span>
-                    <span>•</span>
-                    <span>Replies within minutes</span>
                 `;
                 document.getElementById('support-avatar').textContent = '💬';
+                chatHeaderStatus.style.display = 'flex';
+
                 checkAdminOnlineStatus();
             }
         }
@@ -959,7 +1027,36 @@
         }
 
         // ============================================================
-        // RENDER MESSAGES
+        // MARK MESSAGES AS READ
+        // ============================================================
+        async function markMessagesAsRead() {
+            if (!conversationId || !currentUser) return;
+
+            try {
+                if (isAdmin) {
+                    // Admin marks user messages as read
+                    await supabase
+                        .from('messages')
+                        .update({ read_by_admin: true })
+                        .eq('conversation_id', conversationId)
+                        .eq('sender_type', 'user')
+                        .eq('read_by_admin', false);
+                } else {
+                    // User marks admin messages as read
+                    await supabase
+                        .from('messages')
+                        .update({ read_by_user: true })
+                        .eq('conversation_id', conversationId)
+                        .eq('sender_type', 'admin')
+                        .eq('read_by_user', false);
+                }
+            } catch (err) {
+                console.warn('Mark as read failed:', err);
+            }
+        }
+
+        // ============================================================
+        // RENDER MESSAGES (WhatsApp style)
         // ============================================================
         function renderMessages() {
             if (messages.length === 0) {
@@ -974,36 +1071,73 @@
             }
 
             let lastDate = '';
+            let lastSenderType = null;
             let html = '';
 
-            messages.forEach(msg => {
+            messages.forEach((msg, index) => {
                 const msgDate = new Date(msg.created_at);
                 const dateStr = msgDate.toDateString();
 
+                // Insert date separator if day changed
                 if (dateStr !== lastDate) {
                     lastDate = dateStr;
                     html += `<div class="date-separator"><span>${formatDateLabel(msgDate)}</span></div>`;
+                    lastSenderType = null; // reset grouping on new day
                 }
 
+                // Determine side (from current viewer's perspective)
                 const isSent = isAdmin ? msg.sender_type === 'admin' : msg.sender_type === 'user';
-                const senderLabel = msg.sender_type === 'admin' ? 'ClassyDate Support' : (conversation.full_name || 'User');
+
+                // Is this the FIRST message in a consecutive group from the same sender?
+                const isFirstInGroup = msg.sender_type !== lastSenderType;
+
+                // Time formatting
                 const timeStr = msgDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+                // Build message content
                 let contentHTML = '';
+                let isPhotoOnly = false;
+
+                if (msg.attachment_url && !msg.text) {
+                    isPhotoOnly = true;
+                }
+
                 if (msg.attachment_url) {
                     contentHTML += `<img src="${msg.attachment_url}" onclick="openLightbox('${msg.attachment_url}')" alt="Attachment">`;
                 }
                 if (msg.text) {
-                    contentHTML += `<div>${escapeHtml(msg.text)}</div>`;
+                    contentHTML += `<span class="message__content">${escapeHtml(msg.text)}</span>`;
                 }
 
+                // Read receipts — only on own (sent) messages
+                let ticksHTML = '';
+                if (isSent) {
+                    // Was this message read by the OTHER party?
+                    const isRead = isAdmin ? msg.read_by_user : msg.read_by_admin;
+                    ticksHTML = isRead
+                        ? `<span class="message__ticks double">✓✓</span>`
+                        : `<span class="message__ticks single">✓</span>`;
+                }
+
+                // Meta: time + ticks
+                const metaHTML = `<span class="message__meta">${timeStr}${ticksHTML}</span>`;
+
+                const classes = ['message', `message--${isSent ? 'sent' : 'received'}`];
+                if (isFirstInGroup) classes.push('first-in-group');
+
+                const bubbleClasses = ['message__bubble'];
+                if (isPhotoOnly) bubbleClasses.push('photo-only');
+
                 html += `
-                    <div class="message message--${isSent ? 'sent' : 'received'}">
-                        ${!isSent ? `<div class="message__sender">${escapeHtml(senderLabel)}</div>` : ''}
-                        <div class="message__bubble">${contentHTML}</div>
-                        <div class="message__time">${timeStr}</div>
+                    <div class="${classes.join(' ')}">
+                        <div class="${bubbleClasses.join(' ')}">
+                            ${contentHTML}
+                            ${metaHTML}
+                        </div>
                     </div>
                 `;
+
+                lastSenderType = msg.sender_type;
             });
 
             messagesContainer.innerHTML = html;
@@ -1050,7 +1184,10 @@
                         conversation_id: conversationId,
                         sender_type: senderType,
                         sender_id: currentUser.id,
-                        text: text
+                        text: text,
+                        // Sender has obviously read their own message
+                        read_by_admin: senderType === 'admin',
+                        read_by_user: senderType === 'user'
                     }]);
 
                 if (error) throw error;
@@ -1105,7 +1242,9 @@
                         sender_type: senderType,
                         sender_id: currentUser.id,
                         text: '',
-                        attachment_url: urlData.publicUrl
+                        attachment_url: urlData.publicUrl,
+                        read_by_admin: senderType === 'admin',
+                        read_by_user: senderType === 'user'
                     }]);
 
                 if (insertErr) throw insertErr;
@@ -1142,6 +1281,15 @@
                     filter: `conversation_id=eq.${conversationId}`
                 }, () => {
                     loadMessages();
+                    markMessagesAsRead();
+                })
+                .on('postgres_changes', {
+                    event: 'UPDATE',
+                    schema: 'public',
+                    table: 'messages',
+                    filter: `conversation_id=eq.${conversationId}`
+                }, () => {
+                    loadMessages();
                 })
                 .subscribe();
         }
@@ -1167,13 +1315,17 @@
         }
 
         // ============================================================
-        // BACK
+        // BACK — Browser back with smart fallback
         // ============================================================
         window.goBack = function() {
-            if (isAdmin) {
-                window.location.href = 'adminpanel.html';
+            if (window.history.length > 1) {
+                window.history.back();
             } else {
-                window.location.href = 'members.html';
+                if (isAdmin) {
+                    window.location.href = 'adminpanel.html';
+                } else {
+                    window.location.href = 'members.html';
+                }
             }
         }
 
@@ -1192,6 +1344,13 @@
             photoInput.addEventListener('change', (e) => {
                 if (e.target.files && e.target.files[0]) sendPhoto(e.target.files[0]);
             });
+
+            // Mark messages as read when user returns to the tab
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && conversation) {
+                    markMessagesAsRead();
+                }
+            });
         });
 
         // ============================================================
@@ -1205,13 +1364,18 @@
             // 2. Role
             await detectRole();
 
-            // 3. Load conversation (or redirect)
+            // 3. Load conversation
             const conv = await loadConversation();
             if (!conv) return;
 
             // 4. Render
             renderConversationHeader();
             await loadMessages();
+
+            // 5. Mark everything currently received as read (option A — on load)
+            await markMessagesAsRead();
+
+            // 6. Subscribe to realtime
             subscribeToMessages();
             startAdminStatusPolling();
 

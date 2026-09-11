@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Sign Up | ClassyDate</title>
+    <meta name="description" content="Join ClassyDate and start your journey to meaningful connections.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,34 +21,32 @@
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #ACC8E5;
-            color: #112A46;
+            background: #f3e8ff;
+            color: #1a0533;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
 
+        /* HEADER */
         .cb-shell-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(172, 200, 229, 0.92);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(17, 42, 70, 0.08);
+            border-bottom: 1px solid rgba(108, 60, 179, 0.12);
         }
 
         .cb-shell-header__inner {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            height: 72px;
+            padding: 0 16px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -57,24 +56,29 @@
             display: flex;
             align-items: center;
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            color: #112A46;
+            color: #1a0533;
+            margin-left: -4px;
+        }
+        .cb-shell-brand .heart {
+            color: #ff0000;
+            display: inline-block;
         }
         .cb-shell-brand span {
             font-family: "Inter", sans-serif;
             font-weight: 300;
-            color: #2E5A88;
+            color: #6c3cb3;
         }
 
         .cb-shell-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .cb-shell-button {
-            padding: 8px 24px;
+            padding: 8px 20px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 14px;
@@ -83,49 +87,72 @@
             border: none;
             font-family: "Inter", sans-serif;
         }
-
         .cb-shell-button--secondary {
-            background: rgba(17, 42, 70, 0.1);
-            color: #112A46;
-            border: 1px solid rgba(17, 42, 70, 0.12);
+            background: rgba(108, 60, 179, 0.1);
+            color: #1a0533;
+            border: 1px solid rgba(108, 60, 179, 0.12);
         }
         .cb-shell-button--secondary:hover {
-            background: rgba(17, 42, 70, 0.18);
+            background: rgba(108, 60, 179, 0.18);
         }
-
         .cb-shell-button--primary {
-            background: #112A46;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
         }
         .cb-shell-button--primary:hover {
-            background: #2E5A88;
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
             transform: translateY(-2px);
         }
 
+        /* WRAPPER */
         .signup-wrapper {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 20px 60px;
+            padding: 80px 16px 40px;
             min-height: 100vh;
-            background: radial-gradient(ellipse at center top, rgba(17, 42, 70, 0.04), transparent 70%);
+            position: relative;
+            background: radial-gradient(ellipse at center top, rgba(108, 60, 179, 0.06), transparent 70%);
         }
 
+        /* Floating hearts */
+        .floating-hearts {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .heart {
+            position: absolute;
+            animation: floatUp 14s infinite linear;
+            opacity: 0;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0); opacity: 0; }
+            10% { opacity: 0.4; transform: translateY(90vh) rotate(10deg) scale(1); }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) rotate(720deg) scale(0.5); opacity: 0; }
+        }
+
+        /* CARD */
         .signup-card {
-            max-width: 480px;
+            max-width: 460px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.25);
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(20px);
             border-radius: 24px;
-            padding: 48px 40px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.30);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 40px 32px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(108, 60, 179, 0.12);
         }
 
         .signup-card__header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 26px;
         }
 
         .signup-card__header .icon {
@@ -136,26 +163,27 @@
 
         .signup-card__header h1 {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 32px;
-            color: #112A46;
+            font-size: 28px;
+            color: #1a0533;
             font-weight: 700;
         }
 
         .signup-card__header p {
-            color: rgba(17, 42, 70, 0.6);
-            font-size: 15px;
+            color: rgba(26, 5, 51, 0.55);
+            font-size: 14px;
             margin-top: 4px;
         }
 
+        /* FORM */
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: rgba(17, 42, 70, 0.7);
+            color: rgba(26, 5, 51, 0.7);
             margin-bottom: 6px;
         }
 
@@ -165,45 +193,83 @@
 
         .form-group input {
             width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 13px 15px;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(108, 60, 179, 0.15);
             border-radius: 12px;
-            color: #112A46;
-            font-size: 16px;
+            color: #1a0533;
+            font-size: 15px;
             transition: all 0.3s ease;
             outline: none;
             font-family: "Inter", sans-serif;
         }
 
         .form-group input::placeholder {
-            color: rgba(17, 42, 70, 0.3);
+            color: rgba(26, 5, 51, 0.3);
         }
 
         .form-group input:focus {
-            border-color: #112A46;
-            background: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 0 4px rgba(17, 42, 70, 0.08);
+            border-color: #6c3cb3;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.1);
         }
 
+        .form-group input.error {
+            border-color: #dc3545;
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+        .field-error {
+            display: none;
+            font-size: 12px;
+            color: #dc3545;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+        .field-error.show { display: block; }
+
+        /* PASSWORD STRENGTH */
+        .pwd-strength {
+            display: none;
+            height: 4px;
+            background: rgba(108, 60, 179, 0.1);
+            border-radius: 4px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .pwd-strength.show { display: block; }
+
+        .pwd-strength .bar {
+            height: 100%;
+            width: 0%;
+            background: #dc3545;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .pwd-strength.medium .bar { width: 50%; background: #ffa500; }
+        .pwd-strength.strong .bar { width: 100%; background: #28a745; }
+
+        /* BUTTONS */
         .btn-signup {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #112A46, #2E5A88);
+            padding: 15px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             border: none;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
             margin-top: 8px;
+            letter-spacing: 0.3px;
         }
 
-        .btn-signup:hover {
+        .btn-signup:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(17, 42, 70, 0.35);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
 
         .btn-signup:disabled {
@@ -212,88 +278,125 @@
             transform: none;
         }
 
-        .error-message {
+        /* MESSAGES */
+        .error-message,
+        .success-message {
             display: none;
-            background: rgba(220, 53, 69, 0.08);
-            border: 1px solid rgba(220, 53, 69, 0.2);
             border-radius: 12px;
             padding: 12px 16px;
-            color: #dc3545;
-            font-size: 14px;
-            margin-bottom: 16px;
+            font-size: 13px;
+            margin-bottom: 14px;
+            font-weight: 500;
         }
 
-        .error-message.show {
-            display: block;
+        .error-message {
+            background: rgba(220, 53, 69, 0.08);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: #dc3545;
         }
 
         .success-message {
-            display: none;
             background: rgba(40, 167, 69, 0.08);
             border: 1px solid rgba(40, 167, 69, 0.2);
-            border-radius: 12px;
-            padding: 12px 16px;
             color: #28a745;
-            font-size: 14px;
-            margin-bottom: 16px;
         }
 
+        .error-message.show,
         .success-message.show {
             display: block;
         }
 
+        .error-message.show {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        /* FOOTER */
         .signup-footer {
             text-align: center;
-            margin-top: 24px;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(108, 60, 179, 0.08);
         }
 
         .signup-footer p {
-            color: rgba(17, 42, 70, 0.5);
+            color: rgba(26, 5, 51, 0.55);
             font-size: 14px;
         }
 
         .signup-footer a {
-            color: #112A46;
+            color: #6c3cb3;
             font-weight: 700;
             transition: color 0.3s ease;
         }
 
         .signup-footer a:hover {
-            color: #2E5A88;
+            color: #4a1a6b;
             text-decoration: underline;
         }
 
+        /* TERMS */
+        .terms-note {
+            text-align: center;
+            font-size: 11px;
+            color: rgba(26, 5, 51, 0.4);
+            margin-top: 14px;
+            line-height: 1.5;
+        }
+
+        .terms-note a {
+            color: #6c3cb3;
+            font-weight: 600;
+        }
+
+        /* SPINNER */
+        .spinner-inline {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* RESPONSIVE */
         @media (max-width: 480px) {
             .signup-card {
-                padding: 32px 24px 28px;
+                padding: 32px 22px 26px;
+                border-radius: 20px;
             }
+            .signup-card__header h1 { font-size: 24px; }
+            .signup-card__header .icon { font-size: 42px; }
+            .cb-shell-header__inner { height: 56px; padding: 0 12px; }
+            .cb-shell-brand { font-size: 18px; }
+            .cb-shell-button { padding: 6px 14px; font-size: 12px; }
+            .signup-wrapper { padding: 68px 12px 30px; }
+        }
 
-            .signup-card__header h1 {
-                font-size: 26px;
-            }
-
-            .cb-shell-header__inner {
-                height: 64px;
-                padding: 0 16px;
-            }
-
-            .cb-shell-brand {
-                font-size: 20px;
-            }
-
-            .cb-shell-button {
-                padding: 6px 16px;
-                font-size: 12px;
-            }
+        @media (max-width: 360px) {
+            .signup-card { padding: 24px 16px 20px; }
+            .signup-card__header h1 { font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- HEADER -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
-            <a class="cb-shell-brand" href="/">
-                Classy<span>Date</span>
+            <a class="cb-shell-brand" href="index.html">
+                Classy<span>Date</span><span class="heart">❤️</span>
             </a>
             <div class="cb-shell-actions">
                 <a href="signup.html" class="cb-shell-button cb-shell-button--secondary">Join</a>
@@ -302,7 +405,19 @@
         </div>
     </header>
 
+    <!-- SIGNUP -->
     <main class="signup-wrapper">
+        <div class="floating-hearts">
+            <span class="heart" style="left:5%;animation-delay:0s;font-size:18px;">❤️</span>
+            <span class="heart" style="left:18%;animation-delay:2s;font-size:24px;">💕</span>
+            <span class="heart" style="left:32%;animation-delay:4s;font-size:14px;">❤️‍🔥</span>
+            <span class="heart" style="left:45%;animation-delay:1s;font-size:28px;">💗</span>
+            <span class="heart" style="left:58%;animation-delay:3s;font-size:18px;">❤️</span>
+            <span class="heart" style="left:70%;animation-delay:5s;font-size:16px;">💖</span>
+            <span class="heart" style="left:82%;animation-delay:1.5s;font-size:26px;">❤️‍🔥</span>
+            <span class="heart" style="left:93%;animation-delay:3.5s;font-size:18px;">💕</span>
+        </div>
+
         <div class="signup-card">
             <div class="signup-card__header">
                 <span class="icon">💎</span>
@@ -313,24 +428,42 @@
             <div class="error-message" id="error-message"></div>
             <div class="success-message" id="success-message"></div>
 
-            <form id="signup-form" onsubmit="handleSignup(event)">
+            <form id="signup-form" onsubmit="handleSignup(event)" novalidate>
                 <div class="form-group">
                     <label for="fullname">Full Name <span class="required">*</span></label>
-                    <input type="text" id="fullname" placeholder="John Doe" required>
+                    <input type="text" id="fullname" placeholder="John Doe" required autocomplete="name">
+                    <div class="field-error" id="err-fullname">Please enter your full name</div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" placeholder="john@example.com" required>
+                    <input type="email" id="email" placeholder="john@example.com" required autocomplete="email">
+                    <div class="field-error" id="err-email">Please enter a valid email address</div>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password <span class="required">*</span></label>
-                    <input type="password" id="password" placeholder="Min 6 characters" required minlength="6">
+                    <input type="password" id="password" placeholder="Min 6 characters" required minlength="6" autocomplete="new-password">
+                    <div class="pwd-strength" id="pwd-strength">
+                        <div class="bar" id="pwd-bar"></div>
+                    </div>
+                    <div class="field-error" id="err-password">Password must be at least 6 characters</div>
                 </div>
 
-                <button type="submit" class="btn-signup" id="signup-btn">💎 Create Account</button>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password <span class="required">*</span></label>
+                    <input type="password" id="confirm-password" placeholder="Re-enter password" required minlength="6" autocomplete="new-password">
+                    <div class="field-error" id="err-confirm">Passwords do not match</div>
+                </div>
+
+                <button type="submit" class="btn-signup" id="signup-btn">
+                    💎 Create Account
+                </button>
             </form>
+
+            <p class="terms-note">
+                By signing up you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+            </p>
 
             <div class="signup-footer">
                 <p>Already have an account? <a href="login.html">Log in</a></p>
@@ -338,6 +471,9 @@
         </div>
     </main>
 
+    <!-- ============================================================ -->
+    <!-- SCRIPTS - Supabase Auth                                      -->
+    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -349,141 +485,244 @@
     <script type="module">
         import { createClient } from "@supabase/supabase-js";
 
-        // Supabase config
-        const SUPABASE_URL = 'https://ehfnzsfnsoiyiwpxqmli.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_ybgZxnGuU_Gt35rfqkEdBw_YkEdD8vl';
+        const SUPABASE_URL = 'https://eswlfgrzdmdwmfqncpew.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oeCfBt8Ci0xQ4mg6o2mnnA_mbgnwRVS';
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        console.log('🔗 Supabase connected!');
+        console.log('🔗 Supabase connected:', SUPABASE_URL);
 
+        const form = document.getElementById('signup-form');
+        const btn = document.getElementById('signup-btn');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        const passwordInput = document.getElementById('password');
+        const pwdStrength = document.getElementById('pwd-strength');
+
+        // ============================================================
+        // REDIRECT TARGET
+        // ============================================================
+        function getRedirectTarget() {
+            const params = new URLSearchParams(window.location.search);
+            const redirect = params.get('redirect');
+            if (redirect) {
+                try {
+                    const decoded = decodeURIComponent(redirect);
+                    if (decoded.startsWith('/') || decoded.match(/^[a-zA-Z0-9_\-]+\.html/)) {
+                        return decoded;
+                    }
+                } catch (e) {}
+            }
+            return 'members.html';
+        }
+
+        // ============================================================
+        // CHECK EXISTING SESSION
+        // ============================================================
+        (async function checkSession() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session && session.user) {
+                    console.log('✅ Already logged in:', session.user.email);
+                    window.location.href = getRedirectTarget();
+                }
+            } catch (err) {
+                console.warn('Session check failed:', err);
+            }
+        })();
+
+        // ============================================================
+        // PASSWORD STRENGTH INDICATOR
+        // ============================================================
+        passwordInput.addEventListener('input', function() {
+            const val = this.value;
+            if (val.length === 0) {
+                pwdStrength.classList.remove('show', 'medium', 'strong');
+                return;
+            }
+            pwdStrength.classList.add('show');
+            pwdStrength.classList.remove('medium', 'strong');
+
+            let score = 0;
+            if (val.length >= 6) score++;
+            if (val.length >= 10) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            if (score >= 4) {
+                pwdStrength.classList.add('strong');
+            } else if (score >= 2) {
+                pwdStrength.classList.add('medium');
+            }
+        });
+
+        // ============================================================
+        // CLEAR FIELD ERRORS ON INPUT
+        // ============================================================
+        ['fullname', 'email', 'password', 'confirm-password'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', () => {
+                    el.classList.remove('error');
+                    const err = document.getElementById('err-' + id);
+                    if (err) err.classList.remove('show');
+                    errorMessage.classList.remove('show');
+                    successMessage.classList.remove('show');
+                });
+            }
+        });
+
+        // ============================================================
+        // SHOW FIELD ERROR
+        // ============================================================
+        function showFieldError(id) {
+            const el = document.getElementById(id);
+            const err = document.getElementById('err-' + id);
+            if (el) el.classList.add('error');
+            if (err) err.classList.add('show');
+        }
+
+        // ============================================================
+        // HANDLE SIGNUP
+        // ============================================================
         window.handleSignup = async function(event) {
             event.preventDefault();
 
             const fullname = document.getElementById('fullname').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
 
-            const errorMessage = document.getElementById('error-message');
-            const successMessage = document.getElementById('success-message');
-            const btn = document.getElementById('signup-btn');
-
-            // Hide previous messages
+            // Clear previous errors
             errorMessage.classList.remove('show');
             successMessage.classList.remove('show');
+            ['fullname', 'email', 'password', 'confirm-password'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('error');
+                const err = document.getElementById('err-' + id);
+                if (err) err.classList.remove('show');
+            });
 
-            // Validation
+            // Validate
+            let hasError = false;
+
             if (!fullname || fullname.length < 2) {
-                errorMessage.textContent = '⚠️ Please enter your full name.';
-                errorMessage.classList.add('show');
-                return;
+                showFieldError('fullname');
+                hasError = true;
             }
-
-            if (!email || !email.includes('@')) {
-                errorMessage.textContent = '⚠️ Please enter a valid email address.';
-                errorMessage.classList.add('show');
-                return;
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showFieldError('email');
+                hasError = true;
             }
-
             if (!password || password.length < 6) {
-                errorMessage.textContent = '⚠️ Password must be at least 6 characters.';
+                showFieldError('password');
+                hasError = true;
+            }
+            if (!confirmPassword || password !== confirmPassword) {
+                showFieldError('confirm-password');
+                hasError = true;
+            }
+
+            if (hasError) {
+                errorMessage.textContent = '⚠️ Please fix the highlighted fields.';
                 errorMessage.classList.add('show');
                 return;
             }
 
-            // Show loading
-            btn.textContent = '⏳ Creating account...';
+            // Disable button
             btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-inline"></span>Creating account...';
 
             try {
-                // Check if email already exists
-                const { data: existingUser } = await supabase
-                    .from('members')
-                    .select('email')
-                    .eq('email', email)
-                    .maybeSingle();
+                console.log('🔐 Creating account for:', email);
 
-                if (existingUser) {
-                    errorMessage.textContent = '⚠️ This email is already registered. Please log in.';
+                // 1. Sign up with Supabase Auth
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: fullname
+                        }
+                    }
+                });
+
+                if (error) {
+                    console.error('Signup error:', error);
+
+                    let msg = '⚠️ ';
+                    if (error.message.includes('already registered') || error.message.includes('already been registered')) {
+                        msg += 'This email is already registered. Please log in.';
+                    } else if (error.message.includes('Password should be')) {
+                        msg += 'Password is too weak. Use at least 6 characters.';
+                    } else if (error.message.includes('rate limit')) {
+                        msg += 'Too many attempts. Please try again in a few minutes.';
+                    } else {
+                        msg += error.message;
+                    }
+
+                    errorMessage.textContent = msg;
                     errorMessage.classList.add('show');
-                    btn.textContent = '💎 Create Account';
                     btn.disabled = false;
+                    btn.innerHTML = '💎 Create Account';
                     return;
                 }
 
-                // Create user data - IMPORTANT: verified = false so they don't appear on members page
-                const userData = {
-                    name: fullname,
-                    email: email,
-                    age: 25, // Default age
-                    gender: 'other', // Default gender
-                    location: '',
-                    bio: '',
-                    interests: [],
-                    photo_file_ids: [],
-                    online: false,
-                    verified: false, // 🔥 KEY: This prevents them from showing on members page
-                    premium: false,
-                    joined: new Date().toISOString().slice(0, 10),
-                    created_at: new Date().toISOString()
-                };
-
-                console.log('📤 Creating account...');
-
-                const { data, error } = await supabase
-                    .from('members')
-                    .insert([userData])
-                    .select();
-
-                if (error) {
-                    console.error('Insert error:', error);
-                    throw error;
+                if (!data.user) {
+                    errorMessage.textContent = '⚠️ Signup failed. Please try again.';
+                    errorMessage.classList.add('show');
+                    btn.disabled = false;
+                    btn.innerHTML = '💎 Create Account';
+                    return;
                 }
 
-                console.log('✅ Account created:', data);
+                console.log('✅ Account created:', data.user.email);
 
-                // Store user session
-                if (data && data[0]) {
-                    localStorage.setItem('classy_user', JSON.stringify(data[0]));
-                    localStorage.setItem('classy_user_email', email);
-                    localStorage.setItem('classy_user_name', fullname);
+                // 2. If session exists (email confirmation OFF), user is logged in
+                //    If no session (email confirmation ON), user needs to verify
+                if (data.session) {
+                    // Logged in immediately
+                    successMessage.innerHTML = `✅ Welcome, ${fullname}! Redirecting...`;
+                    successMessage.classList.add('show');
+
+                    btn.innerHTML = '✅ Welcome!';
+                    btn.style.background = 'linear-gradient(135deg, #28a745, #1e7e34)';
+
+                    const target = getRedirectTarget();
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 1200);
+                } else {
+                    // Email confirmation required
+                    successMessage.innerHTML = `✅ Check your email to confirm your account!`;
+                    successMessage.classList.add('show');
+
+                    btn.innerHTML = '📧 Check your email';
+                    btn.style.background = 'linear-gradient(135deg, #ffa500, #e67e00)';
+
+                    // Reset button after 4s
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.innerHTML = '💎 Create Account';
+                        btn.style.background = '';
+                    }, 4000);
                 }
 
-                // Show success
-                successMessage.textContent = '✅ Account created successfully!';
-                successMessage.classList.add('show');
-
-                btn.textContent = '✅ Welcome!';
-                btn.style.background = 'linear-gradient(135deg, #28a745, #007E33)';
-
-                // Redirect to members page
-                setTimeout(() => {
-                    window.location.href = 'members.html';
-                }, 1500);
-
-            } catch (error) {
-                console.error('❌ Signup error:', error);
-                errorMessage.textContent = '⚠️ ' + (error.message || 'Failed to create account. Please try again.');
+            } catch (err) {
+                console.error('❌ Unexpected signup error:', err);
+                errorMessage.textContent = '⚠️ Unexpected error: ' + err.message;
                 errorMessage.classList.add('show');
-
-                btn.textContent = '💎 Create Account';
                 btn.disabled = false;
-                btn.style.background = 'linear-gradient(135deg, #112A46, #2E5A88)';
+                btn.innerHTML = '💎 Create Account';
             }
-        };
+        }
 
-        // Clear messages on input
-        document.querySelectorAll('input').forEach(function(input) {
-            input.addEventListener('input', function() {
-                document.getElementById('error-message').classList.remove('show');
-                document.getElementById('success-message').classList.remove('show');
-            });
-        });
-
-        console.log('💎 Sign Up Page Ready!');
-        console.log('✅ Users sign up and go to members page');
-        console.log('❌ Users DO NOT appear on members page (verified: false)');
-        console.log('👑 Only admin-created members appear on members page');
+        console.log('💎 Sign Up Page — Supabase Auth + Purple Theme');
+        console.log('✅ Real authentication via supabase.auth.signUp');
+        console.log('✅ Password stored securely by Supabase');
+        console.log('✅ Supports ?redirect= parameter');
+        console.log('✅ Email confirmation: OFF (users logged in immediately)');
     </script>
 
 </body>

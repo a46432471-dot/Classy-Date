@@ -27,7 +27,6 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* HEADER */
         .cb-shell-header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -93,7 +92,6 @@
             flex-shrink: 0;
         }
 
-        /* CHAT WRAPPER */
         .chat-wrapper {
             display: flex;
             flex-direction: column;
@@ -106,7 +104,6 @@
             overflow: hidden;
         }
 
-        /* SUPPORT HEADER */
         .chat-header {
             display: flex;
             align-items: center;
@@ -188,7 +185,6 @@
         .status-text--online { color: #28a745; }
         .status-text--offline { color: rgba(26, 5, 51, 0.4); }
 
-        /* ADMIN DETAILS PANEL — ONLY SHOWN TO ADMIN */
         .user-details-panel {
             display: none !important;
             background: rgba(255, 255, 255, 0.55);
@@ -199,9 +195,7 @@
             backdrop-filter: blur(10px);
             flex-shrink: 0;
         }
-        .user-details-panel.show {
-            display: block !important;
-        }
+        .user-details-panel.show { display: block !important; }
 
         .user-details-panel .top-row {
             display: flex;
@@ -272,7 +266,6 @@
         }
         .user-details-panel .photos-row img:hover { transform: scale(1.08); }
 
-        /* MESSAGES */
         .messages-container {
             flex: 1;
             overflow-y: auto;
@@ -406,7 +399,6 @@
             background: #d1e7dd;
         }
 
-        /* DATE SEPARATOR */
         .date-separator {
             text-align: center;
             margin: 14px 0;
@@ -422,7 +414,6 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
-        /* INPUT */
         .message-input-container {
             display: flex;
             gap: 8px;
@@ -459,7 +450,6 @@
             box-shadow: 0 0 0 3px rgba(108, 60, 179, 0.08);
         }
 
-        /* Photo button — highlighted */
         .icon-btn {
             padding: 8px 10px;
             border: none;
@@ -502,7 +492,6 @@
         }
         .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* EMPTY + LOADING */
         .empty-chat {
             display: flex;
             flex-direction: column;
@@ -544,7 +533,6 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* TOAST */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -567,7 +555,6 @@
         .toast.error { background: #dc3545; }
         .toast.info { background: #6c3cb3; }
 
-        /* LIGHTBOX */
         .lightbox {
             display: none;
             position: fixed;
@@ -587,7 +574,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* ACCESS DENIED */
         .access-denied {
             display: none;
             flex-direction: column;
@@ -628,7 +614,6 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .chat-wrapper { padding: 68px 10px 8px; }
             .chat-header { padding: 8px 12px; gap: 8px; }
@@ -664,7 +649,6 @@
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
             <button class="cb-shell-button--back" onclick="goBack()">← Back</button>
@@ -675,7 +659,6 @@
         </div>
     </header>
 
-    <!-- ACCESS DENIED -->
     <div class="access-denied" id="access-denied">
         <div class="icon">🔒</div>
         <h2>Access Denied</h2>
@@ -683,7 +666,6 @@
         <button class="btn" onclick="window.location.href='members.html'">Go to Members</button>
     </div>
 
-    <!-- CHAT -->
     <main class="chat-wrapper" id="chat-main">
         <div class="chat-header">
             <div class="chat-header__avatar" id="support-avatar">💬</div>
@@ -699,7 +681,6 @@
             </div>
         </div>
 
-        <!-- ADMIN-ONLY DETAILS PANEL -->
         <div class="user-details-panel" id="user-details-panel">
             <div class="top-row">
                 <div class="user-name" id="ud-name">Loading...</div>
@@ -725,7 +706,6 @@
         </div>
 
         <div class="message-input-container">
-            <!-- ⬇️ CHANGED: paperclip → camera -->
             <button class="icon-btn" id="photo-btn" title="Send a photo 📷">📷</button>
             <input type="file" id="photo-input" accept="image/*" style="display:none;">
             <input type="text" id="message-input" placeholder="Type your message...">
@@ -733,17 +713,12 @@
         </div>
     </main>
 
-    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="Attachment">
     </div>
 
-    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS                                                      -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -769,6 +744,7 @@
         let messages = [];
         let realtimeChannel = null;
         let adminStatusInterval = null;
+        let readPollingInterval = null;   // ⭐ NEW
 
         const messagesContainer = document.getElementById('messages-container');
         const messageInput = document.getElementById('message-input');
@@ -787,9 +763,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         conversationId = urlParams.get('conversation');
 
-        // ============================================================
-        // TOAST
-        // ============================================================
         let toastTimeout;
         function showToast(message, type = 'success') {
             toast.textContent = message;
@@ -804,9 +777,6 @@
             window.location.href = `members.html?toast=${encoded}`;
         }
 
-        // ============================================================
-        // AUTH
-        // ============================================================
         async function requireAuth() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session || !session.user) {
@@ -1200,7 +1170,6 @@
                 showToast('Failed to send photo: ' + err.message, 'error');
             } finally {
                 photoBtn.disabled = false;
-                // ⬇️ CHANGED: paperclip → camera
                 photoBtn.textContent = '📷';
                 photoInput.value = '';
             }
@@ -1235,6 +1204,17 @@
             if (isAdmin) return;
             if (adminStatusInterval) clearInterval(adminStatusInterval);
             adminStatusInterval = setInterval(checkAdminOnlineStatus, 15000);
+        }
+
+        // ⭐ NEW: Poll messages every 4 seconds to catch missed read receipts
+        function startReadPolling() {
+            if (readPollingInterval) clearInterval(readPollingInterval);
+            readPollingInterval = setInterval(() => {
+                if (!document.hidden && conversationId) {
+                    loadMessages();
+                }
+            }, 4000);
+            console.log('🔄 Read-receipt polling started (every 4s)');
         }
 
         window.openLightbox = function(url) {
@@ -1273,6 +1253,7 @@
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden && conversation) {
                     markMessagesAsRead();
+                    loadMessages();  // ⭐ Also reload so we see latest ticks
                 }
             });
         });
@@ -1292,6 +1273,7 @@
 
             subscribeToMessages();
             startAdminStatusPolling();
+            startReadPolling();   // ⭐ NEW
 
             messageInput.focus();
 

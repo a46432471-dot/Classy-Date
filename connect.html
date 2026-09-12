@@ -12,11 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -32,9 +28,7 @@
         /* HEADER */
         .connect-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
@@ -202,10 +196,7 @@
         }
 
         /* FORM FIELDS */
-        .form-group {
-            margin-bottom: 14px;
-        }
-
+        .form-group { margin-bottom: 14px; }
         .form-group:last-child { margin-bottom: 0; }
 
         .form-group label {
@@ -291,28 +282,19 @@
             background: rgba(255, 255, 255, 0.55);
         }
 
-        .upload-zone.hidden {
-            display: none;
-        }
+        .upload-zone.hidden { display: none; }
 
-        .upload-zone .upload-icon {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 6px;
-        }
-
+        .upload-zone .upload-icon { font-size: 32px; display: block; margin-bottom: 6px; }
         .upload-zone .upload-text {
             font-size: 14px;
             font-weight: 600;
             color: #1a0533;
             margin-bottom: 3px;
         }
-
         .upload-zone .upload-sub {
             font-size: 11px;
             color: rgba(26, 5, 51, 0.4);
         }
-
         .upload-zone input[type="file"] {
             position: absolute;
             top: 0; left: 0;
@@ -338,7 +320,6 @@
             transition: width 0.3s ease;
         }
 
-        /* PHOTO THUMBS */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -355,17 +336,11 @@
             background: #e8d5f5;
         }
 
-        .photo-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .photo-thumb .remove-btn {
             position: absolute;
-            top: 3px;
-            right: 3px;
+            top: 3px; right: 3px;
             width: 22px;
             height: 22px;
             border-radius: 50%;
@@ -382,7 +357,6 @@
         }
         .photo-thumb .remove-btn:hover { background: #dc3545; transform: scale(1.1); }
 
-        /* ADD MORE PHOTOS BUTTON */
         .add-more-btn {
             display: none;
             background: rgba(108, 60, 179, 0.08);
@@ -425,13 +399,11 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
             margin-top: 6px;
         }
-
         .btn-submit:hover:not(:disabled) {
             transform: translateY(-2px);
             background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
             box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
         }
-
         .btn-submit:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -467,7 +439,6 @@
             80% { transform: translateX(4px); }
         }
 
-        /* LOADING STATE */
         .loading-state {
             text-align: center;
             padding: 60px 20px;
@@ -485,7 +456,6 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* TOAST */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -510,7 +480,6 @@
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
 
-        /* SUCCESS MODAL */
         .success-overlay {
             display: none;
             position: fixed;
@@ -536,32 +505,23 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
             animation: scaleIn 0.3s ease;
         }
-
         @keyframes scaleIn {
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-
-        .success-card .big-icon {
-            font-size: 56px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
+        .success-card .big-icon { font-size: 56px; margin-bottom: 12px; display: block; }
         .success-card h2 {
             font-family: "Playfair Display", Georgia, serif;
             font-size: 24px;
             color: #1a0533;
             margin-bottom: 8px;
         }
-
         .success-card p {
             font-size: 14px;
             color: rgba(26, 5, 51, 0.6);
             line-height: 1.5;
             margin-bottom: 20px;
         }
-
         .success-card .btn-go-chat {
             width: 100%;
             padding: 14px;
@@ -580,25 +540,19 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
         }
 
-        /* TABLET + DESKTOP */
         @media (min-width: 600px) {
             .connect-header { height: 60px; padding: 0 16px; }
             .brand { font-size: 20px; }
             .connect-wrapper { padding: 80px 0 60px; }
-
             .connect-intro__avatar { width: 110px; height: 110px; }
             .connect-intro__name { font-size: 26px; }
-
             .form-section { padding: 24px 22px; }
             .form-section__num { width: 32px; height: 32px; font-size: 15px; }
             .form-section__title { font-size: 15px; }
-
             .form-group input,
             .form-group select,
             .form-group textarea { font-size: 15px; padding: 13px 16px; }
-
             .photo-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
-
             .btn-submit { font-size: 17px; padding: 18px 24px; }
         }
 
@@ -783,8 +737,9 @@
 
         let currentUser = null;
         let memberData = null;
-        let uploadedPhotos = [];   // { path, url }
+        let uploadedPhotos = [];   // { path, url, isExisting }
         let hasRestoredData = false;
+        let existingConversationId = null;   // ⭐ NEW — reuse this if set
         const MAX_PHOTOS = 5;
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -813,9 +768,7 @@
         // INIT
         // ============================================================
         async function init() {
-            // 1. Auth check
             const { data: { session } } = await supabase.auth.getSession();
-
             if (!session || !session.user) {
                 const returnUrl = encodeURIComponent(`connect.html?member=${memberId}`);
                 window.location.href = `login.html?redirect=${returnUrl}`;
@@ -823,16 +776,13 @@
             }
 
             currentUser = session.user;
-            console.log('✅ User logged in:', currentUser.email);
 
-            // 2. Member param check
             if (!memberId) {
                 showToast('❌ No member specified', 'error');
                 setTimeout(() => { window.location.href = 'members.html'; }, 1500);
                 return;
             }
 
-            // 3. Load member details
             try {
                 const { data, error } = await supabase
                     .from('members')
@@ -850,16 +800,12 @@
                 memberData = data;
                 renderMemberIntro(data);
 
-                // 4. Restore user data (from user_profiles AND last conversation photos)
                 await restoreUserData();
 
-                // 5. Show content
                 loadingState.style.display = 'none';
                 content.style.display = 'block';
 
-                // 6. Update UI based on restored state
                 updateFormState();
-
             } catch (err) {
                 console.error('Error loading member:', err);
                 showToast('Error loading member: ' + err.message, 'error');
@@ -894,12 +840,12 @@
         }
 
         // ============================================================
-        // RESTORE USER DATA (details + photos)
+        // RESTORE USER DATA + DETECT EXISTING CONVERSATION
         // ============================================================
         async function restoreUserData() {
             let hasDetails = false;
 
-            // STEP 1 — Try user_profiles first
+            // STEP 1 — user_profiles
             try {
                 const { data: profile } = await supabase
                     .from('user_profiles')
@@ -921,11 +867,11 @@
                 console.warn('Profile fetch failed:', err);
             }
 
-            // STEP 2 — Load photos from most recent conversation
+            // STEP 2 — most recent conversation (photos + details + ID)
             try {
                 const { data: conv, error } = await supabase
                     .from('conversations')
-                    .select('user_photo_ids, full_name, email, whatsapp_no, age, gender, location, occupation')
+                    .select('id, user_photo_ids, full_name, email, whatsapp_no, age, gender, location, occupation')
                     .eq('user_id', currentUser.id)
                     .order('created_at', { ascending: false })
                     .limit(1)
@@ -934,6 +880,10 @@
                 if (error) throw error;
 
                 if (conv) {
+                    // ⭐ Remember conversation ID so we can reuse it
+                    existingConversationId = conv.id;
+                    console.log('💾 Existing conversation found:', existingConversationId);
+
                     // Photos
                     if (conv.user_photo_ids && conv.user_photo_ids.length > 0) {
                         for (const path of conv.user_photo_ids) {
@@ -948,10 +898,9 @@
                                 });
                             }
                         }
-                        console.log('📸 Restored', uploadedPhotos.length, 'photos');
                     }
 
-                    // Details fallback — if user_profiles was empty, use conversation
+                    // Details fallback
                     if (!hasDetails) {
                         if (conv.full_name) document.getElementById('full-name').value = conv.full_name;
                         if (conv.email) document.getElementById('email').value = conv.email;
@@ -967,17 +916,12 @@
                 console.warn('Conversation restore failed:', err);
             }
 
-            // Fallback email from auth
             if (!document.getElementById('email').value && currentUser.email) {
                 document.getElementById('email').value = currentUser.email;
             }
 
-            // Render restored photos
-            if (uploadedPhotos.length > 0) {
-                renderPhotoGrid();
-            }
+            if (uploadedPhotos.length > 0) renderPhotoGrid();
 
-            // Mark whether anything was restored
             hasRestoredData = hasDetails || uploadedPhotos.length > 0;
         }
 
@@ -986,31 +930,20 @@
         // ============================================================
         function updateFormState() {
             if (hasRestoredData) {
-                // Show banner
                 restoredBanner.classList.add('show');
-
-                // Change button text
                 submitBtn.innerHTML = '💬 Continue Connecting';
 
-                // If we already have photos, hide upload zone and show "Add more"
                 if (uploadedPhotos.length > 0) {
                     uploadZone.classList.add('hidden');
                     addMoreBtn.classList.add('show');
-
                     if (uploadedPhotos.length >= MAX_PHOTOS) {
                         addMoreBtn.classList.remove('show');
-                        uploadHint.textContent = `You have ${uploadedPhotos.length} photos (maximum reached).`;
-                    } else {
-                        uploadHint.textContent = `Your photos are saved. You can add more (${uploadedPhotos.length}/${MAX_PHOTOS}).`;
                     }
                 }
             } else {
-                // Fresh user — show upload zone
                 uploadZone.classList.remove('hidden');
                 addMoreBtn.classList.remove('show');
             }
-
-            // Update hint
             updatePhotoHint();
         }
 
@@ -1080,7 +1013,6 @@
 
                     renderPhotoGrid();
                     updatePhotoHint();
-
                 } catch (err) {
                     console.error('Upload error:', err);
                     showToast(`❌ Failed: ${file.name}`, 'error');
@@ -1097,7 +1029,6 @@
 
             fileInput.value = '';
 
-            // Update UI state
             if (uploadedPhotos.length > 0) {
                 uploadZone.classList.add('hidden');
                 addMoreBtn.classList.add('show');
@@ -1107,9 +1038,6 @@
             }
         }
 
-        // ============================================================
-        // RENDER PHOTO GRID
-        // ============================================================
         function renderPhotoGrid() {
             photoGrid.innerHTML = uploadedPhotos.map((photo, i) => `
                 <div class="photo-thumb">
@@ -1121,8 +1049,6 @@
 
         window.removePhoto = function(index) {
             const photo = uploadedPhotos[index];
-            // Only delete from storage if it was newly uploaded in this session
-            // (Existing photos are kept in storage in case user changes mind)
             if (photo && photo.path && !photo.isExisting) {
                 supabase.storage.from('user_uploads').remove([photo.path]).catch(() => {});
             }
@@ -1130,7 +1056,6 @@
             renderPhotoGrid();
             updatePhotoHint();
 
-            // If photos dropped to 0, show upload zone again
             if (uploadedPhotos.length === 0) {
                 uploadZone.classList.remove('hidden');
                 addMoreBtn.classList.remove('show');
@@ -1139,12 +1064,10 @@
             }
         }
 
-        window.triggerFileInput = function() {
-            fileInput.click();
-        }
+        window.triggerFileInput = function() { fileInput.click(); }
 
         // ============================================================
-        // SUBMIT FORM
+        // SUBMIT — Reuse conversation if exists, else create new
         // ============================================================
         window.submitForm = async function(event) {
             event.preventDefault();
@@ -1168,43 +1091,84 @@
             if (uploadedPhotos.length === 0) return showError('Please add at least 1 photo.');
 
             submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Creating your connection...';
+            submitBtn.textContent = '⏳ Saving...';
 
             try {
-                // 1. Create conversation
-                const { data: conv, error: convError } = await supabase
-                    .from('conversations')
-                    .insert([{
-                        user_id: currentUser.id,
-                        member_id: memberData.id,
-                        member_name: memberData.name,
-                        full_name: fullName,
-                        email: email,
-                        whatsapp_no: whatsapp,
-                        age: age,
-                        gender: gender,
-                        location: location,
-                        occupation: occupation,
-                        user_photo_ids: uploadedPhotos.map(p => p.path),
-                        status: 'open'
-                    }])
-                    .select()
-                    .single();
+                const photoPaths = uploadedPhotos.map(p => p.path);
 
-                if (convError) throw convError;
+                if (existingConversationId) {
+                    // ==================================================
+                    // REUSE EXISTING CONVERSATION (no new chat window)
+                    // ==================================================
+                    console.log('♻️ Reusing conversation:', existingConversationId);
 
-                newConversationId = conv.id;
-                console.log('✅ Conversation created:', newConversationId);
+                    const { error: updateErr } = await supabase
+                        .from('conversations')
+                        .update({
+                            member_id: memberData.id,
+                            member_name: memberData.name,
+                            full_name: fullName,
+                            email: email,
+                            whatsapp_no: whatsapp,
+                            age: age,
+                            gender: gender,
+                            location: location,
+                            occupation: occupation,
+                            user_photo_ids: photoPaths,
+                            updated_at: new Date().toISOString()
+                        })
+                        .eq('id', existingConversationId);
 
-                // 2. Welcome message
-                await supabase.from('messages').insert([{
-                    conversation_id: newConversationId,
-                    sender_type: 'user',
-                    sender_id: currentUser.id,
-                    text: `Hi! I'd like to connect with ${memberData.name}. Please help me get in touch.`
-                }]);
+                    if (updateErr) throw updateErr;
 
-                // 3. Save user_profiles for next time
+                    newConversationId = existingConversationId;
+
+                    // Insert a new message about the new member
+                    await supabase.from('messages').insert([{
+                        conversation_id: newConversationId,
+                        sender_type: 'user',
+                        sender_id: currentUser.id,
+                        text: `Hi! I'd like to connect with ${memberData.name}. Please help me get in touch.`
+                    }]);
+
+                } else {
+                    // ==================================================
+                    // CREATE NEW CONVERSATION (first time user)
+                    // ==================================================
+                    console.log('🆕 Creating new conversation');
+
+                    const { data: conv, error: convError } = await supabase
+                        .from('conversations')
+                        .insert([{
+                            user_id: currentUser.id,
+                            member_id: memberData.id,
+                            member_name: memberData.name,
+                            full_name: fullName,
+                            email: email,
+                            whatsapp_no: whatsapp,
+                            age: age,
+                            gender: gender,
+                            location: location,
+                            occupation: occupation,
+                            user_photo_ids: photoPaths,
+                            status: 'open'
+                        }])
+                        .select()
+                        .single();
+
+                    if (convError) throw convError;
+
+                    newConversationId = conv.id;
+
+                    await supabase.from('messages').insert([{
+                        conversation_id: newConversationId,
+                        sender_type: 'user',
+                        sender_id: currentUser.id,
+                        text: `Hi! I'd like to connect with ${memberData.name}. Please help me get in touch.`
+                    }]);
+                }
+
+                // Update user_profiles for next time
                 await supabase
                     .from('user_profiles')
                     .upsert({
@@ -1218,12 +1182,8 @@
                         occupation: occupation
                     }, { onConflict: 'id' });
 
-                // 4. Success
                 successOverlay.classList.add('show');
-
-                setTimeout(() => {
-                    goToChat();
-                }, 2500);
+                setTimeout(() => { goToChat(); }, 2500);
 
             } catch (err) {
                 console.error('Submit error:', err);
@@ -1240,9 +1200,6 @@
             return false;
         }
 
-        // ============================================================
-        // GO TO CHAT
-        // ============================================================
         window.goToChat = function() {
             if (newConversationId) {
                 window.location.href = `chat.html?conversation=${newConversationId}`;
@@ -1251,9 +1208,6 @@
             }
         }
 
-        // ============================================================
-        // BACK
-        // ============================================================
         window.goBack = function() {
             if (window.history.length > 1) {
                 window.history.back();
@@ -1262,9 +1216,6 @@
             }
         }
 
-        // ============================================================
-        // TOAST
-        // ============================================================
         let toastTimeout;
         function showToast(msg, type = 'success') {
             const t = document.getElementById('toast');
@@ -1275,13 +1226,9 @@
             toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // ============================================================
-        // INIT
-        // ============================================================
         init();
 
-        console.log('💎 Connect page ready');
-        console.log('✅ Photos + details restored from previous connection');
+        console.log('💎 Connect page ready — reuses existing conversation');
     </script>
 
 </body>

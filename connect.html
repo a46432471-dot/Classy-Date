@@ -141,6 +141,24 @@
             margin: 0 auto;
         }
 
+        /* RESTORED BANNER */
+        .restored-banner {
+            display: none;
+            background: linear-gradient(135deg, rgba(108, 60, 179, 0.1), rgba(74, 26, 107, 0.08));
+            border: 1px solid rgba(108, 60, 179, 0.2);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #4a1a6b;
+            margin-bottom: 14px;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .restored-banner.show { display: flex; }
+        .restored-banner .icon { font-size: 18px; flex-shrink: 0; }
+
         /* FORM SECTION */
         .form-section {
             background: rgba(255, 255, 255, 0.55);
@@ -273,10 +291,8 @@
             background: rgba(255, 255, 255, 0.55);
         }
 
-        .upload-zone.dragover {
-            border-color: #6c3cb3;
-            background: rgba(108, 60, 179, 0.08);
-            transform: scale(1.01);
+        .upload-zone.hidden {
+            display: none;
         }
 
         .upload-zone .upload-icon {
@@ -365,6 +381,28 @@
             transition: all 0.2s ease;
         }
         .photo-thumb .remove-btn:hover { background: #dc3545; transform: scale(1.1); }
+
+        /* ADD MORE PHOTOS BUTTON */
+        .add-more-btn {
+            display: none;
+            background: rgba(108, 60, 179, 0.08);
+            border: 1px dashed rgba(108, 60, 179, 0.3);
+            color: #6c3cb3;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+            margin-top: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .add-more-btn.show { display: block; }
+        .add-more-btn:hover {
+            background: rgba(108, 60, 179, 0.15);
+            border-color: #6c3cb3;
+        }
 
         /* CTA */
         .btn-submit {
@@ -590,7 +628,7 @@
                 <div>Preparing your connection...</div>
             </div>
 
-            <!-- CONTENT (hidden until loaded) -->
+            <!-- CONTENT -->
             <div id="content" style="display:none;">
 
                 <!-- MEMBER INTRO -->
@@ -603,6 +641,12 @@
                         Share your details below. Our support team will help you connect safely and start a real conversation.
                     </p>
                 </section>
+
+                <!-- RESTORED BANNER -->
+                <div class="restored-banner" id="restored-banner">
+                    <span class="icon">✅</span>
+                    <span>Your details are saved. Review and tap <strong>Continue Connecting</strong> to proceed.</span>
+                </div>
 
                 <!-- ERROR BANNER -->
                 <div class="error-banner" id="error-banner">⚠️ Please fill in all required fields.</div>
@@ -666,7 +710,7 @@
                             <span class="form-section__title">Your Photos</span>
                         </div>
 
-                        <p class="upload-hint">Add 1 to 5 photos of yourself. Good photos build trust.</p>
+                        <p class="upload-hint" id="upload-hint">Add 1 to 5 photos of yourself. Good photos build trust.</p>
 
                         <div class="upload-zone" id="upload-zone">
                             <span class="upload-icon">📸</span>
@@ -680,6 +724,10 @@
                         </div>
 
                         <div class="photo-grid" id="photo-grid"></div>
+
+                        <button type="button" class="add-more-btn" id="add-more-btn" onclick="triggerFileInput()">
+                            ➕ Add more photos
+                        </button>
                     </div>
 
                     <!-- SUBMIT -->
@@ -736,6 +784,7 @@
         let currentUser = null;
         let memberData = null;
         let uploadedPhotos = [];   // { path, url }
+        let hasRestoredData = false;
         const MAX_PHOTOS = 5;
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -747,25 +796,27 @@
         const loadingState = document.getElementById('loading-state');
         const content = document.getElementById('content');
         const errorBanner = document.getElementById('error-banner');
+        const restoredBanner = document.getElementById('restored-banner');
         const fileInput = document.getElementById('file-input');
         const uploadZone = document.getElementById('upload-zone');
         const uploadProgress = document.getElementById('upload-progress');
         const uploadBar = document.getElementById('upload-bar');
         const photoGrid = document.getElementById('photo-grid');
+        const addMoreBtn = document.getElementById('add-more-btn');
+        const uploadHint = document.getElementById('upload-hint');
         const submitBtn = document.getElementById('submit-btn');
         const successOverlay = document.getElementById('success-overlay');
 
         let newConversationId = null;
 
         // ============================================================
-        // INIT — Check auth + load member
+        // INIT
         // ============================================================
         async function init() {
-            // 1. Check auth
+            // 1. Auth check
             const { data: { session } } = await supabase.auth.getSession();
 
             if (!session || !session.user) {
-                // Redirect to login, then come back to this page
                 const returnUrl = encodeURIComponent(`connect.html?member=${memberId}`);
                 window.location.href = `login.html?redirect=${returnUrl}`;
                 return;
@@ -774,7 +825,7 @@
             currentUser = session.user;
             console.log('✅ User logged in:', currentUser.email);
 
-            // 2. Check if member param exists
+            // 2. Member param check
             if (!memberId) {
                 showToast('❌ No member specified', 'error');
                 setTimeout(() => { window.location.href = 'members.html'; }, 1500);
@@ -799,12 +850,15 @@
                 memberData = data;
                 renderMemberIntro(data);
 
-                // 4. Prefill user details from user_profiles if exists
-                await prefillUserData();
+                // 4. Restore user data (from user_profiles AND last conversation photos)
+                await restoreUserData();
 
                 // 5. Show content
                 loadingState.style.display = 'none';
                 content.style.display = 'block';
+
+                // 6. Update UI based on restored state
+                updateFormState();
 
             } catch (err) {
                 console.error('Error loading member:', err);
@@ -813,7 +867,7 @@
         }
 
         // ============================================================
-        // RENDER MEMBER INTRO
+        // MEMBER INTRO
         // ============================================================
         function renderMemberIntro(member) {
             const name = member.name || 'Member';
@@ -840,33 +894,133 @@
         }
 
         // ============================================================
-        // PREFILL USER DATA
+        // RESTORE USER DATA (details + photos)
         // ============================================================
-        async function prefillUserData() {
+        async function restoreUserData() {
+            let hasDetails = false;
+
+            // STEP 1 — Try user_profiles first
             try {
-                const { data, error } = await supabase
+                const { data: profile } = await supabase
                     .from('user_profiles')
                     .select('*')
                     .eq('id', currentUser.id)
                     .maybeSingle();
 
-                if (error || !data) return;
-
-                if (data.full_name) document.getElementById('full-name').value = data.full_name;
-                if (data.email) document.getElementById('email').value = data.email;
-                else if (currentUser.email) document.getElementById('email').value = currentUser.email;
-                if (data.whatsapp_no) document.getElementById('whatsapp').value = data.whatsapp_no;
-                if (data.age) document.getElementById('age').value = data.age;
-                if (data.gender) document.getElementById('gender').value = data.gender;
-                if (data.location) document.getElementById('location').value = data.location;
-                if (data.occupation) document.getElementById('occupation').value = data.occupation;
+                if (profile) {
+                    if (profile.full_name) document.getElementById('full-name').value = profile.full_name;
+                    if (profile.email) document.getElementById('email').value = profile.email;
+                    if (profile.whatsapp_no) document.getElementById('whatsapp').value = profile.whatsapp_no;
+                    if (profile.age) document.getElementById('age').value = profile.age;
+                    if (profile.gender) document.getElementById('gender').value = profile.gender;
+                    if (profile.location) document.getElementById('location').value = profile.location;
+                    if (profile.occupation) document.getElementById('occupation').value = profile.occupation;
+                    hasDetails = !!(profile.full_name);
+                }
             } catch (err) {
-                console.warn('Prefill failed:', err);
+                console.warn('Profile fetch failed:', err);
             }
 
-            // If no profile email, use auth email
+            // STEP 2 — Load photos from most recent conversation
+            try {
+                const { data: conv, error } = await supabase
+                    .from('conversations')
+                    .select('user_photo_ids, full_name, email, whatsapp_no, age, gender, location, occupation')
+                    .eq('user_id', currentUser.id)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                if (error) throw error;
+
+                if (conv) {
+                    // Photos
+                    if (conv.user_photo_ids && conv.user_photo_ids.length > 0) {
+                        for (const path of conv.user_photo_ids) {
+                            const { data: urlData } = supabase.storage
+                                .from('user_uploads')
+                                .getPublicUrl(path);
+                            if (urlData?.publicUrl) {
+                                uploadedPhotos.push({
+                                    path: path,
+                                    url: urlData.publicUrl,
+                                    isExisting: true
+                                });
+                            }
+                        }
+                        console.log('📸 Restored', uploadedPhotos.length, 'photos');
+                    }
+
+                    // Details fallback — if user_profiles was empty, use conversation
+                    if (!hasDetails) {
+                        if (conv.full_name) document.getElementById('full-name').value = conv.full_name;
+                        if (conv.email) document.getElementById('email').value = conv.email;
+                        if (conv.whatsapp_no) document.getElementById('whatsapp').value = conv.whatsapp_no;
+                        if (conv.age) document.getElementById('age').value = conv.age;
+                        if (conv.gender) document.getElementById('gender').value = conv.gender;
+                        if (conv.location) document.getElementById('location').value = conv.location;
+                        if (conv.occupation) document.getElementById('occupation').value = conv.occupation;
+                        if (conv.full_name) hasDetails = true;
+                    }
+                }
+            } catch (err) {
+                console.warn('Conversation restore failed:', err);
+            }
+
+            // Fallback email from auth
             if (!document.getElementById('email').value && currentUser.email) {
                 document.getElementById('email').value = currentUser.email;
+            }
+
+            // Render restored photos
+            if (uploadedPhotos.length > 0) {
+                renderPhotoGrid();
+            }
+
+            // Mark whether anything was restored
+            hasRestoredData = hasDetails || uploadedPhotos.length > 0;
+        }
+
+        // ============================================================
+        // UPDATE UI BASED ON RESTORED STATE
+        // ============================================================
+        function updateFormState() {
+            if (hasRestoredData) {
+                // Show banner
+                restoredBanner.classList.add('show');
+
+                // Change button text
+                submitBtn.innerHTML = '💬 Continue Connecting';
+
+                // If we already have photos, hide upload zone and show "Add more"
+                if (uploadedPhotos.length > 0) {
+                    uploadZone.classList.add('hidden');
+                    addMoreBtn.classList.add('show');
+
+                    if (uploadedPhotos.length >= MAX_PHOTOS) {
+                        addMoreBtn.classList.remove('show');
+                        uploadHint.textContent = `You have ${uploadedPhotos.length} photos (maximum reached).`;
+                    } else {
+                        uploadHint.textContent = `Your photos are saved. You can add more (${uploadedPhotos.length}/${MAX_PHOTOS}).`;
+                    }
+                }
+            } else {
+                // Fresh user — show upload zone
+                uploadZone.classList.remove('hidden');
+                addMoreBtn.classList.remove('show');
+            }
+
+            // Update hint
+            updatePhotoHint();
+        }
+
+        function updatePhotoHint() {
+            if (uploadedPhotos.length === 0) {
+                uploadHint.textContent = 'Add 1 to 5 photos of yourself. Good photos build trust.';
+            } else if (uploadedPhotos.length >= MAX_PHOTOS) {
+                uploadHint.textContent = `You have ${uploadedPhotos.length} photos (maximum reached).`;
+            } else {
+                uploadHint.textContent = `You have ${uploadedPhotos.length} photo${uploadedPhotos.length > 1 ? 's' : ''}. You can add ${MAX_PHOTOS - uploadedPhotos.length} more.`;
             }
         }
 
@@ -920,10 +1074,12 @@
 
                     uploadedPhotos.push({
                         path: data.path,
-                        url: urlData?.publicUrl || ''
+                        url: urlData?.publicUrl || '',
+                        isExisting: false
                     });
 
                     renderPhotoGrid();
+                    updatePhotoHint();
 
                 } catch (err) {
                     console.error('Upload error:', err);
@@ -940,6 +1096,15 @@
             }, 500);
 
             fileInput.value = '';
+
+            // Update UI state
+            if (uploadedPhotos.length > 0) {
+                uploadZone.classList.add('hidden');
+                addMoreBtn.classList.add('show');
+                if (uploadedPhotos.length >= MAX_PHOTOS) {
+                    addMoreBtn.classList.remove('show');
+                }
+            }
         }
 
         // ============================================================
@@ -956,12 +1121,26 @@
 
         window.removePhoto = function(index) {
             const photo = uploadedPhotos[index];
-            // Delete from storage (fire and forget)
-            if (photo && photo.path) {
+            // Only delete from storage if it was newly uploaded in this session
+            // (Existing photos are kept in storage in case user changes mind)
+            if (photo && photo.path && !photo.isExisting) {
                 supabase.storage.from('user_uploads').remove([photo.path]).catch(() => {});
             }
             uploadedPhotos.splice(index, 1);
             renderPhotoGrid();
+            updatePhotoHint();
+
+            // If photos dropped to 0, show upload zone again
+            if (uploadedPhotos.length === 0) {
+                uploadZone.classList.remove('hidden');
+                addMoreBtn.classList.remove('show');
+            } else if (uploadedPhotos.length < MAX_PHOTOS) {
+                addMoreBtn.classList.add('show');
+            }
+        }
+
+        window.triggerFileInput = function() {
+            fileInput.click();
         }
 
         // ============================================================
@@ -980,7 +1159,6 @@
 
             errorBanner.classList.remove('show');
 
-            // Validate
             if (!fullName || fullName.length < 2) return showError('Please enter your full name.');
             if (!email || !email.includes('@')) return showError('Please enter a valid email.');
             if (!whatsapp || whatsapp.length < 7) return showError('Please enter your WhatsApp number.');
@@ -989,12 +1167,11 @@
             if (!location) return showError('Please enter your location.');
             if (uploadedPhotos.length === 0) return showError('Please add at least 1 photo.');
 
-            // Disable button
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Creating your connection...';
 
             try {
-                // 1. Create conversation row
+                // 1. Create conversation
                 const { data: conv, error: convError } = await supabase
                     .from('conversations')
                     .insert([{
@@ -1019,7 +1196,7 @@
                 newConversationId = conv.id;
                 console.log('✅ Conversation created:', newConversationId);
 
-                // 2. Insert a system/welcome message so chat isn't empty
+                // 2. Welcome message
                 await supabase.from('messages').insert([{
                     conversation_id: newConversationId,
                     sender_type: 'user',
@@ -1027,7 +1204,7 @@
                     text: `Hi! I'd like to connect with ${memberData.name}. Please help me get in touch.`
                 }]);
 
-                // 3. Update user_profiles with the details (for future returns)
+                // 3. Save user_profiles for next time
                 await supabase
                     .from('user_profiles')
                     .upsert({
@@ -1041,10 +1218,9 @@
                         occupation: occupation
                     }, { onConflict: 'id' });
 
-                // 4. Show success modal
+                // 4. Success
                 successOverlay.classList.add('show');
 
-                // 5. Auto-redirect after 2.5s
                 setTimeout(() => {
                     goToChat();
                 }, 2500);
@@ -1053,7 +1229,7 @@
                 console.error('Submit error:', err);
                 showError('Something went wrong: ' + err.message);
                 submitBtn.disabled = false;
-                submitBtn.textContent = '💬 Start Connecting';
+                submitBtn.innerHTML = hasRestoredData ? '💬 Continue Connecting' : '💬 Start Connecting';
             }
         }
 
@@ -1105,8 +1281,7 @@
         init();
 
         console.log('💎 Connect page ready');
-        console.log('✅ Supabase: new backend');
-        console.log('✅ Form → conversation → chat.html');
+        console.log('✅ Photos + details restored from previous connection');
     </script>
 
 </body>

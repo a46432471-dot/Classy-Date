@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Private Matchmaking | ClassyDate</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f3e8ff;
+            color: #1a0533;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* HEADER */
+        .mm-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(108, 60, 179, 0.12);
+            padding: 0 12px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-btn {
+            background: rgba(108, 60, 179, 0.08);
+            border: none;
+            color: #1a0533;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            flex-shrink: 0;
+        }
+        .header-btn:hover { background: rgba(108, 60, 179, 0.15); }
+
+        .brand {
+            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a0533;
+            text-align: center;
+            flex: 1;
+        }
+        .brand .heart { color: #ff0000; display: inline-block; }
+        .brand span {
+            font-family: "Inter", sans-serif;
+            font-weight: 300;
+            color: #6c3cb3;
+        }
+
+        /* WRAPPER */
+        .mm-wrapper {
+            flex: 1;
+            padding: 72px 0 80px;
+            width: 100%;
+        }
+
+        .mm-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* HERO */
+        .mm-hero {
+            text-align: center;
+            padding: 20px 0 28px;
+        }
+
+        .mm-hero .hero-icon {
+            font-size: 64px;
+            display: block;
+            margin-bottom: 12px;
+            animation: pulse-icon 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .mm-hero h1 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a0533;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .mm-hero .by-line {
+            font-size: 13px;
+            color: #6c3cb3;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .mm-hero .tagline {
+            font-size: 15px;
+            color: rgba(26, 5, 51, 0.7);
+            line-height: 1.55;
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
+        /* PRICE */
+        .price-display {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .price-display .price-current {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a0533;
+        }
+
+        .price-display .price-old {
+            font-size: 20px;
+            color: rgba(26, 5, 51, 0.35);
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
+        .price-display .price-save {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .price-note {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(26, 5, 51, 0.5);
+            margin-bottom: 24px;
+        }
+
+        /* SECTIONS */
+        .mm-section {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 20px 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.06);
+        }
+
+        .mm-section__header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .mm-section__num {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #6c3cb3;
+            background: rgba(108, 60, 179, 0.08);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mm-section__title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a0533;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* LISTS */
+        .mm-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mm-list-item {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #1a0533;
+        }
+
+        .mm-list-item .bullet {
+            font-size: 15px;
+            flex-shrink: 0;
+            width: 22px;
+            text-align: center;
+        }
+
+        .mm-list-item strong {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #1a0533;
+        }
+
+        .mm-list-item .desc {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.65);
+            line-height: 1.55;
+        }
+
+        /* STEPS */
+        .mm-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mm-step {
+            display: flex;
+            gap: 10px;
+            font-size: 13.5px;
+            color: rgba(26, 5, 51, 0.85);
+            line-height: 1.5;
+        }
+
+        .mm-step .num {
+            font-family: "Playfair Display", Georgia, serif;
+            font-weight: 700;
+            color: #6c3cb3;
+            background: rgba(108, 60, 179, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* WHO IT'S FOR */
+        .mm-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mm-checklist .item {
+            display: flex;
+            gap: 8px;
+            font-size: 13.5px;
+            color: rgba(26, 5, 51, 0.85);
+            line-height: 1.5;
+        }
+
+        .mm-checklist .item .check {
+            color: #28a745;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* NOTE BOX */
+        .mm-note {
+            background: rgba(108, 60, 179, 0.05);
+            border-left: 3px solid #6c3cb3;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 12.5px;
+            color: rgba(26, 5, 51, 0.75);
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        .mm-note p + p { margin-top: 8px; }
+
+        /* FORM */
+        .mm-form-group {
+            margin-bottom: 14px;
+        }
+
+        .mm-form-group:last-child { margin-bottom: 0; }
+
+        .mm-form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(26, 5, 51, 0.7);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .mm-form-group label .required {
+            color: #dc3545;
+            margin-left: 2px;
+        }
+
+        .mm-form-group input,
+        .mm-form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(108, 60, 179, 0.15);
+            border-radius: 10px;
+            color: #1a0533;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            min-height: 46px;
+        }
+
+        .mm-form-group input::placeholder,
+        .mm-form-group textarea::placeholder {
+            color: rgba(26, 5, 51, 0.3);
+        }
+
+        .mm-form-group input:focus,
+        .mm-form-group textarea:focus {
+            border-color: #6c3cb3;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.1);
+        }
+
+        .mm-form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .mm-form-group .hint {
+            font-size: 11.5px;
+            color: rgba(26, 5, 51, 0.5);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* SUBMIT */
+        .btn-book {
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
+            margin-top: 6px;
+        }
+
+        .btn-book:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
+        }
+
+        .btn-book:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .privacy-note {
+            text-align: center;
+            font-size: 11.5px;
+            color: rgba(26, 5, 51, 0.45);
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        /* ERROR BANNER */
+        .error-banner {
+            display: none;
+            background: rgba(220, 53, 69, 0.08);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            border-radius: 10px;
+            padding: 11px 14px;
+            color: #dc3545;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+        .error-banner.show { display: block; animation: shake 0.5s ease; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        /* SUCCESS MODAL */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1500;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .success-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .success-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px 24px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-card .big-icon {
+            font-size: 60px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .success-card h2 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 24px;
+            color: #1a0533;
+            margin-bottom: 8px;
+        }
+
+        .success-card p {
+            font-size: 14px;
+            color: rgba(26, 5, 51, 0.65);
+            line-height: 1.55;
+            margin-bottom: 20px;
+        }
+
+        .success-card .btn-ok {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+        }
+        .success-card .btn-ok:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
+        }
+
+        /* SUPPORT FLOAT */
+        .support-float {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            z-index: 500;
+        }
+
+        .support-float__btn {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .support-float__dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            border: 2px solid #fff;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            left: 16px;
+            padding: 12px 20px;
+            background: #1a0533;
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            z-index: 999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+
+        /* LOADING */
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(26, 5, 51, 0.4);
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border: 3px solid rgba(108, 60, 179, 0.15);
+            border-top-color: #6c3cb3;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* TABLET + DESKTOP */
+        @media (min-width: 600px) {
+            .mm-header { height: 60px; padding: 0 16px; }
+            .brand { font-size: 20px; }
+            .mm-wrapper { padding: 80px 0 100px; }
+            .mm-hero h1 { font-size: 34px; }
+            .mm-hero .hero-icon { font-size: 72px; }
+            .mm-section { padding: 24px 22px; }
+            .mm-section__num { width: 34px; height: 34px; font-size: 15px; }
+            .mm-section__title { font-size: 15px; }
+            .price-display .price-current { font-size: 52px; }
+            .mm-list-item { font-size: 15px; }
+            .btn-book { font-size: 17px; padding: 18px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="mm-header">
+        <button class="header-btn" onclick="goBack()" aria-label="Back">←</button>
+        <a class="brand" href="index.html">
+            Classy<span>Date</span><span class="heart">❤️</span>
+        </a>
+        <div style="width: 38px;"></div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="mm-wrapper">
+        <div class="mm-container">
+
+            <!-- HERO -->
+            <section class="mm-hero">
+                <span class="hero-icon">💍</span>
+                <h1>Private 1-on-1 Matchmaking for Love &amp; Marriage</h1>
+                <div class="by-line">By ClassyDate Matchmaking Team</div>
+                <p class="tagline">
+                    Helping you find serious singles seeking long-term love, commitment &amp; marriage within your choice.
+                </p>
+
+                <div class="price-display">
+                    <span class="price-current">$38</span>
+                    <span class="price-old">$200</span>
+                    <span class="price-save">-81%</span>
+                </div>
+                <div class="price-note">💎 One-time payment · No subscription</div>
+            </section>
+
+            <!-- 01 · WHAT YOUR BOOKING INCLUDES -->
+            <section class="mm-section">
+                <div class="mm-section__header">
+                    <span class="mm-section__num">01</span>
+                    <span class="mm-section__title">What Your Booking Includes</span>
+                </div>
+                <div class="mm-list">
+                    <div class="mm-list-item">
+                        <span class="bullet">✨</span>
+                        <div>
+                            <strong>One 30-Minute Private Zoom Consultation</strong>
+                            <div class="desc">
+                                Your purchase includes one private 30-minute Zoom consultation with us.
+                                During our call we'll discuss your personality, lifestyle, relationship goals,
+                                values, priorities, preferred qualities in a partner, age &amp; location preferences,
+                                family &amp; children preferences, dealbreakers, long-term relationship &amp; marriage
+                                expectations, and any other preferences important to you.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mm-list-item">
+                        <span class="bullet">❤️</span>
+                        <div>
+                            <strong>Personalized Compatibility Review</strong>
+                            <div class="desc">
+                                We carefully review your information, preferences, values, lifestyle and
+                                relationship goals to determine what type of person may be compatible with you.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mm-list-item">
+                        <span class="bullet">💞</span>
+                        <div>
+                            <strong>Personalized Matchmaking Search</strong>
+                            <div class="desc">
+                                We consider potential matches within our matchmaking network who may align
+                                with what you are looking for. When we identify someone who appears to be a
+                                potential match, we contact each person privately first.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mm-list-item">
+                        <span class="bullet">🔐</span>
+                        <div>
+                            <strong>Mutual Consent Before Introduction</strong>
+                            <div class="desc">
+                                Your personal information will not simply be given to another person. An
+                                introduction only takes place after both individuals have expressed interest
+                                and agreed to the introduction.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mm-list-item">
+                        <span class="bullet">💌</span>
+                        <div>
+                            <strong>Private Introduction</strong>
+                            <div class="desc">
+                                When there is mutual interest, we help facilitate the introduction so you
+                                can begin getting to know each other privately.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mm-list-item">
+                        <span class="bullet">💬</span>
+                        <div>
+                            <strong>Follow-Up Support</strong>
+                            <div class="desc">
+                                After an introduction we follow up with you to hear how things went and
+                                help guide the next step where appropriate.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02 · HOW IT WORKS -->
+            <section class="mm-section">
+                <div class="mm-section__header">
+                    <span class="mm-section__num">02</span>
+                    <span class="mm-section__title">How It Works</span>
+                </div>
+                <div class="mm-steps">
+                    <div class="mm-step"><span class="num">1</span> Book your Private 1-on-1 Matchmaking Service.</div>
+                    <div class="mm-step"><span class="num">2</span> Select an available time for your 30-minute private Zoom consultation.</div>
+                    <div class="mm-step"><span class="num">3</span> Complete your private matchmaking questionnaire.</div>
+                    <div class="mm-step"><span class="num">4</span> Attend your 30-minute consultation with us.</div>
+                    <div class="mm-step"><span class="num">5</span> We review your profile, preferences and compatibility information.</div>
+                    <div class="mm-step"><span class="num">6</span> We begin searching for an appropriate potential match.</div>
+                    <div class="mm-step"><span class="num">7</span> If a potential match is identified, we privately confirm interest with both people.</div>
+                    <div class="mm-step"><span class="num">8</span> If the interest is mutual, we facilitate your introduction.</div>
+                    <div class="mm-step"><span class="num">9</span> We follow up after the introduction.</div>
+                </div>
+            </section>
+
+            <!-- 03 · WHO THIS SERVICE IS FOR -->
+            <section class="mm-section">
+                <div class="mm-section__header">
+                    <span class="mm-section__num">03</span>
+                    <span class="mm-section__title">Who This Service Is For</span>
+                </div>
+                <div class="mm-checklist">
+                    <div class="item"><span class="check">✓</span> Serious about finding a committed relationship</div>
+                    <div class="item"><span class="check">✓</span> Open to marriage with the right person</div>
+                    <div class="item"><span class="check">✓</span> Emotionally ready to date intentionally</div>
+                    <div class="item"><span class="check">✓</span> Honest about their relationship goals</div>
+                    <div class="item"><span class="check">✓</span> Interested in meaningful connections rather than casual dating</div>
+                    <div class="item"><span class="check">✓</span> Willing to participate respectfully in the matchmaking process</div>
+                </div>
+
+                <div class="mm-note">
+                    <p><strong>Please note:</strong> Your purchase includes one 30-minute private matchmaking consultation plus the personalized matchmaking process described above.</p>
+                    <p>Matchmaking does not guarantee an immediate match, relationship, engagement or marriage. Potential matches depend on compatibility, availability, preferences, mutual attraction, personal choices and mutual consent.</p>
+                    <p>Your payment is for the matchmaking service, including your consultation, compatibility review, matchmaking search, potential introduction when an appropriate match is available, and follow-up support.</p>
+                </div>
+            </section>
+
+            <!-- 04 · BOOK NOW -->
+            <section class="mm-section">
+                <div class="mm-section__header">
+                    <span class="mm-section__num">04</span>
+                    <span class="mm-section__title">Book Now</span>
+                </div>
+
+                <div class="error-banner" id="error-banner">⚠️ Please fill in all required fields.</div>
+
+                <form id="matchmaking-form" onsubmit="submitForm(event)">
+                    <div class="mm-form-group">
+                        <label for="mm-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="mm-name" placeholder="John Doe" required autocomplete="name">
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label for="mm-email">Email <span class="required">*</span></label>
+                        <input type="email" id="mm-email" placeholder="john@email.com" required autocomplete="email">
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label for="mm-whatsapp">WhatsApp Number <span class="required">*</span></label>
+                        <input type="tel" id="mm-whatsapp" placeholder="+254 707 001 191" required autocomplete="tel">
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label for="mm-tiktok">TikTok Username <span class="required">*</span></label>
+                        <input type="text" id="mm-tiktok" placeholder="@yourusername" required>
+                        <div class="hint">So we can connect with you on TikTok as well.</div>
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label for="mm-date">Preferred Consultation Date</label>
+                        <input type="date" id="mm-date" min="">
+                    </div>
+
+                    <div class="mm-form-group">
+                        <label for="mm-message">Message (optional)</label>
+                        <textarea id="mm-message" placeholder="Tell us anything you'd like us to know before your consultation..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-book" id="mm-submit">
+                        💎 Book My Private Matchmaking · $38
+                    </button>
+
+                    <p class="privacy-note">
+                        🔒 Your details are private and only shared with the ClassyDate Matchmaking Team.
+                    </p>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- SUPPORT FLOAT -->
+    <div class="support-float">
+        <button class="support-float__btn" onclick="openSupport()" aria-label="Support">
+            💬
+            <span class="support-float__dot"></span>
+        </button>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-card">
+            <span class="big-icon">✅</span>
+            <h2>Request Received!</h2>
+            <p>
+                We've received your matchmaking request.
+                Our team will contact you via WhatsApp within 24 hours to arrange payment and schedule your consultation.
+            </p>
+            <button class="btn-ok" onclick="closeSuccess()">
+                Got it
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS                                                      -->
+    <!-- ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { createClient } from "@supabase/supabase-js";
+
+        const SUPABASE_URL = 'https://eswlfgrzdmdwmfqncpew.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oeCfBt8Ci0xQ4mg6o2mnnA_mbgnwRVS';
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        console.log('🔗 Supabase connected:', SUPABASE_URL);
+
+        let currentUser = null;
+
+        const form = document.getElementById('matchmaking-form');
+        const submitBtn = document.getElementById('mm-submit');
+        const errorBanner = document.getElementById('error-banner');
+        const successOverlay = document.getElementById('success-overlay');
+        const toast = document.getElementById('toast');
+
+        // Set min date = today
+        (function setMinDate() {
+            const today = new Date().toISOString().slice(0, 10);
+            document.getElementById('mm-date').min = today;
+        })();
+
+        // ============================================================
+        // INIT — Auth check + prefill
+        // ============================================================
+        async function init() {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            if (!session || !session.user) {
+                const returnUrl = encodeURIComponent('matchmaking.html');
+                window.location.href = `login.html?redirect=${returnUrl}`;
+                return;
+            }
+
+            currentUser = session.user;
+            console.log('✅ User logged in:', currentUser.email);
+
+            // Prefill email
+            if (currentUser.email) {
+                document.getElementById('mm-email').value = currentUser.email;
+            }
+
+            // Prefill from user_profiles if available
+            try {
+                const { data: profile } = await supabase
+                    .from('user_profiles')
+                    .select('*')
+                    .eq('id', currentUser.id)
+                    .maybeSingle();
+
+                if (profile) {
+                    if (profile.full_name) document.getElementById('mm-name').value = profile.full_name;
+                    if (profile.whatsapp_no) document.getElementById('mm-whatsapp').value = profile.whatsapp_no;
+                    if (profile.email) document.getElementById('mm-email').value = profile.email;
+                }
+            } catch (err) {
+                console.warn('Prefill failed:', err);
+            }
+        }
+
+        // ============================================================
+        // SUBMIT
+        // ============================================================
+        window.submitForm = async function(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('mm-name').value.trim();
+            const email = document.getElementById('mm-email').value.trim();
+            const whatsapp = document.getElementById('mm-whatsapp').value.trim();
+            const tiktok = document.getElementById('mm-tiktok').value.trim();
+            const preferredDate = document.getElementById('mm-date').value || null;
+            const message = document.getElementById('mm-message').value.trim();
+
+            errorBanner.classList.remove('show');
+
+            if (!fullName || fullName.length < 2) return showError('Please enter your full name.');
+            if (!email || !email.includes('@')) return showError('Please enter a valid email.');
+            if (!whatsapp || whatsapp.length < 7) return showError('Please enter your WhatsApp number.');
+            if (!tiktok) return showError('Please enter your TikTok username.');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Submitting...';
+
+            try {
+                const { data: request, error: insertErr } = await supabase
+                    .from('matchmaking_requests')
+                    .insert([{
+                        user_id: currentUser.id,
+                        full_name: fullName,
+                        email: email,
+                        whatsapp_no: whatsapp,
+                        tiktok_username: tiktok,
+                        preferred_date: preferredDate,
+                        message: message,
+                        status: 'pending',
+                        payment_status: 'unpaid',
+                        amount: 38
+                    }])
+                    .select()
+                    .single();
+
+                if (insertErr) throw insertErr;
+
+                console.log('✅ Matchmaking request created:', request.id);
+
+                // Show success modal
+                successOverlay.classList.add('show');
+
+            } catch (err) {
+                console.error('Submit error:', err);
+                showError('Something went wrong: ' + err.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '💎 Book My Private Matchmaking · $38';
+            }
+        }
+
+        function showError(msg) {
+            errorBanner.textContent = '⚠️ ' + msg;
+            errorBanner.classList.add('show');
+            errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+        }
+
+        window.closeSuccess = function() {
+            successOverlay.classList.remove('show');
+            // Redirect back to profile or members
+            setTimeout(() => {
+                window.location.href = 'members.html';
+            }, 300);
+        }
+
+        // ============================================================
+        // SUPPORT
+        // ============================================================
+        window.openSupport = async function() {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    window.location.href = 'login.html?redirect=chat.html';
+                    return;
+                }
+                const { data: conv } = await supabase
+                    .from('conversations')
+                    .select('id')
+                    .eq('user_id', session.user.id)
+                    .order('updated_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                if (conv) {
+                    window.location.href = `chat.html?conversation=${conv.id}`;
+                } else {
+                    window.location.href = 'chat.html';
+                }
+            } catch (e) {
+                window.location.href = 'chat.html';
+            }
+        }
+
+        // ============================================================
+        // BACK
+        // ============================================================
+        window.goBack = function() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = 'members.html';
+            }
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        let toastTimeout;
+        function showToast(msg, type = 'success') {
+            toast.textContent = msg;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        init();
+
+        console.log('💍 Matchmaking page ready · $38');
+    </script>
+
+</body>
+</html>

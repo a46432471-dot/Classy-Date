@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Admin Panel | ClassyDate</title>
     <meta name="description" content="Admin dashboard for managing ClassyDate members.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+    <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -363,7 +363,6 @@
             box-shadow: 0 6px 20px rgba(108, 60, 179, 0.08);
         }
 
-        /* Unread state */
         .conv-card.unread {
             border-left: 3px solid #3b82f6;
             background: rgba(255, 255, 255, 0.75);
@@ -385,7 +384,6 @@
             animation: pulse-dot 1.5s infinite;
         }
 
-        /* TOP LINE: name + status + time */
         .conv-top {
             display: flex;
             align-items: center;
@@ -422,7 +420,6 @@
             font-weight: 500;
         }
 
-        /* INFO LINE */
         .conv-info {
             display: flex;
             flex-wrap: wrap;
@@ -444,7 +441,6 @@
             font-weight: 700;
         }
 
-        /* LAST MESSAGE PREVIEW */
         .conv-preview {
             background: rgba(108, 60, 179, 0.05);
             border-left: 2px solid rgba(108, 60, 179, 0.15);
@@ -476,7 +472,6 @@
             white-space: nowrap;
         }
 
-        /* ACTIONS */
         .conv-actions {
             display: flex;
             gap: 6px;
@@ -517,7 +512,7 @@
             background: rgba(220, 53, 69, 0.18);
         }
 
-        /* MEMBER CARD (for members tab) */
+        /* MEMBER CARD */
         .member-card-item {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(12px);
@@ -595,7 +590,6 @@
         }
         .btn-mini-delete:hover { background: rgba(220, 53, 69, 0.18); }
 
-        /* BADGES */
         .badge-mini {
             padding: 1px 7px;
             border-radius: 50px;
@@ -649,6 +643,50 @@
         }
         .pagination-bar button:disabled { opacity: 0.3; cursor: not-allowed; }
 
+        /* NOTIFICATION PERMISSION BANNER */
+        .notif-banner {
+            display: none;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(108, 60, 179, 0.3);
+        }
+        .notif-banner.show { display: flex; }
+        .notif-banner .notif-text {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .notif-banner .notif-btn {
+            padding: 8px 16px;
+            background: #fff;
+            color: #6c3cb3;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+            flex-shrink: 0;
+        }
+        .notif-banner .notif-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .notif-banner .notif-dismiss {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+
         /* MODAL */
         .modal-overlay {
             display: none;
@@ -701,7 +739,6 @@
             color: rgba(74, 26, 107, 0.5);
             font-size: 12.5px;
             margin-bottom: 16px;
-            font-family: "Inter", sans-serif;
         }
 
         .modal .form-group { margin-bottom: 12px; }
@@ -865,33 +902,23 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* TABLET / DESKTOP */
         @media (min-width: 600px) {
             .cb-shell-header__inner { height: 60px; padding: 0 20px; }
             .cb-shell-brand { font-size: 20px; }
             .admin-wrapper { padding: 76px 20px 60px; }
-
             .stats-row { gap: 12px; margin-bottom: 18px; }
             .stat-card { padding: 16px 12px; }
             .stat-card .stat-icon { font-size: 20px; }
             .stat-card .stat-value { font-size: 28px; }
             .stat-card .stat-label { font-size: 10.5px; }
-
             .tab-btn { padding: 12px 18px; font-size: 13.5px; }
-
             .conv-card { padding: 14px 18px; }
             .conv-name { font-size: 16px; }
             .conv-info { font-size: 12.5px; }
-
             .member-card-item { padding: 14px 16px; }
             .member-card-item img { width: 50px; height: 50px; }
         }
 
-        @media (min-width: 900px) {
-            .stats-row { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        /* TINY PHONES */
         @media (max-width: 380px) {
             .stats-row { grid-template-columns: repeat(2, 1fr); }
             .cb-shell-brand { font-size: 16px; }
@@ -920,6 +947,9 @@
                         <a href="#" onclick="openAddModal(); closeMenu(); return false;">
                             <span>➕</span> Add New Member
                         </a>
+                        <a href="#" onclick="enableNotifications(); closeMenu(); return false;">
+                            <span>🔔</span> <span id="notif-menu-text">Enable Alerts</span>
+                        </a>
                         <div style="height:1px;background:rgba(108,60,179,0.06);margin:4px 0;"></div>
                         <a href="#" onclick="logoutAdmin(); closeMenu(); return false;" class="logout-btn">
                             <span>🚪</span> Log Out
@@ -933,8 +963,18 @@
     <!-- MAIN -->
     <main class="admin-wrapper">
 
+        <!-- NOTIFICATION PERMISSION BANNER -->
+        <div class="notif-banner" id="notif-banner">
+            <span style="font-size:22px;">🔔</span>
+            <div class="notif-text">
+                Enable alerts to get notified when users send you messages
+            </div>
+            <button class="notif-btn" onclick="enableNotifications()">Enable</button>
+            <button class="notif-dismiss" onclick="dismissNotifBanner()">✕</button>
+        </div>
+
         <!-- STATS ROW -->
-        <div class="stats-row" id="stats-row">
+        <div class="stats-row">
             <div class="stat-card" onclick="showTab('members')" style="cursor:pointer;">
                 <span class="stat-icon">👥</span>
                 <div class="stat-value" id="stat-members">0</div>
@@ -970,9 +1010,7 @@
             </button>
         </div>
 
-        <!-- ============================================================ -->
         <!-- MEMBERS TAB -->
-        <!-- ============================================================ -->
         <div id="tab-content-members">
             <div class="filter-row">
                 <input type="text" class="search-input" id="search-members" placeholder="🔍 Search members..." oninput="filterMembers()">
@@ -991,9 +1029,7 @@
             <div class="pagination-bar" id="members-pagination"></div>
         </div>
 
-        <!-- ============================================================ -->
         <!-- CONVERSATIONS TAB -->
-        <!-- ============================================================ -->
         <div id="tab-content-conversations" style="display:none;">
             <div class="filter-row">
                 <input type="text" class="search-input" id="search-conv" placeholder="🔍 Search conversations..." oninput="filterConversations()">
@@ -1198,6 +1234,228 @@
         });
 
         // ============================================================
+        // 🔔 NOTIFICATION SYSTEM
+        // ============================================================
+        const ALERT_PREFS_KEY = 'classydate_admin_alert_prefs';
+
+        function getAlertPrefs() {
+            try {
+                return JSON.parse(localStorage.getItem(ALERT_PREFS_KEY) || '{}');
+            } catch (e) { return {}; }
+        }
+
+        function setAlertPrefs(prefs) {
+            localStorage.setItem(ALERT_PREFS_KEY, JSON.stringify(prefs));
+        }
+
+        // Request permission + enable alerts
+        window.enableNotifications = async function() {
+            try {
+                // Check if browser supports notifications
+                if (!('Notification' in window)) {
+                    showToast('⚠️ Notifications not supported on this browser', 'error');
+                    return;
+                }
+
+                // Request permission
+                const permission = await Notification.requestPermission();
+                const prefs = getAlertPrefs();
+
+                if (permission === 'granted') {
+                    prefs.notifications = true;
+                    setAlertPrefs(prefs);
+                    document.getElementById('notif-menu-text').textContent = 'Alerts Enabled ✅';
+                    dismissNotifBanner();
+                    showToast('🔔 Alerts enabled! You will be notified of new messages.', 'success');
+
+                    // Send a test notification to confirm
+                    try {
+                        new Notification('🎉 ClassyDate Admin Alerts ON', {
+                            body: 'You will now receive alerts for new messages.',
+                            icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>"
+                        });
+                    } catch (e) {}
+                } else if (permission === 'denied') {
+                    showToast('⚠️ Notification permission denied. Check browser settings.', 'error');
+                } else {
+                    showToast('Notification permission dismissed', 'info');
+                }
+            } catch (err) {
+                console.error('Enable notifications error:', err);
+                showToast('Error enabling notifications', 'error');
+            }
+        }
+
+        function dismissNotifBanner() {
+            document.getElementById('notif-banner').classList.remove('show');
+            localStorage.setItem('classydate_notif_banner_dismissed', 'true');
+        }
+
+        // Vibrate (Android only — silently no-ops elsewhere)
+        function vibrate() {
+            if (navigator.vibrate) {
+                try {
+                    navigator.vibrate([200, 100, 200]);
+                } catch (e) {}
+            }
+        }
+
+        // Play a soft ping using Web Audio API
+        function playPing() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.type = 'sine';
+                osc.frequency.value = 880; // A5
+
+                gain.gain.setValueAtTime(0, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.4);
+
+                // Second higher ping
+                setTimeout(() => {
+                    try {
+                        const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
+                        const osc2 = ctx2.createOscillator();
+                        const gain2 = ctx2.createGain();
+                        osc2.connect(gain2);
+                        gain2.connect(ctx2.destination);
+                        osc2.type = 'sine';
+                        osc2.frequency.value = 1320; // E6
+                        gain2.gain.setValueAtTime(0, ctx2.currentTime);
+                        gain2.gain.linearRampToValueAtTime(0.12, ctx2.currentTime + 0.02);
+                        gain2.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime + 0.3);
+                        osc2.start(ctx2.currentTime);
+                        osc2.stop(ctx2.currentTime + 0.35);
+                    } catch (e) {}
+                }, 150);
+            } catch (err) {
+                console.warn('Sound play failed:', err);
+            }
+        }
+
+        // Flash the page title
+        let titleFlashInterval = null;
+        function flashTitle(message) {
+            if (titleFlashInterval) return;
+            let showOriginal = false;
+            const original = 'Admin Panel | ClassyDate';
+            document.title = message;
+            titleFlashInterval = setInterval(() => {
+                document.title = showOriginal ? message : original;
+                showOriginal = !showOriginal;
+            }, 900);
+        }
+
+        function stopFlashTitle() {
+            if (titleFlashInterval) {
+                clearInterval(titleFlashInterval);
+                titleFlashInterval = null;
+                document.title = 'Admin Panel | ClassyDate';
+            }
+        }
+
+        // Show browser notification
+        function showBrowserNotification(userName, messageText) {
+            const prefs = getAlertPrefs();
+            if (prefs.notifications !== true) return;
+            if (!('Notification' in window)) return;
+            if (Notification.permission !== 'granted') return;
+
+            try {
+                const notification = new Notification(`💬 New message from ${userName}`, {
+                    body: messageText || '📸 Photo',
+                    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>",
+                    badge: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>",
+                    tag: 'classydate-message',
+                    renotify: true,
+                    requireInteraction: false
+                });
+
+                notification.onclick = () => {
+                    window.focus();
+                    notification.close();
+                };
+            } catch (err) {
+                console.warn('Browser notification failed:', err);
+            }
+        }
+
+        // Update favicon with unread badge
+        let faviconOriginal = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>";
+        let faviconWithBadge = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text><circle cx='80' cy='20' r='14' fill='%23ff3b30'/><text x='80' y='26' font-size='18' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>!</text></svg>";
+
+        function setFaviconWithBadge(hasUnread) {
+            const favicon = document.getElementById('favicon');
+            if (favicon) favicon.href = hasUnread ? faviconWithBadge : faviconOriginal;
+        }
+
+        // ============================================================
+        // 🔔 REALTIME NEW MESSAGE ALERTS
+        // ============================================================
+        let globalRealtimeChannel = null;
+
+        function subscribeToNewMessages() {
+            if (globalRealtimeChannel) {
+                supabase.removeChannel(globalRealtimeChannel);
+            }
+
+            globalRealtimeChannel = supabase
+                .channel('admin-new-messages')
+                .on('postgres_changes', {
+                    event: 'INSERT',
+                    schema: 'public',
+                    table: 'messages',
+                    filter: 'sender_type=eq.user'
+                }, async (payload) => {
+                    console.log('🔔 New user message received:', payload.new);
+
+                    const newMsg = payload.new;
+
+                    // Get conversation details for notification
+                    let userName = 'User';
+                    try {
+                        const { data: conv } = await supabase
+                            .from('conversations')
+                            .select('full_name')
+                            .eq('id', newMsg.conversation_id)
+                            .maybeSingle();
+                        if (conv?.full_name) userName = conv.full_name;
+                    } catch (e) {}
+
+                    // Trigger all alerts
+                    vibrate();
+                    playPing();
+                    showBrowserNotification(userName, newMsg.text);
+                    flashTitle(`💬 New message from ${userName}`);
+
+                    // Update conversation list
+                    await loadConversations();
+                })
+                .subscribe((status) => {
+                    console.log('🔔 Realtime new messages:', status);
+                });
+        }
+
+        // Stop flashing title when user focuses the page
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                stopFlashTitle();
+            }
+        });
+        window.addEventListener('focus', () => {
+            stopFlashTitle();
+        });
+
+        // ============================================================
         // STATE
         // ============================================================
         let adminMembers = [];
@@ -1305,7 +1563,6 @@
         // ============================================================
         async function loadConversations() {
             try {
-                // Get conversations
                 const { data: convData, error: convErr } = await supabase
                     .from('conversations')
                     .select('*')
@@ -1315,7 +1572,6 @@
 
                 conversations = convData || [];
 
-                // For each conversation, get the last message
                 for (const conv of conversations) {
                     const { data: msgs } = await supabase
                         .from('messages')
@@ -1324,13 +1580,9 @@
                         .order('created_at', { ascending: false })
                         .limit(1);
 
-                    if (msgs && msgs[0]) {
-                        conv.lastMessage = msgs[0];
-                    } else {
-                        conv.lastMessage = null;
-                    }
+                    if (msgs && msgs[0]) conv.lastMessage = msgs[0];
+                    else conv.lastMessage = null;
 
-                    // Count unread (from user, unread by admin)
                     const { count } = await supabase
                         .from('messages')
                         .select('*', { count: 'exact', head: true })
@@ -1370,13 +1622,14 @@
             document.getElementById('stat-unread').textContent = unread;
             document.getElementById('stat-pending').textContent = pending;
 
-            // Show pulse dot on unread stat card
             const unreadCard = document.getElementById('stat-card-unread');
             if (unread > 0) unreadCard.classList.add('has-unread');
             else unreadCard.classList.remove('has-unread');
 
-            // Show unread dot on conversations tab
             document.getElementById('tab-conv-unread').style.display = unread > 0 ? 'block' : 'none';
+
+            // Update favicon
+            setFaviconWithBadge(unread > 0);
         }
 
         // ============================================================
@@ -1512,13 +1765,12 @@
                     ? formatTimeAgo(new Date(c.lastMessage.created_at))
                     : formatTimeAgo(new Date(c.created_at));
 
-                // Last message preview
                 let previewHTML = '';
                 if (c.lastMessage) {
                     const senderTag = c.lastMessage.sender_type === 'user' ? '👤 User' : '🛡️ You';
                     const senderClass = c.lastMessage.sender_type === 'user' ? 'user' : 'admin';
                     let text = c.lastMessage.text || '';
-                    if (!text && c.lastMessage.attachment_url) text = '📸 Photo';
+                    if (!text && c.lastMessage.attachment_url) text = '📷 Photo';
                     previewHTML = `
                         <div class="conv-preview ${senderClass}">
                             <span class="sender-tag">${senderTag}:</span>
@@ -1818,6 +2070,8 @@
         // ============================================================
         window.logoutAdmin = async () => {
             stopHeartbeat();
+            stopFlashTitle();
+            if (globalRealtimeChannel) supabase.removeChannel(globalRealtimeChannel);
             try { await supabase.auth.signOut(); } catch (e) {}
             window.location.href = 'adminlogin.html';
         }
@@ -1861,16 +2115,37 @@
 
             startHeartbeat();
 
+            // Check notification permission status
+            const prefs = getAlertPrefs();
+            if (!('Notification' in window)) {
+                document.getElementById('notif-menu-text').textContent = 'Alerts not supported';
+            } else if (Notification.permission === 'granted') {
+                document.getElementById('notif-menu-text').textContent = 'Alerts Enabled ✅';
+            } else {
+                // Show the enable banner if not dismissed
+                const dismissed = localStorage.getItem('classydate_notif_banner_dismissed');
+                if (!dismissed && Notification.permission !== 'denied') {
+                    setTimeout(() => {
+                        document.getElementById('notif-banner').classList.add('show');
+                    }, 1500);
+                }
+            }
+
             await loadMembers();
             await loadConversations();
             showTab('members');
 
-            // Auto-refresh conversations every 30s
+            // Subscribe to new user messages for alerts
+            subscribeToNewMessages();
+
+            // Auto-refresh conversations every 30s as backup
             setInterval(() => {
                 if (currentTab === 'conversations') {
                     loadConversations();
                 }
             }, 30000);
+
+            console.log('💎 Admin Panel ready with alerts');
         })();
     </script>
 

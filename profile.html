@@ -29,9 +29,6 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* ============================================================ */
-        /* HEADER                                                       */
-        /* ============================================================ */
         .profile-header {
             position: fixed;
             top: 0;
@@ -89,7 +86,6 @@
             flex-shrink: 0;
         }
 
-        /* MENU */
         .menu-container { position: relative; }
 
         .menu-dropdown {
@@ -135,9 +131,6 @@
             margin: 4px 0;
         }
 
-        /* ============================================================ */
-        /* WRAPPER                                                     */
-        /* ============================================================ */
         .profile-wrapper {
             flex: 1;
             padding: 68px 0 90px;
@@ -151,9 +144,6 @@
             padding: 0 14px;
         }
 
-        /* ============================================================ */
-        /* TOP — AVATAR + NAME                                          */
-        /* ============================================================ */
         .profile-top {
             display: flex;
             align-items: center;
@@ -255,9 +245,6 @@
             font-weight: 500;
         }
 
-        /* ============================================================ */
-        /* MAGAZINE SECTIONS                                            */
-        /* ============================================================ */
         .mag-section {
             padding: 22px 0 24px;
             border-top: 1px solid rgba(108, 60, 179, 0.12);
@@ -305,9 +292,6 @@
             background: linear-gradient(to right, rgba(108, 60, 179, 0.25), transparent);
         }
 
-        /* ============================================================ */
-        /* 01 · ABOUT                                                   */
-        /* ============================================================ */
         .about-list {
             display: flex;
             flex-direction: column;
@@ -357,9 +341,6 @@
             font-style: italic;
         }
 
-        /* ============================================================ */
-        /* 02 · LOOKING FOR                                             */
-        /* ============================================================ */
         .looking-text {
             font-size: 14px;
             color: #1a0533;
@@ -372,9 +353,6 @@
             font-style: italic;
         }
 
-        /* ============================================================ */
-        /* 03 · INTERESTS                                               */
-        /* ============================================================ */
         .tags-wrap {
             display: flex;
             flex-wrap: wrap;
@@ -403,20 +381,12 @@
             font-size: 13px;
         }
 
-        /* ============================================================ */
-        /* 04 · PHOTOS COLLAGE                                          */
-        /* ============================================================ */
         .collage {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: 120px;
             gap: 6px;
         }
-
-        /* Pattern per 5 photos:
-           IMG1: 2x2 (big)   IMG2: 1x1 (top right)
-           IMG3: 1x1         IMG4: 1x1
-           IMG5: 2x1 (wide) */
 
         .collage-item {
             position: relative;
@@ -442,12 +412,11 @@
 
         .collage-item:hover img { transform: scale(1.05); }
 
-        /* Pattern positions */
-        .collage-item.p1 { grid-column: span 2; grid-row: span 2; }  /* BIG top-left */
-        .collage-item.p2 { grid-column: span 1; grid-row: span 1; }  /* top-right */
-        .collage-item.p3 { grid-column: span 1; grid-row: span 1; }  /* right below p2 */
-        .collage-item.p4 { grid-column: span 1; grid-row: span 1; }  /* bottom small */
-        .collage-item.p5 { grid-column: span 2; grid-row: span 1; }  /* bottom wide */
+        .collage-item.p1 { grid-column: span 2; grid-row: span 2; }
+        .collage-item.p2 { grid-column: span 1; grid-row: span 1; }
+        .collage-item.p3 { grid-column: span 1; grid-row: span 1; }
+        .collage-item.p4 { grid-column: span 1; grid-row: span 1; }
+        .collage-item.p5 { grid-column: span 2; grid-row: span 1; }
 
         .collage-empty {
             padding: 40px 20px;
@@ -467,6 +436,31 @@
             padding: 22px 0 8px;
             border-top: 2px solid rgba(108, 60, 179, 0.2);
             margin-top: 22px;
+        }
+
+        /* ⭐ NEW: PRICE BADGE */
+        .price-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06));
+            border: 1px solid rgba(108, 60, 179, 0.15);
+            border-radius: 50px;
+            padding: 8px 18px;
+            margin: 0 auto 12px;
+            width: fit-content;
+            font-size: 13px;
+            font-weight: 700;
+            color: #4a1a6b;
+            letter-spacing: 0.2px;
+        }
+        .price-badge .price-icon {
+            font-size: 15px;
+        }
+        .price-badge .price-amount {
+            color: #6c3cb3;
+            font-weight: 800;
         }
 
         .btn-connect-big {
@@ -503,9 +497,6 @@
 
         .btn-connect-big:active { transform: scale(0.98); }
 
-        /* ============================================================ */
-        /* LIGHTBOX                                                     */
-        /* ============================================================ */
         .lightbox {
             display: none;
             position: fixed;
@@ -547,9 +538,6 @@
         }
         .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
 
-        /* ============================================================ */
-        /* SUPPORT FLOAT                                                */
-        /* ============================================================ */
         .support-float {
             position: fixed;
             bottom: 16px;
@@ -594,9 +582,6 @@
             animation: pulse-ring 1.8s infinite;
         }
 
-        /* ============================================================ */
-        /* TOAST                                                        */
-        /* ============================================================ */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -621,9 +606,6 @@
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
 
-        /* ============================================================ */
-        /* TABLET + DESKTOP                                            */
-        /* ============================================================ */
         @media (min-width: 600px) {
             .profile-header { height: 60px; padding: 0 16px; }
             .brand { font-size: 20px; }
@@ -645,6 +627,9 @@
 
             .collage { grid-auto-rows: 160px; gap: 8px; }
 
+            .price-badge { font-size: 14px; padding: 9px 22px; }
+            .price-badge .price-icon { font-size: 16px; }
+
             .btn-connect-big { font-size: 18px; padding: 18px 24px; }
         }
 
@@ -654,7 +639,6 @@
             .collage { grid-auto-rows: 190px; gap: 10px; }
         }
 
-        /* Small phones */
         @media (max-width: 360px) {
             .profile-avatar { width: 76px; height: 76px; }
             .profile-name { font-size: 19px; }
@@ -778,6 +762,12 @@
 
             <!-- CTA -->
             <div class="profile-cta">
+                <!-- ⭐ NEW: PRICE BADGE -->
+                <div class="price-badge">
+                    <span class="price-icon">💎</span>
+                    <span>Only <span class="price-amount">$13</span> to get connected</span>
+                </div>
+
                 <button class="btn-connect-big" id="connect-btn" onclick="connectWith()">
                     💬 Connect with <span id="cta-name">this member</span>
                 </button>
@@ -827,9 +817,6 @@
         let memberData = null;
         let profilePhotos = [];
 
-        // ============================================================
-        // URL / ID
-        // ============================================================
         function getMemberIdFromURL() {
             const params = new URLSearchParams(window.location.search);
             return params.get('id');
@@ -843,9 +830,6 @@
             } catch (err) { return null; }
         }
 
-        // ============================================================
-        // LOAD PROFILE
-        // ============================================================
         async function loadProfile() {
             const memberId = getMemberIdFromURL();
             if (!memberId) {
@@ -877,9 +861,6 @@
             }
         }
 
-        // ============================================================
-        // RENDER PROFILE
-        // ============================================================
         function renderProfile(member) {
             const name = member.name || 'Member';
             const age = member.age || '';
@@ -890,7 +871,6 @@
             const isOnline = member.online === true;
             const isVerified = member.verified === true;
 
-            // Build photos list
             let photos = [];
             if (member.photo_file_ids && member.photo_file_ids.length > 0) {
                 photos = member.photo_file_ids
@@ -902,39 +882,32 @@
             }
             profilePhotos = photos;
 
-            // Avatar
             const avatarImg = document.getElementById('profile-avatar');
             avatarImg.src = photos[0];
             avatarImg.onerror = function() {
                 this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`;
             };
 
-            // Status ring
             const ring = document.getElementById('status-ring');
             ring.className = 'status-ring' + (isOnline ? '' : ' offline');
 
-            // Name + verified
             const nameEl = document.getElementById('profile-name');
             nameEl.innerHTML = `✨ ${name}${age ? ', ' + age : ''}` +
                 (isVerified ? ' <span class="verified-badge">✓</span>' : '');
 
-            // Status text
             const statusLine = document.getElementById('profile-status-line');
             statusLine.innerHTML = isOnline
                 ? '<span class="online-text">🟢 Online</span>'
                 : '<span class="offline-text">⚪ Offline</span>';
 
-            // Location line (below name)
             document.getElementById('profile-location-line').textContent = `📍 ${location}`;
 
-            // About section values
             document.getElementById('info-location').textContent = location;
             document.getElementById('info-origin').textContent = origin;
             document.getElementById('info-age').textContent = age || '—';
             document.getElementById('info-gender').textContent = gender;
             document.getElementById('info-occupation').textContent = occupation;
 
-            // Bio
             const bio = member.about_me || member.bio || '';
             const bioEl = document.getElementById('info-bio');
             if (bio) {
@@ -945,7 +918,6 @@
                 bioEl.classList.add('empty');
             }
 
-            // Looking for
             const looking = member.looking_for || '';
             const lookingEl = document.getElementById('info-looking');
             if (looking) {
@@ -956,7 +928,6 @@
                 lookingEl.classList.add('empty');
             }
 
-            // Interests
             const interestsEl = document.getElementById('info-interests');
             if (member.interests && member.interests.length > 0) {
                 interestsEl.innerHTML = member.interests
@@ -965,19 +936,13 @@
                 interestsEl.innerHTML = '<span class="tags-empty">No interests listed</span>';
             }
 
-            // CTA name
             document.getElementById('cta-name').textContent = name;
 
-            // Photos collage
             renderCollage(photos, name);
 
-            // Update page title
             document.title = `${name} | ClassyDate`;
         }
 
-        // ============================================================
-        // RENDER COLLAGE (Pinterest-style)
-        // ============================================================
         function renderCollage(photos, memberName) {
             const collage = document.getElementById('collage');
 
@@ -986,8 +951,6 @@
                 return;
             }
 
-            // Pattern: p1 (big 2x2), p2, p3, p4, p5 (wide)
-            // Repeats every 5 photos
             const patternClasses = ['p1', 'p2', 'p3', 'p4', 'p5'];
 
             const html = photos.map((url, i) => {
@@ -1003,9 +966,6 @@
             collage.innerHTML = html;
         }
 
-        // ============================================================
-        // LIGHTBOX
-        // ============================================================
         window.openLightbox = function(url) {
             document.getElementById('lightbox-img').src = url;
             document.getElementById('lightbox').classList.add('show');
@@ -1018,14 +978,10 @@
             document.body.style.overflow = '';
         }
 
-        // Close on Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeLightbox();
         });
 
-        // ============================================================
-        // MENU
-        // ============================================================
         window.toggleMenu = function() {
             document.getElementById('menuDropdown').classList.toggle('show');
         }
@@ -1037,18 +993,11 @@
             }
         });
 
-        // ============================================================
-        // CONNECT
-        // ============================================================
         window.connectWith = function() {
             if (!memberData) return;
-            // Send to connect form
             window.location.href = `connect.html?member=${memberData.id}`;
         }
 
-        // ============================================================
-        // SHARE
-        // ============================================================
         window.shareProfile = async function() {
             if (!memberData) return;
             const name = memberData.name || 'Member';
@@ -1073,9 +1022,6 @@ ${url}
             }
         }
 
-        // ============================================================
-        // SUPPORT
-        // ============================================================
         window.openSupport = async function(event) {
             if (event) event.preventDefault();
             try {
@@ -1102,18 +1048,12 @@ ${url}
             }
         }
 
-        // ============================================================
-        // LOGOUT
-        // ============================================================
         window.logoutUser = async function() {
             try { await supabase.auth.signOut(); } catch (e) {}
             sessionStorage.removeItem('classydate_likes');
             window.location.href = 'index.html';
         }
 
-        // ============================================================
-        // BACK
-        // ============================================================
         window.goBack = function() {
             if (window.history.length > 1) {
                 window.history.back();
@@ -1122,9 +1062,6 @@ ${url}
             }
         }
 
-        // ============================================================
-        // TOAST
-        // ============================================================
         let toastTimeout;
         function showToast(msg, type = 'success') {
             const t = document.getElementById('toast');
@@ -1135,16 +1072,10 @@ ${url}
             toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // ============================================================
-        // INIT
-        // ============================================================
         loadProfile();
 
         console.log('💎 Profile — Magazine format + Collage photos');
-        console.log('✅ Supabase: new backend');
-        console.log('✅ CTA → connect.html?member=X');
-        console.log('✅ Occupation field added');
-        console.log('✅ Lightbox for photos');
+        console.log('✅ $13 price badge added above CTA');
     </script>
 
 </body>

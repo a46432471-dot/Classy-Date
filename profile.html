@@ -145,13 +145,13 @@
         }
 
         /* ============================================================ */
-        /* TOP — SQUARE AVATAR + NAME                                   */
+        /* TOP — SQUARE AVATAR + NAME (BIGGER)                          */
         /* ============================================================ */
         .profile-top {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 20px 4px 24px;
+            gap: 16px;
+            padding: 22px 4px 26px;
         }
 
         .profile-avatar-wrap {
@@ -159,11 +159,11 @@
             flex-shrink: 0;
         }
 
-        /* ⭐ NEW: Square avatar (was circle) */
+        /* ⭐ BIGGER square avatar */
         .profile-avatar {
-            width: 88px;
-            height: 88px;
-            border-radius: 12px;
+            width: 110px;
+            height: 110px;
+            border-radius: 14px;
             object-fit: cover;
             border: 3px solid #fff;
             box-shadow: 0 4px 20px rgba(108, 60, 179, 0.2);
@@ -174,8 +174,8 @@
             position: absolute;
             bottom: -2px;
             right: -2px;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             border: 3px solid #fff;
             background: #28a745;
@@ -504,7 +504,7 @@
         .btn-connect-big:active { transform: scale(0.98); }
 
         /* ============================================================ */
-        /* ⭐ NEW: TIKTOK LIVE SECTION (at bottom)                     */
+        /* TIKTOK LIVE SECTION                                          */
         /* ============================================================ */
         .tiktok-live-section {
             margin-top: 22px;
@@ -540,7 +540,6 @@
             max-width: 300px;
         }
 
-        /* The TikTok icon button (big) */
         .tiktok-live-btn {
             background: #000000;
             border: none;
@@ -574,14 +573,6 @@
             width: 32px;
             height: 32px;
             display: block;
-        }
-
-        .tiktok-live-cta-label {
-            font-size: 13px;
-            font-weight: 800;
-            color: #4a1a6b;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .lightbox {
@@ -699,7 +690,8 @@
             .profile-wrapper { padding: 76px 0 100px; }
             .profile-container { padding: 0 20px; }
 
-            .profile-avatar { width: 110px; height: 110px; border-radius: 16px; }
+            /* ⭐ Bigger on tablet */
+            .profile-avatar { width: 130px; height: 130px; border-radius: 18px; }
             .profile-name { font-size: 26px; }
             .profile-status-line { font-size: 14px; }
             .profile-location-line { font-size: 14px; }
@@ -727,13 +719,14 @@
         }
 
         @media (min-width: 900px) {
-            .profile-avatar { width: 130px; height: 130px; border-radius: 18px; }
+            /* ⭐ Bigger on desktop */
+            .profile-avatar { width: 150px; height: 150px; border-radius: 20px; }
             .profile-name { font-size: 30px; }
             .collage { grid-auto-rows: 190px; gap: 10px; }
         }
 
         @media (max-width: 360px) {
-            .profile-avatar { width: 76px; height: 76px; border-radius: 10px; }
+            .profile-avatar { width: 95px; height: 95px; border-radius: 12px; }
             .profile-name { font-size: 19px; }
             .collage { grid-auto-rows: 100px; }
             .tiktok-live-text { font-size: 15px; }
@@ -866,7 +859,7 @@
                 </button>
             </div>
 
-            <!-- ⭐ NEW: TIKTOK LIVE SECTION -->
+            <!-- TIKTOK LIVE SECTION -->
             <section class="tiktok-live-section">
                 <div class="tiktok-live-text" id="tiktok-live-text">
                     Want to get connected with <span class="member-highlight" id="tiktok-member-name">this member</span> on Live TikTok?
@@ -882,8 +875,6 @@
                         <path fill="#FFFFFF" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                     </svg>
                 </button>
-
-            
             </section>
 
         </div>
@@ -1050,8 +1041,6 @@
             }
 
             document.getElementById('cta-name').textContent = name;
-
-            // ⭐ Set TikTok live section member name
             document.getElementById('tiktok-member-name').textContent = name;
 
             renderCollage(photos, name);
@@ -1180,7 +1169,6 @@ ${url}
             }
         }
 
-        // ⭐ Direct to matchmaking page
         window.goToMatchmaking = function() {
             window.location.href = 'matchmaking.html';
         }
@@ -1197,7 +1185,7 @@ ${url}
 
         loadProfile();
 
-        console.log('💎 Profile — Square avatar + TikTok live section at bottom');
+        console.log('💎 Profile — bigger avatar + TikTok live section');
     </script>
 
 </body>

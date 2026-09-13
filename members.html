@@ -84,6 +84,7 @@
             color: #1a0533;
             transition: all 0.3s ease;
             border-radius: 8px;
+            position: relative;
         }
         .menu-btn:hover { background: rgba(108, 60, 179, 0.08); }
 
@@ -324,8 +325,6 @@
             transition: transform 0.5s ease;
         }
 
-        .member-card:hover .member-card__image-wrapper img { transform: scale(1.05); }
-
         .carousel-slides {
             display: flex;
             transition: transform 0.6s ease;
@@ -443,7 +442,6 @@
 
         .bento-tile--big .member-card__detail { font-size: 12px; }
 
-        /* Hide occupation on small tiles and small screens */
         .member-card__occupation {
             display: none;
             font-size: 11px;
@@ -556,7 +554,7 @@
         .toast.error { background: #dc3545; }
 
         /* ============================================================ */
-        /* FLOATING SUPPORT BUTTON                                      */
+        /* FLOATING SUPPORT BUTTON + UNREAD BADGE                       */
         /* ============================================================ */
         .support-float {
             position: fixed;
@@ -590,6 +588,36 @@
 
         .support-float__btn:active { transform: scale(0.92); }
 
+        /* ⭐ NEW: Unread count badge */
+        .support-float__badge {
+            display: none;
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            border-radius: 50px;
+            background: #ff3b30;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            font-family: "Inter", sans-serif;
+            align-items: center;
+            justify-content: center;
+            border: 2.5px solid #f3e8ff;
+            box-shadow: 0 2px 8px rgba(255, 59, 48, 0.5);
+            animation: badge-pop 0.3s ease;
+        }
+        .support-float__badge.show { display: flex; }
+
+        @keyframes badge-pop {
+            0% { transform: scale(0); }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Small subtle green dot when there are NO unread (support online) */
         .support-float__dot {
             position: absolute;
             top: 2px;
@@ -600,6 +628,11 @@
             background: #28a745;
             border: 2px solid #fff;
             animation: pulse-online 1.8s infinite;
+        }
+
+        /* When badge is showing, hide the green dot */
+        .support-float__btn.has-unread .support-float__dot {
+            display: none;
         }
 
         /* ============================================================ */
@@ -630,16 +663,17 @@
             .online-dot { width: 14px; height: 14px; top: 8px; right: 8px; }
             .verified-badge { width: 22px; height: 22px; font-size: 12px; top: 8px; left: 8px; }
             .like-pill { font-size: 11px; padding: 3px 10px; bottom: 8px; left: 8px; }
+
+            .support-float__btn { width: 60px; height: 60px; font-size: 24px; }
+            .support-float__badge { min-width: 24px; height: 24px; font-size: 12px; }
         }
 
-        /* TABLET - 3 columns */
         @media (min-width: 768px) {
             .bento-grid { grid-template-columns: repeat(3, 1fr); }
             .bento-tile--big { grid-column: span 2; grid-row: span 2; }
             .bento-tile--wide { grid-column: span 3; }
         }
 
-        /* DESKTOP - 4 columns with full Bento pattern */
         @media (min-width: 1024px) {
             .members-wrapper { padding: 130px 20px 100px; max-width: 1200px; margin: 0 auto; }
             .bento-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -649,16 +683,13 @@
             .bento-tile--small { grid-column: span 1; grid-row: span 1; }
             .bento-tile--wide { grid-column: span 4; grid-row: span 1; }
 
-            /* Wide tile layout on desktop */
             .bento-tile--wide .member-card { flex-direction: row; }
             .bento-tile--wide .member-card__image-wrapper { width: 30%; aspect-ratio: 16/9; max-width: 240px; }
             .bento-tile--wide .member-card__info { padding: 14px 18px; }
 
-            /* Med tile: bigger photo */
             .bento-tile--med .member-card__image-wrapper { aspect-ratio: 16/10; }
         }
 
-        /* Small phones */
         @media (max-width: 360px) {
             .members-header h1 { font-size: 18px; }
             .member-card__name { font-size: 13px; }
@@ -711,11 +742,12 @@
         </div>
     </main>
 
-    <!-- SUPPORT FLOAT -->
+    <!-- SUPPORT FLOAT (with unread badge) -->
     <div class="support-float">
-        <button class="support-float__btn" onclick="openSupport()" aria-label="Contact Support">
+        <button class="support-float__btn" id="support-btn" onclick="openSupport()" aria-label="Contact Support">
             💬
-            <span class="support-float__dot"></span>
+            <span class="support-float__dot" id="support-dot"></span>
+            <span class="support-float__badge" id="support-badge">0</span>
         </button>
     </div>
 
@@ -745,12 +777,21 @@
 
         let allMembers = [];
         let isLoading = true;
+        let currentUser = null;
+        let currentConversationId = null;
+        let unreadChannel = null;
+        let unreadPollingInterval = null;
 
         // Persist like counts per session
         const likeCounts = JSON.parse(sessionStorage.getItem('classydate_likes') || '{}');
 
+        // ⭐ Carousel intervals per member (persist across renders)
+        const carouselIntervals = {};
+
         const grid = document.getElementById('members-grid');
         const totalCount = document.getElementById('total-count');
+        const supportBtn = document.getElementById('support-btn');
+        const supportBadge = document.getElementById('support-badge');
 
         // ============================================================
         // TICKER
@@ -819,10 +860,101 @@
         });
 
         window.logoutUser = async function() {
+            // Stop carousel timers
+            Object.values(carouselIntervals).forEach(t => clearInterval(t));
             try { await supabase.auth.signOut(); } catch (e) {}
             sessionStorage.removeItem('classydate_likes');
             window.location.href = 'index.html';
         }
+
+        // ============================================================
+        // ⭐ UNREAD MESSAGE BADGE
+        // ============================================================
+        async function initUserAndUnread() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session || !session.user) {
+                console.log('👤 No user — no unread badge');
+                return;
+            }
+            currentUser = session.user;
+
+            // Find user's conversation
+            const { data: conv } = await supabase
+                .from('conversations')
+                .select('id')
+                .eq('user_id', currentUser.id)
+                .order('updated_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
+            if (!conv) {
+                console.log('💬 No conversation yet');
+                return;
+            }
+            currentConversationId = conv.id;
+
+            // Count unread admin messages
+            await refreshUnreadCount();
+
+            // Subscribe to realtime updates on messages
+            subscribeToUnreadUpdates();
+
+            // Safety polling every 15s
+            if (unreadPollingInterval) clearInterval(unreadPollingInterval);
+            unreadPollingInterval = setInterval(refreshUnreadCount, 15000);
+        }
+
+        async function refreshUnreadCount() {
+            if (!currentUser || !currentConversationId) return;
+
+            try {
+                const { count, error } = await supabase
+                    .from('messages')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('conversation_id', currentConversationId)
+                    .eq('sender_type', 'admin')
+                    .eq('read_by_user', false);
+
+                if (error) throw error;
+                updateUnreadBadge(count || 0);
+            } catch (err) {
+                console.warn('Unread count failed:', err);
+            }
+        }
+
+        function updateUnreadBadge(count) {
+            if (count > 0) {
+                supportBadge.textContent = count > 9 ? '9+' : String(count);
+                supportBadge.classList.add('show');
+                supportBtn.classList.add('has-unread');
+            } else {
+                supportBadge.classList.remove('show');
+                supportBtn.classList.remove('has-unread');
+            }
+            console.log('📬 Unread count:', count);
+        }
+
+        function subscribeToUnreadUpdates() {
+            if (unreadChannel) supabase.removeChannel(unreadChannel);
+            if (!currentConversationId) return;
+
+            unreadChannel = supabase
+                .channel('unread:' + currentConversationId)
+                .on('postgres_changes', {
+                    event: '*',
+                    schema: 'public',
+                    table: 'messages',
+                    filter: `conversation_id=eq.${currentConversationId}`
+                }, () => {
+                    refreshUnreadCount();
+                })
+                .subscribe();
+        }
+
+        // Also refresh when tab becomes visible
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) refreshUnreadCount();
+        });
 
         // ============================================================
         // SUPPORT FLOAT
@@ -926,8 +1058,10 @@
                 return;
             }
 
-            // Assign tile sizes in a repeating 6-pattern
-            // Pattern: big, med, small, small, med, wide  → then repeat
+            // Clear any old carousel intervals
+            Object.values(carouselIntervals).forEach(t => clearInterval(t));
+            Object.keys(carouselIntervals).forEach(k => delete carouselIntervals[k]);
+
             const pattern = ['big', 'med', 'small', 'small', 'med', 'wide'];
 
             grid.innerHTML = members.map((member, i) => {
@@ -937,6 +1071,11 @@
 
             // Setup long press for sharing
             document.querySelectorAll('.member-card').forEach(card => setupLongPress(card));
+
+            // ⭐ Start carousels for all cards
+            members.forEach(member => {
+                startCarousel(member.id);
+            });
         }
 
         function renderMemberTile(member, tileSize) {
@@ -958,11 +1097,7 @@
                 photos = [`https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`];
             }
 
-            // Limit to 3 photos on mobile (perf)
-            if (window.innerWidth < 768 && photos.length > 3) {
-                photos = photos.slice(0, 3);
-            }
-
+            // ⭐ NO LIMIT — show ALL photos
             const slidesHTML = photos.map(url => `
                 <div class="carousel-slide">
                     <img src="${url}" alt="${name}" loading="lazy"
@@ -979,7 +1114,7 @@
             return `
                 <div class="${tileClass} member-card" data-id="${member.id}">
                     <div class="member-card__image-wrapper" data-member="${member.id}">
-                        <div class="carousel-slides">${slidesHTML}</div>
+                        <div class="carousel-slides" data-slides="${member.id}">${slidesHTML}</div>
                         ${onlineDot}
                         ${verifiedBadge}
                         ${likePill}
@@ -997,6 +1132,40 @@
         }
 
         // ============================================================
+        // ⭐ CAROUSEL — All photos, per-card random speed
+        // ============================================================
+        function startCarousel(memberId) {
+            // Clear existing interval if any
+            if (carouselIntervals[memberId]) {
+                clearInterval(carouselIntervals[memberId]);
+            }
+
+            const slidesEl = document.querySelector(`.carousel-slides[data-slides="${memberId}"]`);
+            if (!slidesEl) return;
+
+            const totalSlides = slidesEl.children.length;
+            if (totalSlides <= 1) return; // nothing to slide
+
+            // ⭐ Random interval per card:
+            //   70% chance: 2500-6000ms
+            //   30% chance: 6000-7000ms (slower cards for variety)
+            let intervalMs;
+            if (Math.random() < 0.3) {
+                intervalMs = 6000 + Math.random() * 1000;  // 6000-7000
+            } else {
+                intervalMs = 2500 + Math.random() * 3500;  // 2500-6000
+            }
+
+            let index = 0;
+            console.log(`🎠 Card ${memberId}: ${totalSlides} photos, interval ${Math.round(intervalMs)}ms`);
+
+            carouselIntervals[memberId] = setInterval(() => {
+                index = (index + 1) % totalSlides;
+                slidesEl.style.transform = `translateX(-${index * 100}%)`;
+            }, intervalMs);
+        }
+
+        // ============================================================
         // CONNECT
         // ============================================================
         window.connectWith = function(event, memberId) {
@@ -1005,7 +1174,7 @@
         }
 
         // ============================================================
-        // LONG PRESS TO SHARE (kept)
+        // LONG PRESS TO SHARE
         // ============================================================
         let longPressTimer = null;
 
@@ -1063,14 +1232,14 @@
         // ============================================================
         renderTicker();
         loadMembers();
+        initUserAndUnread();   // ⭐ start badge system
         saveLikes();
 
-        // Save likes on unload
         window.addEventListener('beforeunload', saveLikes);
 
-        console.log('💎 ClassyDate — Bento Box Members (Mobile-First)');
-        console.log('✅ Connect → profile.html?id=X');
-        console.log('✅ Support float + ticker + real auth');
+        console.log('💎 ClassyDate — Bento Box Members');
+        console.log('✅ All photos slide per card at random speeds');
+        console.log('✅ Unread badge on support button');
     </script>
 
 </body>

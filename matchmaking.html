@@ -128,47 +128,7 @@
             color: rgba(26, 5, 51, 0.7);
             line-height: 1.55;
             max-width: 400px;
-            margin: 0 auto 20px;
-        }
-
-        /* PRICE */
-        .price-display {
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 6px;
-        }
-
-        .price-display .price-current {
-            font-family: "Playfair Display", Georgia, serif;
-            font-size: 42px;
-            font-weight: 700;
-            color: #1a0533;
-        }
-
-        .price-display .price-old {
-            font-size: 20px;
-            color: rgba(26, 5, 51, 0.35);
-            text-decoration: line-through;
-            font-weight: 500;
-        }
-
-        .price-display .price-save {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: #fff;
-            padding: 3px 10px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
-        }
-
-        .price-note {
-            text-align: center;
-            font-size: 12px;
-            color: rgba(26, 5, 51, 0.5);
-            margin-bottom: 24px;
+            margin: 0 auto;
         }
 
         /* SECTIONS */
@@ -596,7 +556,6 @@
             .mm-section { padding: 24px 22px; }
             .mm-section__num { width: 34px; height: 34px; font-size: 15px; }
             .mm-section__title { font-size: 15px; }
-            .price-display .price-current { font-size: 52px; }
             .mm-list-item { font-size: 15px; }
             .btn-book { font-size: 17px; padding: 18px 24px; }
         }
@@ -617,7 +576,7 @@
     <main class="mm-wrapper">
         <div class="mm-container">
 
-            <!-- HERO -->
+            <!-- HERO (no price block) -->
             <section class="mm-hero">
                 <span class="hero-icon">💍</span>
                 <h1>Private 1-on-1 Matchmaking for Love &amp; Marriage</h1>
@@ -625,6 +584,7 @@
                 <p class="tagline">
                     Helping you find serious singles seeking long-term love, commitment &amp; marriage within your choice.
                 </p>
+            </section>
 
             <!-- 01 · WHAT YOUR BOOKING INCLUDES -->
             <section class="mm-section">
@@ -877,12 +837,10 @@
             currentUser = session.user;
             console.log('✅ User logged in:', currentUser.email);
 
-            // Prefill email
             if (currentUser.email) {
                 document.getElementById('mm-email').value = currentUser.email;
             }
 
-            // Prefill from user_profiles if available
             try {
                 const { data: profile } = await supabase
                     .from('user_profiles')
@@ -945,7 +903,6 @@
 
                 console.log('✅ Matchmaking request created:', request.id);
 
-                // Show success modal
                 successOverlay.classList.add('show');
 
             } catch (err) {
@@ -965,7 +922,6 @@
 
         window.closeSuccess = function() {
             successOverlay.classList.remove('show');
-            // Redirect back to profile or members
             setTimeout(() => {
                 window.location.href = 'members.html';
             }, 300);
@@ -1027,7 +983,7 @@
         // ============================================================
         init();
 
-        console.log('💍 Matchmaking page ready · $38');
+        console.log('💍 Matchmaking page ready');
     </script>
 
 </body>

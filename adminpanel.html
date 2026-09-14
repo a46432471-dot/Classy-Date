@@ -121,8 +121,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
         .menu-btn:hover { background: rgba(108, 60, 179, 0.08); }
+
+        .menu-btn .menu-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 2px solid #fff;
+            animation: pulse-dot 1.5s infinite;
+        }
 
         .menu-dropdown {
             display: none;
@@ -131,7 +144,7 @@
             top: 44px;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
-            min-width: 200px;
+            min-width: 220px;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -154,6 +167,7 @@
             font-size: 14px;
             font-weight: 500;
             border-bottom: 1px solid rgba(108, 60, 179, 0.06);
+            position: relative;
         }
         .menu-dropdown a:last-child { border-bottom: none; }
         .menu-dropdown a:hover { background: rgba(108, 60, 179, 0.06); }
@@ -169,7 +183,7 @@
         /* STATS ROW */
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 8px;
             margin-bottom: 14px;
         }
@@ -179,7 +193,7 @@
             backdrop-filter: blur(12px);
             border-radius: 12px;
             border: 1px solid rgba(108, 60, 179, 0.1);
-            padding: 12px 10px;
+            padding: 12px 8px;
             text-align: center;
             transition: all 0.3s ease;
         }
@@ -240,20 +254,20 @@
 
         .tab-btn {
             flex: 1;
-            padding: 10px 12px;
+            padding: 10px 8px;
             background: none;
             border: none;
             border-radius: 9px;
             font-family: "Inter", sans-serif;
             font-weight: 700;
-            font-size: 12.5px;
+            font-size: 12px;
             color: rgba(74, 26, 107, 0.6);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
             position: relative;
         }
 
@@ -265,7 +279,7 @@
 
         .tab-btn .badge-count {
             background: rgba(255, 255, 255, 0.25);
-            padding: 1px 7px;
+            padding: 1px 6px;
             border-radius: 50px;
             font-size: 10px;
             font-weight: 700;
@@ -283,7 +297,7 @@
         .tab-btn .unread-dot {
             position: absolute;
             top: 6px;
-            right: 12px;
+            right: 8px;
             width: 7px;
             height: 7px;
             border-radius: 50%;
@@ -412,6 +426,8 @@
         .conv-status.open { background: rgba(40, 167, 69, 0.12); color: #28a745; }
         .conv-status.pending { background: rgba(255, 165, 0, 0.12); color: #b37400; }
         .conv-status.closed { background: rgba(74, 26, 107, 0.08); color: rgba(74, 26, 107, 0.5); }
+        .conv-status.paid { background: rgba(40, 167, 69, 0.12); color: #28a745; }
+        .conv-status.unpaid { background: rgba(220, 53, 69, 0.12); color: #dc3545; }
 
         .conv-time {
             font-size: 10.5px;
@@ -907,16 +923,20 @@
             .cb-shell-brand { font-size: 20px; }
             .admin-wrapper { padding: 76px 20px 60px; }
             .stats-row { gap: 12px; margin-bottom: 18px; }
-            .stat-card { padding: 16px 12px; }
+            .stat-card { padding: 16px 10px; }
             .stat-card .stat-icon { font-size: 20px; }
             .stat-card .stat-value { font-size: 28px; }
             .stat-card .stat-label { font-size: 10.5px; }
-            .tab-btn { padding: 12px 18px; font-size: 13.5px; }
+            .tab-btn { padding: 12px 14px; font-size: 13px; }
             .conv-card { padding: 14px 18px; }
             .conv-name { font-size: 16px; }
             .conv-info { font-size: 12.5px; }
             .member-card-item { padding: 14px 16px; }
             .member-card-item img { width: 50px; height: 50px; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-row { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 380px) {
@@ -942,11 +962,24 @@
                 </span>
                 <span class="admin-badge-nav">🔑 Admin</span>
                 <div class="menu-container">
-                    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+                    <button class="menu-btn" onclick="toggleMenu()">
+                        ☰
+                        <span class="menu-dot" id="menu-dot" style="display:none;"></span>
+                    </button>
                     <div class="menu-dropdown" id="menuDropdown">
                         <a href="#" onclick="openAddModal(); closeMenu(); return false;">
                             <span>➕</span> Add New Member
                         </a>
+                        <a href="#" onclick="showTab('members'); closeMenu(); return false;">
+                            <span>👥</span> Members <span class="tab-count" id="menu-members-count" style="background:rgba(108,60,179,0.1);padding:0 8px;border-radius:50px;font-size:11px;font-weight:700;color:#6c3cb3;margin-left:4px;">0</span>
+                        </a>
+                        <a href="#" onclick="showTab('conversations'); closeMenu(); return false;">
+                            <span>💬</span> Conversations <span class="tab-count" id="menu-conv-count" style="background:rgba(108,60,179,0.1);padding:0 8px;border-radius:50px;font-size:11px;font-weight:700;color:#6c3cb3;margin-left:4px;">0</span>
+                        </a>
+                        <a href="#" onclick="showTab('matchmaking'); closeMenu(); return false;">
+                            <span>💍</span> Matchmaking <span class="tab-count" id="menu-mm-count" style="background:rgba(108,60,179,0.1);padding:0 8px;border-radius:50px;font-size:11px;font-weight:700;color:#6c3cb3;margin-left:4px;">0</span>
+                        </a>
+                        <div style="height:1px;background:rgba(108,60,179,0.06);margin:4px 0;"></div>
                         <a href="#" onclick="enableNotifications(); closeMenu(); return false;">
                             <span>🔔</span> <span id="notif-menu-text">Enable Alerts</span>
                         </a>
@@ -967,7 +1000,7 @@
         <div class="notif-banner" id="notif-banner">
             <span style="font-size:22px;">🔔</span>
             <div class="notif-text">
-                Enable alerts to get notified when users send you messages
+                Enable alerts to get notified when users send you messages or book matchmaking
             </div>
             <button class="notif-btn" onclick="enableNotifications()">Enable</button>
             <button class="notif-dismiss" onclick="dismissNotifBanner()">✕</button>
@@ -995,6 +1028,11 @@
                 <div class="stat-value" id="stat-pending">0</div>
                 <div class="stat-label">Pending</div>
             </div>
+            <div class="stat-card" id="stat-card-mm" onclick="showTab('matchmaking')" style="cursor:pointer;">
+                <span class="stat-icon">💍</span>
+                <div class="stat-value" id="stat-matchmaking">0</div>
+                <div class="stat-label">Matchmaking</div>
+            </div>
         </div>
 
         <!-- TABS -->
@@ -1004,9 +1042,14 @@
                 <span class="badge-count" id="tab-members-count">0</span>
             </button>
             <button class="tab-btn" id="tab-btn-conversations" onclick="showTab('conversations')">
-                💬 Conversations
+                💬 Chats
                 <span class="badge-count" id="tab-conv-count">0</span>
                 <span class="unread-dot" id="tab-conv-unread" style="display:none;"></span>
+            </button>
+            <button class="tab-btn" id="tab-btn-matchmaking" onclick="showTab('matchmaking')">
+                💍 Matchmaking
+                <span class="badge-count" id="tab-mm-count">0</span>
+                <span class="unread-dot" id="tab-mm-unread" style="display:none;"></span>
             </button>
         </div>
 
@@ -1050,6 +1093,30 @@
             </div>
 
             <div class="pagination-bar" id="conversations-pagination"></div>
+        </div>
+
+        <!-- ⭐ MATCHMAKING TAB -->
+        <div id="tab-content-matchmaking" style="display:none;">
+            <div class="filter-row">
+                <input type="text" class="search-input" id="search-mm" placeholder="🔍 Search matchmaking requests..." oninput="filterMatchmaking()">
+                <select class="filter-select" id="filter-mm-status" onchange="filterMatchmaking()">
+                    <option value="all">All</option>
+                    <option value="pending">🟡 Pending</option>
+                    <option value="contacted">🟢 Contacted</option>
+                    <option value="completed">✅ Completed</option>
+                    <option value="unpaid">💳 Unpaid</option>
+                    <option value="paid">✅ Paid</option>
+                </select>
+            </div>
+
+            <div class="list-wrapper" id="matchmaking-list">
+                <div class="empty-state">
+                    <span class="loading-spinner"></span>
+                    <p style="margin-top:10px;">Loading matchmaking requests...</p>
+                </div>
+            </div>
+
+            <div class="pagination-bar" id="matchmaking-pagination"></div>
         </div>
 
     </main>
@@ -1248,16 +1315,13 @@
             localStorage.setItem(ALERT_PREFS_KEY, JSON.stringify(prefs));
         }
 
-        // Request permission + enable alerts
         window.enableNotifications = async function() {
             try {
-                // Check if browser supports notifications
                 if (!('Notification' in window)) {
                     showToast('⚠️ Notifications not supported on this browser', 'error');
                     return;
                 }
 
-                // Request permission
                 const permission = await Notification.requestPermission();
                 const prefs = getAlertPrefs();
 
@@ -1266,12 +1330,11 @@
                     setAlertPrefs(prefs);
                     document.getElementById('notif-menu-text').textContent = 'Alerts Enabled ✅';
                     dismissNotifBanner();
-                    showToast('🔔 Alerts enabled! You will be notified of new messages.', 'success');
+                    showToast('🔔 Alerts enabled! You will be notified.', 'success');
 
-                    // Send a test notification to confirm
                     try {
                         new Notification('🎉 ClassyDate Admin Alerts ON', {
-                            body: 'You will now receive alerts for new messages.',
+                            body: 'You will now receive alerts for new messages and matchmaking requests.',
                             icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>"
                         });
                     } catch (e) {}
@@ -1291,7 +1354,6 @@
             localStorage.setItem('classydate_notif_banner_dismissed', 'true');
         }
 
-        // Vibrate (Android only — silently no-ops elsewhere)
         function vibrate() {
             if (navigator.vibrate) {
                 try {
@@ -1300,7 +1362,6 @@
             }
         }
 
-        // Play a soft ping using Web Audio API
         function playPing() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1311,7 +1372,7 @@
                 gain.connect(ctx.destination);
 
                 osc.type = 'sine';
-                osc.frequency.value = 880; // A5
+                osc.frequency.value = 880;
 
                 gain.gain.setValueAtTime(0, ctx.currentTime);
                 gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.02);
@@ -1320,7 +1381,6 @@
                 osc.start(ctx.currentTime);
                 osc.stop(ctx.currentTime + 0.4);
 
-                // Second higher ping
                 setTimeout(() => {
                     try {
                         const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
@@ -1329,7 +1389,7 @@
                         osc2.connect(gain2);
                         gain2.connect(ctx2.destination);
                         osc2.type = 'sine';
-                        osc2.frequency.value = 1320; // E6
+                        osc2.frequency.value = 1320;
                         gain2.gain.setValueAtTime(0, ctx2.currentTime);
                         gain2.gain.linearRampToValueAtTime(0.12, ctx2.currentTime + 0.02);
                         gain2.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime + 0.3);
@@ -1342,7 +1402,6 @@
             }
         }
 
-        // Flash the page title
         let titleFlashInterval = null;
         function flashTitle(message) {
             if (titleFlashInterval) return;
@@ -1363,19 +1422,18 @@
             }
         }
 
-        // Show browser notification
-        function showBrowserNotification(userName, messageText) {
+        function showBrowserNotification(title, messageText) {
             const prefs = getAlertPrefs();
             if (prefs.notifications !== true) return;
             if (!('Notification' in window)) return;
             if (Notification.permission !== 'granted') return;
 
             try {
-                const notification = new Notification(`💬 New message from ${userName}`, {
-                    body: messageText || '📸 Photo',
+                const notification = new Notification(title, {
+                    body: messageText || '',
                     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>",
                     badge: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>",
-                    tag: 'classydate-message',
+                    tag: 'classydate-alert',
                     renotify: true,
                     requireInteraction: false
                 });
@@ -1389,7 +1447,6 @@
             }
         }
 
-        // Update favicon with unread badge
         let faviconOriginal = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>";
         let faviconWithBadge = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text><circle cx='80' cy='20' r='14' fill='%23ff3b30'/><text x='80' y='26' font-size='18' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>!</text></svg>";
 
@@ -1399,9 +1456,10 @@
         }
 
         // ============================================================
-        // 🔔 REALTIME NEW MESSAGE ALERTS
+        // 🔔 REALTIME SUBSCRIPTIONS
         // ============================================================
         let globalRealtimeChannel = null;
+        let globalMmRealtimeChannel = null;
 
         function subscribeToNewMessages() {
             if (globalRealtimeChannel) {
@@ -1420,7 +1478,6 @@
 
                     const newMsg = payload.new;
 
-                    // Get conversation details for notification
                     let userName = 'User';
                     try {
                         const { data: conv } = await supabase
@@ -1431,13 +1488,11 @@
                         if (conv?.full_name) userName = conv.full_name;
                     } catch (e) {}
 
-                    // Trigger all alerts
                     vibrate();
                     playPing();
-                    showBrowserNotification(userName, newMsg.text);
+                    showBrowserNotification(`💬 New message from ${userName}`, newMsg.text || '📸 Photo');
                     flashTitle(`💬 New message from ${userName}`);
 
-                    // Update conversation list
                     await loadConversations();
                 })
                 .subscribe((status) => {
@@ -1445,7 +1500,38 @@
                 });
         }
 
-        // Stop flashing title when user focuses the page
+        function subscribeToMatchmakingRequests() {
+            if (globalMmRealtimeChannel) {
+                supabase.removeChannel(globalMmRealtimeChannel);
+            }
+
+            globalMmRealtimeChannel = supabase
+                .channel('admin-mm-requests')
+                .on('postgres_changes', {
+                    event: 'INSERT',
+                    schema: 'public',
+                    table: 'matchmaking_requests'
+                }, async (payload) => {
+                    console.log('💍 New matchmaking request:', payload.new);
+
+                    const newReq = payload.new;
+                    const userName = newReq.full_name || 'User';
+
+                    vibrate();
+                    playPing();
+                    showBrowserNotification(
+                        `💍 New Matchmaking Request`,
+                        `${userName} just booked a private matchmaking session!`
+                    );
+                    flashTitle(`💍 New matchmaking from ${userName}`);
+
+                    await loadMatchmaking();
+                })
+                .subscribe((status) => {
+                    console.log('💍 Realtime matchmaking:', status);
+                });
+        }
+
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
                 stopFlashTitle();
@@ -1460,12 +1546,19 @@
         // ============================================================
         let adminMembers = [];
         let conversations = [];
+        let matchmakingRequests = [];
+
         let filteredMembers = [];
         let filteredConversations = [];
+        let filteredMatchmaking = [];
+
         let currentMemberPage = 1;
         let currentConvPage = 1;
+        let currentMmPage = 1;
+
         const membersPerPage = 10;
         const convPerPage = 10;
+        const mmPerPage = 10;
 
         let currentTab = 'members';
         let uploadedFileIds = [];
@@ -1518,12 +1611,15 @@
 
             document.getElementById('tab-content-members').style.display = tab === 'members' ? 'block' : 'none';
             document.getElementById('tab-content-conversations').style.display = tab === 'conversations' ? 'block' : 'none';
+            document.getElementById('tab-content-matchmaking').style.display = tab === 'matchmaking' ? 'block' : 'none';
 
             document.getElementById('tab-btn-members').classList.toggle('active', tab === 'members');
             document.getElementById('tab-btn-conversations').classList.toggle('active', tab === 'conversations');
+            document.getElementById('tab-btn-matchmaking').classList.toggle('active', tab === 'matchmaking');
 
             if (tab === 'members') renderMembers();
-            else renderConversations();
+            else if (tab === 'conversations') renderConversations();
+            else if (tab === 'matchmaking') renderMatchmaking();
         }
 
         // ============================================================
@@ -1543,6 +1639,7 @@
 
                 document.getElementById('stat-members').textContent = adminMembers.length;
                 document.getElementById('tab-members-count').textContent = adminMembers.length;
+                document.getElementById('menu-members-count').textContent = adminMembers.length;
 
                 renderMembers();
                 updateStats();
@@ -1597,6 +1694,7 @@
 
                 document.getElementById('stat-conversations').textContent = conversations.length;
                 document.getElementById('tab-conv-count').textContent = conversations.length;
+                document.getElementById('menu-conv-count').textContent = conversations.length;
 
                 updateStats();
                 renderConversations();
@@ -1606,6 +1704,48 @@
                     <div class="empty-state">
                         <div class="icon">⚠️</div>
                         <h3>Could not load conversations</h3>
+                        <p>Please refresh the page.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================
+        // ⭐ LOAD MATCHMAKING REQUESTS
+        // ============================================================
+        async function loadMatchmaking() {
+            try {
+                const { data, error } = await supabase
+                    .from('matchmaking_requests')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                matchmakingRequests = data || [];
+                filteredMatchmaking = [...matchmakingRequests];
+
+                document.getElementById('stat-matchmaking').textContent = matchmakingRequests.length;
+                document.getElementById('tab-mm-count').textContent = matchmakingRequests.length;
+                document.getElementById('menu-mm-count').textContent = matchmakingRequests.length;
+
+                // Show unread dot if any pending
+                const pendingCount = matchmakingRequests.filter(r => r.status === 'pending').length;
+                document.getElementById('tab-mm-unread').style.display = pendingCount > 0 ? 'block' : 'none';
+
+                // Show menu dot if any pending
+                const totalPendingMm = pendingCount;
+                const totalUnreadConvs = conversations.reduce((sum, c) => sum + (c.unreadCount || 0), 0);
+                document.getElementById('menu-dot').style.display = (totalPendingMm > 0 || totalUnreadConvs > 0) ? 'block' : 'none';
+
+                updateStats();
+                renderMatchmaking();
+            } catch (err) {
+                console.error('Error loading matchmaking:', err);
+                document.getElementById('matchmaking-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">⚠️</div>
+                        <h3>Could not load matchmaking requests</h3>
                         <p>Please refresh the page.</p>
                     </div>
                 `;
@@ -1628,12 +1768,11 @@
 
             document.getElementById('tab-conv-unread').style.display = unread > 0 ? 'block' : 'none';
 
-            // Update favicon
             setFaviconWithBadge(unread > 0);
         }
 
         // ============================================================
-        // FILTER MEMBERS
+        // FILTERS
         // ============================================================
         window.filterMembers = function() {
             const q = (document.getElementById('search-members').value || '').toLowerCase().trim();
@@ -1647,9 +1786,6 @@
             renderMembers();
         }
 
-        // ============================================================
-        // FILTER CONVERSATIONS
-        // ============================================================
         window.filterConversations = function() {
             const q = (document.getElementById('search-conv').value || '').toLowerCase().trim();
             const status = document.getElementById('filter-status').value;
@@ -1670,6 +1806,31 @@
 
             currentConvPage = 1;
             renderConversations();
+        }
+
+        window.filterMatchmaking = function() {
+            const q = (document.getElementById('search-mm').value || '').toLowerCase().trim();
+            const status = document.getElementById('filter-mm-status').value;
+
+            filteredMatchmaking = matchmakingRequests.filter(r => {
+                const matchesSearch =
+                    (r.full_name || '').toLowerCase().includes(q) ||
+                    (r.email || '').toLowerCase().includes(q) ||
+                    (r.whatsapp_no || '').includes(q) ||
+                    (r.tiktok_username || '').toLowerCase().includes(q);
+
+                let matchesStatus = true;
+                if (status === 'pending') matchesStatus = r.status === 'pending';
+                else if (status === 'contacted') matchesStatus = r.status === 'contacted';
+                else if (status === 'completed') matchesStatus = r.status === 'completed';
+                else if (status === 'unpaid') matchesStatus = r.payment_status === 'unpaid';
+                else if (status === 'paid') matchesStatus = r.payment_status === 'paid';
+
+                return matchesSearch && matchesStatus;
+            });
+
+            currentMmPage = 1;
+            renderMatchmaking();
         }
 
         // ============================================================
@@ -1817,6 +1978,83 @@
         }
 
         // ============================================================
+        // ⭐ RENDER MATCHMAKING
+        // ============================================================
+        function renderMatchmaking() {
+            const container = document.getElementById('matchmaking-list');
+
+            if (filteredMatchmaking.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">💍</div>
+                        <h3>No matchmaking requests</h3>
+                        <p>When users book a matchmaking session, their details appear here.</p>
+                    </div>
+                `;
+                document.getElementById('matchmaking-pagination').innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(filteredMatchmaking.length / mmPerPage);
+            const start = (currentMmPage - 1) * mmPerPage;
+            const page = filteredMatchmaking.slice(start, start + mmPerPage);
+
+            container.innerHTML = page.map(r => {
+                const statusClass = r.status === 'pending' ? 'pending' : r.status === 'contacted' ? 'open' : 'closed';
+                const statusLabel = r.status === 'pending' ? '🟡 Pending' : r.status === 'contacted' ? '🟢 Contacted' : '✅ Completed';
+
+                const payClass = r.payment_status === 'paid' ? 'paid' : 'unpaid';
+                const payLabel = r.payment_status === 'paid' ? '✅ Paid' : '💳 Unpaid';
+
+                const timeAgo = formatTimeAgo(new Date(r.created_at));
+
+                const preferredDate = r.preferred_date
+                    ? new Date(r.preferred_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+                    : '—';
+
+                return `
+                    <div class="conv-card" onclick="openChatFromMatchmaking('${r.user_id}')">
+                        <div class="conv-top">
+                            <div class="conv-name">💍 ${escapeHtml(r.full_name || 'Unknown')}</div>
+                            <span class="conv-status ${statusClass}">${statusLabel}</span>
+                            <span class="conv-status ${payClass}">${payLabel}</span>
+                            <span class="conv-time">${timeAgo}</span>
+                        </div>
+
+                        <div class="conv-info">
+                            <span>📧 ${escapeHtml(r.email || '—')}</span>
+                            <span>📱 ${escapeHtml(r.whatsapp_no || '—')}</span>
+                            ${r.tiktok_username ? `<span>🎵 ${escapeHtml(r.tiktok_username)}</span>` : ''}
+                            <span>📅 Preferred: ${preferredDate}</span>
+                            <span class="wants">💎 Amount: $${r.amount || 38}</span>
+                        </div>
+
+                        ${r.message ? `
+                            <div class="conv-preview user">
+                                <span class="sender-tag">💬 Message:</span>
+                                <span class="conv-preview-text">${escapeHtml(r.message)}</span>
+                            </div>
+                        ` : ''}
+
+                        <div class="conv-actions">
+                            <button class="btn-conv btn-conv-chat" onclick="event.stopPropagation(); openChatFromMatchmaking('${r.user_id}')">
+                                💬 Open Chat
+                            </button>
+                            <button class="btn-conv btn-conv-chat" style="background: linear-gradient(135deg, #28a745, #1e7e34); flex: 0 0 auto;" onclick="event.stopPropagation(); openWhatsApp('${escapeHtml(r.whatsapp_no || '')}', '${escapeHtml(r.full_name || '')}')">
+                                📱
+                            </button>
+                            <button class="btn-conv btn-conv-delete" onclick="event.stopPropagation(); deleteMatchmaking('${r.id}', '${(r.full_name || '').replace(/'/g, "\\'")}')">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            renderMatchmakingPagination(totalPages);
+        }
+
+        // ============================================================
         // TIME AGO
         // ============================================================
         function formatTimeAgo(date) {
@@ -1855,8 +2093,19 @@
             el.innerHTML = html;
         }
 
+        function renderMatchmakingPagination(totalPages) {
+            const el = document.getElementById('matchmaking-pagination');
+            if (totalPages <= 1) { el.innerHTML = ''; return; }
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === currentMmPage ? 'active' : ''}" onclick="goToMmPage(${i})">${i}</button>`;
+            }
+            el.innerHTML = html;
+        }
+
         window.goToMemberPage = (p) => { currentMemberPage = p; renderMembers(); };
         window.goToConvPage = (p) => { currentConvPage = p; renderConversations(); };
+        window.goToMmPage = (p) => { currentMmPage = p; renderMatchmaking(); };
 
         // ============================================================
         // OPEN CHAT
@@ -1865,8 +2114,46 @@
             window.location.href = `chat.html?conversation=${id}`;
         }
 
+        // ⭐ Open chat from matchmaking request (finds user's conversation)
+        window.openChatFromMatchmaking = async (userId) => {
+            if (!userId) {
+                showToast('⚠️ Cannot open chat — user has no account yet', 'error');
+                return;
+            }
+
+            try {
+                const { data: conv } = await supabase
+                    .from('conversations')
+                    .select('id')
+                    .eq('user_id', userId)
+                    .order('updated_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                if (conv) {
+                    window.location.href = `chat.html?conversation=${conv.id}`;
+                } else {
+                    showToast('⚠️ This user has no chat conversation yet', 'error');
+                }
+            } catch (err) {
+                console.error('Open chat failed:', err);
+                showToast('Error opening chat: ' + err.message, 'error');
+            }
+        }
+
+        // ⭐ Open WhatsApp with user's number
+        window.openWhatsApp = (number, name) => {
+            if (!number) {
+                showToast('⚠️ No WhatsApp number for this user', 'error');
+                return;
+            }
+            const cleanNumber = number.replace(/[^\d]/g, '');
+            const msg = encodeURIComponent(`Hi ${name}, this is ClassyDate Matchmaking Team regarding your matchmaking request.`);
+            window.open(`https://wa.me/${cleanNumber}?text=${msg}`, '_blank');
+        }
+
         // ============================================================
-        // DELETE CONVERSATION
+        // DELETE
         // ============================================================
         window.deleteConversation = async (id, name) => {
             if (!confirm(`Delete conversation with ${name}? All messages will also be deleted.`)) return;
@@ -1878,6 +2165,17 @@
                 await supabase.from('conversations').delete().eq('id', id);
                 showToast('🗑️ Conversation deleted', 'success');
                 await loadConversations();
+            } catch (err) {
+                showToast('Error: ' + err.message, 'error');
+            }
+        }
+
+        window.deleteMatchmaking = async (id, name) => {
+            if (!confirm(`Delete matchmaking request from ${name}? This cannot be undone.`)) return;
+            try {
+                await supabase.from('matchmaking_requests').delete().eq('id', id);
+                showToast('🗑️ Matchmaking request deleted', 'success');
+                await loadMatchmaking();
             } catch (err) {
                 showToast('Error: ' + err.message, 'error');
             }
@@ -2072,6 +2370,7 @@
             stopHeartbeat();
             stopFlashTitle();
             if (globalRealtimeChannel) supabase.removeChannel(globalRealtimeChannel);
+            if (globalMmRealtimeChannel) supabase.removeChannel(globalMmRealtimeChannel);
             try { await supabase.auth.signOut(); } catch (e) {}
             window.location.href = 'adminlogin.html';
         }
@@ -2115,14 +2414,12 @@
 
             startHeartbeat();
 
-            // Check notification permission status
             const prefs = getAlertPrefs();
             if (!('Notification' in window)) {
                 document.getElementById('notif-menu-text').textContent = 'Alerts not supported';
             } else if (Notification.permission === 'granted') {
                 document.getElementById('notif-menu-text').textContent = 'Alerts Enabled ✅';
             } else {
-                // Show the enable banner if not dismissed
                 const dismissed = localStorage.getItem('classydate_notif_banner_dismissed');
                 if (!dismissed && Notification.permission !== 'denied') {
                     setTimeout(() => {
@@ -2133,19 +2430,19 @@
 
             await loadMembers();
             await loadConversations();
+            await loadMatchmaking();
             showTab('members');
 
-            // Subscribe to new user messages for alerts
             subscribeToNewMessages();
+            subscribeToMatchmakingRequests();
 
-            // Auto-refresh conversations every 30s as backup
+            // Auto-refresh every 30s as backup
             setInterval(() => {
-                if (currentTab === 'conversations') {
-                    loadConversations();
-                }
+                if (currentTab === 'conversations') loadConversations();
+                else if (currentTab === 'matchmaking') loadMatchmaking();
             }, 30000);
 
-            console.log('💎 Admin Panel ready with alerts');
+            console.log('💎 Admin Panel ready with Matchmaking tab');
         })();
     </script>
 

@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -615,7 +617,7 @@
         }
 
         /* =========================================
-           WHATSAPP BUTTON (auto-reply feature)
+           WHATSAPP BUTTON
            ========================================= */
         .whatsapp-cta-wrap {
             display: flex;
@@ -657,7 +659,7 @@
         }
 
         /* =========================================
-           PAY NOW BUTTON (one-time card payment)
+           PAY NOW BUTTON
            ========================================= */
         .pay-cta-wrap {
             display: flex;
@@ -822,10 +824,11 @@
         /* ============================================================
            AUTO-REPLY + PAYMENT CONFIG
            ============================================================ */
-        const WHATSAPP_NUMBER = '254754447524';   // ⭐ Your WhatsApp number
+        const WHATSAPP_NUMBER = '254754447524';
 
-        const PAYSTACK_PAYMENT_LINK = 'https://paystack.shop/pay/fdx522mee5';
-        const PAYMENT_AMOUNT_USD = 10;            // shown on the button
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
+        const PAYMENT_AMOUNT_KES = 1250;
+        const PAYMENT_AMOUNT_USD = 10;
         const PAYMENT_BUTTON_TEXT = `💳 Pay $${PAYMENT_AMOUNT_USD} to Connect`;
 
         const AUTO_REPLY_TEMPLATE =
@@ -853,7 +856,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         let adminStatusInterval = null;
         let readPollingInterval = null;
 
-        /* Auto-reply state */
         let autoReplySentForThisConversation = false;
         let autoReplyScheduled = false;
 
@@ -1169,7 +1171,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
 
             messagesContainer.innerHTML = html;
 
-            /* ⭐ Pay Now button FIRST, then WhatsApp button below it */
             maybeShowPayCTA();
             maybeShowWhatsAppCTA();
 
@@ -1197,7 +1198,7 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         }
 
         /* ============================================================
-           ⭐ AUTO-REPLY LOGIC
+           AUTO-REPLY LOGIC
            ============================================================ */
 
         function buildAutoReplyMessage() {
@@ -1262,7 +1263,7 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             }, delay);
         }
 
-        /* ⭐ PAY NOW BUTTON — appears below the auto-reply */
+        /* ⭐ PAY NOW BUTTON — opens Paystack popup with metadata */
         function maybeShowPayCTA() {
             const old = document.getElementById('pay-cta-wrap');
             if (old) old.remove();
@@ -1280,15 +1281,65 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             wrap.id = 'pay-cta-wrap';
             wrap.className = 'pay-cta-wrap';
             wrap.innerHTML = `
-                <a class="pay-cta" href="${PAYSTACK_PAYMENT_LINK}" target="_blank" rel="noopener">
+                <button class="pay-cta" onclick="openPaystack()">
                     <span class="pay-cta__icon">💳</span>
                     <span>${PAYMENT_BUTTON_TEXT}</span>
-                </a>
+                </button>
             `;
             messagesContainer.appendChild(wrap);
         }
 
-        /* Show the WhatsApp CTA button */
+        /* ⭐ Open Paystack inline popup with metadata */
+        window.openPaystack = function() {
+            if (!conversation) {
+                showToast('Conversation not loaded', 'error');
+                return;
+            }
+
+            const memberName = conversation.member_name || 'this member';
+            const customerName = conversation.full_name || 'User';
+            const email = conversation.email || (currentUser && currentUser.email) || 'customer@classydate.com';
+
+            try {
+                const paystack = new PaystackPop();
+                paystack.newTransaction({
+                    key: PAYSTACK_PUBLIC_KEY,
+                    email: email,
+                    amount: PAYMENT_AMOUNT_KES * 100,
+                    currency: 'KES',
+                    metadata: {
+                        conversation_id: conversationId,
+                        member_name: memberName,
+                        customer_name: customerName,
+                        custom_fields: [
+                            {
+                                display_name: "Connecting With",
+                                variable_name: "connecting_with",
+                                value: memberName
+                            },
+                            {
+                                display_name: "Customer Name",
+                                variable_name: "customer_name",
+                                value: customerName
+                            }
+                        ]
+                    },
+                    onSuccess: async (transaction) => {
+                        console.log('✅ Payment successful:', transaction);
+                        showToast('✅ Payment received! We\'ll contact you shortly.', 'success');
+                        await loadMessages();
+                    },
+                    onCancel: () => {
+                        console.log('Payment cancelled by user');
+                        showToast('Payment cancelled', 'info');
+                    }
+                });
+            } catch (err) {
+                console.error('Paystack error:', err);
+                showToast('Could not open payment: ' + err.message, 'error');
+            }
+        };
+
         function maybeShowWhatsAppCTA() {
             const old = document.getElementById('wa-cta-wrap');
             if (old) old.remove();
@@ -1314,9 +1365,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             messagesContainer.appendChild(wrap);
         }
 
-        /* ============================================================
-           ⭐ WELCOME AUTO-REPLY — fires on page load
-           ============================================================ */
         async function sendWelcomeAutoReply() {
             if (isAdmin) return;
             if (!conversation) return;
@@ -1365,8 +1413,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 }
             }, delay);
         }
-
-        /* ============================================================ */
 
         async function sendMessage() {
             const text = messageInput.value.trim();

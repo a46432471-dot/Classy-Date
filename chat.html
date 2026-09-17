@@ -791,7 +791,7 @@ We received your message and I'm personally reviewing your details right now. {N
 For a faster reply and to move things forward quickly, tap below to chat with us directly on WhatsApp 👇`;
 
         const WHATSAPP_PREFILL_TEMPLATE =
-`Hi, I'm interested in {NAME} on ClassyDate. I just sent a message on the chat, can we continue here?`;
+`Hi, I'm ready to connect with {NAME}. I just sent a message on the website, can we continue here?`;
 
         const WHATSAPP_BUTTON_TEXT = '💬 Chat with us on WhatsApp';
 
@@ -1250,6 +1250,60 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             messagesContainer.appendChild(wrap);
         }
 
+        /* ============================================================
+           ⭐ WELCOME AUTO-REPLY — fires on page load
+           ============================================================ */
+        async function sendWelcomeAutoReply() {
+            if (isAdmin) return;
+            if (!conversation) return;
+            if (autoReplySentForThisConversation) return;
+            if (autoReplyScheduled) return;
+
+            // Only fire if there is NO admin message yet
+            const adminMsgCount = messages.filter(m => m.sender_type === 'admin').length;
+            if (adminMsgCount > 0) return;
+
+            // Only fire if the user has at least 1 message
+            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
+            if (userMsgCount === 0) return;
+
+            autoReplyScheduled = true;
+
+            const delay = 3000 + Math.floor(Math.random() * 2000); // 3-5s
+            console.log(`⏱️ Welcome auto-reply scheduled in ${delay}ms`);
+
+            setTimeout(async () => {
+                try {
+                    const text = buildAutoReplyMessage();
+                    const { error } = await supabase
+                        .from('messages')
+                        .insert([{
+                            conversation_id: conversationId,
+                            sender_type: 'admin',
+                            sender_id: null,
+                            text: text,
+                            read_by_admin: true,
+                            read_by_user: false
+                        }]);
+
+                    if (error) throw error;
+
+                    await supabase
+                        .from('conversations')
+                        .update({ updated_at: new Date().toISOString() })
+                        .eq('id', conversationId);
+
+                    autoReplySentForThisConversation = true;
+                    console.log('✅ Welcome auto-reply sent');
+
+                    await loadMessages();
+                } catch (err) {
+                    console.error('Welcome auto-reply failed:', err);
+                    autoReplyScheduled = false;
+                }
+            }, delay);
+        }
+
         /* ============================================================ */
 
         async function sendMessage() {
@@ -1446,6 +1500,9 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             renderConversationHeader();
             await loadMessages();
             await markMessagesAsRead();
+
+            /* ⭐ Fire welcome auto-reply on load */
+            sendWelcomeAutoReply();
 
             subscribeToMessages();
             startAdminStatusPolling();

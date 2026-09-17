@@ -27,9 +27,7 @@
         /* HEADER */
         .cb-shell-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
@@ -63,11 +61,7 @@
             color: #6c3cb3;
         }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .header-right { display: flex; align-items: center; gap: 6px; }
 
         .heartbeat-badge {
             display: inline-flex;
@@ -204,11 +198,7 @@
             box-shadow: 0 4px 16px rgba(108, 60, 179, 0.08);
         }
 
-        .stat-card .stat-icon {
-            font-size: 16px;
-            display: block;
-            margin-bottom: 2px;
-        }
+        .stat-card .stat-icon { font-size: 16px; display: block; margin-bottom: 2px; }
 
         .stat-card .stat-value {
             font-family: "Playfair Display", Georgia, serif;
@@ -285,9 +275,7 @@
             font-weight: 700;
         }
 
-        .tab-btn.active .badge-count {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        .tab-btn.active .badge-count { background: rgba(255, 255, 255, 0.3); }
 
         .tab-btn:not(.active) .badge-count {
             background: rgba(108, 60, 179, 0.12);
@@ -382,9 +370,7 @@
             background: rgba(255, 255, 255, 0.75);
         }
 
-        .conv-card.unread .conv-name {
-            font-weight: 700;
-        }
+        .conv-card.unread .conv-name { font-weight: 700; }
 
         .conv-card.unread::before {
             content: '';
@@ -396,6 +382,16 @@
             border-radius: 50%;
             background: #3b82f6;
             animation: pulse-dot 1.5s infinite;
+        }
+
+        /* ⭐ PAID MATCHMAKING CARD */
+        .conv-card.paid-mm {
+            border-left: 4px solid #28a745;
+            background: rgba(40, 167, 69, 0.04);
+        }
+
+        .conv-card.paid-mm:hover {
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.15);
         }
 
         .conv-top {
@@ -426,7 +422,7 @@
         .conv-status.open { background: rgba(40, 167, 69, 0.12); color: #28a745; }
         .conv-status.pending { background: rgba(255, 165, 0, 0.12); color: #b37400; }
         .conv-status.closed { background: rgba(74, 26, 107, 0.08); color: rgba(74, 26, 107, 0.5); }
-        .conv-status.paid { background: rgba(40, 167, 69, 0.12); color: #28a745; }
+        .conv-status.paid { background: rgba(40, 167, 69, 0.15); color: #1e7e34; font-weight: 800; }
         .conv-status.unpaid { background: rgba(220, 53, 69, 0.12); color: #dc3545; }
 
         .conv-time {
@@ -452,9 +448,26 @@
             font-weight: 500;
         }
 
-        .conv-info .wants {
-            color: #6c3cb3;
-            font-weight: 700;
+        .conv-info .wants { color: #6c3cb3; font-weight: 700; }
+
+        /* ⭐ PAYMENT DETAILS ROW */
+        .payment-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            font-size: 11px;
+            color: rgba(40, 167, 69, 0.9);
+            background: rgba(40, 167, 69, 0.06);
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .payment-details .ref {
+            font-family: monospace;
+            font-size: 10.5px;
+            color: #1e7e34;
         }
 
         .conv-preview {
@@ -524,9 +537,7 @@
             background: rgba(220, 53, 69, 0.08);
             color: #dc3545;
         }
-        .btn-conv-delete:hover {
-            background: rgba(220, 53, 69, 0.18);
-        }
+        .btn-conv-delete:hover { background: rgba(220, 53, 69, 0.18); }
 
         /* MEMBER CARD */
         .member-card-item {
@@ -555,10 +566,7 @@
             flex-shrink: 0;
         }
 
-        .member-card-info {
-            flex: 1;
-            min-width: 0;
-        }
+        .member-card-info { flex: 1; min-width: 0; }
 
         .member-card-name {
             font-weight: 700;
@@ -579,11 +587,7 @@
             gap: 3px 10px;
         }
 
-        .member-card-actions {
-            display: flex;
-            gap: 5px;
-            flex-shrink: 0;
-        }
+        .member-card-actions { display: flex; gap: 5px; flex-shrink: 0; }
 
         .btn-mini {
             padding: 6px 10px;
@@ -595,15 +599,9 @@
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
         }
-        .btn-mini-edit {
-            background: rgba(108, 60, 179, 0.08);
-            color: #4a1a6b;
-        }
+        .btn-mini-edit { background: rgba(108, 60, 179, 0.08); color: #4a1a6b; }
         .btn-mini-edit:hover { background: rgba(108, 60, 179, 0.18); }
-        .btn-mini-delete {
-            background: rgba(220, 53, 69, 0.08);
-            color: #dc3545;
-        }
+        .btn-mini-delete { background: rgba(220, 53, 69, 0.08); color: #dc3545; }
         .btn-mini-delete:hover { background: rgba(220, 53, 69, 0.18); }
 
         .badge-mini {
@@ -690,9 +688,7 @@
             font-family: "Inter", sans-serif;
             flex-shrink: 0;
         }
-        .notif-banner .notif-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-        }
+        .notif-banner .notif-btn:hover { background: rgba(255, 255, 255, 0.9); }
         .notif-banner .notif-dismiss {
             background: none;
             border: none;
@@ -1095,17 +1091,17 @@
             <div class="pagination-bar" id="conversations-pagination"></div>
         </div>
 
-        <!-- ⭐ MATCHMAKING TAB -->
+        <!-- MATCHMAKING TAB -->
         <div id="tab-content-matchmaking" style="display:none;">
             <div class="filter-row">
                 <input type="text" class="search-input" id="search-mm" placeholder="🔍 Search matchmaking requests..." oninput="filterMatchmaking()">
                 <select class="filter-select" id="filter-mm-status" onchange="filterMatchmaking()">
                     <option value="all">All</option>
+                    <option value="paid">✅ Paid</option>
+                    <option value="unpaid">💳 Unpaid</option>
                     <option value="pending">🟡 Pending</option>
                     <option value="contacted">🟢 Contacted</option>
                     <option value="completed">✅ Completed</option>
-                    <option value="unpaid">💳 Unpaid</option>
-                    <option value="paid">✅ Paid</option>
                 </select>
             </div>
 
@@ -1222,9 +1218,6 @@
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -1356,9 +1349,7 @@
 
         function vibrate() {
             if (navigator.vibrate) {
-                try {
-                    navigator.vibrate([200, 100, 200]);
-                } catch (e) {}
+                try { navigator.vibrate([200, 100, 200]); } catch (e) {}
             }
         }
 
@@ -1508,22 +1499,28 @@
             globalMmRealtimeChannel = supabase
                 .channel('admin-mm-requests')
                 .on('postgres_changes', {
-                    event: 'INSERT',
+                    event: '*',
                     schema: 'public',
                     table: 'matchmaking_requests'
                 }, async (payload) => {
-                    console.log('💍 New matchmaking request:', payload.new);
+                    console.log('💍 Matchmaking request change:', payload.eventType, payload.new);
 
                     const newReq = payload.new;
-                    const userName = newReq.full_name || 'User';
+                    if (!newReq) return;
 
-                    vibrate();
-                    playPing();
-                    showBrowserNotification(
-                        `💍 New Matchmaking Request`,
-                        `${userName} just booked a private matchmaking session!`
-                    );
-                    flashTitle(`💍 New matchmaking from ${userName}`);
+                    // Only notify on new INSERT
+                    if (payload.eventType === 'INSERT') {
+                        const userName = newReq.full_name || 'User';
+                        const isPaid = newReq.payment_status === 'paid';
+
+                        vibrate();
+                        playPing();
+                        showBrowserNotification(
+                            isPaid ? '💰 New PAID Matchmaking Booking!' : '💍 New Matchmaking Request',
+                            `${userName} just ${isPaid ? 'paid for' : 'requested'} a private matchmaking session!`
+                        );
+                        flashTitle(`💍 New matchmaking from ${userName}`);
+                    }
 
                     await loadMatchmaking();
                 })
@@ -1711,7 +1708,7 @@
         }
 
         // ============================================================
-        // ⭐ LOAD MATCHMAKING REQUESTS
+        // LOAD MATCHMAKING REQUESTS
         // ============================================================
         async function loadMatchmaking() {
             try {
@@ -1729,14 +1726,15 @@
                 document.getElementById('tab-mm-count').textContent = matchmakingRequests.length;
                 document.getElementById('menu-mm-count').textContent = matchmakingRequests.length;
 
-                // Show unread dot if any pending
+                // Count paid
+                const paidCount = matchmakingRequests.filter(r => r.payment_status === 'paid').length;
                 const pendingCount = matchmakingRequests.filter(r => r.status === 'pending').length;
-                document.getElementById('tab-mm-unread').style.display = pendingCount > 0 ? 'block' : 'none';
 
-                // Show menu dot if any pending
-                const totalPendingMm = pendingCount;
+                // Show unread dot if any paid
+                document.getElementById('tab-mm-unread').style.display = paidCount > 0 ? 'block' : 'none';
+
                 const totalUnreadConvs = conversations.reduce((sum, c) => sum + (c.unreadCount || 0), 0);
-                document.getElementById('menu-dot').style.display = (totalPendingMm > 0 || totalUnreadConvs > 0) ? 'block' : 'none';
+                document.getElementById('menu-dot').style.display = (paidCount > 0 || pendingCount > 0 || totalUnreadConvs > 0) ? 'block' : 'none';
 
                 updateStats();
                 renderMatchmaking();
@@ -1823,7 +1821,7 @@
                 if (status === 'pending') matchesStatus = r.status === 'pending';
                 else if (status === 'contacted') matchesStatus = r.status === 'contacted';
                 else if (status === 'completed') matchesStatus = r.status === 'completed';
-                else if (status === 'unpaid') matchesStatus = r.payment_status === 'unpaid';
+                else if (status === 'unpaid') matchesStatus = r.payment_status !== 'paid';
                 else if (status === 'paid') matchesStatus = r.payment_status === 'paid';
 
                 return matchesSearch && matchesStatus;
@@ -1978,7 +1976,7 @@
         }
 
         // ============================================================
-        // ⭐ RENDER MATCHMAKING
+        // RENDER MATCHMAKING (⭐ updated with payment info)
         // ============================================================
         function renderMatchmaking() {
             const container = document.getElementById('matchmaking-list');
@@ -2000,11 +1998,13 @@
             const page = filteredMatchmaking.slice(start, start + mmPerPage);
 
             container.innerHTML = page.map(r => {
+                const isPaid = r.payment_status === 'paid';
+
                 const statusClass = r.status === 'pending' ? 'pending' : r.status === 'contacted' ? 'open' : 'closed';
                 const statusLabel = r.status === 'pending' ? '🟡 Pending' : r.status === 'contacted' ? '🟢 Contacted' : '✅ Completed';
 
-                const payClass = r.payment_status === 'paid' ? 'paid' : 'unpaid';
-                const payLabel = r.payment_status === 'paid' ? '✅ Paid' : '💳 Unpaid';
+                const payClass = isPaid ? 'paid' : 'unpaid';
+                const payLabel = isPaid ? '✅ PAID' : '💳 Unpaid';
 
                 const timeAgo = formatTimeAgo(new Date(r.created_at));
 
@@ -2012,8 +2012,10 @@
                     ? new Date(r.preferred_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
                     : '—';
 
+                const methodLabel = r.payment_method === 'mpesa' ? '📱 M-PESA' : r.payment_method === 'card' ? '💳 Card' : '';
+
                 return `
-                    <div class="conv-card" onclick="openChatFromMatchmaking('${r.user_id}')">
+                    <div class="conv-card ${isPaid ? 'paid-mm' : ''}" onclick="openChatFromMatchmaking('${r.user_id}')">
                         <div class="conv-top">
                             <div class="conv-name">💍 ${escapeHtml(r.full_name || 'Unknown')}</div>
                             <span class="conv-status ${statusClass}">${statusLabel}</span>
@@ -2026,8 +2028,16 @@
                             <span>📱 ${escapeHtml(r.whatsapp_no || '—')}</span>
                             ${r.tiktok_username ? `<span>🎵 ${escapeHtml(r.tiktok_username)}</span>` : ''}
                             <span>📅 Preferred: ${preferredDate}</span>
-                            <span class="wants">💎 Amount: $${r.amount || 38}</span>
+                            <span class="wants">💎 Amount: $${r.amount || 10}</span>
                         </div>
+
+                        ${isPaid ? `
+                            <div class="payment-details">
+                                <span>💰 Payment Received</span>
+                                ${methodLabel ? `<span>${methodLabel}</span>` : ''}
+                                ${r.payment_reference ? `<span>Ref: <span class="ref">${escapeHtml(r.payment_reference)}</span></span>` : ''}
+                            </div>
+                        ` : ''}
 
                         ${r.message ? `
                             <div class="conv-preview user">
@@ -2114,7 +2124,6 @@
             window.location.href = `chat.html?conversation=${id}`;
         }
 
-        // ⭐ Open chat from matchmaking request (finds user's conversation)
         window.openChatFromMatchmaking = async (userId) => {
             if (!userId) {
                 showToast('⚠️ Cannot open chat — user has no account yet', 'error');
@@ -2141,7 +2150,6 @@
             }
         }
 
-        // ⭐ Open WhatsApp with user's number
         window.openWhatsApp = (number, name) => {
             if (!number) {
                 showToast('⚠️ No WhatsApp number for this user', 'error');
@@ -2436,13 +2444,12 @@
             subscribeToNewMessages();
             subscribeToMatchmakingRequests();
 
-            // Auto-refresh every 30s as backup
             setInterval(() => {
                 if (currentTab === 'conversations') loadConversations();
                 else if (currentTab === 'matchmaking') loadMatchmaking();
             }, 30000);
 
-            console.log('💎 Admin Panel ready with Matchmaking tab');
+            console.log('💎 Admin Panel ready with PAID matchmaking support');
         })();
     </script>
 

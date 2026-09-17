@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -334,16 +336,15 @@
             font-style: italic;
         }
 
-        /* SUBMIT */
-        .btn-book {
+        /* PAY BUTTONS */
+        .btn-pay-card, .btn-pay-mpesa {
             width: 100%;
-            padding: 16px 20px;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            padding: 15px 20px;
             color: #fff;
             border: none;
             border-radius: 14px;
             font-weight: 800;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
@@ -352,17 +353,30 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
-            margin-top: 6px;
+            margin-top: 10px;
         }
 
-        .btn-book:hover:not(:disabled) {
+        .btn-pay-card {
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
+        }
+        .btn-pay-card:hover:not(:disabled) {
             transform: translateY(-2px);
             background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
             box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
         }
 
-        .btn-book:disabled {
+        .btn-pay-mpesa {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            box-shadow: 0 8px 30px rgba(22, 163, 74, 0.3);
+        }
+        .btn-pay-mpesa:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #15803d, #16a34a);
+            box-shadow: 0 12px 40px rgba(22, 163, 74, 0.5);
+        }
+
+        .btn-pay-card:disabled, .btn-pay-mpesa:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
@@ -557,7 +571,7 @@
             .mm-section__num { width: 34px; height: 34px; font-size: 15px; }
             .mm-section__title { font-size: 15px; }
             .mm-list-item { font-size: 15px; }
-            .btn-book { font-size: 17px; padding: 18px 24px; }
+            .btn-pay-card, .btn-pay-mpesa { font-size: 16px; padding: 17px 24px; }
         }
     </style>
 </head>
@@ -576,7 +590,7 @@
     <main class="mm-wrapper">
         <div class="mm-container">
 
-            <!-- HERO (no price block) -->
+            <!-- HERO -->
             <section class="mm-hero">
                 <span class="hero-icon">💍</span>
                 <h1>Private 1-on-1 Matchmaking for Love &amp; Marriage</h1>
@@ -586,7 +600,7 @@
                 </p>
             </section>
 
-            <!-- 01 · WHAT YOUR BOOKING INCLUDES -->
+            <!-- 01 -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">01</span>
@@ -666,7 +680,7 @@
                 </div>
             </section>
 
-            <!-- 02 · HOW IT WORKS -->
+            <!-- 02 -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">02</span>
@@ -685,7 +699,7 @@
                 </div>
             </section>
 
-            <!-- 03 · WHO THIS SERVICE IS FOR -->
+            <!-- 03 -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">03</span>
@@ -748,8 +762,12 @@
                         <textarea id="mm-message" placeholder="Tell us anything you'd like us to know before your consultation..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn-book" id="mm-submit">
-                        💎 Book My Private Matchmaking · $38
+                    <button type="button" class="btn-pay-card" id="mm-pay-card" onclick="openPaystack('card')">
+                        💳 Pay $10 with Card
+                    </button>
+
+                    <button type="button" class="btn-pay-mpesa" id="mm-pay-mpesa" onclick="openPaystack('mpesa')">
+                        📱 Pay KES 1,250 with M-PESA
                     </button>
 
                     <p class="privacy-note">
@@ -773,10 +791,10 @@
     <div class="success-overlay" id="success-overlay">
         <div class="success-card">
             <span class="big-icon">✅</span>
-            <h2>Request Received!</h2>
+            <h2>Booking Confirmed!</h2>
             <p>
-                We've received your matchmaking request.
-                Our team will contact you via WhatsApp within 24 hours to arrange payment and schedule your consultation.
+                Your payment was received and your matchmaking request has been submitted.
+                Our team will contact you via WhatsApp within 24 hours to schedule your consultation.
             </p>
             <button class="btn-ok" onclick="closeSuccess()">
                 Got it
@@ -787,9 +805,6 @@
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS                                                      -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -806,25 +821,23 @@
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
+        const PAYMENT_AMOUNT_KES = 1250;
+        const PAYMENT_AMOUNT_USD = 10;
+
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         let currentUser = null;
 
-        const form = document.getElementById('matchmaking-form');
-        const submitBtn = document.getElementById('mm-submit');
         const errorBanner = document.getElementById('error-banner');
         const successOverlay = document.getElementById('success-overlay');
         const toast = document.getElementById('toast');
 
-        // Set min date = today
         (function setMinDate() {
             const today = new Date().toISOString().slice(0, 10);
             document.getElementById('mm-date').min = today;
         })();
 
-        // ============================================================
-        // INIT — Auth check + prefill
-        // ============================================================
         async function init() {
             const { data: { session } } = await supabase.auth.getSession();
 
@@ -835,7 +848,6 @@
             }
 
             currentUser = session.user;
-            console.log('✅ User logged in:', currentUser.email);
 
             if (currentUser.email) {
                 document.getElementById('mm-email').value = currentUser.email;
@@ -858,58 +870,103 @@
             }
         }
 
-        // ============================================================
-        // SUBMIT
-        // ============================================================
-        window.submitForm = async function(event) {
-            event.preventDefault();
-
+        /* ⭐ VALIDATE FORM BEFORE PAYMENT */
+        function validateForm() {
             const fullName = document.getElementById('mm-name').value.trim();
             const email = document.getElementById('mm-email').value.trim();
             const whatsapp = document.getElementById('mm-whatsapp').value.trim();
             const tiktok = document.getElementById('mm-tiktok').value.trim();
-            const preferredDate = document.getElementById('mm-date').value || null;
-            const message = document.getElementById('mm-message').value.trim();
 
             errorBanner.classList.remove('show');
 
-            if (!fullName || fullName.length < 2) return showError('Please enter your full name.');
-            if (!email || !email.includes('@')) return showError('Please enter a valid email.');
-            if (!whatsapp || whatsapp.length < 7) return showError('Please enter your WhatsApp number.');
-            if (!tiktok) return showError('Please enter your TikTok username.');
+            if (!fullName || fullName.length < 2) { showError('Please enter your full name.'); return null; }
+            if (!email || !email.includes('@')) { showError('Please enter a valid email.'); return null; }
+            if (!whatsapp || whatsapp.length < 7) { showError('Please enter your WhatsApp number.'); return null; }
+            if (!tiktok) { showError('Please enter your TikTok username.'); return null; }
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Submitting...';
+            return {
+                fullName,
+                email,
+                whatsapp,
+                tiktok,
+                preferredDate: document.getElementById('mm-date').value || null,
+                message: document.getElementById('mm-message').value.trim()
+            };
+        }
+
+        /* ⭐ OPEN PAYSTACK — mode: 'card' or 'mpesa' */
+        window.openPaystack = function(mode) {
+            const data = validateForm();
+            if (!data) return;
+
+            const config = {
+                key: PAYSTACK_PUBLIC_KEY,
+                email: data.email,
+                amount: PAYMENT_AMOUNT_KES * 100,
+                currency: 'KES',
+                metadata: {
+                    source: 'matchmaking',
+                    full_name: data.fullName,
+                    whatsapp_no: data.whatsapp,
+                    tiktok_username: data.tiktok,
+                    preferred_date: data.preferredDate,
+                    payment_method: mode,
+                    custom_fields: [
+                        { display_name: "Full Name", variable_name: "full_name", value: data.fullName },
+                        { display_name: "WhatsApp", variable_name: "whatsapp", value: data.whatsapp },
+                        { display_name: "TikTok", variable_name: "tiktok", value: data.tiktok },
+                        { display_name: "Payment Method", variable_name: "payment_method", value: mode === 'card' ? 'Card' : 'M-PESA' }
+                    ]
+                },
+                onSuccess: async (transaction) => {
+                    console.log('✅ Payment successful:', transaction);
+                    await saveBooking(data, transaction.reference, mode);
+                },
+                onCancel: () => {
+                    console.log('Payment cancelled');
+                    showToast('Payment cancelled', 'error');
+                }
+            };
+
+            if (mode === 'card') config.channels = ['card'];
+            else if (mode === 'mpesa') config.channels = ['mobile_money'];
 
             try {
-                const { data: request, error: insertErr } = await supabase
+                const paystack = new PaystackPop();
+                paystack.newTransaction(config);
+            } catch (err) {
+                console.error('Paystack error:', err);
+                showError('Could not open payment: ' + err.message);
+            }
+        };
+
+        /* ⭐ SAVE BOOKING to Supabase after payment */
+        async function saveBooking(data, reference, mode) {
+            try {
+                const { error } = await supabase
                     .from('matchmaking_requests')
                     .insert([{
                         user_id: currentUser.id,
-                        full_name: fullName,
-                        email: email,
-                        whatsapp_no: whatsapp,
-                        tiktok_username: tiktok,
-                        preferred_date: preferredDate,
-                        message: message,
+                        full_name: data.fullName,
+                        email: data.email,
+                        whatsapp_no: data.whatsapp,
+                        tiktok_username: data.tiktok,
+                        preferred_date: data.preferredDate,
+                        message: data.message,
                         status: 'pending',
-                        payment_status: 'unpaid',
-                        amount: 38
-                    }])
-                    .select()
-                    .single();
+                        payment_status: 'paid',
+                        amount: PAYMENT_AMOUNT_USD,
+                        payment_reference: reference,
+                        payment_method: mode === 'card' ? 'card' : 'mpesa'
+                    }]);
 
-                if (insertErr) throw insertErr;
+                if (error) throw error;
 
-                console.log('✅ Matchmaking request created:', request.id);
-
+                console.log('✅ Booking saved to Supabase');
                 successOverlay.classList.add('show');
-
             } catch (err) {
-                console.error('Submit error:', err);
-                showError('Something went wrong: ' + err.message);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '💎 Book My Private Matchmaking · $38';
+                console.error('Save booking error:', err);
+                showError('Payment succeeded but saving failed. Please contact support with ref: ' + reference);
             }
         }
 
@@ -927,9 +984,6 @@
             }, 300);
         }
 
-        // ============================================================
-        // SUPPORT
-        // ============================================================
         window.openSupport = async function() {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
@@ -955,9 +1009,6 @@
             }
         }
 
-        // ============================================================
-        // BACK
-        // ============================================================
         window.goBack = function() {
             if (window.history.length > 1) {
                 window.history.back();
@@ -966,9 +1017,6 @@
             }
         }
 
-        // ============================================================
-        // TOAST
-        // ============================================================
         let toastTimeout;
         function showToast(msg, type = 'success') {
             toast.textContent = msg;
@@ -978,12 +1026,7 @@
             toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // ============================================================
-        // INIT
-        // ============================================================
         init();
-
-        console.log('💍 Matchmaking page ready');
     </script>
 
 </body>

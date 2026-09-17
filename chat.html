@@ -614,6 +614,48 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
         }
 
+        /* =========================================
+           WHATSAPP BUTTON (auto-reply feature)
+           ========================================= */
+        .whatsapp-cta-wrap {
+            display: flex;
+            justify-content: flex-start;
+            margin: 6px 0 6px 0;
+            padding: 0 4px;
+            animation: messageIn 0.4s ease;
+        }
+        .whatsapp-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 18px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            font-weight: 700;
+            font-size: 13.5px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            max-width: 90%;
+            font-family: "Inter", sans-serif;
+        }
+        .whatsapp-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5);
+        }
+        .whatsapp-cta:active { transform: translateY(0); }
+        .whatsapp-cta__icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+        @media (max-width: 480px) {
+            .whatsapp-cta {
+                font-size: 12.5px;
+                padding: 10px 14px;
+            }
+        }
+
         @media (max-width: 768px) {
             .chat-wrapper { padding: 68px 10px 8px; }
             .chat-header { padding: 8px 12px; gap: 8px; }
@@ -735,6 +777,26 @@
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        /* ============================================================
+           AUTO-REPLY CONFIG
+           ============================================================ */
+        const WHATSAPP_NUMBER = '254754447524';   // ⭐ Your WhatsApp number
+
+        /* Templates — {NAME} is replaced with the member name the user selected */
+        const AUTO_REPLY_TEMPLATE =
+`Hi 👋 Thanks for your interest in {NAME} 💕
+
+We received your message and I'm personally reviewing your details right now. {NAME} is very selective and we want to make sure it's a great match.
+
+For a faster reply and to move things forward quickly, tap below to chat with us directly on WhatsApp 👇`;
+
+        const WHATSAPP_PREFILL_TEMPLATE =
+`Hi, I'm interested in {NAME} on ClassyDate. I just sent a message on the chat, can we continue here?`;
+
+        const WHATSAPP_BUTTON_TEXT = '💬 Chat with us on WhatsApp';
+
+        /* ============================================================ */
+
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         let currentUser = null;
@@ -744,7 +806,11 @@
         let messages = [];
         let realtimeChannel = null;
         let adminStatusInterval = null;
-        let readPollingInterval = null;   // ⭐ NEW
+        let readPollingInterval = null;
+
+        /* Auto-reply state */
+        let autoReplySentForThisConversation = false;   // per page load
+        let autoReplyScheduled = false;
 
         const messagesContainer = document.getElementById('messages-container');
         const messageInput = document.getElementById('message-input');
@@ -1057,6 +1123,10 @@
             });
 
             messagesContainer.innerHTML = html;
+
+            /* ⭐ Auto-reply — append WA button if conditions met */
+            maybeShowWhatsAppCTA();
+
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
@@ -1079,6 +1149,108 @@
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
         }
+
+        /* ============================================================
+           ⭐ AUTO-REPLY LOGIC
+           ============================================================ */
+
+        /* Build the messages using the member name */
+        function buildAutoReplyMessage() {
+            const name = (conversation && conversation.member_name) ? conversation.member_name : 'this person';
+            return AUTO_REPLY_TEMPLATE.replace(/\{NAME\}/g, name);
+        }
+        function buildWhatsAppPrefill() {
+            const name = (conversation && conversation.member_name) ? conversation.member_name : 'this person';
+            return WHATSAPP_PREFILL_TEMPLATE.replace(/\{NAME\}/g, name);
+        }
+        function buildWhatsAppLink() {
+            const prefill = buildWhatsAppPrefill();
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(prefill)}`;
+        }
+
+        /* Check if auto-reply should happen, and if so, send it */
+        async function triggerAutoReplyIfNeeded() {
+            if (isAdmin) return;                 // only for users
+            if (!conversation) return;
+            if (autoReplySentForThisConversation) return;
+            if (autoReplyScheduled) return;
+
+            // Only if user has sent at least one message
+            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
+            if (userMsgCount === 0) return;
+
+            // Only if there is NO admin message yet
+            const adminMsgCount = messages.filter(m => m.sender_type === 'admin').length;
+            if (adminMsgCount > 0) return;
+
+            autoReplyScheduled = true;
+
+            // Human-feeling delay 3-6s
+            const delay = 3000 + Math.floor(Math.random() * 3000);
+            console.log(`⏱️ Auto-reply scheduled in ${delay}ms`);
+
+            setTimeout(async () => {
+                try {
+                    const text = buildAutoReplyMessage();
+                    const { error } = await supabase
+                        .from('messages')
+                        .insert([{
+                            conversation_id: conversationId,
+                            sender_type: 'admin',
+                            sender_id: null,                 // system / auto
+                            text: text,
+                            read_by_admin: true,
+                            read_by_user: false
+                        }]);
+
+                    if (error) throw error;
+
+                    await supabase
+                        .from('conversations')
+                        .update({ updated_at: new Date().toISOString() })
+                        .eq('id', conversationId);
+
+                    autoReplySentForThisConversation = true;
+                    console.log('✅ Auto-reply sent');
+
+                    await loadMessages();
+                } catch (err) {
+                    console.error('Auto-reply failed:', err);
+                    autoReplyScheduled = false;
+                }
+            }, delay);
+        }
+
+        /* Show the WhatsApp CTA button at the bottom of the chat when conditions met */
+        function maybeShowWhatsAppCTA() {
+            // Remove previous CTA if any
+            const old = document.getElementById('wa-cta-wrap');
+            if (old) old.remove();
+
+            if (isAdmin) return;                     // admin doesn't need it
+            if (!conversation) return;
+            if (messages.length === 0) return;
+
+            // Only show if user has sent a message
+            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
+            if (userMsgCount === 0) return;
+
+            // Only show after auto-reply has been sent (so it appears right below the reply)
+            if (!autoReplySentForThisConversation) return;
+
+            const wrap = document.createElement('div');
+            wrap.id = 'wa-cta-wrap';
+            wrap.className = 'whatsapp-cta-wrap';
+            wrap.innerHTML = `
+                <a class="whatsapp-cta" href="${buildWhatsAppLink()}" target="_blank" rel="noopener">
+                    <span class="whatsapp-cta__icon">💬</span>
+                    <span>${WHATSAPP_BUTTON_TEXT}</span>
+                </a>
+            `;
+            messagesContainer.appendChild(wrap);
+        }
+
+        /* ============================================================ */
 
         async function sendMessage() {
             const text = messageInput.value.trim();
@@ -1111,6 +1283,9 @@
 
                 messageInput.value = '';
                 await loadMessages();
+
+                /* ⭐ Trigger auto-reply AFTER the user message is saved */
+                triggerAutoReplyIfNeeded();
             } catch (err) {
                 console.error('Send error:', err);
                 showToast('Failed to send: ' + err.message, 'error');
@@ -1165,6 +1340,9 @@
 
                 showToast('✅ Photo sent!', 'success');
                 await loadMessages();
+
+                /* ⭐ Also trigger auto-reply on photo sends */
+                triggerAutoReplyIfNeeded();
             } catch (err) {
                 console.error('Photo send error:', err);
                 showToast('Failed to send photo: ' + err.message, 'error');
@@ -1206,7 +1384,6 @@
             adminStatusInterval = setInterval(checkAdminOnlineStatus, 15000);
         }
 
-        // ⭐ NEW: Poll messages every 4 seconds to catch missed read receipts
         function startReadPolling() {
             if (readPollingInterval) clearInterval(readPollingInterval);
             readPollingInterval = setInterval(() => {
@@ -1214,7 +1391,6 @@
                     loadMessages();
                 }
             }, 4000);
-            console.log('🔄 Read-receipt polling started (every 4s)');
         }
 
         window.openLightbox = function(url) {
@@ -1253,7 +1429,7 @@
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden && conversation) {
                     markMessagesAsRead();
-                    loadMessages();  // ⭐ Also reload so we see latest ticks
+                    loadMessages();
                 }
             });
         });
@@ -1273,7 +1449,7 @@
 
             subscribeToMessages();
             startAdminStatusPolling();
-            startReadPolling();   // ⭐ NEW
+            startReadPolling();
 
             messageInput.focus();
 

@@ -656,6 +656,48 @@
             }
         }
 
+        /* =========================================
+           PAY NOW BUTTON (one-time card payment)
+           ========================================= */
+        .pay-cta-wrap {
+            display: flex;
+            justify-content: flex-start;
+            margin: 6px 0 4px 0;
+            padding: 0 4px;
+            animation: messageIn 0.4s ease;
+        }
+        .pay-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            max-width: 90%;
+            font-family: "Inter", sans-serif;
+            border: none;
+            cursor: pointer;
+        }
+        .pay-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(108, 60, 179, 0.55);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+        }
+        .pay-cta:active { transform: translateY(0); }
+        .pay-cta__icon { font-size: 18px; line-height: 1; }
+        @media (max-width: 480px) {
+            .pay-cta {
+                font-size: 12.5px;
+                padding: 11px 15px;
+            }
+        }
+
         @media (max-width: 768px) {
             .chat-wrapper { padding: 68px 10px 8px; }
             .chat-header { padding: 8px 12px; gap: 8px; }
@@ -778,11 +820,14 @@
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         /* ============================================================
-           AUTO-REPLY CONFIG
+           AUTO-REPLY + PAYMENT CONFIG
            ============================================================ */
         const WHATSAPP_NUMBER = '254754447524';   // ⭐ Your WhatsApp number
 
-        /* Templates — {NAME} is replaced with the member name the user selected */
+        const PAYSTACK_PAYMENT_LINK = 'https://paystack.shop/pay/fdx522mee5';
+        const PAYMENT_AMOUNT_USD = 10;            // shown on the button
+        const PAYMENT_BUTTON_TEXT = `💳 Pay $${PAYMENT_AMOUNT_USD} to Connect`;
+
         const AUTO_REPLY_TEMPLATE =
 `Hi 👋 Thanks for your interest in {NAME} 💕
 
@@ -809,7 +854,7 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         let readPollingInterval = null;
 
         /* Auto-reply state */
-        let autoReplySentForThisConversation = false;   // per page load
+        let autoReplySentForThisConversation = false;
         let autoReplyScheduled = false;
 
         const messagesContainer = document.getElementById('messages-container');
@@ -1124,7 +1169,8 @@ For a faster reply and to move things forward quickly, tap below to chat with us
 
             messagesContainer.innerHTML = html;
 
-            /* ⭐ Auto-reply — append WA button if conditions met */
+            /* ⭐ Pay Now button FIRST, then WhatsApp button below it */
+            maybeShowPayCTA();
             maybeShowWhatsAppCTA();
 
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -1154,7 +1200,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
            ⭐ AUTO-REPLY LOGIC
            ============================================================ */
 
-        /* Build the messages using the member name */
         function buildAutoReplyMessage() {
             const name = (conversation && conversation.member_name) ? conversation.member_name : 'this person';
             return AUTO_REPLY_TEMPLATE.replace(/\{NAME\}/g, name);
@@ -1168,24 +1213,20 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(prefill)}`;
         }
 
-        /* Check if auto-reply should happen, and if so, send it */
         async function triggerAutoReplyIfNeeded() {
-            if (isAdmin) return;                 // only for users
+            if (isAdmin) return;
             if (!conversation) return;
             if (autoReplySentForThisConversation) return;
             if (autoReplyScheduled) return;
 
-            // Only if user has sent at least one message
             const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
             if (userMsgCount === 0) return;
 
-            // Only if there is NO admin message yet
             const adminMsgCount = messages.filter(m => m.sender_type === 'admin').length;
             if (adminMsgCount > 0) return;
 
             autoReplyScheduled = true;
 
-            // Human-feeling delay 3-6s
             const delay = 3000 + Math.floor(Math.random() * 3000);
             console.log(`⏱️ Auto-reply scheduled in ${delay}ms`);
 
@@ -1197,7 +1238,7 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                         .insert([{
                             conversation_id: conversationId,
                             sender_type: 'admin',
-                            sender_id: null,                 // system / auto
+                            sender_id: null,
                             text: text,
                             read_by_admin: true,
                             read_by_user: false
@@ -1221,21 +1262,44 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             }, delay);
         }
 
-        /* Show the WhatsApp CTA button at the bottom of the chat when conditions met */
-        function maybeShowWhatsAppCTA() {
-            // Remove previous CTA if any
-            const old = document.getElementById('wa-cta-wrap');
+        /* ⭐ PAY NOW BUTTON — appears below the auto-reply */
+        function maybeShowPayCTA() {
+            const old = document.getElementById('pay-cta-wrap');
             if (old) old.remove();
 
-            if (isAdmin) return;                     // admin doesn't need it
+            if (isAdmin) return;
             if (!conversation) return;
             if (messages.length === 0) return;
 
-            // Only show if user has sent a message
             const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
             if (userMsgCount === 0) return;
 
-            // Only show after auto-reply has been sent (so it appears right below the reply)
+            if (!autoReplySentForThisConversation) return;
+
+            const wrap = document.createElement('div');
+            wrap.id = 'pay-cta-wrap';
+            wrap.className = 'pay-cta-wrap';
+            wrap.innerHTML = `
+                <a class="pay-cta" href="${PAYSTACK_PAYMENT_LINK}" target="_blank" rel="noopener">
+                    <span class="pay-cta__icon">💳</span>
+                    <span>${PAYMENT_BUTTON_TEXT}</span>
+                </a>
+            `;
+            messagesContainer.appendChild(wrap);
+        }
+
+        /* Show the WhatsApp CTA button */
+        function maybeShowWhatsAppCTA() {
+            const old = document.getElementById('wa-cta-wrap');
+            if (old) old.remove();
+
+            if (isAdmin) return;
+            if (!conversation) return;
+            if (messages.length === 0) return;
+
+            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
+            if (userMsgCount === 0) return;
+
             if (!autoReplySentForThisConversation) return;
 
             const wrap = document.createElement('div');
@@ -1259,17 +1323,15 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             if (autoReplySentForThisConversation) return;
             if (autoReplyScheduled) return;
 
-            // Only fire if there is NO admin message yet
             const adminMsgCount = messages.filter(m => m.sender_type === 'admin').length;
             if (adminMsgCount > 0) return;
 
-            // Only fire if the user has at least 1 message
             const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
             if (userMsgCount === 0) return;
 
             autoReplyScheduled = true;
 
-            const delay = 3000 + Math.floor(Math.random() * 2000); // 3-5s
+            const delay = 3000 + Math.floor(Math.random() * 2000);
             console.log(`⏱️ Welcome auto-reply scheduled in ${delay}ms`);
 
             setTimeout(async () => {
@@ -1338,7 +1400,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 messageInput.value = '';
                 await loadMessages();
 
-                /* ⭐ Trigger auto-reply AFTER the user message is saved */
                 triggerAutoReplyIfNeeded();
             } catch (err) {
                 console.error('Send error:', err);
@@ -1395,7 +1456,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 showToast('✅ Photo sent!', 'success');
                 await loadMessages();
 
-                /* ⭐ Also trigger auto-reply on photo sends */
                 triggerAutoReplyIfNeeded();
             } catch (err) {
                 console.error('Photo send error:', err);
@@ -1501,7 +1561,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             await loadMessages();
             await markMessagesAsRead();
 
-            /* ⭐ Fire welcome auto-reply on load */
             sendWelcomeAutoReply();
 
             subscribeToMessages();

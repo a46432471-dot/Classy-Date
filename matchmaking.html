@@ -309,13 +309,6 @@
 
         .mm-form-group textarea { resize: vertical; min-height: 80px; }
 
-        .mm-form-group .hint {
-            font-size: 11.5px;
-            color: rgba(26, 5, 51, 0.5);
-            margin-top: 4px;
-            font-style: italic;
-        }
-
         .pay-book-btn {
             display: flex;
             align-items: center;
@@ -982,13 +975,7 @@
 
                     <div class="mm-form-group">
                         <label for="mm-whatsapp">WhatsApp Number <span class="required">*</span></label>
-                        <input type="tel" id="mm-whatsapp" placeholder="+254 754 447 524" required autocomplete="tel">
-                    </div>
-
-                    <div class="mm-form-group">
-                        <label for="mm-tiktok">TikTok Username <span class="required">*</span></label>
-                        <input type="text" id="mm-tiktok" placeholder="@yourusername" required>
-                        <div class="hint">So we can connect with you on TikTok as well.</div>
+                        <input type="tel" id="mm-whatsapp" placeholder="+254 707 001 191" required autocomplete="tel">
                     </div>
 
                     <div class="mm-form-group">
@@ -1118,7 +1105,7 @@
         const BOOKING_FEE_KES = Math.round(BOOKING_FEE_USD * FX_RATES.KES);
         const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
 
-        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254754447524';
+        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
 
         const COUNTRY_CONFIG = {
             KE:    { name: 'Kenya',        flag: '🇰🇪', currency: 'KES', symbol: 'KSh', hint: 'M-PESA prioritised · Card also available', icon: '📱', isMpesa: true,  method: 'paystack' },
@@ -1185,20 +1172,17 @@
             const fullName = document.getElementById('mm-name').value.trim();
             const email = document.getElementById('mm-email').value.trim();
             const whatsapp = document.getElementById('mm-whatsapp').value.trim();
-            const tiktok = document.getElementById('mm-tiktok').value.trim();
 
             errorBanner.classList.remove('show');
 
             if (!fullName || fullName.length < 2) { showError('Please enter your full name.'); return null; }
             if (!email || !email.includes('@')) { showError('Please enter a valid email.'); return null; }
             if (!whatsapp || whatsapp.length < 7) { showError('Please enter your WhatsApp number.'); return null; }
-            if (!tiktok) { showError('Please enter your TikTok username.'); return null; }
 
             return {
                 fullName,
                 email,
                 whatsapp,
-                tiktok,
                 preferredDate: document.getElementById('mm-date').value || null,
                 message: document.getElementById('mm-message').value.trim()
             };
@@ -1353,7 +1337,6 @@ I'm from ${countryName} ${config.flag} and I'd like to book the Private Matchmak
 👤 Name: ${data.fullName}
 📧 Email: ${data.email}
 📱 WhatsApp: ${data.whatsapp}
-🎵 TikTok: ${data.tiktok}
 ${data.preferredDate ? `📅 Preferred date: ${data.preferredDate}\n` : ''}${data.message ? `💬 Message: ${data.message}\n` : ''}
 💎 Booking fee: $${BOOKING_FEE_USD} USD (${price.secondary})
 
@@ -1392,14 +1375,12 @@ Thank you!`;
                         user_id: currentUser.id,
                         full_name: data.fullName,
                         whatsapp_no: data.whatsapp,
-                        tiktok_username: data.tiktok,
                         preferred_date: data.preferredDate,
                         country: country,
                         payment_reason: 'Private matchmaking booking fee',
                         custom_fields: [
                             { display_name: "Full Name", variable_name: "full_name", value: data.fullName },
-                            { display_name: "WhatsApp", variable_name: "whatsapp", value: data.whatsapp },
-                            { display_name: "TikTok", variable_name: "tiktok", value: data.tiktok }
+                            { display_name: "WhatsApp", variable_name: "whatsapp", value: data.whatsapp }
                         ]
                     },
                     onSuccess: async (transaction) => {
@@ -1428,7 +1409,6 @@ Thank you!`;
                         full_name: data.fullName,
                         email: data.email,
                         whatsapp_no: data.whatsapp,
-                        tiktok_username: data.tiktok,
                         preferred_date: data.preferredDate,
                         message: data.message,
                         status: 'pending',

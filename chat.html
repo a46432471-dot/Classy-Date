@@ -1257,6 +1257,8 @@
             <select id="modalCountrySelect">
                 <option value="">-- Select Country --</option>
                 <option value="KE">Kenya 🇰🇪</option>
+                <option value="UG">Uganda 🇺🇬</option>
+                <option value="TZ">Tanzania 🇹🇿</option>
                 <option value="NG">Nigeria 🇳🇬</option>
                 <option value="GH">Ghana 🇬🇭</option>
                 <option value="ZA">South Africa 🇿🇦</option>
@@ -1298,7 +1300,6 @@
         </div>
     </div>
 
-    <!-- Global config -->
     <script src="cd-config.js"></script>
 
     <script type="importmap">
@@ -1319,28 +1320,24 @@
 
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
-        // ============================================================
-        // GLOBAL CONFIG
-        // ============================================================
         const CFG = window.CD_CONFIG || {};
 
         const PAYSTACK_PUBLIC_KEY = CFG.PAYSTACK_PUBLIC_KEY || 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
         const BOOKING_FEE_USD = CFG.BOOKING_FEE_USD || 10;
-        const FX_RATES = CFG.FX_RATES || { KES: 125, ZAR: 18.6, NGN: 1550, GHS: 15.2, USD: 1 };
+        const FX_RATES = CFG.FX_RATES || { KES: 125, UGX: 3700, TZS: 2600, ZAR: 18.6, NGN: 1550, GHS: 15.2, USD: 1 };
 
         const BOOKING_FEE_KES = Math.round(BOOKING_FEE_USD * FX_RATES.KES);
         const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
 
-        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
+        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254754447524';
         const SUPPORT_EMAIL = CFG.SUPPORT_EMAIL || 'support@classydate.com';
 
-        console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES}`);
+        console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES} · WhatsApp: ${WHATSAPP_NUMBER}`);
 
-        // ============================================================
-        // COUNTRY CONFIG
-        // ============================================================
         const COUNTRY_CONFIG = {
             KE:    { name: 'Kenya',        flag: '🇰🇪', currency: 'KES', symbol: 'KSh', hint: 'M-PESA prioritised · Card also available', icon: '📱', isMpesa: true,  method: 'paystack' },
+            UG:    { name: 'Uganda',       flag: '🇺🇬', currency: 'UGX', symbol: 'USh', hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            TZ:    { name: 'Tanzania',     flag: '🇹🇿', currency: 'TZS', symbol: 'TSh', hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
             NG:    { name: 'Nigeria',      flag: '🇳🇬', currency: 'NGN', symbol: '₦',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
             GH:    { name: 'Ghana',        flag: '🇬🇭', currency: 'GHS', symbol: 'GH₵', hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
             ZA:    { name: 'South Africa', flag: '🇿🇦', currency: 'ZAR', symbol: 'R',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
@@ -1836,9 +1833,6 @@ For a faster reply and to move things forward quickly, tap 🔓 Unlock Your Priv
             return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
         }
 
-        // ============================================================
-        // COUNTRY MODAL
-        // ============================================================
         window.openCountryModal = function() {
             if (paymentInFlight) return;
             if (!conversation) return showToast('Conversation not loaded', 'error');
@@ -1926,9 +1920,6 @@ For a faster reply and to move things forward quickly, tap 🔓 Unlock Your Priv
             }
         };
 
-        // ============================================================
-        // CASHIER (WhatsApp) — non-Kenya
-        // ============================================================
         function redirectToCashier(country, config) {
             paymentInFlight = true;
 
@@ -1961,9 +1952,6 @@ Thank you!`;
             }, 3000);
         }
 
-        // ============================================================
-        // KENYA PAYSTACK
-        // ============================================================
         async function executePaystackPayment(country) {
             paymentInFlight = true;
 
@@ -1977,7 +1965,6 @@ Thank you!`;
 
                 console.log('💳 Opening Paystack (Kenya):', { reference, amount: BOOKING_FEE_KES_CENTS });
 
-                // Save pending state
                 await supabase.from('conversations')
                     .update({ payment_status: 'pending', payment_reference: reference })
                     .eq('id', conversationId);
@@ -2036,9 +2023,6 @@ Thank you!`;
             }
         }
 
-        // ============================================================
-        // MESSAGE / PHOTO
-        // ============================================================
         async function sendMessage() {
             const text = messageInput.value.trim();
             if (!text) return showToast('Please type a message first!', 'error');

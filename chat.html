@@ -403,7 +403,6 @@
             background: #d1e7dd;
         }
 
-        /* PAY BUTTON */
         .pay-book-btn {
             display: inline-flex;
             align-items: center;
@@ -685,7 +684,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* COUNTRY MODAL */
         .country-modal-overlay {
             display: none;
             position: fixed;
@@ -915,7 +913,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Transition overlay */
         .smooth-transition-overlay {
             position: fixed;
             inset: 0;
@@ -954,7 +951,6 @@
             font-weight: 600;
         }
 
-        /* Cashier overlay */
         .cashier-overlay {
             position: fixed;
             inset: 0;
@@ -1227,7 +1223,6 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- COUNTRY MODAL -->
     <div class="country-modal-overlay" id="countryModalOverlay">
         <div class="country-modal">
             <button class="country-modal__close" onclick="closeCountryModal()">✕</button>
@@ -1277,14 +1272,12 @@
         </div>
     </div>
 
-    <!-- Smooth transition (Kenya → Paystack) -->
     <div class="smooth-transition-overlay" id="transitionOverlay">
         <div class="spinner"></div>
         <div class="label">Preparing secure checkout</div>
         <div class="sub">Please wait a moment…</div>
     </div>
 
-    <!-- Cashier overlay (non-Kenya → WhatsApp) -->
     <div class="cashier-overlay" id="cashierOverlay">
         <div class="cashier-overlay__avatar">💬</div>
         <div class="cashier-overlay__title">Connecting you to our Cashier</div>
@@ -1329,7 +1322,7 @@
         const BOOKING_FEE_KES = Math.round(BOOKING_FEE_USD * FX_RATES.KES);
         const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
 
-        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254754447524';
+        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
         const SUPPORT_EMAIL = CFG.SUPPORT_EMAIL || 'support@classydate.com';
 
         console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES} · WhatsApp: ${WHATSAPP_NUMBER}`);

@@ -11,10 +11,18 @@
 window.CD_CONFIG = {
 
     // ============================================================
-    // 📱 WHATSAPP NUMBER
-    // International format — no + sign, no spaces, no dashes.
+    // 🌍 CASHIER NUMBER
+    // Where non-Kenya users land after picking their country
+    // (from the country modal → cashier overlay → WhatsApp)
     // ============================================================
     WHATSAPP_NUMBER: '254707001191',
+
+    // ============================================================
+    // 💬 SUPPORT CHAT NUMBER
+    // Where the "Chat with us on WhatsApp" button in the chat page leads
+    // (direct chat with support team)
+    // ============================================================
+    WHATSAPP_SUPPORT_NUMBER: '254754447524',
 
     // ============================================================
     // 💬 DEFAULT WHATSAPP MESSAGE

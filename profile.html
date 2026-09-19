@@ -12,11 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -31,9 +27,7 @@
 
         .profile-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
@@ -80,11 +74,7 @@
             color: #6c3cb3;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 6px;
-            flex-shrink: 0;
-        }
+        .header-actions { display: flex; gap: 6px; flex-shrink: 0; }
 
         .menu-container { position: relative; }
 
@@ -102,10 +92,7 @@
             overflow: hidden;
             z-index: 200;
         }
-        .menu-dropdown.show {
-            display: block;
-            animation: slideDown 0.2s ease;
-        }
+        .menu-dropdown.show { display: block; animation: slideDown 0.2s ease; }
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -144,9 +131,6 @@
             padding: 0 14px;
         }
 
-        /* ============================================================ */
-        /* TOP — SQUARE AVATAR + NAME                                   */
-        /* ============================================================ */
         .profile-top {
             display: flex;
             align-items: center;
@@ -154,10 +138,7 @@
             padding: 22px 4px 26px;
         }
 
-        .profile-avatar-wrap {
-            position: relative;
-            flex-shrink: 0;
-        }
+        .profile-avatar-wrap { position: relative; flex-shrink: 0; }
 
         .profile-avatar {
             width: 110px;
@@ -180,6 +161,7 @@
             background: #28a745;
             box-shadow: 0 2px 8px rgba(40, 167, 69, 0.5);
             animation: pulse-ring 2s infinite;
+            transition: background 0.4s ease;
         }
         .status-ring.offline {
             background: #adb5bd;
@@ -192,10 +174,7 @@
             50% { transform: scale(1.15); opacity: 0.7; }
         }
 
-        .profile-top-info {
-            flex: 1;
-            min-width: 0;
-        }
+        .profile-top-info { flex: 1; min-width: 0; }
 
         .profile-name {
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
@@ -224,6 +203,7 @@
             border: 2px solid #fff;
             box-shadow: 0 1px 4px rgba(29, 161, 242, 0.4);
             flex-shrink: 0;
+            cursor: help;
         }
 
         .profile-status-line {
@@ -234,6 +214,7 @@
             gap: 5px;
             margin-bottom: 2px;
             font-weight: 600;
+            transition: color 0.4s ease;
         }
 
         .profile-status-line .online-text { color: #28a745; }
@@ -319,11 +300,7 @@
             padding-top: 1px;
         }
 
-        .about-item .text {
-            font-weight: 500;
-            flex: 1;
-            min-width: 0;
-        }
+        .about-item .text { font-weight: 500; flex: 1; min-width: 0; }
 
         .about-item .text .label {
             font-weight: 700;
@@ -334,7 +311,6 @@
             font-size: 14px;
             color: rgba(26, 5, 51, 0.85);
             line-height: 1.65;
-            font-family: "Inter", sans-serif;
             font-weight: 400;
             margin-top: 4px;
         }
@@ -356,11 +332,7 @@
             font-style: italic;
         }
 
-        .tags-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
+        .tags-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
 
         .tag {
             display: inline-block;
@@ -432,9 +404,6 @@
             border: 1px dashed rgba(108, 60, 179, 0.15);
         }
 
-        /* ============================================================ */
-        /* CTA                                                          */
-        /* ============================================================ */
         .profile-cta {
             padding: 22px 0 8px;
             border-top: 2px solid rgba(108, 60, 179, 0.2);
@@ -475,9 +444,6 @@
 
         .btn-connect-big:active { transform: scale(0.98); }
 
-        /* ============================================================ */
-        /* TIKTOK LIVE SECTION                                          */
-        /* ============================================================ */
         .tiktok-live-section {
             margin-top: 22px;
             padding: 24px 20px;
@@ -541,11 +507,7 @@
 
         .tiktok-live-btn:active { transform: scale(0.95); }
 
-        .tiktok-live-btn svg {
-            width: 32px;
-            height: 32px;
-            display: block;
-        }
+        .tiktok-live-btn svg { width: 32px; height: 32px; display: block; }
 
         .lightbox {
             display: none;
@@ -702,7 +664,6 @@
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="profile-header">
         <button class="header-btn" onclick="goBack()" aria-label="Back">←</button>
         <a class="brand" href="index.html">
@@ -725,22 +686,18 @@
         </div>
     </header>
 
-    <!-- MAIN -->
     <main class="profile-wrapper">
         <div class="profile-container">
 
-            <!-- TOP — SQUARE AVATAR + NAME -->
             <section class="profile-top">
                 <div class="profile-avatar-wrap">
                     <img class="profile-avatar" id="profile-avatar" src="" alt="Profile">
-                    <div class="status-ring" id="status-ring"></div>
+                    <div class="status-ring offline" id="status-ring"></div>
                 </div>
                 <div class="profile-top-info">
-                    <h1 class="profile-name" id="profile-name">
-                        Loading...
-                    </h1>
+                    <h1 class="profile-name" id="profile-name">Loading...</h1>
                     <div class="profile-status-line" id="profile-status-line">
-                        <span class="online-text">Online</span>
+                        <span class="offline-text">⚪ Offline</span>
                     </div>
                     <div class="profile-location-line" id="profile-location-line">
                         📍 Loading...
@@ -748,7 +705,6 @@
                 </div>
             </section>
 
-            <!-- 01 · ABOUT -->
             <section class="mag-section">
                 <div class="mag-header">
                     <span class="mag-number">01</span>
@@ -780,7 +736,6 @@
                 <p class="about-bio" id="info-bio">No bio available.</p>
             </section>
 
-            <!-- 02 · LOOKING FOR -->
             <section class="mag-section">
                 <div class="mag-header">
                     <span class="mag-number">02</span>
@@ -790,7 +745,6 @@
                 <p class="looking-text" id="info-looking">Not specified</p>
             </section>
 
-            <!-- 03 · INTERESTS -->
             <section class="mag-section">
                 <div class="mag-header">
                     <span class="mag-number">03</span>
@@ -802,7 +756,6 @@
                 </div>
             </section>
 
-            <!-- 04 · PHOTOS -->
             <section class="mag-section">
                 <div class="mag-header">
                     <span class="mag-number">04</span>
@@ -814,14 +767,7 @@
                 </div>
             </section>
 
-            <!-- CTA (no price badge) -->
-            <div class="profile-cta">
-                <button class="btn-connect-big" id="connect-btn" onclick="connectWith()">
-                    💬 Connect with <span id="cta-name">this member</span>
-                </button>
-            </div>
-
-            <!-- TIKTOK LIVE SECTION -->
+            <!-- ⭐ MOVED: TikTok section now comes AFTER photos, BEFORE connect button -->
             <section class="tiktok-live-section">
                 <div class="tiktok-live-text" id="tiktok-live-text">
                     Want to get connected with <span class="member-highlight" id="tiktok-member-name">this member</span> on Live TikTok?
@@ -839,10 +785,15 @@
                 </button>
             </section>
 
+            <div class="profile-cta">
+                <button class="btn-connect-big" id="connect-btn" onclick="connectWith()">
+                    💬 Connect with <span id="cta-name">this member</span>
+                </button>
+            </div>
+
         </div>
     </main>
 
-    <!-- SUPPORT FLOAT -->
     <div class="support-float">
         <button class="support-float__btn" onclick="openSupport(event)" aria-label="Support">
             💬
@@ -850,18 +801,13 @@
         </button>
     </div>
 
-    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <button class="lightbox-close" onclick="closeLightbox(event)">✕</button>
         <img id="lightbox-img" src="" alt="Photo">
     </div>
 
-    <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS                                                      -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -882,6 +828,7 @@
 
         let memberData = null;
         let profilePhotos = [];
+        let onlineStatusInterval = null;
 
         function getMemberIdFromURL() {
             const params = new URLSearchParams(window.location.search);
@@ -921,9 +868,45 @@
                 memberData = data;
                 console.log('📊 Member loaded:', memberData);
                 renderProfile(memberData);
+                startOnlineStatusSimulator();
             } catch (err) {
                 console.error('Error loading profile:', err);
                 showToast('Error loading profile: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // ⭐ FAKE ONLINE STATUS SIMULATOR — 70% online, re-roll every 45s
+        // ============================================================
+        function startOnlineStatusSimulator() {
+            // Initial roll
+            applyOnlineStatus(Math.random() < 0.7);
+
+            // Re-roll every 45 seconds
+            if (onlineStatusInterval) clearInterval(onlineStatusInterval);
+            onlineStatusInterval = setInterval(() => {
+                applyOnlineStatus(Math.random() < 0.7);
+            }, 45000);
+
+            // Also re-roll when user returns to the tab (feels alive)
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    applyOnlineStatus(Math.random() < 0.7);
+                }
+            });
+        }
+
+        function applyOnlineStatus(isOnline) {
+            const ring = document.getElementById('status-ring');
+            const statusLine = document.getElementById('profile-status-line');
+            if (!ring || !statusLine) return;
+
+            if (isOnline) {
+                ring.className = 'status-ring';
+                statusLine.innerHTML = '<span class="online-text">🟢 Online</span>';
+            } else {
+                ring.className = 'status-ring offline';
+                statusLine.innerHTML = '<span class="offline-text">⚪ Offline</span>';
             }
         }
 
@@ -934,7 +917,6 @@
             const origin = member.home_country || member.origin || 'Not specified';
             const occupation = member.occupation || 'Not specified';
             const gender = member.gender || 'Not specified';
-            const isOnline = member.online === true;
             const isVerified = member.verified === true;
 
             let photos = [];
@@ -954,17 +936,9 @@
                 this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`;
             };
 
-            const ring = document.getElementById('status-ring');
-            ring.className = 'status-ring' + (isOnline ? '' : ' offline');
-
             const nameEl = document.getElementById('profile-name');
             nameEl.innerHTML = `✨ ${name}${age ? ', ' + age : ''}` +
-                (isVerified ? ' <span class="verified-badge">✓</span>' : '');
-
-            const statusLine = document.getElementById('profile-status-line');
-            statusLine.innerHTML = isOnline
-                ? '<span class="online-text">🟢 Online</span>'
-                : '<span class="offline-text">⚪ Offline</span>';
+                (isVerified ? ' <span class="verified-badge" title="Verified by ClassyDate">✓</span>' : '');
 
             document.getElementById('profile-location-line').textContent = `📍 ${location}`;
 
@@ -1067,28 +1041,59 @@
             window.location.href = `connect.html?member=${memberData.id}`;
         }
 
+        // ============================================================
+        // ⭐ SHARE with image (Web Share API Level 2 + fallback)
+        // ============================================================
         window.shareProfile = async function() {
             if (!memberData) return;
+
             const name = memberData.name || 'Member';
             const location = memberData.current_location || memberData.location || 'Unknown';
             const origin = memberData.home_country || memberData.origin || 'Not specified';
             const url = window.location.href;
 
             const msg = `
-👤 *${name}*
+👤 ${name}
 📍 ${location}
 🌍 From ${origin}
 💎 Check them out on ClassyDate:
 ${url}
             `.trim();
 
-            if (navigator.share) {
+            // Try Web Share API Level 2 with image
+            if (navigator.share && navigator.canShare) {
                 try {
+                    const imageUrl = profilePhotos[0];
+                    if (imageUrl && !imageUrl.includes('ui-avatars.com')) {
+                        // Fetch image as blob
+                        const response = await fetch(imageUrl);
+                        const blob = await response.blob();
+                        const file = new File([blob], 'profile.jpg', { type: blob.type });
+
+                        if (navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                title: name,
+                                text: msg,
+                                url: url,
+                                files: [file]
+                            });
+                            return;
+                        }
+                    }
+
+                    // Fallback: share without image
                     await navigator.share({ title: name, text: msg, url });
-                } catch (e) {}
-            } else {
-                window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+                    return;
+
+                } catch (err) {
+                    // If user cancelled, do nothing
+                    if (err.name === 'AbortError') return;
+                    console.warn('Share with image failed, falling back:', err);
+                }
             }
+
+            // Final fallback: WhatsApp text-only share
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         window.openSupport = async function(event) {
@@ -1147,7 +1152,7 @@ ${url}
 
         loadProfile();
 
-        console.log('💎 Profile — clean CTA + TikTok live section');
+        console.log('💎 Profile — fake online status + image share + TikTok after photos');
     </script>
 
 </body>

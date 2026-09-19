@@ -219,7 +219,8 @@
 
         .user-details-panel .badge-open,
         .user-details-panel .badge-pending,
-        .user-details-panel .badge-closed {
+        .user-details-panel .badge-closed,
+        .user-details-panel .badge-paid {
             padding: 2px 10px;
             border-radius: 50px;
             font-size: 10px;
@@ -228,6 +229,7 @@
         .badge-open { background: rgba(40, 167, 69, 0.12); color: #28a745; }
         .badge-pending { background: rgba(255, 165, 0, 0.12); color: #b37400; }
         .badge-closed { background: rgba(74, 26, 107, 0.08); color: rgba(74, 26, 107, 0.5); }
+        .badge-paid { background: rgba(108, 60, 179, 0.15); color: #6c3cb3; }
 
         .user-details-panel .info-grid {
             display: grid;
@@ -399,6 +401,113 @@
         }
         .message--sent .message__bubble.photo-only {
             background: #d1e7dd;
+        }
+
+        /* PAY BUTTON */
+        .pay-book-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #6c3cb3 0%, #4a1a6b 100%);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            margin-top: 6px;
+            max-width: 78%;
+            position: relative;
+            overflow: hidden;
+            transform-origin: center;
+            animation: payGlow 2.4s ease-in-out infinite;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .pay-book-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+            transform: skewX(-20deg);
+            animation: paySheen 3.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes payGlow {
+            0%, 100% { box-shadow: 0 4px 16px rgba(108, 60, 179, 0.4), 0 0 0 0 rgba(108, 60, 179, 0.4); }
+            50% { box-shadow: 0 6px 22px rgba(108, 60, 179, 0.6), 0 0 0 8px rgba(108, 60, 179, 0); }
+        }
+        @keyframes paySheen {
+            0%, 60% { left: -120%; }
+            85%, 100% { left: 140%; }
+        }
+        .pay-book-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(108, 60, 179, 0.6), 0 0 0 4px rgba(108, 60, 179, 0.15);
+        }
+        .pay-book-btn:active { transform: translateY(-1px) scale(0.98); }
+        .pay-book-btn:disabled { opacity: 0.6; cursor: wait; animation: none; }
+        .pay-book-btn .pay-icon { font-size: 18px; flex-shrink: 0; display: inline-block; }
+        .pay-book-btn .pay-label {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+            text-align: left;
+        }
+        .pay-book-btn .pay-label strong { font-size: 14px; font-weight: 700; letter-spacing: 0.2px; }
+        .pay-book-btn .pay-label small { font-size: 11px; opacity: 0.9; font-weight: 500; margin-top: 2px; }
+
+        .wa-book-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 211, 102, 0.08);
+            color: #128C7E;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-family: "Inter", sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(37, 211, 102, 0.25);
+            cursor: pointer;
+            margin-top: 4px;
+            max-width: 78%;
+            transition: all 0.2s ease;
+        }
+        .wa-book-btn:hover {
+            background: rgba(37, 211, 102, 0.15);
+            border-color: rgba(37, 211, 102, 0.4);
+        }
+        .wa-book-btn .wa-icon { font-size: 14px; flex-shrink: 0; }
+        .wa-book-btn .wa-label { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+        .wa-book-btn .wa-label strong { font-size: 12px; font-weight: 700; }
+        .wa-book-btn .wa-label small { font-size: 10px; opacity: 0.8; font-weight: 500; }
+
+        .payment-success-banner {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(108, 60, 179, 0.08));
+            border: 1px solid rgba(40, 167, 69, 0.25);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #1a0533;
+        }
+        .payment-success-banner .check { font-size: 22px; flex-shrink: 0; }
+        .payment-success-banner .text strong { display: block; color: #28a745; font-weight: 700; margin-bottom: 2px; }
+        .payment-success-banner .text span { color: rgba(26, 5, 51, 0.65); font-size: 12px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .pay-book-btn, .pay-book-btn::before { animation: none !important; }
         }
 
         .date-separator {
@@ -576,6 +685,387 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
+        /* COUNTRY MODAL */
+        .country-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 5, 51, 0.5);
+            backdrop-filter: blur(6px);
+            z-index: 1500;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .country-modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        .country-modal {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 28px 24px 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(108, 60, 179, 0.25);
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            text-align: center;
+            transform: translateY(20px) scale(0.96);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        .country-modal-overlay.show .country-modal {
+            transform: translateY(0) scale(1);
+        }
+        .country-modal__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(108, 60, 179, 0.08);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #6c3cb3;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-family: "Inter", sans-serif;
+        }
+        .country-modal__close:hover {
+            background: rgba(108, 60, 179, 0.15);
+            transform: rotate(90deg);
+        }
+        .country-modal__icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+            display: block;
+            animation: payIconFloat 3s ease-in-out infinite;
+        }
+        @keyframes payIconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .country-modal h3 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 6px;
+        }
+        .country-modal p {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .country-modal__price {
+            background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06));
+            border: 1px solid rgba(108, 60, 179, 0.15);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+        .country-modal__price .usd {
+            font-size: 24px;
+            font-weight: 900;
+            color: #6c3cb3;
+            display: block;
+            margin-bottom: 3px;
+            transition: all 0.25s ease;
+        }
+        .country-modal__price .kes {
+            font-size: 11px;
+            color: rgba(26, 5, 51, 0.55);
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+        .country-modal__price.flash {
+            animation: priceFlash 0.5s ease;
+        }
+        @keyframes priceFlash {
+            0% { background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06)); }
+            50% { background: linear-gradient(135deg, rgba(108, 60, 179, 0.2), rgba(74, 26, 107, 0.15)); }
+            100% { background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06)); }
+        }
+
+        .country-modal__reason {
+            background: rgba(108, 60, 179, 0.04);
+            border: 1px dashed rgba(108, 60, 179, 0.25);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-size: 12px;
+            color: rgba(26, 5, 51, 0.7);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .country-modal__reason .icon { font-size: 14px; flex-shrink: 0; }
+
+        .country-modal__method {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: rgba(108, 60, 179, 0.06);
+            border: 1px solid rgba(108, 60, 179, 0.15);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #6c3cb3;
+            transition: all 0.25s ease;
+        }
+        .country-modal__method .icon { font-size: 16px; }
+        .country-modal__method.hidden { display: none; }
+        .country-modal__method.mpesa {
+            background: rgba(37, 211, 102, 0.08);
+            border-color: rgba(37, 211, 102, 0.25);
+            color: #128C7E;
+        }
+
+        .country-modal select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid rgba(108, 60, 179, 0.15);
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: "Inter", sans-serif;
+            background: #fff;
+            color: #1a0533;
+            margin-bottom: 14px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .country-modal select:focus { border-color: #6c3cb3; }
+        .country-modal select.shake {
+            animation: selectShake 0.4s ease;
+            border-color: #dc3545;
+        }
+        @keyframes selectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .country-modal__btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "Inter", sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.3);
+        }
+        .country-modal__btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(108, 60, 179, 0.4);
+        }
+        .country-modal__btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+            transform: none;
+        }
+        .country-modal__trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 14px;
+            font-size: 10.5px;
+            color: rgba(26, 5, 51, 0.45);
+            font-weight: 600;
+        }
+        .country-modal__trust span {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .country-modal__inline-error {
+            display: none;
+            background: rgba(220, 53, 69, 0.08);
+            color: #dc3545;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            animation: errorIn 0.3s ease;
+        }
+        .country-modal__inline-error.show { display: block; }
+        @keyframes errorIn {
+            0% { opacity: 0; transform: translateY(-6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Transition overlay */
+        .smooth-transition-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e8d5f5 100%);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .smooth-transition-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        .smooth-transition-overlay .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(108, 60, 179, 0.15);
+            border-top-color: #6c3cb3;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .smooth-transition-overlay .label {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #6c3cb3;
+            letter-spacing: 0.3px;
+        }
+        .smooth-transition-overlay .sub {
+            font-size: 12px;
+            color: rgba(26, 5, 51, 0.5);
+            font-weight: 600;
+        }
+
+        /* Cashier overlay */
+        .cashier-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e8d5f5 100%);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 24px;
+            text-align: center;
+        }
+        .cashier-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        .cashier-overlay__avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            color: #fff;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4);
+            position: relative;
+            animation: cashierPulse 1.6s ease-in-out infinite;
+        }
+        .cashier-overlay__avatar::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 3px solid rgba(37, 211, 102, 0.3);
+            animation: cashierRing 1.6s ease-out infinite;
+        }
+        @keyframes cashierPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        @keyframes cashierRing {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.4); }
+        }
+        .cashier-overlay__title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a0533;
+            letter-spacing: 0.2px;
+        }
+        .cashier-overlay__sub {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
+            font-weight: 600;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        .cashier-overlay__dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .cashier-overlay__dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #6c3cb3;
+            opacity: 0.3;
+            animation: cashierDot 1.2s ease-in-out infinite;
+        }
+        .cashier-overlay__dots span:nth-child(2) { animation-delay: 0.2s; }
+        .cashier-overlay__dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes cashierDot {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-6px); }
+        }
+        .cashier-overlay__country {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #6c3cb3;
+            background: rgba(108, 60, 179, 0.08);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(108, 60, 179, 0.15);
+        }
+        .cashier-overlay__progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(108, 60, 179, 0.12);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .cashier-overlay__progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6c3cb3, #25D366);
+            width: 0%;
+            border-radius: 50px;
+            transition: width 3s linear;
+        }
+        .cashier-overlay.show .cashier-overlay__progress-bar {
+            width: 100%;
+        }
+
         .access-denied {
             display: none;
             flex-direction: column;
@@ -616,88 +1106,6 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
         }
 
-        /* WHATSAPP BUTTON */
-        .whatsapp-cta-wrap {
-            display: flex;
-            justify-content: flex-start;
-            margin: 6px 0 6px 0;
-            padding: 0 4px;
-            animation: messageIn 0.4s ease;
-        }
-        .whatsapp-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 11px 18px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: #fff;
-            font-weight: 700;
-            font-size: 13.5px;
-            border-radius: 12px;
-            text-decoration: none;
-            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            max-width: 90%;
-            font-family: "Inter", sans-serif;
-        }
-        .whatsapp-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5);
-        }
-        .whatsapp-cta:active { transform: translateY(0); }
-        .whatsapp-cta__icon { font-size: 18px; line-height: 1; }
-        @media (max-width: 480px) {
-            .whatsapp-cta { font-size: 12.5px; padding: 10px 14px; }
-        }
-
-        /* PAY BUTTONS */
-        .pay-cta-wrap {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin: 6px 0 4px 0;
-            padding: 0 4px;
-            animation: messageIn 0.4s ease;
-        }
-        .pay-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            color: #fff;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 12px;
-            text-decoration: none;
-            box-shadow: 0 4px 16px rgba(108, 60, 179, 0.45);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            max-width: 90%;
-            font-family: "Inter", sans-serif;
-            border: none;
-            cursor: pointer;
-        }
-        .pay-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(108, 60, 179, 0.55);
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
-        }
-        .pay-cta:active { transform: translateY(0); }
-        .pay-cta__icon { font-size: 18px; line-height: 1; }
-
-        .pay-cta--mpesa {
-            background: linear-gradient(135deg, #16a34a, #15803d);
-            box-shadow: 0 4px 16px rgba(22, 163, 74, 0.45);
-        }
-        .pay-cta--mpesa:hover {
-            background: linear-gradient(135deg, #15803d, #16a34a);
-            box-shadow: 0 8px 24px rgba(22, 163, 74, 0.55);
-        }
-
-        @media (max-width: 480px) {
-            .pay-cta { font-size: 12.5px; padding: 11px 15px; }
-        }
-
         @media (max-width: 768px) {
             .chat-wrapper { padding: 68px 10px 8px; }
             .chat-header { padding: 8px 12px; gap: 8px; }
@@ -714,6 +1122,10 @@
             .admin-badge { font-size: 10px; padding: 4px 10px; }
             .toast { bottom: 20px; right: 20px; left: 20px; text-align: center; }
             .user-details-panel .info-grid { grid-template-columns: 1fr; }
+            .pay-book-btn { font-size: 13px; padding: 10px 16px; }
+            .pay-book-btn .pay-label strong { font-size: 13px; }
+            .pay-book-btn .pay-label small { font-size: 10px; }
+            .wa-book-btn { font-size: 11px; padding: 7px 12px; }
         }
 
         @media (max-width: 480px) {
@@ -728,6 +1140,17 @@
             .icon-btn { padding: 6px 8px; font-size: 17px; min-height: 34px; min-width: 34px; }
             .cb-shell-header__inner { height: 54px; padding: 0 10px; }
             .user-details-panel .photos-row img { width: 42px; height: 42px; }
+            .pay-book-btn { font-size: 12px; padding: 9px 14px; max-width: 88%; }
+            .pay-book-btn .pay-label strong { font-size: 12px; }
+            .pay-book-btn .pay-label small { font-size: 9.5px; }
+            .pay-book-btn .pay-icon { font-size: 16px; }
+            .wa-book-btn { font-size: 10.5px; padding: 6px 10px; max-width: 88%; }
+            .cashier-overlay__title { font-size: 18px; }
+            .cashier-overlay__avatar { width: 78px; height: 78px; font-size: 38px; }
+            .country-modal { padding: 24px 20px 20px; }
+            .country-modal h3 { font-size: 18px; }
+            .country-modal__price .usd { font-size: 22px; }
+            .country-modal__icon { font-size: 38px; }
         }
     </style>
 </head>
@@ -778,6 +1201,7 @@
                 <div class="info-item"><span class="label">👤 Gender:</span> <span id="ud-gender">—</span></div>
                 <div class="info-item"><span class="label">📍 Location:</span> <span id="ud-location">—</span></div>
                 <div class="info-item"><span class="label">💼 Occupation:</span> <span id="ud-occupation">—</span></div>
+                <div class="info-item"><span class="label">💳 Payment:</span> <span id="ud-payment">—</span></div>
             </div>
             <div class="photos-row" id="ud-photos"></div>
         </div>
@@ -803,6 +1227,80 @@
 
     <div class="toast" id="toast"></div>
 
+    <!-- COUNTRY MODAL -->
+    <div class="country-modal-overlay" id="countryModalOverlay">
+        <div class="country-modal">
+            <button class="country-modal__close" onclick="closeCountryModal()">✕</button>
+            <span class="country-modal__icon">🔓</span>
+            <h3>Unlock Your Private Connection</h3>
+            <p>One small step to secure your match</p>
+
+            <div class="country-modal__price" id="modalPriceBox">
+                <span class="usd" id="modalUsdPrice">$10 USD</span>
+                <span class="kes" id="modalKesPrice">Select your country to see local price</span>
+            </div>
+
+            <div class="country-modal__reason">
+                <span class="icon">💎</span>
+                <span>Private connection booking fee</span>
+            </div>
+
+            <div class="country-modal__method hidden" id="modalMethodRow">
+                <span class="icon" id="modalMethodIcon">🔒</span>
+                <span id="modalMethodText">Secure checkout</span>
+            </div>
+
+            <div class="country-modal__inline-error" id="modalInlineError">
+                👆 Please select your country first to continue
+            </div>
+
+            <select id="modalCountrySelect">
+                <option value="">-- Select Country --</option>
+                <option value="KE">Kenya 🇰🇪</option>
+                <option value="NG">Nigeria 🇳🇬</option>
+                <option value="GH">Ghana 🇬🇭</option>
+                <option value="ZA">South Africa 🇿🇦</option>
+                <option value="OTHER">Other Country 🌍</option>
+            </select>
+
+            <button class="country-modal__btn" id="modalProceedBtn" onclick="confirmCountryAndPay()">
+                Unlock My Connection →
+            </button>
+
+            <div class="country-modal__trust">
+                <span>🔒 Secure</span>
+                <span>💳 Encrypted</span>
+                <span>✅ Verified</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smooth transition (Kenya → Paystack) -->
+    <div class="smooth-transition-overlay" id="transitionOverlay">
+        <div class="spinner"></div>
+        <div class="label">Preparing secure checkout</div>
+        <div class="sub">Please wait a moment…</div>
+    </div>
+
+    <!-- Cashier overlay (non-Kenya → WhatsApp) -->
+    <div class="cashier-overlay" id="cashierOverlay">
+        <div class="cashier-overlay__avatar">💬</div>
+        <div class="cashier-overlay__title">Connecting you to our Cashier</div>
+        <div class="cashier-overlay__sub">Please hold on a moment… we're connecting you to a secure WhatsApp chat to finalise your booking.</div>
+        <div class="cashier-overlay__country" id="cashierCountry"></div>
+        <div class="cashier-overlay__progress">
+            <div class="cashier-overlay__progress-bar"></div>
+        </div>
+        <div class="cashier-overlay__dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Global config -->
+    <script src="cd-config.js"></script>
+
     <script type="importmap">
         {
             "imports": {
@@ -819,30 +1317,42 @@
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        /* ============================================================
-           AUTO-REPLY + PAYMENT CONFIG
-           ============================================================ */
-        const WHATSAPP_NUMBER = '254754447524';
+        console.log('🔗 Supabase connected:', SUPABASE_URL);
 
-        const PAYSTACK_PUBLIC_KEY = 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
-        const PAYMENT_AMOUNT_KES = 1250;
-        const PAYMENT_AMOUNT_USD = 10;
+        // ============================================================
+        // GLOBAL CONFIG
+        // ============================================================
+        const CFG = window.CD_CONFIG || {};
+
+        const PAYSTACK_PUBLIC_KEY = CFG.PAYSTACK_PUBLIC_KEY || 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
+        const BOOKING_FEE_USD = CFG.BOOKING_FEE_USD || 10;
+        const FX_RATES = CFG.FX_RATES || { KES: 125, ZAR: 18.6, NGN: 1550, GHS: 15.2, USD: 1 };
+
+        const BOOKING_FEE_KES = Math.round(BOOKING_FEE_USD * FX_RATES.KES);
+        const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
+
+        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
+        const SUPPORT_EMAIL = CFG.SUPPORT_EMAIL || 'support@classydate.com';
+
+        console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES}`);
+
+        // ============================================================
+        // COUNTRY CONFIG
+        // ============================================================
+        const COUNTRY_CONFIG = {
+            KE:    { name: 'Kenya',        flag: '🇰🇪', currency: 'KES', symbol: 'KSh', hint: 'M-PESA prioritised · Card also available', icon: '📱', isMpesa: true,  method: 'paystack' },
+            NG:    { name: 'Nigeria',      flag: '🇳🇬', currency: 'NGN', symbol: '₦',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            GH:    { name: 'Ghana',        flag: '🇬🇭', currency: 'GHS', symbol: 'GH₵', hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            ZA:    { name: 'South Africa', flag: '🇿🇦', currency: 'ZAR', symbol: 'R',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            OTHER: { name: 'International', flag: '🌍', currency: 'USD', symbol: '$',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' }
+        };
 
         const AUTO_REPLY_TEMPLATE =
 `Hi 👋 Thanks for your interest in {NAME} 💕
 
 We received your message and I'm personally reviewing your details right now. {NAME} is very selective and we want to make sure it's a great match.
 
-For a faster reply and to move things forward quickly, tap below to chat with us directly on WhatsApp 👇`;
-
-        const WHATSAPP_PREFILL_TEMPLATE =
-`Hi, I'm ready to connect with {NAME}. I just sent a message on the website, can we continue here?`;
-
-        const WHATSAPP_BUTTON_TEXT = '💬 Chat with us on WhatsApp';
-
-        /* ============================================================ */
-
-        console.log('🔗 Supabase connected:', SUPABASE_URL);
+For a faster reply and to move things forward quickly, tap 🔓 Unlock Your Private Connection below, or chat with us on WhatsApp 👇`;
 
         let currentUser = null;
         let isAdmin = false;
@@ -852,8 +1362,8 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         let realtimeChannel = null;
         let adminStatusInterval = null;
         let readPollingInterval = null;
-
-        let autoReplyScheduled = false;
+        let autoReplyInFlight = false;
+        let paymentInFlight = false;
 
         const messagesContainer = document.getElementById('messages-container');
         const messageInput = document.getElementById('message-input');
@@ -868,6 +1378,10 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         const chatHeaderStatus = document.getElementById('chat-header-status');
         const accessDenied = document.getElementById('access-denied');
         const chatMain = document.getElementById('chat-main');
+        const countryModalOverlay = document.getElementById('countryModalOverlay');
+        const transitionOverlay = document.getElementById('transitionOverlay');
+        const cashierOverlay = document.getElementById('cashierOverlay');
+        const cashierCountry = document.getElementById('cashierCountry');
 
         const urlParams = new URLSearchParams(window.location.search);
         conversationId = urlParams.get('conversation');
@@ -878,12 +1392,52 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             toast.className = 'toast ' + type;
             toast.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 4000);
         }
 
         function redirectToMembers(message) {
             const encoded = encodeURIComponent(message || 'Choose a member to start a conversation');
             window.location.href = `members.html?toast=${encoded}`;
+        }
+
+        function getCountryPrice(countryCode) {
+            const config = COUNTRY_CONFIG[countryCode] || COUNTRY_CONFIG.OTHER;
+
+            if (countryCode === 'KE') {
+                const kesFormatted = BOOKING_FEE_KES.toLocaleString(undefined, { maximumFractionDigits: 0 });
+                return {
+                    display: `KSh${kesFormatted} KES`,
+                    secondary: `≈ $${BOOKING_FEE_USD} USD`,
+                    code: 'KES',
+                    amount: BOOKING_FEE_KES
+                };
+            }
+
+            const rate = FX_RATES[config.currency] || 1;
+            const localAmount = BOOKING_FEE_USD * rate;
+
+            let localFormatted;
+            if (localAmount >= 1000) {
+                localFormatted = localAmount.toLocaleString(undefined, { maximumFractionDigits: 0 });
+            } else {
+                localFormatted = localAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+
+            const usdFormatted = BOOKING_FEE_USD.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            return {
+                display: `$${usdFormatted} USD`,
+                secondary: `≈ ${config.symbol}${localFormatted} ${config.currency}`,
+                code: 'USD',
+                amount: BOOKING_FEE_USD,
+                localAmount: localAmount
+            };
         }
 
         async function requireAuth() {
@@ -907,17 +1461,17 @@ For a faster reply and to move things forward quickly, tap below to chat with us
 
                 if (adminRow) {
                     isAdmin = true;
+                    document.body.classList.add('is-admin');
                     roleBadge.style.display = 'inline-block';
                     userDetailsPanel.classList.add('show');
-                    console.log('🔑 Role: ADMIN');
                 } else {
                     isAdmin = false;
+                    document.body.classList.remove('is-admin');
                     userDetailsPanel.classList.remove('show');
                     userDetailsPanel.style.display = 'none';
-                    console.log('👤 Role: USER');
                 }
             } catch (err) {
-                console.warn('Role detection failed:', err);
+                isAdmin = false;
                 userDetailsPanel.classList.remove('show');
                 userDetailsPanel.style.display = 'none';
             }
@@ -941,20 +1495,14 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 .eq('id', conversationId)
                 .maybeSingle();
 
-            if (error) {
+            if (error || !data) {
                 console.error('Load conversation error:', error);
-                showToast('Error loading conversation', 'error');
-                return null;
-            }
-
-            if (!data) {
                 showToast('Conversation not found', 'error');
-                setTimeout(() => redirectToMembers('Conversation not found. Choose a member to start.'), 1500);
+                setTimeout(() => redirectToMembers('Conversation not found.'), 1500);
                 return null;
             }
 
             if (!isAdmin && data.user_id !== currentUser.id) {
-                console.warn('Access denied — not owner');
                 showAccessDenied('You do not have permission to view this conversation.');
                 return null;
             }
@@ -982,8 +1530,21 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 document.getElementById('ud-location').textContent = conversation.location || '—';
                 document.getElementById('ud-occupation').textContent = conversation.occupation || '—';
 
+                const payEl = document.getElementById('ud-payment');
+                if (conversation.payment_status === 'paid') {
+                    const amt = conversation.amount_paid ? `KES ${(conversation.amount_paid / 100).toLocaleString()}` : '';
+                    payEl.innerHTML = `✅ Paid ${amt} <small style="color:rgba(26,5,51,0.4)">(${conversation.payment_reference || ''})</small>`;
+                } else if (conversation.payment_status === 'pending') {
+                    payEl.textContent = '⏳ Pending';
+                } else {
+                    payEl.textContent = '❌ Unpaid';
+                }
+
                 const statusEl = document.getElementById('ud-status');
-                if (conversation.status === 'open') {
+                if (conversation.payment_status === 'paid') {
+                    statusEl.className = 'badge-paid';
+                    statusEl.textContent = '💳 PAID';
+                } else if (conversation.status === 'open') {
                     statusEl.className = 'badge-open';
                     statusEl.textContent = '🟢 Open';
                 } else if (conversation.status === 'pending') {
@@ -1010,7 +1571,7 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             } else {
                 document.getElementById('chat-name').textContent = 'ClassyDate Support Team';
                 document.getElementById('chat-subtext').innerHTML = `
-                    <span>📧 support@classydate.com</span>
+                    <span>📧 ${SUPPORT_EMAIL}</span>
                 `;
                 document.getElementById('support-avatar').textContent = '💬';
                 chatHeaderStatus.style.display = 'flex';
@@ -1063,28 +1624,25 @@ For a faster reply and to move things forward quickly, tap below to chat with us
 
             if (error) {
                 console.error('Load messages error:', error);
-                showToast('Error loading messages', 'error');
                 return;
             }
 
             messages = data || [];
             renderMessages();
+            maybeSendAutoReply();
         }
 
         async function markMessagesAsRead() {
             if (!conversationId || !currentUser) return;
-
             try {
                 if (isAdmin) {
-                    await supabase
-                        .from('messages')
+                    await supabase.from('messages')
                         .update({ read_by_admin: true })
                         .eq('conversation_id', conversationId)
                         .eq('sender_type', 'user')
                         .eq('read_by_admin', false);
                 } else {
-                    await supabase
-                        .from('messages')
+                    await supabase.from('messages')
                         .update({ read_by_user: true })
                         .eq('conversation_id', conversationId)
                         .eq('sender_type', 'admin')
@@ -1093,6 +1651,52 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             } catch (err) {
                 console.warn('Mark as read failed:', err);
             }
+        }
+
+        function buildAutoReply() {
+            const name = (conversation && conversation.member_name) ? conversation.member_name : 'this person';
+            return AUTO_REPLY_TEMPLATE.replace(/\{NAME\}/g, name);
+        }
+
+        async function maybeSendAutoReply() {
+            if (autoReplyInFlight) return;
+            if (!messages || messages.length === 0) return;
+            if (!conversationId || !currentUser) return;
+            if (isAdmin) return;
+
+            const hasUserMsg = messages.some(m => m.sender_type === 'user');
+            const hasAdminMsg = messages.some(m => m.sender_type === 'admin');
+
+            if (!hasUserMsg) return;
+            if (hasAdminMsg) return;
+
+            autoReplyInFlight = true;
+
+            const delay = 3000 + Math.floor(Math.random() * 2000);
+
+            setTimeout(async () => {
+                try {
+                    const text = buildAutoReply();
+                    const { error } = await supabase.from('messages').insert([{
+                        conversation_id: conversationId,
+                        sender_type: 'admin',
+                        sender_id: null,
+                        text: text,
+                        read_by_admin: true,
+                        read_by_user: false
+                    }]);
+                    if (error) throw error;
+
+                    await supabase.from('conversations')
+                        .update({ updated_at: new Date().toISOString() })
+                        .eq('id', conversationId);
+
+                    await loadMessages();
+                } catch (err) {
+                    console.error('Auto-reply failed:', err);
+                    autoReplyInFlight = false;
+                }
+            }, delay);
         }
 
         function renderMessages() {
@@ -1111,6 +1715,18 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             let lastSenderType = null;
             let html = '';
 
+            if (!isAdmin && conversation && conversation.payment_status === 'paid') {
+                html += `
+                    <div class="payment-success-banner">
+                        <span class="check">✅</span>
+                        <div class="text">
+                            <strong>Payment Confirmed</strong>
+                            <span>Your private connection has been unlocked. Our team will contact you on WhatsApp shortly.</span>
+                        </div>
+                    </div>
+                `;
+            }
+
             messages.forEach((msg) => {
                 const msgDate = new Date(msg.created_at);
                 const dateStr = msgDate.toDateString();
@@ -1127,9 +1743,7 @@ For a faster reply and to move things forward quickly, tap below to chat with us
 
                 let contentHTML = '';
                 let isPhotoOnly = false;
-
                 if (msg.attachment_url && !msg.text) isPhotoOnly = true;
-
                 if (msg.attachment_url) {
                     contentHTML += `<img src="${msg.attachment_url}" onclick="openLightbox('${msg.attachment_url}')" alt="Attachment">`;
                 }
@@ -1162,14 +1776,37 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                     </div>
                 `;
 
+                if (!isAdmin && msg.sender_type === 'admin' && msg.text && msg.text.trim()) {
+                    const alreadyPaid = conversation && conversation.payment_status === 'paid';
+
+                    if (!alreadyPaid) {
+                        html += `
+                            <div class="message message--received">
+                                <button class="pay-book-btn" onclick="openCountryModal()" id="pay-btn-${msg.id}">
+                                    <span class="pay-icon">🔓</span>
+                                    <span class="pay-label">
+                                        <strong>Unlock Your Private Connection</strong>
+                                        <small>Secure your match · instant access</small>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="message message--received">
+                                <a class="wa-book-btn" href="${buildWhatsAppLink()}" target="_blank" rel="noopener">
+                                    <span class="wa-icon">💬</span>
+                                    <span class="wa-label">
+                                        <strong>Chat with us on WhatsApp</strong>
+                                        <small>Tap to talk to our team directly</small>
+                                    </span>
+                                </a>
+                            </div>
+                        `;
+                    }
+                }
+
                 lastSenderType = msg.sender_type;
             });
 
             messagesContainer.innerHTML = html;
-
-            maybeShowPayCTA();
-            maybeShowWhatsAppCTA();
-
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
@@ -1177,7 +1814,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             const today = new Date();
             const yesterday = new Date(today);
             yesterday.setDate(yesterday.getDate() - 1);
-
             if (date.toDateString() === today.toDateString()) return 'Today';
             if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
             return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
@@ -1193,238 +1829,243 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 .replace(/'/g, '&#039;');
         }
 
-        /* ============================================================
-           AUTO-REPLY LOGIC
-           ============================================================ */
-
-        function buildAutoReplyMessage() {
-            const name = (conversation && conversation.member_name) ? conversation.member_name : 'this person';
-            return AUTO_REPLY_TEMPLATE.replace(/\{NAME\}/g, name);
-        }
-        function buildWhatsAppPrefill() {
-            const name = (conversation && conversation.member_name) ? conversation.member_name : 'this person';
-            return WHATSAPP_PREFILL_TEMPLATE.replace(/\{NAME\}/g, name);
-        }
         function buildWhatsAppLink() {
-            const prefill = buildWhatsAppPrefill();
-            return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(prefill)}`;
+            const phone = String(WHATSAPP_NUMBER).replace(/\D/g, '');
+            const memberName = (conversation && conversation.member_name) ? conversation.member_name : 'a member';
+            const msg = `Hi ClassyDate 👋 I'm ready to connect with ${memberName}. I just sent a message on the website, can we continue here?`;
+            return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
         }
 
-        /* ⭐ Check if auto-reply already exists in DB (so it doesn't duplicate on refresh) */
-        function hasAdminAutoReply() {
-            return messages.some(m => m.sender_type === 'admin');
+        // ============================================================
+        // COUNTRY MODAL
+        // ============================================================
+        window.openCountryModal = function() {
+            if (paymentInFlight) return;
+            if (!conversation) return showToast('Conversation not loaded', 'error');
+            if (!currentUser || !currentUser.email) return showToast('Please login first', 'error');
+            if (conversation.payment_status === 'paid') {
+                return showToast('This booking is already paid ✅', 'info');
+            }
+
+            updateModalPrice('', true);
+            document.getElementById('modalCountrySelect').value = '';
+            document.getElementById('modalProceedBtn').disabled = false;
+            document.getElementById('modalProceedBtn').textContent = 'Unlock My Connection →';
+            document.getElementById('modalInlineError').classList.remove('show');
+            document.getElementById('modalCountrySelect').classList.remove('shake');
+
+            countryModalOverlay.classList.add('show');
+        };
+
+        window.closeCountryModal = function() {
+            countryModalOverlay.classList.remove('show');
+        };
+
+        function updateModalPrice(countryCode, isDefault) {
+            const priceBox = document.getElementById('modalPriceBox');
+            const usdEl = document.getElementById('modalUsdPrice');
+            const kesEl = document.getElementById('modalKesPrice');
+            const methodRow = document.getElementById('modalMethodRow');
+            const methodText = document.getElementById('modalMethodText');
+            const methodIcon = document.getElementById('modalMethodIcon');
+
+            if (isDefault || !countryCode) {
+                usdEl.textContent = `$${BOOKING_FEE_USD} USD`;
+                kesEl.textContent = `Select your country to see local price`;
+                if (methodRow) methodRow.classList.add('hidden');
+            } else {
+                const price = getCountryPrice(countryCode);
+                const config = COUNTRY_CONFIG[countryCode] || COUNTRY_CONFIG.OTHER;
+
+                usdEl.textContent = price.display;
+                kesEl.textContent = price.secondary;
+
+                if (methodRow && methodText && methodIcon) {
+                    methodText.textContent = config.hint;
+                    methodIcon.textContent = config.icon;
+                    methodRow.classList.toggle('mpesa', config.isMpesa);
+                    methodRow.classList.remove('hidden');
+                }
+            }
+
+            priceBox.classList.remove('flash');
+            void priceBox.offsetWidth;
+            priceBox.classList.add('flash');
         }
 
-        /* ⭐ Auto-reply — fires on page load if there's no admin message yet */
-        async function sendWelcomeAutoReply() {
-            if (isAdmin) return;
-            if (!conversation) return;
-            if (autoReplyScheduled) return;
+        document.getElementById('modalCountrySelect').addEventListener('change', (e) => {
+            const country = e.target.value;
+            document.getElementById('modalInlineError').classList.remove('show');
+            document.getElementById('modalCountrySelect').classList.remove('shake');
+            if (country) updateModalPrice(country, false);
+            else updateModalPrice('', true);
+        });
 
-            // If admin already replied in this conversation, do nothing
-            if (hasAdminAutoReply()) {
-                console.log('✅ Admin reply already exists — skipping auto-reply');
+        window.confirmCountryAndPay = async function() {
+            const countrySelect = document.getElementById('modalCountrySelect');
+            const country = countrySelect.value;
+            const inlineError = document.getElementById('modalInlineError');
+
+            if (!country) {
+                inlineError.classList.add('show');
+                countrySelect.classList.add('shake');
+                setTimeout(() => countrySelect.classList.remove('shake'), 500);
+                setTimeout(() => inlineError.classList.remove('show'), 4000);
                 return;
             }
 
-            // Need at least 1 user message
-            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
-            if (userMsgCount === 0) return;
+            inlineError.classList.remove('show');
+            countryModalOverlay.classList.remove('show');
 
-            autoReplyScheduled = true;
+            const config = COUNTRY_CONFIG[country] || COUNTRY_CONFIG.OTHER;
 
-            const delay = 3000 + Math.floor(Math.random() * 2000);
-            console.log(`⏱️ Welcome auto-reply scheduled in ${delay}ms`);
-
-            setTimeout(async () => {
-                try {
-                    const text = buildAutoReplyMessage();
-                    const { error } = await supabase
-                        .from('messages')
-                        .insert([{
-                            conversation_id: conversationId,
-                            sender_type: 'admin',
-                            sender_id: null,
-                            text: text,
-                            read_by_admin: true,
-                            read_by_user: false
-                        }]);
-
-                    if (error) throw error;
-
-                    await supabase
-                        .from('conversations')
-                        .update({ updated_at: new Date().toISOString() })
-                        .eq('id', conversationId);
-
-                    console.log('✅ Welcome auto-reply sent');
-                    await loadMessages();
-                } catch (err) {
-                    console.error('Welcome auto-reply failed:', err);
-                    autoReplyScheduled = false;
-                }
-            }, delay);
-        }
-
-        /* ⭐ PAY BUTTONS — Card + M-PESA */
-        function maybeShowPayCTA() {
-            const old = document.getElementById('pay-cta-wrap');
-            if (old) old.remove();
-
-            if (isAdmin) return;
-            if (!conversation) return;
-            if (messages.length === 0) return;
-
-            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
-            if (userMsgCount === 0) return;
-
-            if (!hasAdminAutoReply()) return;
-
-            const wrap = document.createElement('div');
-            wrap.id = 'pay-cta-wrap';
-            wrap.className = 'pay-cta-wrap';
-            wrap.innerHTML = `
-                <button class="pay-cta" onclick="openPaystack('card')">
-                    <span class="pay-cta__icon">💳</span>
-                    <span>Pay $${PAYMENT_AMOUNT_USD} with Card</span>
-                </button>
-                <button class="pay-cta pay-cta--mpesa" onclick="openPaystack('mpesa')">
-                    <span class="pay-cta__icon">📱</span>
-                    <span>Pay KES ${PAYMENT_AMOUNT_KES.toLocaleString()} with M-PESA</span>
-                </button>
-            `;
-            messagesContainer.appendChild(wrap);
-        }
-
-        /* ⭐ Open Paystack popup — mode: 'card' or 'mpesa' */
-        window.openPaystack = function(mode) {
-            if (!conversation) {
-                showToast('Conversation not loaded', 'error');
-                return;
-            }
-
-            const memberName = conversation.member_name || 'this member';
-            const customerName = conversation.full_name || 'User';
-            const email = conversation.email || (currentUser && currentUser.email) || 'customer@classydate.com';
-
-            const config = {
-                key: PAYSTACK_PUBLIC_KEY,
-                email: email,
-                amount: PAYMENT_AMOUNT_KES * 100,
-                currency: 'KES',
-                metadata: {
-                    conversation_id: conversationId,
-                    member_name: memberName,
-                    customer_name: customerName,
-                    payment_method: mode,
-                    custom_fields: [
-                        {
-                            display_name: "Connecting With",
-                            variable_name: "connecting_with",
-                            value: memberName
-                        },
-                        {
-                            display_name: "Customer Name",
-                            variable_name: "customer_name",
-                            value: customerName
-                        },
-                        {
-                            display_name: "Payment Method",
-                            variable_name: "payment_method",
-                            value: mode === 'card' ? 'Card' : 'M-PESA'
-                        }
-                    ]
-                },
-                onSuccess: async (transaction) => {
-                    console.log('✅ Payment successful:', transaction);
-                    showToast('✅ Payment received! We\'ll contact you shortly.', 'success');
-                    await loadMessages();
-                },
-                onCancel: () => {
-                    console.log('Payment cancelled by user');
-                    showToast('Payment cancelled', 'info');
-                }
-            };
-
-            // Force channels based on mode
-            if (mode === 'card') {
-                config.channels = ['card'];
-            } else if (mode === 'mpesa') {
-                config.channels = ['mobile_money'];
-            }
-
-            try {
-                const paystack = new PaystackPop();
-                paystack.newTransaction(config);
-            } catch (err) {
-                console.error('Paystack error:', err);
-                showToast('Could not open payment: ' + err.message, 'error');
+            if (country === 'KE') {
+                await executePaystackPayment(country);
+            } else {
+                redirectToCashier(country, config);
             }
         };
 
-        function maybeShowWhatsAppCTA() {
-            const old = document.getElementById('wa-cta-wrap');
-            if (old) old.remove();
+        // ============================================================
+        // CASHIER (WhatsApp) — non-Kenya
+        // ============================================================
+        function redirectToCashier(country, config) {
+            paymentInFlight = true;
 
-            if (isAdmin) return;
-            if (!conversation) return;
-            if (messages.length === 0) return;
+            const price = getCountryPrice(country);
+            const countryName = config.name;
 
-            const userMsgCount = messages.filter(m => m.sender_type === 'user').length;
-            if (userMsgCount === 0) return;
+            cashierCountry.textContent = `${config.flag} ${countryName}`;
+            cashierOverlay.classList.add('show');
 
-            if (!hasAdminAutoReply()) return;
+            const memberName = (conversation && conversation.member_name) ? conversation.member_name : 'a member';
 
-            const wrap = document.createElement('div');
-            wrap.id = 'wa-cta-wrap';
-            wrap.className = 'whatsapp-cta-wrap';
-            wrap.innerHTML = `
-                <a class="whatsapp-cta" href="${buildWhatsAppLink()}" target="_blank" rel="noopener">
-                    <span class="whatsapp-cta__icon">💬</span>
-                    <span>${WHATSAPP_BUTTON_TEXT}</span>
-                </a>
-            `;
-            messagesContainer.appendChild(wrap);
+            const waMessage = `Hi ClassyDate 👋
+
+I'm from ${countryName} ${config.flag} and I'd like to connect with ${memberName}.
+
+💎 Booking fee: $${BOOKING_FEE_USD} USD (${price.secondary})
+
+Please share the payment details so I can complete this.
+
+Thank you!`;
+
+            const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`;
+
+            setTimeout(() => {
+                window.open(waLink, '_blank');
+                setTimeout(() => {
+                    cashierOverlay.classList.remove('show');
+                    paymentInFlight = false;
+                }, 400);
+            }, 3000);
         }
 
+        // ============================================================
+        // KENYA PAYSTACK
+        // ============================================================
+        async function executePaystackPayment(country) {
+            paymentInFlight = true;
+
+            transitionOverlay.classList.add('show');
+
+            try {
+                const reference = `CD_${conversationId.slice(0, 8)}_${Date.now()}`;
+                const memberName = (conversation && conversation.member_name) ? conversation.member_name : 'a member';
+                const customerName = (conversation && conversation.full_name) ? conversation.full_name : 'Customer';
+                const email = conversation.email || currentUser.email;
+
+                console.log('💳 Opening Paystack (Kenya):', { reference, amount: BOOKING_FEE_KES_CENTS });
+
+                // Save pending state
+                await supabase.from('conversations')
+                    .update({ payment_status: 'pending', payment_reference: reference })
+                    .eq('id', conversationId);
+
+                transitionOverlay.classList.remove('show');
+
+                const paystack = new PaystackPop();
+                paystack.newTransaction({
+                    key: PAYSTACK_PUBLIC_KEY,
+                    email: email,
+                    amount: BOOKING_FEE_KES_CENTS,
+                    currency: 'KES',
+                    channels: ['mobile_money', 'card'],
+                    metadata: {
+                        conversation_id: conversationId,
+                        user_id: currentUser.id,
+                        member_name: memberName,
+                        customer_name: customerName,
+                        country: country,
+                        payment_reason: 'Private connection booking fee',
+                        custom_fields: [
+                            { display_name: "Connecting With", variable_name: "connecting_with", value: memberName },
+                            { display_name: "Customer Name", variable_name: "customer_name", value: customerName }
+                        ]
+                    },
+                    onSuccess: async (transaction) => {
+                        console.log('✅ Payment successful:', transaction);
+                        showToast('✅ Payment received! Our team will contact you shortly.', 'success');
+
+                        await supabase.from('conversations')
+                            .update({
+                                payment_status: 'paid',
+                                payment_reference: transaction.reference,
+                                amount_paid: BOOKING_FEE_KES_CENTS,
+                                paid_at: new Date().toISOString()
+                            })
+                            .eq('id', conversationId);
+
+                        await loadConversation();
+                        renderConversationHeader();
+                        await loadMessages();
+                        paymentInFlight = false;
+                    },
+                    onCancel: () => {
+                        console.log('Payment cancelled');
+                        showToast('Payment cancelled', 'info');
+                        paymentInFlight = false;
+                    }
+                });
+
+            } catch (err) {
+                console.error('Payment start failed:', err);
+                transitionOverlay.classList.remove('show');
+                showToast('❌ ' + (err.message || 'Payment failed. Please try again.'), 'error');
+                paymentInFlight = false;
+            }
+        }
+
+        // ============================================================
+        // MESSAGE / PHOTO
+        // ============================================================
         async function sendMessage() {
             const text = messageInput.value.trim();
             if (!text) return showToast('Please type a message first!', 'error');
             if (!conversation) return showToast('Conversation not loaded', 'error');
 
             const senderType = isAdmin ? 'admin' : 'user';
-
             sendBtn.disabled = true;
             sendBtn.textContent = '⏳';
 
             try {
-                const { error } = await supabase
-                    .from('messages')
-                    .insert([{
-                        conversation_id: conversationId,
-                        sender_type: senderType,
-                        sender_id: currentUser.id,
-                        text: text,
-                        read_by_admin: senderType === 'admin',
-                        read_by_user: senderType === 'user'
-                    }]);
-
+                const { error } = await supabase.from('messages').insert([{
+                    conversation_id: conversationId,
+                    sender_type: senderType,
+                    sender_id: currentUser.id,
+                    text: text,
+                    read_by_admin: senderType === 'admin',
+                    read_by_user: senderType === 'user'
+                }]);
                 if (error) throw error;
 
-                await supabase
-                    .from('conversations')
+                await supabase.from('conversations')
                     .update({ updated_at: new Date().toISOString() })
                     .eq('id', conversationId);
 
                 messageInput.value = '';
                 await loadMessages();
-
-                // If admin sends, trigger auto-reply logic (won't fire for admin)
-                if (!hasAdminAutoReply()) {
-                    sendWelcomeAutoReply();
-                }
             } catch (err) {
-                console.error('Send error:', err);
                 showToast('Failed to send: ' + err.message, 'error');
             } finally {
                 sendBtn.disabled = false;
@@ -1448,7 +2089,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                 const { data, error } = await supabase.storage
                     .from('chat_attachments')
                     .upload(fileName, file);
-
                 if (error) throw error;
 
                 const { data: urlData } = supabase.storage
@@ -1456,33 +2096,24 @@ For a faster reply and to move things forward quickly, tap below to chat with us
                     .getPublicUrl(data.path);
 
                 const senderType = isAdmin ? 'admin' : 'user';
-                const { error: insertErr } = await supabase
-                    .from('messages')
-                    .insert([{
-                        conversation_id: conversationId,
-                        sender_type: senderType,
-                        sender_id: currentUser.id,
-                        text: '',
-                        attachment_url: urlData.publicUrl,
-                        read_by_admin: senderType === 'admin',
-                        read_by_user: senderType === 'user'
-                    }]);
-
+                const { error: insertErr } = await supabase.from('messages').insert([{
+                    conversation_id: conversationId,
+                    sender_type: senderType,
+                    sender_id: currentUser.id,
+                    text: '',
+                    attachment_url: urlData.publicUrl,
+                    read_by_admin: senderType === 'admin',
+                    read_by_user: senderType === 'user'
+                }]);
                 if (insertErr) throw insertErr;
 
-                await supabase
-                    .from('conversations')
+                await supabase.from('conversations')
                     .update({ updated_at: new Date().toISOString() })
                     .eq('id', conversationId);
 
                 showToast('✅ Photo sent!', 'success');
                 await loadMessages();
-
-                if (!hasAdminAutoReply()) {
-                    sendWelcomeAutoReply();
-                }
             } catch (err) {
-                console.error('Photo send error:', err);
                 showToast('Failed to send photo: ' + err.message, 'error');
             } finally {
                 photoBtn.disabled = false;
@@ -1497,22 +2128,13 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             realtimeChannel = supabase
                 .channel('messages:' + conversationId)
                 .on('postgres_changes', {
-                    event: 'INSERT',
-                    schema: 'public',
-                    table: 'messages',
+                    event: 'INSERT', schema: 'public', table: 'messages',
                     filter: `conversation_id=eq.${conversationId}`
-                }, () => {
-                    loadMessages();
-                    markMessagesAsRead();
-                })
+                }, () => { loadMessages(); markMessagesAsRead(); })
                 .on('postgres_changes', {
-                    event: 'UPDATE',
-                    schema: 'public',
-                    table: 'messages',
+                    event: 'UPDATE', schema: 'public', table: 'messages',
                     filter: `conversation_id=eq.${conversationId}`
-                }, () => {
-                    loadMessages();
-                })
+                }, () => { loadMessages(); })
                 .subscribe();
         }
 
@@ -1527,8 +2149,9 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             readPollingInterval = setInterval(() => {
                 if (!document.hidden && conversationId) {
                     loadMessages();
+                    loadConversation().then(() => renderConversationHeader());
                 }
-            }, 4000);
+            }, 5000);
         }
 
         window.openLightbox = function(url) {
@@ -1540,16 +2163,17 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         }
 
         window.goBack = function() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                if (isAdmin) {
-                    window.location.href = 'adminpanel.html';
-                } else {
-                    window.location.href = 'members.html';
-                }
-            }
+            if (window.history.length > 1) window.history.back();
+            else window.location.href = isAdmin ? 'adminpanel.html' : 'members.html';
         }
+
+        countryModalOverlay.addEventListener('click', (e) => {
+            if (e.target === countryModalOverlay) closeCountryModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && countryModalOverlay.classList.contains('show')) closeCountryModal();
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             sendBtn.addEventListener('click', sendMessage);
@@ -1563,7 +2187,6 @@ For a faster reply and to move things forward quickly, tap below to chat with us
             photoInput.addEventListener('change', (e) => {
                 if (e.target.files && e.target.files[0]) sendPhoto(e.target.files[0]);
             });
-
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden && conversation) {
                     markMessagesAsRead();
@@ -1575,26 +2198,17 @@ For a faster reply and to move things forward quickly, tap below to chat with us
         (async function init() {
             const ok = await requireAuth();
             if (!ok) return;
-
             await detectRole();
-
             const conv = await loadConversation();
             if (!conv) return;
-
             renderConversationHeader();
             await loadMessages();
             await markMessagesAsRead();
-
-            sendWelcomeAutoReply();
-
             subscribeToMessages();
             startAdminStatusPolling();
             startReadPolling();
-
             messageInput.focus();
-
             console.log('💬 Chat ready');
-            console.log('Role:', isAdmin ? 'ADMIN' : 'USER');
         })();
     </script>
 

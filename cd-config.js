@@ -14,7 +14,7 @@ window.CD_CONFIG = {
     // 📱 WHATSAPP NUMBER
     // International format — no + sign, no spaces, no dashes.
     // ============================================================
-    WHATSAPP_NUMBER: '254707001191',
+    WHATSAPP_NUMBER: '254754447524',
 
     // ============================================================
     // 💬 DEFAULT WHATSAPP MESSAGE
@@ -39,6 +39,8 @@ window.CD_CONFIG = {
     // ============================================================
     FX_RATES: {
         KES: 125,      // Kenyan Shilling — 125 * $10 = 1250 KES
+        UGX: 3700,     // Ugandan Shilling
+        TZS: 2600,     // Tanzanian Shilling
         ZAR: 18.6,     // South African Rand
         NGN: 1550,     // Nigerian Naira
         GHS: 15.2,     // Ghanaian Cedi

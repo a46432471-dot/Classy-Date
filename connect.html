@@ -25,7 +25,6 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* HEADER */
         .connect-header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -74,7 +73,6 @@
             color: #6c3cb3;
         }
 
-        /* WRAPPER */
         .connect-wrapper {
             flex: 1;
             padding: 72px 0 40px;
@@ -87,7 +85,6 @@
             padding: 0 16px;
         }
 
-        /* TOP — MEMBER INTRO */
         .connect-intro {
             text-align: center;
             padding: 16px 0 24px;
@@ -135,7 +132,6 @@
             margin: 0 auto;
         }
 
-        /* RESTORED BANNER */
         .restored-banner {
             display: none;
             background: linear-gradient(135deg, rgba(108, 60, 179, 0.1), rgba(74, 26, 107, 0.08));
@@ -153,7 +149,6 @@
         .restored-banner.show { display: flex; }
         .restored-banner .icon { font-size: 18px; flex-shrink: 0; }
 
-        /* FORM SECTION */
         .form-section {
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(16px);
@@ -195,7 +190,6 @@
             letter-spacing: 1px;
         }
 
-        /* FORM FIELDS */
         .form-group { margin-bottom: 14px; }
         .form-group:last-child { margin-bottom: 0; }
 
@@ -209,10 +203,8 @@
             letter-spacing: 0.3px;
         }
 
-        .form-group label .required {
-            color: #dc3545;
-            margin-left: 2px;
-        }
+        .form-group label .required { color: #dc3545; margin-left: 2px; }
+        .form-group label .optional { color: rgba(26, 5, 51, 0.4); margin-left: 4px; font-weight: 500; text-transform: none; letter-spacing: 0; }
 
         .form-group input,
         .form-group select,
@@ -230,10 +222,15 @@
             min-height: 46px;
         }
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(26, 5, 51, 0.3);
+        .form-group input:read-only,
+        .form-group input[readonly] {
+            background: rgba(108, 60, 179, 0.05);
+            cursor: not-allowed;
+            color: rgba(26, 5, 51, 0.7);
         }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: rgba(26, 5, 51, 0.3); }
 
         .form-group input:focus,
         .form-group select:focus,
@@ -258,13 +255,46 @@
             gap: 10px;
         }
 
-        /* PHOTO UPLOAD */
+        /* WhatsApp phone input with country code */
+        .phone-input-group {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 8px;
+        }
+
+        .phone-input-group select {
+            padding: 12px 30px 12px 12px;
+            background-position: right 10px center;
+        }
+
+        /* Location */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
         .upload-hint {
             font-size: 12px;
             color: rgba(26, 5, 51, 0.5);
             margin-bottom: 10px;
             font-style: italic;
         }
+
+        .upload-privacy {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(40, 167, 69, 0.08);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #1e7e34;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .upload-privacy .icon { font-size: 14px; }
 
         .upload-zone {
             position: relative;
@@ -357,6 +387,16 @@
         }
         .photo-thumb .remove-btn:hover { background: #dc3545; transform: scale(1.1); }
 
+        .photos-shared-note {
+            display: none;
+            font-size: 11.5px;
+            color: rgba(40, 167, 69, 0.9);
+            font-weight: 600;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .photos-shared-note.show { display: block; }
+
         .add-more-btn {
             display: none;
             background: rgba(108, 60, 179, 0.08);
@@ -378,7 +418,6 @@
             border-color: #6c3cb3;
         }
 
-        /* CTA */
         .btn-submit {
             width: 100%;
             padding: 16px 20px;
@@ -410,13 +449,51 @@
             transform: none;
         }
 
-        .privacy-note {
-            text-align: center;
-            font-size: 11px;
-            color: rgba(26, 5, 51, 0.45);
-            margin-top: 12px;
-            line-height: 1.5;
+        .btn-submit .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .skip-link {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.55);
+            font-weight: 500;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            background: none;
+            border: none;
+            font-family: "Inter", sans-serif;
+            width: 100%;
+            padding: 8px;
+        }
+        .skip-link:hover { color: #6c3cb3; }
+
+        .privacy-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            text-align: left;
+            font-size: 12px;
+            color: rgba(26, 5, 51, 0.65);
+            margin-top: 16px;
+            line-height: 1.5;
+            background: rgba(108, 60, 179, 0.05);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-weight: 500;
+        }
+        .privacy-note .icon { font-size: 16px; flex-shrink: 0; }
 
         .error-banner {
             display: none;
@@ -454,7 +531,6 @@
             animation: spin 0.8s linear infinite;
             margin-bottom: 12px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
 
         .toast {
             position: fixed;
@@ -522,6 +598,7 @@
             line-height: 1.5;
             margin-bottom: 20px;
         }
+        .success-card p strong { color: #6c3cb3; }
         .success-card .btn-go-chat {
             width: 100%;
             padding: 14px;
@@ -540,6 +617,108 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
         }
 
+        /* SIGN-IN REQUIRED MODAL */
+        .auth-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 5, 51, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-modal-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+
+        .auth-modal {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 36px 28px 28px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(108, 60, 179, 0.35);
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            animation: scaleIn 0.3s ease;
+        }
+
+        .auth-modal__icon {
+            font-size: 52px;
+            display: block;
+            margin-bottom: 14px;
+            animation: payIconFloat 3s ease-in-out infinite;
+        }
+        @keyframes payIconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .auth-modal h2 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 10px;
+        }
+
+        .auth-modal p {
+            font-size: 14px;
+            color: rgba(26, 5, 51, 0.65);
+            line-height: 1.55;
+            margin-bottom: 22px;
+        }
+
+        .auth-modal p strong { color: #6c3cb3; font-weight: 700; }
+
+        .auth-modal__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .auth-modal__btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .auth-modal__btn--primary {
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.3);
+        }
+        .auth-modal__btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(108, 60, 179, 0.4);
+        }
+
+        .auth-modal__btn--secondary {
+            background: rgba(108, 60, 179, 0.08);
+            color: #6c3cb3;
+            border: 1px solid rgba(108, 60, 179, 0.15);
+        }
+        .auth-modal__btn--secondary:hover {
+            background: rgba(108, 60, 179, 0.15);
+        }
+
+        .auth-modal__hint {
+            font-size: 11.5px;
+            color: rgba(26, 5, 51, 0.5);
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
         @media (min-width: 600px) {
             .connect-header { height: 60px; padding: 0 16px; }
             .brand { font-size: 20px; }
@@ -556,14 +735,15 @@
             .btn-submit { font-size: 17px; padding: 18px 24px; }
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 480px) {
+            .phone-input-group { grid-template-columns: 115px 1fr; }
+            .location-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="connect-header">
         <button class="header-btn" onclick="goBack()" aria-label="Back">←</button>
         <a class="brand" href="index.html">
@@ -572,20 +752,16 @@
         <div style="width: 38px;"></div>
     </header>
 
-    <!-- MAIN -->
     <main class="connect-wrapper">
         <div class="connect-container">
 
-            <!-- LOADING STATE -->
             <div class="loading-state" id="loading-state">
                 <span class="loading-spinner"></span>
                 <div>Preparing your connection...</div>
             </div>
 
-            <!-- CONTENT -->
             <div id="content" style="display:none;">
 
-                <!-- MEMBER INTRO -->
                 <section class="connect-intro">
                     <div class="connect-intro__label">💬 Connect with</div>
                     <img class="connect-intro__avatar" id="member-avatar" src="" alt="">
@@ -596,16 +772,13 @@
                     </p>
                 </section>
 
-                <!-- RESTORED BANNER -->
                 <div class="restored-banner" id="restored-banner">
                     <span class="icon">✅</span>
-                    <span>Your details are saved. Review and tap <strong>Continue Connecting</strong> to proceed.</span>
+                    <span>Your details are saved. Review and tap <strong>Save & Proceed</strong> to continue.</span>
                 </div>
 
-                <!-- ERROR BANNER -->
                 <div class="error-banner" id="error-banner">⚠️ Please fill in all required fields.</div>
 
-                <!-- FORM -->
                 <form id="connect-form" onsubmit="submitForm(event)">
 
                     <!-- SECTION 01 · YOUR DETAILS -->
@@ -622,12 +795,36 @@
 
                         <div class="form-group">
                             <label for="email">Email <span class="required">*</span></label>
-                            <input type="email" id="email" placeholder="john@email.com" required autocomplete="email">
+                            <input type="email" id="email" placeholder="john@email.com" required autocomplete="email" readonly>
                         </div>
 
                         <div class="form-group">
-                            <label for="whatsapp">WhatsApp Number <span class="required">*</span></label>
-                            <input type="tel" id="whatsapp" placeholder="+254 707 001 191" required autocomplete="tel">
+                            <label for="whatsapp-country">WhatsApp Number <span class="required">*</span></label>
+                            <div class="phone-input-group">
+                                <select id="whatsapp-country">
+                                    <option value="+254">🇰🇪 +254</option>
+                                    <option value="+256">🇺🇬 +256</option>
+                                    <option value="+255">🇹🇿 +255</option>
+                                    <option value="+234">🇳🇬 +234</option>
+                                    <option value="+233">🇬🇭 +233</option>
+                                    <option value="+27">🇿🇦 +27</option>
+                                    <option value="+251">🇪🇹 +251</option>
+                                    <option value="+250">🇷🇼 +250</option>
+                                    <option value="+260">🇿🇲 +260</option>
+                                    <option value="+263">🇿🇼 +263</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+971">🇦🇪 +971</option>
+                                    <option value="+91">🇮🇳 +91</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+31">🇳🇱 +31</option>
+                                    <option value="+46">🇸🇪 +46</option>
+                                    <option value="+47">🇳🇴 +47</option>
+                                    <option value="+61">🇦🇺 +61</option>
+                                </select>
+                                <input type="tel" id="whatsapp" placeholder="707 001 191" required autocomplete="tel">
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -647,13 +844,40 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="location">Location <span class="required">*</span></label>
-                            <input type="text" id="location" placeholder="Nairobi, Kenya" required>
+                            <label>Location <span class="required">*</span></label>
+                            <div class="location-grid">
+                                <select id="location-country" required>
+                                    <option value="">Select country</option>
+                                    <option value="Kenya">🇰🇪 Kenya</option>
+                                    <option value="Uganda">🇺🇬 Uganda</option>
+                                    <option value="Tanzania">🇹🇿 Tanzania</option>
+                                    <option value="Nigeria">🇳🇬 Nigeria</option>
+                                    <option value="Ghana">🇬🇭 Ghana</option>
+                                    <option value="South Africa">🇿🇦 South Africa</option>
+                                    <option value="Ethiopia">🇪🇹 Ethiopia</option>
+                                    <option value="Rwanda">🇷🇼 Rwanda</option>
+                                    <option value="Zambia">🇿🇲 Zambia</option>
+                                    <option value="Zimbabwe">🇿🇼 Zimbabwe</option>
+                                    <option value="United States">🇺🇸 United States</option>
+                                    <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                                    <option value="Canada">🇨🇦 Canada</option>
+                                    <option value="United Arab Emirates">🇦🇪 UAE</option>
+                                    <option value="India">🇮🇳 India</option>
+                                    <option value="Germany">🇩🇪 Germany</option>
+                                    <option value="France">🇫🇷 France</option>
+                                    <option value="Netherlands">🇳🇱 Netherlands</option>
+                                    <option value="Sweden">🇸🇪 Sweden</option>
+                                    <option value="Norway">🇳🇴 Norway</option>
+                                    <option value="Australia">🇦🇺 Australia</option>
+                                    <option value="Other">🌍 Other</option>
+                                </select>
+                                <input type="text" id="location-city" placeholder="City (e.g. Nairobi)" required>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="occupation">Occupation</label>
-                            <input type="text" id="occupation" placeholder="Software Engineer">
+                            <label for="occupation">Occupation <span class="optional">(optional)</span></label>
+                            <input type="text" id="occupation" placeholder="e.g. Engineer, Teacher, Business">
                         </div>
                     </div>
 
@@ -664,7 +888,12 @@
                             <span class="form-section__title">Your Photos</span>
                         </div>
 
-                        <p class="upload-hint" id="upload-hint">Add 1 to 5 photos of yourself. Good photos build trust.</p>
+                        <div class="upload-privacy">
+                            <span class="icon">🔒</span>
+                            <span>Your photos are private. Only our support team sees them.</span>
+                        </div>
+
+                        <p class="upload-hint" id="upload-hint">Add up to 5 photos of yourself. Photos are optional.</p>
 
                         <div class="upload-zone" id="upload-zone">
                             <span class="upload-icon">📸</span>
@@ -679,19 +908,27 @@
 
                         <div class="photo-grid" id="photo-grid"></div>
 
+                        <div class="photos-shared-note" id="photos-shared-note">
+                            ✅ These photos will be shared with support
+                        </div>
+
                         <button type="button" class="add-more-btn" id="add-more-btn" onclick="triggerFileInput()">
                             ➕ Add more photos
                         </button>
                     </div>
 
-                    <!-- SUBMIT -->
                     <button type="submit" class="btn-submit" id="submit-btn">
                         💬 Start Connecting
                     </button>
 
-                    <p class="privacy-note">
-                        🔒 Your details are private and only shared with our support team to help you connect.
-                    </p>
+                    <button type="button" class="skip-link" onclick="skipToSupport()">
+                        Skip — Just chat with support
+                    </button>
+
+                    <div class="privacy-note">
+                        <span class="icon">🔒</span>
+                        <span>Your details are private and only shared with our support team to help you connect safely.</span>
+                    </div>
 
                 </form>
             </div>
@@ -703,20 +940,42 @@
     <div class="success-overlay" id="success-overlay">
         <div class="success-card">
             <span class="big-icon">✅</span>
-            <h2>Proceed To Support!</h2>
-            <p>Your details have been shared with our support team. Opening your chat now...</p>
+            <h2>Ready to Connect!</h2>
+            <p>
+                Your details have been shared with our support team.<br><br>
+                <strong>You'll be redirected to chat now.</strong><br>
+                Our team typically responds within a few minutes.
+            </p>
             <button class="btn-go-chat" onclick="goToChat()">
                 💬 Open Chat Now
             </button>
         </div>
     </div>
 
-    <!-- TOAST -->
+    <!-- AUTH REQUIRED MODAL -->
+    <div class="auth-modal-overlay" id="auth-modal">
+        <div class="auth-modal">
+            <span class="auth-modal__icon">🔐</span>
+            <h2>Sign in to continue</h2>
+            <p>
+                To connect with <strong id="auth-member-name">this member</strong>, please create an account or sign in. It takes less than 30 seconds.
+            </p>
+            <div class="auth-modal__actions">
+                <button class="auth-modal__btn auth-modal__btn--primary" onclick="goToSignup()">
+                    ✨ Create Account
+                </button>
+                <button class="auth-modal__btn auth-modal__btn--secondary" onclick="goToLogin()">
+                    🔐 Sign In
+                </button>
+            </div>
+            <p class="auth-modal__hint">
+                Already signed in? Refresh the page.
+            </p>
+        </div>
+    </div>
+
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS                                                      -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -737,9 +996,9 @@
 
         let currentUser = null;
         let memberData = null;
-        let uploadedPhotos = [];   // { path, url, isExisting }
+        let uploadedPhotos = [];
         let hasRestoredData = false;
-        let existingConversationId = null;   // ⭐ NEW — reuse this if set
+        let existingConversationId = null;
         const MAX_PHOTOS = 5;
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -761,21 +1020,17 @@
         const uploadHint = document.getElementById('upload-hint');
         const submitBtn = document.getElementById('submit-btn');
         const successOverlay = document.getElementById('success-overlay');
+        const authModal = document.getElementById('auth-modal');
+        const photosSharedNote = document.getElementById('photos-shared-note');
 
         let newConversationId = null;
+        let pendingMemberName = 'this member';
 
         // ============================================================
         // INIT
         // ============================================================
         async function init() {
             const { data: { session } } = await supabase.auth.getSession();
-            if (!session || !session.user) {
-                const returnUrl = encodeURIComponent(`connect.html?member=${memberId}`);
-                window.location.href = `login.html?redirect=${returnUrl}`;
-                return;
-            }
-
-            currentUser = session.user;
 
             if (!memberId) {
                 showToast('❌ No member specified', 'error');
@@ -783,6 +1038,7 @@
                 return;
             }
 
+            // Load member info FIRST (so we can show name in auth modal)
             try {
                 const { data, error } = await supabase
                     .from('members')
@@ -798,18 +1054,33 @@
                 }
 
                 memberData = data;
+                pendingMemberName = data.name || 'this member';
                 renderMemberIntro(data);
-
-                await restoreUserData();
-
-                loadingState.style.display = 'none';
-                content.style.display = 'block';
-
-                updateFormState();
+                document.getElementById('auth-member-name').textContent = pendingMemberName;
             } catch (err) {
                 console.error('Error loading member:', err);
                 showToast('Error loading member: ' + err.message, 'error');
+                return;
             }
+
+            // NOW check auth
+            if (!session || !session.user) {
+                // Not logged in → hide content, show auth modal
+                loadingState.style.display = 'none';
+                content.style.display = 'none';
+                authModal.classList.add('show');
+                return;
+            }
+
+            currentUser = session.user;
+
+            // Logged in → restore data and show form
+            await restoreUserData();
+
+            loadingState.style.display = 'none';
+            content.style.display = 'block';
+
+            updateFormState();
         }
 
         // ============================================================
@@ -840,12 +1111,24 @@
         }
 
         // ============================================================
-        // RESTORE USER DATA + DETECT EXISTING CONVERSATION
+        // AUTH REDIRECTS
+        // ============================================================
+        window.goToSignup = function() {
+            const redirect = encodeURIComponent(`connect.html?member=${memberId}`);
+            window.location.href = `signup.html?redirect=${redirect}`;
+        }
+
+        window.goToLogin = function() {
+            const redirect = encodeURIComponent(`connect.html?member=${memberId}`);
+            window.location.href = `login.html?redirect=${redirect}`;
+        }
+
+        // ============================================================
+        // RESTORE USER DATA
         // ============================================================
         async function restoreUserData() {
             let hasDetails = false;
 
-            // STEP 1 — user_profiles
             try {
                 const { data: profile } = await supabase
                     .from('user_profiles')
@@ -856,10 +1139,18 @@
                 if (profile) {
                     if (profile.full_name) document.getElementById('full-name').value = profile.full_name;
                     if (profile.email) document.getElementById('email').value = profile.email;
-                    if (profile.whatsapp_no) document.getElementById('whatsapp').value = profile.whatsapp_no;
+                    if (profile.whatsapp_no) {
+                        const { country, local } = splitPhone(profile.whatsapp_no);
+                        if (country) document.getElementById('whatsapp-country').value = country;
+                        if (local) document.getElementById('whatsapp').value = local;
+                    }
                     if (profile.age) document.getElementById('age').value = profile.age;
                     if (profile.gender) document.getElementById('gender').value = profile.gender;
-                    if (profile.location) document.getElementById('location').value = profile.location;
+                    if (profile.location) {
+                        const { country, city } = splitLocation(profile.location);
+                        if (country) document.getElementById('location-country').value = country;
+                        if (city) document.getElementById('location-city').value = city;
+                    }
                     if (profile.occupation) document.getElementById('occupation').value = profile.occupation;
                     hasDetails = !!(profile.full_name);
                 }
@@ -867,7 +1158,6 @@
                 console.warn('Profile fetch failed:', err);
             }
 
-            // STEP 2 — most recent conversation (photos + details + ID)
             try {
                 const { data: conv, error } = await supabase
                     .from('conversations')
@@ -880,11 +1170,9 @@
                 if (error) throw error;
 
                 if (conv) {
-                    // ⭐ Remember conversation ID so we can reuse it
                     existingConversationId = conv.id;
                     console.log('💾 Existing conversation found:', existingConversationId);
 
-                    // Photos
                     if (conv.user_photo_ids && conv.user_photo_ids.length > 0) {
                         for (const path of conv.user_photo_ids) {
                             const { data: urlData } = supabase.storage
@@ -900,14 +1188,21 @@
                         }
                     }
 
-                    // Details fallback
                     if (!hasDetails) {
                         if (conv.full_name) document.getElementById('full-name').value = conv.full_name;
                         if (conv.email) document.getElementById('email').value = conv.email;
-                        if (conv.whatsapp_no) document.getElementById('whatsapp').value = conv.whatsapp_no;
+                        if (conv.whatsapp_no) {
+                            const { country, local } = splitPhone(conv.whatsapp_no);
+                            if (country) document.getElementById('whatsapp-country').value = country;
+                            if (local) document.getElementById('whatsapp').value = local;
+                        }
                         if (conv.age) document.getElementById('age').value = conv.age;
                         if (conv.gender) document.getElementById('gender').value = conv.gender;
-                        if (conv.location) document.getElementById('location').value = conv.location;
+                        if (conv.location) {
+                            const { country, city } = splitLocation(conv.location);
+                            if (country) document.getElementById('location-country').value = country;
+                            if (city) document.getElementById('location-city').value = city;
+                        }
                         if (conv.occupation) document.getElementById('occupation').value = conv.occupation;
                         if (conv.full_name) hasDetails = true;
                     }
@@ -916,7 +1211,8 @@
                 console.warn('Conversation restore failed:', err);
             }
 
-            if (!document.getElementById('email').value && currentUser.email) {
+            // Email from auth (read-only)
+            if (currentUser.email) {
                 document.getElementById('email').value = currentUser.email;
             }
 
@@ -925,31 +1221,56 @@
             hasRestoredData = hasDetails || uploadedPhotos.length > 0;
         }
 
+        function splitPhone(fullPhone) {
+            if (!fullPhone) return { country: '+254', local: '' };
+            const cleaned = fullPhone.replace(/\s/g, '');
+            const codes = ['+254', '+256', '+255', '+234', '+233', '+27', '+251', '+250', '+260', '+263', '+971', '+44', '+91', '+49', '+33', '+31', '+46', '+47', '+61', '+1'];
+            for (const code of codes) {
+                if (cleaned.startsWith(code)) {
+                    return { country: code, local: cleaned.slice(code.length) };
+                }
+            }
+            return { country: '+254', local: cleaned.replace(/^\+/, '') };
+        }
+
+        function splitLocation(fullLocation) {
+            if (!fullLocation) return { country: '', city: '' };
+            const parts = fullLocation.split(',').map(s => s.trim());
+            if (parts.length >= 2) {
+                return { city: parts[0], country: parts[parts.length - 1] };
+            }
+            return { country: '', city: parts[0] || '' };
+        }
+
         // ============================================================
-        // UPDATE UI BASED ON RESTORED STATE
+        // UPDATE UI STATE
         // ============================================================
         function updateFormState() {
             if (hasRestoredData) {
                 restoredBanner.classList.add('show');
-                submitBtn.innerHTML = '💬 Continue Connecting';
+                submitBtn.innerHTML = '💬 Save Changes & Proceed';
+            } else {
+                submitBtn.innerHTML = '💬 Start Connecting';
+            }
 
-                if (uploadedPhotos.length > 0) {
-                    uploadZone.classList.add('hidden');
-                    addMoreBtn.classList.add('show');
-                    if (uploadedPhotos.length >= MAX_PHOTOS) {
-                        addMoreBtn.classList.remove('show');
-                    }
+            if (uploadedPhotos.length > 0) {
+                uploadZone.classList.add('hidden');
+                addMoreBtn.classList.add('show');
+                photosSharedNote.classList.add('show');
+                if (uploadedPhotos.length >= MAX_PHOTOS) {
+                    addMoreBtn.classList.remove('show');
                 }
             } else {
                 uploadZone.classList.remove('hidden');
                 addMoreBtn.classList.remove('show');
+                photosSharedNote.classList.remove('show');
             }
             updatePhotoHint();
         }
 
         function updatePhotoHint() {
             if (uploadedPhotos.length === 0) {
-                uploadHint.textContent = 'Add 1 to 5 photos of yourself. Good photos build trust.';
+                uploadHint.textContent = 'Add up to 5 photos of yourself. Photos are optional.';
             } else if (uploadedPhotos.length >= MAX_PHOTOS) {
                 uploadHint.textContent = `You have ${uploadedPhotos.length} photos (maximum reached).`;
             } else {
@@ -978,6 +1299,7 @@
 
             uploadProgress.classList.add('active');
             let completed = 0;
+            let successCount = 0;
 
             for (const file of toUpload) {
                 if (file.size > 5 * 1024 * 1024) {
@@ -1011,6 +1333,7 @@
                         isExisting: false
                     });
 
+                    successCount++;
                     renderPhotoGrid();
                     updatePhotoHint();
                 } catch (err) {
@@ -1032,9 +1355,15 @@
             if (uploadedPhotos.length > 0) {
                 uploadZone.classList.add('hidden');
                 addMoreBtn.classList.add('show');
+                photosSharedNote.classList.add('show');
                 if (uploadedPhotos.length >= MAX_PHOTOS) {
                     addMoreBtn.classList.remove('show');
                 }
+            }
+
+            // NEW: Persistent error if ALL uploads failed
+            if (successCount === 0 && toUpload.length > 0) {
+                showError('❌ All photos failed to upload. Please try again or continue without photos.');
             }
         }
 
@@ -1059,6 +1388,7 @@
             if (uploadedPhotos.length === 0) {
                 uploadZone.classList.remove('hidden');
                 addMoreBtn.classList.remove('show');
+                photosSharedNote.classList.remove('show');
             } else if (uploadedPhotos.length < MAX_PHOTOS) {
                 addMoreBtn.classList.add('show');
             }
@@ -1067,39 +1397,115 @@
         window.triggerFileInput = function() { fileInput.click(); }
 
         // ============================================================
-        // SUBMIT — Reuse conversation if exists, else create new
+        // SKIP — Just chat with support
+        // ============================================================
+        window.skipToSupport = async function() {
+            if (!currentUser) {
+                authModal.classList.add('show');
+                return;
+            }
+
+            try {
+                // If user already has a conversation, reuse it
+                if (existingConversationId) {
+                    window.location.href = `chat.html?conversation=${existingConversationId}`;
+                    return;
+                }
+
+                // Check if any conversation exists
+                const { data: existing } = await supabase
+                    .from('conversations')
+                    .select('id')
+                    .eq('user_id', currentUser.id)
+                    .order('created_at', { ascending: false })
+                    .limit(1)
+                    .maybeSingle();
+
+                if (existing) {
+                    window.location.href = `chat.html?conversation=${existing.id}`;
+                    return;
+                }
+
+                // Create minimal conversation
+                const minimalName = currentUser.user_metadata?.full_name || 'New User';
+                const minimalEmail = currentUser.email || '';
+
+                const { data: newConv, error } = await supabase
+                    .from('conversations')
+                    .insert([{
+                        user_id: currentUser.id,
+                        member_id: memberId || null,
+                        member_name: memberData?.name || 'Support',
+                        full_name: minimalName,
+                        email: minimalEmail,
+                        status: 'open'
+                    }])
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                // Insert first message
+                await supabase.from('messages').insert([{
+                    conversation_id: newConv.id,
+                    sender_type: 'user',
+                    sender_id: currentUser.id,
+                    text: `Hi! I'd like to chat with support${memberData?.name ? ' about ' + memberData.name : ''}.`
+                }]);
+
+                window.location.href = `chat.html?conversation=${newConv.id}`;
+
+            } catch (err) {
+                console.error('Skip error:', err);
+                showToast('❌ Could not start chat. Please try again.', 'error');
+            }
+        }
+
+        // ============================================================
+        // SUBMIT
         // ============================================================
         window.submitForm = async function(event) {
             event.preventDefault();
 
             const fullName = document.getElementById('full-name').value.trim();
             const email = document.getElementById('email').value.trim();
-            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const countryCode = document.getElementById('whatsapp-country').value;
+            const localPhone = document.getElementById('whatsapp').value.trim();
             const age = parseInt(document.getElementById('age').value);
             const gender = document.getElementById('gender').value;
-            const location = document.getElementById('location').value.trim();
+            const locCountry = document.getElementById('location-country').value;
+            const locCity = document.getElementById('location-city').value.trim();
             const occupation = document.getElementById('occupation').value.trim();
 
             errorBanner.classList.remove('show');
 
+            // Validation
             if (!fullName || fullName.length < 2) return showError('Please enter your full name.');
             if (!email || !email.includes('@')) return showError('Please enter a valid email.');
-            if (!whatsapp || whatsapp.length < 7) return showError('Please enter your WhatsApp number.');
+            if (!localPhone) return showError('Please enter your WhatsApp number.');
+
+            const cleanPhone = localPhone.replace(/\D/g, '');
+            if (cleanPhone.length < 6 || cleanPhone.length > 12) {
+                return showError('Please enter a valid WhatsApp number (6-12 digits).');
+            }
+
             if (!age || age < 18 || age > 99) return showError('Please enter a valid age (18–99).');
             if (!gender) return showError('Please select your gender.');
-            if (!location) return showError('Please enter your location.');
-            if (uploadedPhotos.length === 0) return showError('Please add at least 1 photo.');
+            if (!locCountry) return showError('Please select your country.');
+            if (!locCity) return showError('Please enter your city.');
+
+            // Combine phone + location
+            const fullPhone = `${countryCode}${cleanPhone}`;
+            const fullLocation = `${locCity}, ${locCountry}`;
 
             submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Saving...';
+            submitBtn.innerHTML = '<span class="spinner"></span> Saving...';
 
             try {
                 const photoPaths = uploadedPhotos.map(p => p.path);
 
                 if (existingConversationId) {
-                    // ==================================================
-                    // REUSE EXISTING CONVERSATION (no new chat window)
-                    // ==================================================
+                    // REUSE
                     console.log('♻️ Reusing conversation:', existingConversationId);
 
                     const { error: updateErr } = await supabase
@@ -1109,10 +1515,10 @@
                             member_name: memberData.name,
                             full_name: fullName,
                             email: email,
-                            whatsapp_no: whatsapp,
+                            whatsapp_no: fullPhone,
                             age: age,
                             gender: gender,
-                            location: location,
+                            location: fullLocation,
                             occupation: occupation,
                             user_photo_ids: photoPaths,
                             updated_at: new Date().toISOString()
@@ -1123,7 +1529,6 @@
 
                     newConversationId = existingConversationId;
 
-                    // Insert a new message about the new member
                     await supabase.from('messages').insert([{
                         conversation_id: newConversationId,
                         sender_type: 'user',
@@ -1132,9 +1537,7 @@
                     }]);
 
                 } else {
-                    // ==================================================
-                    // CREATE NEW CONVERSATION (first time user)
-                    // ==================================================
+                    // CREATE NEW
                     console.log('🆕 Creating new conversation');
 
                     const { data: conv, error: convError } = await supabase
@@ -1145,10 +1548,10 @@
                             member_name: memberData.name,
                             full_name: fullName,
                             email: email,
-                            whatsapp_no: whatsapp,
+                            whatsapp_no: fullPhone,
                             age: age,
                             gender: gender,
-                            location: location,
+                            location: fullLocation,
                             occupation: occupation,
                             user_photo_ids: photoPaths,
                             status: 'open'
@@ -1168,28 +1571,28 @@
                     }]);
                 }
 
-                // Update user_profiles for next time
+                // Save to user_profiles for next time
                 await supabase
                     .from('user_profiles')
                     .upsert({
                         id: currentUser.id,
                         full_name: fullName,
                         email: email,
-                        whatsapp_no: whatsapp,
+                        whatsapp_no: fullPhone,
                         age: age,
                         gender: gender,
-                        location: location,
+                        location: fullLocation,
                         occupation: occupation
                     }, { onConflict: 'id' });
 
                 successOverlay.classList.add('show');
-                setTimeout(() => { goToChat(); }, 2500);
+                setTimeout(() => { goToChat(); }, 3000);
 
             } catch (err) {
                 console.error('Submit error:', err);
                 showError('Something went wrong: ' + err.message);
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = hasRestoredData ? '💬 Continue Connecting' : '💬 Start Connecting';
+                submitBtn.innerHTML = hasRestoredData ? '💬 Save Changes & Proceed' : '💬 Start Connecting';
             }
         }
 
@@ -1228,7 +1631,7 @@
 
         init();
 
-        console.log('💎 Connect page ready — reuses existing conversation');
+        console.log('💎 Connect page ready');
     </script>
 
 </body>

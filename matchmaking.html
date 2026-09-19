@@ -27,7 +27,6 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* HEADER */
         .mm-header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -76,7 +75,6 @@
             color: #6c3cb3;
         }
 
-        /* WRAPPER */
         .mm-wrapper {
             flex: 1;
             padding: 72px 0 80px;
@@ -89,7 +87,6 @@
             padding: 0 16px;
         }
 
-        /* HERO */
         .mm-hero {
             text-align: center;
             padding: 20px 0 28px;
@@ -133,7 +130,6 @@
             margin: 0 auto;
         }
 
-        /* SECTIONS */
         .mm-section {
             background: rgba(255, 255, 255, 0.55);
             backdrop-filter: blur(16px);
@@ -175,7 +171,6 @@
             letter-spacing: 1px;
         }
 
-        /* LISTS */
         .mm-list {
             display: flex;
             flex-direction: column;
@@ -210,7 +205,6 @@
             line-height: 1.55;
         }
 
-        /* STEPS */
         .mm-steps {
             display: flex;
             flex-direction: column;
@@ -240,7 +234,6 @@
             flex-shrink: 0;
         }
 
-        /* WHO IT'S FOR */
         .mm-checklist {
             display: flex;
             flex-direction: column;
@@ -261,7 +254,6 @@
             flex-shrink: 0;
         }
 
-        /* NOTE BOX */
         .mm-note {
             background: rgba(108, 60, 179, 0.05);
             border-left: 3px solid #6c3cb3;
@@ -275,11 +267,7 @@
 
         .mm-note p + p { margin-top: 8px; }
 
-        /* FORM */
-        .mm-form-group {
-            margin-bottom: 14px;
-        }
-
+        .mm-form-group { margin-bottom: 14px; }
         .mm-form-group:last-child { margin-bottom: 0; }
 
         .mm-form-group label {
@@ -292,10 +280,7 @@
             letter-spacing: 0.3px;
         }
 
-        .mm-form-group label .required {
-            color: #dc3545;
-            margin-left: 2px;
-        }
+        .mm-form-group label .required { color: #dc3545; margin-left: 2px; }
 
         .mm-form-group input,
         .mm-form-group textarea {
@@ -313,9 +298,7 @@
         }
 
         .mm-form-group input::placeholder,
-        .mm-form-group textarea::placeholder {
-            color: rgba(26, 5, 51, 0.3);
-        }
+        .mm-form-group textarea::placeholder { color: rgba(26, 5, 51, 0.3); }
 
         .mm-form-group input:focus,
         .mm-form-group textarea:focus {
@@ -324,10 +307,7 @@
             box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.1);
         }
 
-        .mm-form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
+        .mm-form-group textarea { resize: vertical; min-height: 80px; }
 
         .mm-form-group .hint {
             font-size: 11.5px;
@@ -336,50 +316,61 @@
             font-style: italic;
         }
 
-        /* PAY BUTTONS */
-        .btn-pay-card, .btn-pay-mpesa {
-            width: 100%;
-            padding: 15px 20px;
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Inter", sans-serif;
-            letter-spacing: 0.3px;
+        /* PAY BUTTON */
+        .pay-book-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #6c3cb3 0%, #4a1a6b 100%);
+            color: #ffffff;
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 14px;
+            position: relative;
+            overflow: hidden;
+            animation: payGlow 2.4s ease-in-out infinite;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
-        .btn-pay-card {
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
+        .pay-book-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+            transform: skewX(-20deg);
+            animation: paySheen 3.5s ease-in-out infinite;
+            pointer-events: none;
         }
-        .btn-pay-card:hover:not(:disabled) {
+        @keyframes payGlow {
+            0%, 100% { box-shadow: 0 6px 20px rgba(108, 60, 179, 0.35), 0 0 0 0 rgba(108, 60, 179, 0.3); }
+            50% { box-shadow: 0 8px 26px rgba(108, 60, 179, 0.5), 0 0 0 8px rgba(108, 60, 179, 0); }
+        }
+        @keyframes paySheen {
+            0%, 60% { left: -120%; }
+            85%, 100% { left: 140%; }
+        }
+        .pay-book-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
-            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
+            box-shadow: 0 12px 30px rgba(108, 60, 179, 0.55);
         }
+        .pay-book-btn:active { transform: translateY(0); }
+        .pay-book-btn:disabled { opacity: 0.6; cursor: wait; animation: none; }
+        .pay-book-btn .pay-icon { font-size: 20px; flex-shrink: 0; }
+        .pay-book-btn .pay-label { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+        .pay-book-btn .pay-label strong { font-size: 15px; font-weight: 700; letter-spacing: 0.2px; }
+        .pay-book-btn .pay-label small { font-size: 11.5px; opacity: 0.9; font-weight: 500; margin-top: 2px; }
 
-        .btn-pay-mpesa {
-            background: linear-gradient(135deg, #16a34a, #15803d);
-            box-shadow: 0 8px 30px rgba(22, 163, 74, 0.3);
-        }
-        .btn-pay-mpesa:hover:not(:disabled) {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #15803d, #16a34a);
-            box-shadow: 0 12px 40px rgba(22, 163, 74, 0.5);
-        }
-
-        .btn-pay-card:disabled, .btn-pay-mpesa:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        @media (prefers-reduced-motion: reduce) {
+            .pay-book-btn, .pay-book-btn::before { animation: none !important; }
         }
 
         .privacy-note {
@@ -390,7 +381,6 @@
             line-height: 1.5;
         }
 
-        /* ERROR BANNER */
         .error-banner {
             display: none;
             background: rgba(220, 53, 69, 0.08);
@@ -412,84 +402,343 @@
             80% { transform: translateX(4px); }
         }
 
-        /* SUCCESS MODAL */
-        .success-overlay {
+        /* COUNTRY MODAL */
+        .country-modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
+            background: rgba(26, 5, 51, 0.5);
+            backdrop-filter: blur(6px);
             z-index: 1500;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .success-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+        .country-modal-overlay.show { display: flex; opacity: 1; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .success-card {
-            background: #fff;
+        .country-modal {
+            background: #ffffff;
             border-radius: 20px;
-            padding: 32px 24px;
+            padding: 28px 24px 24px;
             max-width: 400px;
             width: 100%;
+            box-shadow: 0 30px 80px rgba(108, 60, 179, 0.25);
+            border: 1px solid rgba(108, 60, 179, 0.1);
             text-align: center;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-            animation: scaleIn 0.3s ease;
+            transform: translateY(20px) scale(0.96);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
         }
+        .country-modal-overlay.show .country-modal { transform: translateY(0) scale(1); }
 
-        @keyframes scaleIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .country-modal__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(108, 60, 179, 0.08);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #6c3cb3;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-family: "Inter", sans-serif;
         }
+        .country-modal__close:hover { background: rgba(108, 60, 179, 0.15); transform: rotate(90deg); }
 
-        .success-card .big-icon {
-            font-size: 60px;
+        .country-modal__icon {
+            font-size: 44px;
             margin-bottom: 12px;
             display: block;
+            animation: payIconFloat 3s ease-in-out infinite;
+        }
+        @keyframes payIconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
-        .success-card h2 {
+        .country-modal h3 {
             font-family: "Playfair Display", Georgia, serif;
-            font-size: 24px;
+            font-size: 20px;
+            font-weight: 700;
             color: #1a0533;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        .success-card p {
-            font-size: 14px;
-            color: rgba(26, 5, 51, 0.65);
-            line-height: 1.55;
+        .country-modal p {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
             margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        .success-card .btn-ok {
+        .country-modal__price {
+            background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06));
+            border: 1px solid rgba(108, 60, 179, 0.15);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+        }
+        .country-modal__price .usd {
+            font-size: 24px;
+            font-weight: 900;
+            color: #6c3cb3;
+            display: block;
+            margin-bottom: 3px;
+            transition: all 0.25s ease;
+        }
+        .country-modal__price .kes {
+            font-size: 11px;
+            color: rgba(26, 5, 51, 0.55);
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+        .country-modal__price.flash { animation: priceFlash 0.5s ease; }
+        @keyframes priceFlash {
+            0% { background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06)); }
+            50% { background: linear-gradient(135deg, rgba(108, 60, 179, 0.2), rgba(74, 26, 107, 0.15)); }
+            100% { background: linear-gradient(135deg, rgba(108, 60, 179, 0.08), rgba(74, 26, 107, 0.06)); }
+        }
+
+        .country-modal__reason {
+            background: rgba(108, 60, 179, 0.04);
+            border: 1px dashed rgba(108, 60, 179, 0.25);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-size: 12px;
+            color: rgba(26, 5, 51, 0.7);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .country-modal__reason .icon { font-size: 14px; flex-shrink: 0; }
+
+        .country-modal__method {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: rgba(108, 60, 179, 0.06);
+            border: 1px solid rgba(108, 60, 179, 0.15);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #6c3cb3;
+            transition: all 0.25s ease;
+        }
+        .country-modal__method .icon { font-size: 16px; }
+        .country-modal__method.hidden { display: none; }
+        .country-modal__method.mpesa {
+            background: rgba(37, 211, 102, 0.08);
+            border-color: rgba(37, 211, 102, 0.25);
+            color: #128C7E;
+        }
+
+        .country-modal select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid rgba(108, 60, 179, 0.15);
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: "Inter", sans-serif;
+            background: #fff;
+            color: #1a0533;
+            margin-bottom: 14px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .country-modal select:focus { border-color: #6c3cb3; }
+        .country-modal select.shake { animation: selectShake 0.4s ease; border-color: #dc3545; }
+        @keyframes selectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        .country-modal__btn {
             width: 100%;
             padding: 14px;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             border: none;
-            border-radius: 12px;
+            border-radius: 50px;
+            font-size: 14px;
             font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 20px rgba(108, 60, 179, 0.3);
         }
-        .success-card .btn-ok:hover {
+        .country-modal__btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.35);
+            box-shadow: 0 10px 28px rgba(108, 60, 179, 0.4);
+        }
+        .country-modal__btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+
+        .country-modal__trust {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 14px;
+            font-size: 10.5px;
+            color: rgba(26, 5, 51, 0.45);
+            font-weight: 600;
+        }
+        .country-modal__trust span { display: flex; align-items: center; gap: 3px; }
+
+        .country-modal__inline-error {
+            display: none;
+            background: rgba(220, 53, 69, 0.08);
+            color: #dc3545;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            animation: errorIn 0.3s ease;
+        }
+        .country-modal__inline-error.show { display: block; }
+        @keyframes errorIn {
+            0% { opacity: 0; transform: translateY(-6px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* SUPPORT FLOAT */
+        /* Cashier overlay */
+        .cashier-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e8d5f5 100%);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 24px;
+            text-align: center;
+        }
+        .cashier-overlay.show { display: flex; opacity: 1; }
+
+        .cashier-overlay__avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            color: #fff;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4);
+            position: relative;
+            animation: cashierPulse 1.6s ease-in-out infinite;
+        }
+        .cashier-overlay__avatar::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 3px solid rgba(37, 211, 102, 0.3);
+            animation: cashierRing 1.6s ease-out infinite;
+        }
+        @keyframes cashierPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        @keyframes cashierRing {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.4); }
+        }
+
+        .cashier-overlay__title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a0533;
+            letter-spacing: 0.2px;
+        }
+
+        .cashier-overlay__sub {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
+            font-weight: 600;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .cashier-overlay__country {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #6c3cb3;
+            background: rgba(108, 60, 179, 0.08);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(108, 60, 179, 0.15);
+        }
+
+        .cashier-overlay__progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(108, 60, 179, 0.12);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .cashier-overlay__progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6c3cb3, #25D366);
+            width: 0%;
+            border-radius: 50px;
+            transition: width 3s linear;
+        }
+        .cashier-overlay.show .cashier-overlay__progress-bar { width: 100%; }
+
+        .cashier-overlay__dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .cashier-overlay__dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #6c3cb3;
+            opacity: 0.3;
+            animation: cashierDot 1.2s ease-in-out infinite;
+        }
+        .cashier-overlay__dots span:nth-child(2) { animation-delay: 0.2s; }
+        .cashier-overlay__dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes cashierDot {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-6px); }
+        }
+
+        /* Support float */
         .support-float {
             position: fixed;
             bottom: 16px;
             right: 16px;
             z-index: 500;
         }
-
         .support-float__btn {
             width: 54px;
             height: 54px;
@@ -506,7 +755,6 @@
             transition: all 0.3s ease;
             position: relative;
         }
-
         .support-float__dot {
             position: absolute;
             top: 2px;
@@ -518,7 +766,6 @@
             border: 2px solid #fff;
         }
 
-        /* TOAST */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -542,13 +789,8 @@
         .toast.show { transform: translateY(0); opacity: 1; }
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
+        .toast.info { background: #6c3cb3; }
 
-        /* LOADING */
-        .loading-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: rgba(26, 5, 51, 0.4);
-        }
         .loading-spinner {
             display: inline-block;
             width: 28px;
@@ -560,7 +802,6 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* TABLET + DESKTOP */
         @media (min-width: 600px) {
             .mm-header { height: 60px; padding: 0 16px; }
             .brand { font-size: 20px; }
@@ -571,13 +812,21 @@
             .mm-section__num { width: 34px; height: 34px; font-size: 15px; }
             .mm-section__title { font-size: 15px; }
             .mm-list-item { font-size: 15px; }
-            .btn-pay-card, .btn-pay-mpesa { font-size: 16px; padding: 17px 24px; }
+            .pay-book-btn { font-size: 16px; padding: 17px 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .country-modal { padding: 24px 20px 20px; }
+            .country-modal h3 { font-size: 18px; }
+            .country-modal__price .usd { font-size: 22px; }
+            .country-modal__icon { font-size: 38px; }
+            .cashier-overlay__title { font-size: 18px; }
+            .cashier-overlay__avatar { width: 78px; height: 78px; font-size: 38px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="mm-header">
         <button class="header-btn" onclick="goBack()" aria-label="Back">←</button>
         <a class="brand" href="index.html">
@@ -586,11 +835,9 @@
         <div style="width: 38px;"></div>
     </header>
 
-    <!-- MAIN -->
     <main class="mm-wrapper">
         <div class="mm-container">
 
-            <!-- HERO -->
             <section class="mm-hero">
                 <span class="hero-icon">💍</span>
                 <h1>Private 1-on-1 Matchmaking for Love &amp; Marriage</h1>
@@ -600,7 +847,6 @@
                 </p>
             </section>
 
-            <!-- 01 -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">01</span>
@@ -680,7 +926,6 @@
                 </div>
             </section>
 
-            <!-- 02 -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">02</span>
@@ -699,7 +944,6 @@
                 </div>
             </section>
 
-            <!-- 03 -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">03</span>
@@ -721,7 +965,6 @@
                 </div>
             </section>
 
-            <!-- 04 · BOOK NOW -->
             <section class="mm-section">
                 <div class="mm-section__header">
                     <span class="mm-section__num">04</span>
@@ -762,12 +1005,12 @@
                         <textarea id="mm-message" placeholder="Tell us anything you'd like us to know before your consultation..."></textarea>
                     </div>
 
-                    <button type="button" class="btn-pay-card" id="mm-pay-card" onclick="openPaystack('card')">
-                        💳 Pay $10 with Card
-                    </button>
-
-                    <button type="button" class="btn-pay-mpesa" id="mm-pay-mpesa" onclick="openPaystack('mpesa')">
-                        📱 Pay KES 1,250 with M-PESA
+                    <button type="button" class="pay-book-btn" id="mm-submit" onclick="openCountryModal()">
+                        <span class="pay-icon">🔓</span>
+                        <span class="pay-label">
+                            <strong>Unlock Private Connection</strong>
+                            <small>From $10 USD · secure payment</small>
+                        </span>
                     </button>
 
                     <p class="privacy-note">
@@ -779,7 +1022,6 @@
         </div>
     </main>
 
-    <!-- SUPPORT FLOAT -->
     <div class="support-float">
         <button class="support-float__btn" onclick="openSupport()" aria-label="Support">
             💬
@@ -787,23 +1029,74 @@
         </button>
     </div>
 
-    <!-- SUCCESS MODAL -->
-    <div class="success-overlay" id="success-overlay">
-        <div class="success-card">
-            <span class="big-icon">✅</span>
-            <h2>Booking Confirmed!</h2>
-            <p>
-                Your payment was received and your matchmaking request has been submitted.
-                Our team will contact you via WhatsApp within 24 hours to schedule your consultation.
-            </p>
-            <button class="btn-ok" onclick="closeSuccess()">
-                Got it
+    <div class="toast" id="toast"></div>
+
+    <!-- COUNTRY MODAL -->
+    <div class="country-modal-overlay" id="countryModalOverlay">
+        <div class="country-modal">
+            <button class="country-modal__close" onclick="closeCountryModal()">✕</button>
+            <span class="country-modal__icon">🔓</span>
+            <h3>Unlock Private Connection</h3>
+            <p>One small step to start your matchmaking</p>
+
+            <div class="country-modal__price" id="modalPriceBox">
+                <span class="usd" id="modalUsdPrice">$10 USD</span>
+                <span class="kes" id="modalKesPrice">Select your country to see local price</span>
+            </div>
+
+            <div class="country-modal__reason">
+                <span class="icon">💍</span>
+                <span>Private matchmaking booking fee</span>
+            </div>
+
+            <div class="country-modal__method hidden" id="modalMethodRow">
+                <span class="icon" id="modalMethodIcon">🔒</span>
+                <span id="modalMethodText">Secure checkout</span>
+            </div>
+
+            <div class="country-modal__inline-error" id="modalInlineError">
+                👆 Please select your country first to continue
+            </div>
+
+            <select id="modalCountrySelect">
+                <option value="">-- Select Country --</option>
+                <option value="KE">Kenya 🇰🇪</option>
+                <option value="NG">Nigeria 🇳🇬</option>
+                <option value="GH">Ghana 🇬🇭</option>
+                <option value="ZA">South Africa 🇿🇦</option>
+                <option value="OTHER">Other Country 🌍</option>
+            </select>
+
+            <button class="country-modal__btn" id="modalProceedBtn" onclick="confirmCountryAndPay()">
+                Unlock My Booking →
             </button>
+
+            <div class="country-modal__trust">
+                <span>🔒 Secure</span>
+                <span>💳 Encrypted</span>
+                <span>✅ Verified</span>
+            </div>
         </div>
     </div>
 
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
+    <!-- Cashier overlay (non-Kenya → WhatsApp) -->
+    <div class="cashier-overlay" id="cashierOverlay">
+        <div class="cashier-overlay__avatar">💬</div>
+        <div class="cashier-overlay__title">Connecting you to our Cashier</div>
+        <div class="cashier-overlay__sub">Please hold on a moment… we're connecting you to a secure WhatsApp chat to finalise your booking.</div>
+        <div class="cashier-overlay__country" id="cashierCountry"></div>
+        <div class="cashier-overlay__progress">
+            <div class="cashier-overlay__progress-bar"></div>
+        </div>
+        <div class="cashier-overlay__dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Global config -->
+    <script src="cd-config.js"></script>
 
     <script type="importmap">
         {
@@ -821,23 +1114,52 @@
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        const PAYSTACK_PUBLIC_KEY = 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
-        const PAYMENT_AMOUNT_KES = 1250;
-        const PAYMENT_AMOUNT_USD = 10;
-
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
+        // ============================================================
+        // GLOBAL CONFIG
+        // ============================================================
+        const CFG = window.CD_CONFIG || {};
+
+        const PAYSTACK_PUBLIC_KEY = CFG.PAYSTACK_PUBLIC_KEY || 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
+        const BOOKING_FEE_USD = CFG.BOOKING_FEE_USD || 10;
+        const FX_RATES = CFG.FX_RATES || { KES: 125, ZAR: 18.6, NGN: 1550, GHS: 15.2, USD: 1 };
+
+        const BOOKING_FEE_KES = Math.round(BOOKING_FEE_USD * FX_RATES.KES);
+        const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
+
+        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
+
+        console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES}`);
+
+        // ============================================================
+        // COUNTRY CONFIG
+        // ============================================================
+        const COUNTRY_CONFIG = {
+            KE:    { name: 'Kenya',        flag: '🇰🇪', currency: 'KES', symbol: 'KSh', hint: 'M-PESA prioritised · Card also available', icon: '📱', isMpesa: true,  method: 'paystack' },
+            NG:    { name: 'Nigeria',      flag: '🇳🇬', currency: 'NGN', symbol: '₦',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            GH:    { name: 'Ghana',        flag: '🇬🇭', currency: 'GHS', symbol: 'GH₵', hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            ZA:    { name: 'South Africa', flag: '🇿🇦', currency: 'ZAR', symbol: 'R',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' },
+            OTHER: { name: 'International', flag: '🌍', currency: 'USD', symbol: '$',   hint: "You'll continue on WhatsApp with our cashier", icon: '💬', isMpesa: false, method: 'whatsapp' }
+        };
+
         let currentUser = null;
+        let paymentInFlight = false;
 
         const errorBanner = document.getElementById('error-banner');
-        const successOverlay = document.getElementById('success-overlay');
         const toast = document.getElementById('toast');
+        const countryModalOverlay = document.getElementById('countryModalOverlay');
+        const cashierOverlay = document.getElementById('cashierOverlay');
+        const cashierCountry = document.getElementById('cashierCountry');
 
         (function setMinDate() {
             const today = new Date().toISOString().slice(0, 10);
             document.getElementById('mm-date').min = today;
         })();
 
+        // ============================================================
+        // AUTH + PREFILL
+        // ============================================================
         async function init() {
             const { data: { session } } = await supabase.auth.getSession();
 
@@ -870,7 +1192,14 @@
             }
         }
 
-        /* ⭐ VALIDATE FORM BEFORE PAYMENT */
+        // ============================================================
+        // FORM VALIDATION
+        // ============================================================
+        window.submitForm = function(event) {
+            event.preventDefault();
+            openCountryModal();
+        };
+
         function validateForm() {
             const fullName = document.getElementById('mm-name').value.trim();
             const email = document.getElementById('mm-email').value.trim();
@@ -894,54 +1223,237 @@
             };
         }
 
-        /* ⭐ OPEN PAYSTACK — mode: 'card' or 'mpesa' */
-        window.openPaystack = function(mode) {
+        function showError(msg) {
+            errorBanner.textContent = '⚠️ ' + msg;
+            errorBanner.classList.add('show');
+            errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+        }
+
+        // ============================================================
+        // COUNTRY MODAL
+        // ============================================================
+        window.openCountryModal = function() {
+            if (paymentInFlight) return;
+
             const data = validateForm();
             if (!data) return;
 
-            const config = {
-                key: PAYSTACK_PUBLIC_KEY,
-                email: data.email,
-                amount: PAYMENT_AMOUNT_KES * 100,
-                currency: 'KES',
-                metadata: {
-                    source: 'matchmaking',
-                    full_name: data.fullName,
-                    whatsapp_no: data.whatsapp,
-                    tiktok_username: data.tiktok,
-                    preferred_date: data.preferredDate,
-                    payment_method: mode,
-                    custom_fields: [
-                        { display_name: "Full Name", variable_name: "full_name", value: data.fullName },
-                        { display_name: "WhatsApp", variable_name: "whatsapp", value: data.whatsapp },
-                        { display_name: "TikTok", variable_name: "tiktok", value: data.tiktok },
-                        { display_name: "Payment Method", variable_name: "payment_method", value: mode === 'card' ? 'Card' : 'M-PESA' }
-                    ]
-                },
-                onSuccess: async (transaction) => {
-                    console.log('✅ Payment successful:', transaction);
-                    await saveBooking(data, transaction.reference, mode);
-                },
-                onCancel: () => {
-                    console.log('Payment cancelled');
-                    showToast('Payment cancelled', 'error');
-                }
+            updateModalPrice('', true);
+            document.getElementById('modalCountrySelect').value = '';
+            document.getElementById('modalProceedBtn').disabled = false;
+            document.getElementById('modalProceedBtn').textContent = 'Unlock My Booking →';
+            document.getElementById('modalInlineError').classList.remove('show');
+            document.getElementById('modalCountrySelect').classList.remove('shake');
+
+            countryModalOverlay.classList.add('show');
+        };
+
+        window.closeCountryModal = function() {
+            countryModalOverlay.classList.remove('show');
+        };
+
+        function getCountryPrice(countryCode) {
+            const config = COUNTRY_CONFIG[countryCode] || COUNTRY_CONFIG.OTHER;
+
+            if (countryCode === 'KE') {
+                const kesFormatted = BOOKING_FEE_KES.toLocaleString(undefined, { maximumFractionDigits: 0 });
+                return {
+                    display: `KSh${kesFormatted} KES`,
+                    secondary: `≈ $${BOOKING_FEE_USD} USD`,
+                    code: 'KES',
+                    amount: BOOKING_FEE_KES
+                };
+            }
+
+            const rate = FX_RATES[config.currency] || 1;
+            const localAmount = BOOKING_FEE_USD * rate;
+
+            let localFormatted;
+            if (localAmount >= 1000) {
+                localFormatted = localAmount.toLocaleString(undefined, { maximumFractionDigits: 0 });
+            } else {
+                localFormatted = localAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+
+            return {
+                display: `$${BOOKING_FEE_USD.toFixed(2)} USD`,
+                secondary: `≈ ${config.symbol}${localFormatted} ${config.currency}`,
+                code: 'USD',
+                amount: BOOKING_FEE_USD,
+                localAmount: localAmount
             };
+        }
 
-            if (mode === 'card') config.channels = ['card'];
-            else if (mode === 'mpesa') config.channels = ['mobile_money'];
+        function updateModalPrice(countryCode, isDefault) {
+            const priceBox = document.getElementById('modalPriceBox');
+            const usdEl = document.getElementById('modalUsdPrice');
+            const kesEl = document.getElementById('modalKesPrice');
+            const methodRow = document.getElementById('modalMethodRow');
+            const methodText = document.getElementById('modalMethodText');
+            const methodIcon = document.getElementById('modalMethodIcon');
 
-            try {
-                const paystack = new PaystackPop();
-                paystack.newTransaction(config);
-            } catch (err) {
-                console.error('Paystack error:', err);
-                showError('Could not open payment: ' + err.message);
+            if (isDefault || !countryCode) {
+                usdEl.textContent = `$${BOOKING_FEE_USD} USD`;
+                kesEl.textContent = `Select your country to see local price`;
+                if (methodRow) methodRow.classList.add('hidden');
+            } else {
+                const price = getCountryPrice(countryCode);
+                const config = COUNTRY_CONFIG[countryCode] || COUNTRY_CONFIG.OTHER;
+
+                usdEl.textContent = price.display;
+                kesEl.textContent = price.secondary;
+
+                if (methodRow && methodText && methodIcon) {
+                    methodText.textContent = config.hint;
+                    methodIcon.textContent = config.icon;
+                    methodRow.classList.toggle('mpesa', config.isMpesa);
+                    methodRow.classList.remove('hidden');
+                }
+            }
+
+            priceBox.classList.remove('flash');
+            void priceBox.offsetWidth;
+            priceBox.classList.add('flash');
+        }
+
+        document.getElementById('modalCountrySelect').addEventListener('change', (e) => {
+            const country = e.target.value;
+            document.getElementById('modalInlineError').classList.remove('show');
+            document.getElementById('modalCountrySelect').classList.remove('shake');
+            if (country) updateModalPrice(country, false);
+            else updateModalPrice('', true);
+        });
+
+        // ============================================================
+        // CONFIRM COUNTRY & PAY
+        // ============================================================
+        window.confirmCountryAndPay = async function() {
+            const countrySelect = document.getElementById('modalCountrySelect');
+            const country = countrySelect.value;
+            const inlineError = document.getElementById('modalInlineError');
+
+            if (!country) {
+                inlineError.classList.add('show');
+                countrySelect.classList.add('shake');
+                setTimeout(() => countrySelect.classList.remove('shake'), 500);
+                setTimeout(() => inlineError.classList.remove('show'), 4000);
+                return;
+            }
+
+            const data = validateForm();
+            if (!data) {
+                closeCountryModal();
+                return;
+            }
+
+            inlineError.classList.remove('show');
+            countryModalOverlay.classList.remove('show');
+
+            const config = COUNTRY_CONFIG[country] || COUNTRY_CONFIG.OTHER;
+
+            if (country === 'KE') {
+                executePaystackPayment(data, country);
+            } else {
+                redirectToCashier(data, country, config);
             }
         };
 
-        /* ⭐ SAVE BOOKING to Supabase after payment */
-        async function saveBooking(data, reference, mode) {
+        // ============================================================
+        // CASHIER (WhatsApp) — non-Kenya
+        // ============================================================
+        function redirectToCashier(data, country, config) {
+            paymentInFlight = true;
+
+            const price = getCountryPrice(country);
+            const countryName = config.name;
+
+            cashierCountry.textContent = `${config.flag} ${countryName}`;
+            cashierOverlay.classList.add('show');
+
+            const waMessage = `Hi ClassyDate 👋
+
+I'm from ${countryName} ${config.flag} and I'd like to book the Private Matchmaking service.
+
+👤 Name: ${data.fullName}
+📧 Email: ${data.email}
+📱 WhatsApp: ${data.whatsapp}
+🎵 TikTok: ${data.tiktok}
+${data.preferredDate ? `📅 Preferred date: ${data.preferredDate}\n` : ''}${data.message ? `💬 Message: ${data.message}\n` : ''}
+💎 Booking fee: $${BOOKING_FEE_USD} USD (${price.secondary})
+
+Please share the payment details so I can complete this.
+
+Thank you!`;
+
+            const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`;
+
+            setTimeout(() => {
+                window.open(waLink, '_blank');
+                setTimeout(() => {
+                    cashierOverlay.classList.remove('show');
+                    paymentInFlight = false;
+                }, 400);
+            }, 3000);
+        }
+
+        // ============================================================
+        // KENYA PAYSTACK
+        // ============================================================
+        async function executePaystackPayment(data, country) {
+            paymentInFlight = true;
+
+            const reference = `CD_MM_${Date.now()}`;
+
+            try {
+                console.log('💳 Opening Paystack (Kenya matchmaking):', { reference, amount: BOOKING_FEE_KES_CENTS });
+
+                const paystack = new PaystackPop();
+                paystack.newTransaction({
+                    key: PAYSTACK_PUBLIC_KEY,
+                    email: data.email,
+                    amount: BOOKING_FEE_KES_CENTS,
+                    currency: 'KES',
+                    channels: ['mobile_money', 'card'],
+                    metadata: {
+                        source: 'matchmaking',
+                        user_id: currentUser.id,
+                        full_name: data.fullName,
+                        whatsapp_no: data.whatsapp,
+                        tiktok_username: data.tiktok,
+                        preferred_date: data.preferredDate,
+                        country: country,
+                        payment_reason: 'Private matchmaking booking fee',
+                        custom_fields: [
+                            { display_name: "Full Name", variable_name: "full_name", value: data.fullName },
+                            { display_name: "WhatsApp", variable_name: "whatsapp", value: data.whatsapp },
+                            { display_name: "TikTok", variable_name: "tiktok", value: data.tiktok }
+                        ]
+                    },
+                    onSuccess: async (transaction) => {
+                        console.log('✅ Payment successful:', transaction);
+                        await saveBooking(data, transaction.reference, 'mpesa_or_card');
+                    },
+                    onCancel: () => {
+                        console.log('Payment cancelled');
+                        showToast('Payment cancelled', 'info');
+                        paymentInFlight = false;
+                    }
+                });
+            } catch (err) {
+                console.error('Payment start failed:', err);
+                showToast('❌ ' + (err.message || 'Payment failed. Please try again.'), 'error');
+                paymentInFlight = false;
+            }
+        }
+
+        // ============================================================
+        // SAVE BOOKING to Supabase after payment
+        // ============================================================
+        async function saveBooking(data, reference, method) {
             try {
                 const { error } = await supabase
                     .from('matchmaking_requests')
@@ -955,35 +1467,30 @@
                         message: data.message,
                         status: 'pending',
                         payment_status: 'paid',
-                        amount: PAYMENT_AMOUNT_USD,
+                        amount: BOOKING_FEE_USD,
                         payment_reference: reference,
-                        payment_method: mode === 'card' ? 'card' : 'mpesa'
+                        payment_method: method,
+                        paid_at: new Date().toISOString()
                     }]);
 
                 if (error) throw error;
 
-                console.log('✅ Booking saved to Supabase');
-                successOverlay.classList.add('show');
+                console.log('✅ Booking saved');
+                showToast('✅ Payment confirmed! Our team will contact you on WhatsApp.', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'members.html';
+                }, 2500);
             } catch (err) {
                 console.error('Save booking error:', err);
-                showError('Payment succeeded but saving failed. Please contact support with ref: ' + reference);
+                showToast('Payment succeeded but saving failed. Ref: ' + reference, 'error');
+                paymentInFlight = false;
             }
         }
 
-        function showError(msg) {
-            errorBanner.textContent = '⚠️ ' + msg;
-            errorBanner.classList.add('show');
-            errorBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return false;
-        }
-
-        window.closeSuccess = function() {
-            successOverlay.classList.remove('show');
-            setTimeout(() => {
-                window.location.href = 'members.html';
-            }, 300);
-        }
-
+        // ============================================================
+        // SUPPORT
+        // ============================================================
         window.openSupport = async function() {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
@@ -999,32 +1506,37 @@
                     .limit(1)
                     .maybeSingle();
 
-                if (conv) {
-                    window.location.href = `chat.html?conversation=${conv.id}`;
-                } else {
-                    window.location.href = 'chat.html';
-                }
+                if (conv) window.location.href = `chat.html?conversation=${conv.id}`;
+                else window.location.href = 'chat.html';
             } catch (e) {
                 window.location.href = 'chat.html';
             }
         }
 
         window.goBack = function() {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = 'members.html';
-            }
+            if (window.history.length > 1) window.history.back();
+            else window.location.href = 'members.html';
         }
 
+        // ============================================================
+        // TOAST
+        // ============================================================
         let toastTimeout;
         function showToast(msg, type = 'success') {
             toast.textContent = msg;
             toast.className = 'toast ' + type;
             toast.classList.add('show');
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3500);
         }
+
+        // Modal close on overlay click + Escape
+        countryModalOverlay.addEventListener('click', (e) => {
+            if (e.target === countryModalOverlay) closeCountryModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && countryModalOverlay.classList.contains('show')) closeCountryModal();
+        });
 
         init();
     </script>

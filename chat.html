@@ -1322,10 +1322,15 @@
         const BOOKING_FEE_KES = Math.round(BOOKING_FEE_USD * FX_RATES.KES);
         const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
 
+        // 🌍 Cashier number (non-Kenya users after country pick)
         const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
+        // 💬 Support chat number (the "Chat with us on WhatsApp" button)
+        const WHATSAPP_SUPPORT_NUMBER = CFG.WHATSAPP_SUPPORT_NUMBER || '254754447524';
+
         const SUPPORT_EMAIL = CFG.SUPPORT_EMAIL || 'support@classydate.com';
 
-        console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES} · WhatsApp: ${WHATSAPP_NUMBER}`);
+        console.log(`💰 USD: $${BOOKING_FEE_USD} · KES: ${BOOKING_FEE_KES}`);
+        console.log(`🌍 Cashier: ${WHATSAPP_NUMBER} · 💬 Support: ${WHATSAPP_SUPPORT_NUMBER}`);
 
         const COUNTRY_CONFIG = {
             KE:    { name: 'Kenya',        flag: '🇰🇪', currency: 'KES', symbol: 'KSh', hint: 'M-PESA prioritised · Card also available', icon: '📱', isMpesa: true,  method: 'paystack' },
@@ -1819,8 +1824,9 @@ For a faster reply and to move things forward quickly, tap 🔓 Unlock Your Priv
                 .replace(/'/g, '&#039;');
         }
 
+        // 💬 Chat with us on WhatsApp — uses SUPPORT number (not cashier)
         function buildWhatsAppLink() {
-            const phone = String(WHATSAPP_NUMBER).replace(/\D/g, '');
+            const phone = String(WHATSAPP_SUPPORT_NUMBER).replace(/\D/g, '');
             const memberName = (conversation && conversation.member_name) ? conversation.member_name : 'a member';
             const msg = `Hi ClassyDate 👋 I'm ready to connect with ${memberName}. I just sent a message on the website, can we continue here?`;
             return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;

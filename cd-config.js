@@ -14,7 +14,7 @@ window.CD_CONFIG = {
     // 📱 WHATSAPP NUMBER
     // International format — no + sign, no spaces, no dashes.
     // ============================================================
-    WHATSAPP_NUMBER: '254754447524',
+    WHATSAPP_NUMBER: '254707001191',
 
     // ============================================================
     // 💬 DEFAULT WHATSAPP MESSAGE

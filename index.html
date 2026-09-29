@@ -19,12 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
         body {
@@ -42,7 +37,6 @@
         img { max-width: 100%; display: block; }
         ul { list-style: none; }
 
-        /* FONT SYSTEM */
         h1, h2, h3, .cb-hero-title, .how-it-works-section h2,
         .match-preview-section h2, .trust-signals-section h2,
         .video-section h2, .stacked-cards-copy h2,
@@ -67,18 +61,11 @@
             font-weight: 700;
         }
 
-        .cb-line2, .cb-action, .hero-subtitle,
-        .match-card-overlay p, .social-proof p {
-            font-family: "Inter", sans-serif;
-            font-weight: 400;
-        }
-
         .cb-shell-brand span {
             font-family: "Inter", sans-serif;
             font-weight: 300;
         }
 
-        /* THEME */
         .gradient-text {
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b, #b896f0);
             -webkit-background-clip: text;
@@ -115,13 +102,10 @@
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
         }
 
-        /* Floating Hearts */
         .floating-hearts {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
             pointer-events: none;
             overflow: hidden;
@@ -159,8 +143,7 @@
         }
         .social-proof__avatars { display: flex; align-items: center; }
         .social-proof__avatars img {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             border: 2px solid #f3e8ff;
             margin-right: -8px;
@@ -175,23 +158,15 @@
             border-radius: 50px;
             margin-left: 4px;
         }
-        .social-proof p {
-            font-size: 13px;
-            color: rgba(26, 5, 51, 0.6);
-        }
+        .social-proof p { font-size: 13px; color: rgba(26, 5, 51, 0.6); }
         .social-proof strong { color: #1a0533; }
 
-        /* Hero Backdrop */
         .hero__backdrop {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             z-index: 0;
-            background-size: cover;
-            background-position: center;
         }
         .hero__backdrop::after {
             content: '';
@@ -209,24 +184,6 @@
             border-color: rgba(108, 60, 179, 0.3) !important;
         }
 
-        .match-card {
-            position: relative;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b, #b896f0, #6c3cb3);
-            background-size: 300% 300%;
-            animation: gradientBorder 4s ease infinite;
-            padding: 3px;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: transform 0.4s ease;
-        }
-        .match-card:hover { transform: translateY(-8px); }
-        .match-card > * { border-radius: 14px; }
-        @keyframes gradientBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         .stat-card__value {
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             -webkit-background-clip: text;
@@ -234,7 +191,6 @@
             background-clip: text;
         }
 
-        /* BUTTONS */
         .btn-primary {
             display: inline-block;
             padding: 14px 36px;
@@ -268,10 +224,7 @@
             text-align: center;
             font-family: "Inter", sans-serif;
         }
-        .btn-secondary:hover {
-            background: #4a1a6b;
-            color: #fff;
-        }
+        .btn-secondary:hover { background: #4a1a6b; color: #fff; }
 
         .section-kicker {
             font-size: 14px;
@@ -283,18 +236,12 @@
             font-family: "Inter", sans-serif;
         }
 
-        .shell {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .shell { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* HEADER */
         .cb-shell-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
@@ -311,11 +258,7 @@
             justify-content: space-between;
         }
 
-        .cb-shell-brand-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .cb-shell-brand-group { display: flex; align-items: center; gap: 10px; }
 
         .cb-shell-brand {
             display: flex;
@@ -327,21 +270,10 @@
             color: #1a0533;
             margin-left: -4px;
         }
-        .cb-shell-brand .heart {
-            color: #ff0000;
-            display: inline-block;
-        }
-        .cb-shell-brand span {
-            font-family: "Inter", sans-serif;
-            font-weight: 300;
-            color: #6c3cb3;
-        }
+        .cb-shell-brand .heart { color: #ff0000; display: inline-block; }
+        .cb-shell-brand span { font-family: "Inter", sans-serif; font-weight: 300; color: #6c3cb3; }
 
-        .cb-shell-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .cb-shell-actions { display: flex; align-items: center; gap: 8px; }
 
         .cb-shell-button {
             padding: 8px 20px;
@@ -368,17 +300,12 @@
             transform: translateY(-2px);
         }
 
-        .cb-shell-mobile-btns {
-            display: none;
-            align-items: center;
-            gap: 6px;
-        }
+        .cb-shell-mobile-btns { display: none; align-items: center; gap: 6px; }
         .cb-shell-mobile-btn {
             padding: 6px 14px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 12px;
-            transition: all 0.3s ease;
             font-family: "Inter", sans-serif;
             cursor: pointer;
             border: none;
@@ -415,11 +342,7 @@
             overflow: hidden;
         }
 
-        .hero__grid {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-        }
+        .hero__grid { position: relative; z-index: 2; width: 100%; }
 
         .cb-hero-box {
             max-width: 560px;
@@ -512,19 +435,8 @@
         }
         .cb-btn-female:hover { background: rgba(255, 255, 255, 0.55); }
 
-        .cb-line1 {
-            font-size: 17px;
-            font-weight: 700;
-            display: block;
-            font-family: "Inter", sans-serif;
-        }
-        .cb-line2 {
-            font-size: 13px;
-            opacity: 0.8;
-            display: block;
-            margin-top: 2px;
-            font-family: "Inter", sans-serif;
-        }
+        .cb-line1 { font-size: 17px; font-weight: 700; display: block; font-family: "Inter", sans-serif; }
+        .cb-line2 { font-size: 13px; opacity: 0.8; display: block; margin-top: 2px; font-family: "Inter", sans-serif; }
         .cb-action {
             display: block;
             font-size: 11px;
@@ -543,7 +455,6 @@
             text-align: center;
         }
         .how-it-works-section h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
             font-size: 32px;
             color: #1a0533;
             margin-bottom: 40px;
@@ -572,8 +483,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
@@ -584,36 +494,48 @@
             left: 24px;
             box-shadow: 0 4px 12px rgba(108, 60, 179, 0.3);
         }
-        .how-it-works-card .icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            display: block;
-        }
-        .how-it-works-card h3 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 20px;
-            color: #1a0533;
-            margin-bottom: 10px;
-            margin-top: 8px;
-        }
-        .how-it-works-card p {
-            font-size: 15px;
-            color: rgba(26, 5, 51, 0.7);
-            font-family: "Inter", sans-serif;
-        }
+        .how-it-works-card .icon { font-size: 40px; margin-bottom: 15px; display: block; }
+        .how-it-works-card h3 { font-size: 20px; color: #1a0533; margin-bottom: 10px; margin-top: 8px; }
+        .how-it-works-card p { font-size: 15px; color: rgba(26, 5, 51, 0.7); font-family: "Inter", sans-serif; }
 
-        /* MATCH PREVIEW (Featured Members) */
+        /* ============================================================ */
+        /* FEATURED MEMBERS — FAN DECK                                  */
+        /* ============================================================ */
         .match-preview-section {
             padding: 80px 20px;
-            background: #f3e8ff;
+            background: radial-gradient(ellipse at center, #f8f0ff 0%, #f3e8ff 50%, #ead5ff 100%);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        .match-preview-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(2px 2px at 15% 30%, rgba(182, 150, 240, 0.6), transparent),
+                radial-gradient(1.5px 1.5px at 85% 20%, rgba(182, 150, 240, 0.5), transparent),
+                radial-gradient(1px 1px at 40% 70%, rgba(108, 60, 179, 0.4), transparent),
+                radial-gradient(2px 2px at 70% 85%, rgba(182, 150, 240, 0.5), transparent),
+                radial-gradient(1.5px 1.5px at 25% 90%, rgba(108, 60, 179, 0.4), transparent);
+            pointer-events: none;
+            animation: sparkleDrift 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes sparkleDrift {
+            0% { transform: translateY(0); opacity: 0.7; }
+            100% { transform: translateY(-10px); opacity: 1; }
+        }
+
         .match-preview-section h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
             font-size: 32px;
             color: #1a0533;
             margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
+
         .match-preview-section .subtitle {
             font-size: 16px;
             color: rgba(26, 5, 51, 0.7);
@@ -622,79 +544,240 @@
             margin-left: auto;
             margin-right: auto;
             font-family: "Inter", sans-serif;
+            position: relative;
+            z-index: 1;
         }
-        .match-preview-grid {
+
+        .fan-deck-wrapper {
+            position: relative;
+            z-index: 1;
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            min-height: 100px;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
         }
-        .match-card {
-            width: 220px;
-            height: 320px;
+
+        .fan-deck {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .fan-card {
+            position: absolute;
+            width: 150px;
+            height: 220px;
             border-radius: 16px;
             overflow: hidden;
-            position: relative;
-            background-color: #fff;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s ease;
+            background: #fff;
+            box-shadow:
+                0 4px 12px rgba(26, 5, 51, 0.15),
+                0 12px 40px rgba(108, 60, 179, 0.15);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center bottom;
+            border: 2px solid rgba(255, 255, 255, 0.8);
         }
-        .match-card img {
+
+        .fan-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            display: block;
+            pointer-events: none;
+            user-select: none;
         }
-        .match-card:hover img { transform: scale(1.08); }
-        .match-card-overlay {
+
+        .fan-card__overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(26, 5, 51, 0.85) 0%, rgba(26, 5, 51, 0) 50%);
+            background: linear-gradient(to top, rgba(26, 5, 51, 0.85) 0%, rgba(26, 5, 51, 0) 55%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 20px;
+            padding: 10px 12px;
+            pointer-events: none;
+        }
+
+        .fan-card__overlay h4 {
             color: #fff;
-            text-align: left;
-        }
-        .match-card-overlay h3 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 18px;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 14px;
+            font-weight: 700;
             margin-bottom: 2px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
-        .match-card-overlay p {
-            font-family: "Inter", sans-serif;
-            font-size: 13px;
-            line-height: 1.4;
+
+        .fan-card__overlay p {
             color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 2px;
+            font-family: "Inter", sans-serif;
+            font-size: 10.5px;
+            line-height: 1.3;
+            font-weight: 500;
         }
-        .badge-online {
+
+        .fan-card__online {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px; right: 8px;
             background: #28a745;
             color: #fff;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 50px;
+            font-size: 9px;
+            font-weight: 700;
             font-family: "Inter", sans-serif;
-            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.5);
+            animation: pulse-online 2s infinite;
         }
-        .badge-verified {
+
+        .fan-card__verified {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(255, 255, 255, 0.9);
+            top: 8px; left: 8px;
+            background: rgba(255, 255, 255, 0.95);
             color: #6c3cb3;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 50px;
+            font-size: 9px;
             font-weight: 700;
             font-family: "Inter", sans-serif;
             backdrop-filter: blur(4px);
+        }
+
+        .fan-card.is-active {
+            box-shadow:
+                0 8px 20px rgba(26, 5, 51, 0.2),
+                0 20px 60px rgba(108, 60, 179, 0.35),
+                0 0 0 3px rgba(182, 150, 240, 0.4);
+            z-index: 10;
+        }
+
+        .fan-card.is-active::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(182, 150, 240, 0.4), rgba(108, 60, 179, 0.3));
+            z-index: -1;
+            filter: blur(12px);
+            animation: activeGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes activeGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+
+        .fan-info {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 20px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.15);
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .fan-info.fade-out { opacity: 0; transform: translateY(8px); }
+
+        .fan-info__name {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .fan-info__name .verified-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #1DA1F2;
+            color: #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: 700;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(29, 161, 242, 0.4);
+        }
+
+        .fan-info__details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-family: "Inter", sans-serif;
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.7);
+            font-weight: 500;
+        }
+
+        .fan-info__details span { display: inline-flex; align-items: center; gap: 4px; }
+        .fan-info__online { color: #28a745; font-weight: 700; }
+        .fan-info__offline { color: rgba(26, 5, 51, 0.4); font-weight: 600; }
+
+        .fan-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .fan-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(108, 60, 179, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+        }
+
+        .fan-dot.active {
+            background: #6c3cb3;
+            width: 24px;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px rgba(108, 60, 179, 0.4);
+        }
+
+        .fan-cta { margin-top: 8px; }
+
+        .fan-cta .btn-see-all {
+            display: inline-block;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: "Inter", sans-serif;
+            box-shadow: 0 8px 25px rgba(108, 60, 179, 0.3);
+        }
+
+        .fan-cta .btn-see-all:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(108, 60, 179, 0.45);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
 
         .members-loading {
@@ -734,6 +817,11 @@
         }
         .members-empty p { font-family: "Inter", sans-serif; font-size: 14px; }
 
+        @keyframes pulse-online {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.85; }
+        }
+
         /* TRUST SIGNALS */
         .trust-signals-section {
             padding: 60px 20px;
@@ -741,7 +829,6 @@
             text-align: center;
         }
         .trust-signals-section h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
             font-size: 28px;
             color: #fff;
             margin-bottom: 30px;
@@ -765,35 +852,18 @@
             transform: translateY(-4px);
             border-color: rgba(255, 255, 255, 0.2);
         }
-        .trust-signal-item .icon {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 12px;
-        }
+        .trust-signal-item .icon { font-size: 40px; display: block; margin-bottom: 12px; }
         .trust-signal-item h3 {
             color: #fff;
             font-size: 16px;
             margin-bottom: 4px;
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
         }
-        .trust-signal-item p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 13px;
-            font-family: "Inter", sans-serif;
-        }
+        .trust-signal-item p { color: rgba(255, 255, 255, 0.6); font-size: 13px; font-family: "Inter", sans-serif; }
 
         /* VIDEO */
-        .video-section {
-            padding: 60px 20px 80px;
-            background: #f3e8ff;
-            text-align: center;
-        }
-        .video-section h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 28px;
-            color: #1a0533;
-            margin-bottom: 30px;
-        }
+        .video-section { padding: 60px 20px 80px; background: #f3e8ff; text-align: center; }
+        .video-section h2 { font-size: 28px; color: #1a0533; margin-bottom: 30px; }
         .video-wrapper {
             max-width: 900px;
             margin: 0 auto;
@@ -806,25 +876,14 @@
         }
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: none;
         }
-        .video-subtitle {
-            color: rgba(26, 5, 51, 0.5);
-            font-size: 14px;
-            margin-top: 16px;
-            font-family: "Inter", sans-serif;
-        }
+        .video-subtitle { color: rgba(26, 5, 51, 0.5); font-size: 14px; margin-top: 16px; font-family: "Inter", sans-serif; }
 
         /* STACKED CARDS */
-        .stacked-cards-section {
-            padding: 80px 20px;
-            background: #fff;
-        }
-
+        .stacked-cards-section { padding: 80px 20px; background: #fff; }
         .stacked-cards-inner {
             max-width: 1100px;
             margin: 0 auto;
@@ -833,27 +892,9 @@
             align-items: center;
             flex-wrap: wrap;
         }
-
-        .stacked-cards-copy {
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .stacked-cards-copy h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 32px;
-            color: #1a0533;
-            margin-bottom: 10px;
-        }
-
-        .stacked-cards-copy p {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-family: "Inter", sans-serif;
-        }
-
+        .stacked-cards-copy { flex: 1; min-width: 260px; }
+        .stacked-cards-copy h2 { font-size: 32px; color: #1a0533; margin-bottom: 10px; }
+        .stacked-cards-copy p { font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 20px; font-family: "Inter", sans-serif; }
         .stacked-cards-copy .btn-stacked {
             display: inline-block;
             padding: 14px 36px;
@@ -872,15 +913,7 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
             background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
-
-        .stacked-cards-grid {
-            display: flex;
-            gap: 16px;
-            flex: 1;
-            min-width: 260px;
-            justify-content: center;
-        }
-
+        .stacked-cards-grid { display: flex; gap: 16px; flex: 1; min-width: 260px; justify-content: center; }
         .stacked-card {
             width: 150px;
             border-radius: 14px;
@@ -891,21 +924,11 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        .stacked-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.15);
-        }
-
-        .stacked-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
+        .stacked-card:hover { transform: translateY(-6px); box-shadow: 0 8px 30px rgba(108, 60, 179, 0.15); }
+        .stacked-card img { width: 100%; height: 180px; object-fit: cover; }
         .stacked-card .badge {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
+            bottom: 10px; left: 10px;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
             padding: 4px 12px;
@@ -916,11 +939,7 @@
         }
 
         /* CTA IMAGE BOX */
-        .cta-image-box {
-            padding: 80px 20px;
-            background: #f3e8ff;
-        }
-
+        .cta-image-box { padding: 80px 20px; background: #f3e8ff; }
         .cta-image-box-inner {
             max-width: 1100px;
             margin: 0 auto;
@@ -929,27 +948,9 @@
             align-items: center;
             flex-wrap: wrap;
         }
-
-        .cta-content {
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .cta-content h2 {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 32px;
-            color: #1a0533;
-            margin-bottom: 12px;
-        }
-
-        .cta-content p {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-family: "Inter", sans-serif;
-        }
-
+        .cta-content { flex: 1; min-width: 260px; }
+        .cta-content h2 { font-size: 32px; color: #1a0533; margin-bottom: 12px; }
+        .cta-content p { font-size: 15px; color: #666; line-height: 1.7; margin-bottom: 18px; font-family: "Inter", sans-serif; }
         .cta-content .btn-cta {
             display: inline-block;
             padding: 14px 36px;
@@ -968,26 +969,11 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
             background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
         }
-
-        .cta-image {
-            flex: 1;
-            min-width: 260px;
-            border-radius: 14px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .cta-image img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
+        .cta-image { flex: 1; min-width: 260px; border-radius: 14px; overflow: hidden; position: relative; }
+        .cta-image img { width: 100%; height: 300px; object-fit: cover; }
 
         /* STATS */
-        .stats {
-            padding: 80px 20px;
-            background: rgba(108, 60, 179, 0.04);
-        }
+        .stats { padding: 80px 20px; background: rgba(108, 60, 179, 0.04); }
         .stats__grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1008,29 +994,12 @@
             transform: translateY(-4px);
             box-shadow: 0 10px 30px rgba(108, 60, 179, 0.05);
         }
-        .stat-card__value {
-            font-size: 40px;
-            font-weight: 700;
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-        }
-        .stat-card h3 {
-            font-size: 18px;
-            color: #1a0533;
-            margin: 8px 0;
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-        }
-        .stat-card p {
-            font-size: 13px;
-            color: rgba(26, 5, 51, 0.5);
-            font-family: "Inter", sans-serif;
-        }
+        .stat-card__value { font-size: 40px; font-weight: 700; font-family: "Playfair Display", Georgia, 'Times New Roman', serif; }
+        .stat-card h3 { font-size: 18px; color: #1a0533; margin: 8px 0; font-family: "Playfair Display", Georgia, 'Times New Roman', serif; }
+        .stat-card p { font-size: 13px; color: rgba(26, 5, 51, 0.5); font-family: "Inter", sans-serif; }
 
         /* 2-UP CARDS */
-        .cards-2up {
-            padding: 80px 20px;
-            background: #fff;
-        }
-
+        .cards-2up { padding: 80px 20px; background: #fff; }
         .cards-2up-grid {
             max-width: 1100px;
             margin: 0 auto;
@@ -1038,7 +1007,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
-
         .card-2up {
             border-radius: 16px;
             overflow: hidden;
@@ -1047,35 +1015,11 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(108, 60, 179, 0.08);
         }
-        .card-2up:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.1);
-            border-color: rgba(108, 60, 179, 0.2);
-        }
-
-        .card-2up img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
+        .card-2up:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(108, 60, 179, 0.1); border-color: rgba(108, 60, 179, 0.2); }
+        .card-2up img { width: 100%; height: 220px; object-fit: cover; }
         .card-2up .card-body { padding: 24px 26px 26px; }
-
-        .card-2up .card-body h3 {
-            font-size: 22px;
-            color: #1a0533;
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            margin-bottom: 6px;
-        }
-
-        .card-2up .card-body p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 14px;
-            font-family: "Inter", sans-serif;
-        }
-
+        .card-2up .card-body h3 { font-size: 22px; color: #1a0533; font-family: "Playfair Display", Georgia, 'Times New Roman', serif; margin-bottom: 6px; }
+        .card-2up .card-body p { color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 14px; font-family: "Inter", sans-serif; }
         .card-2up .card-body .card-link {
             color: #6c3cb3;
             font-weight: 700;
@@ -1086,18 +1030,10 @@
             font-size: 14px;
             font-family: "Inter", sans-serif;
         }
-        .card-2up .card-body .card-link:hover {
-            gap: 10px;
-            color: #4a1a6b;
-        }
+        .card-2up .card-body .card-link:hover { gap: 10px; color: #4a1a6b; }
 
         /* QUOTE */
-        .quote-section {
-            padding: 80px 20px;
-            background: #4a1a6b;
-            text-align: center;
-        }
-
+        .quote-section { padding: 80px 20px; background: #4a1a6b; text-align: center; }
         .quote-section-inner {
             max-width: 1100px;
             margin: 0 auto;
@@ -1106,13 +1042,7 @@
             align-items: center;
             flex-wrap: wrap;
         }
-
-        .quote-text {
-            flex: 1;
-            min-width: 260px;
-            text-align: left;
-        }
-
+        .quote-text { flex: 1; min-width: 260px; text-align: left; }
         .quote-text blockquote {
             font-size: 28px;
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
@@ -1121,7 +1051,6 @@
             line-height: 1.4;
             color: #fff;
         }
-
         .quote-text blockquote::before {
             content: '"';
             font-family: "Great Vibes", cursive;
@@ -1130,15 +1059,7 @@
             display: block;
             line-height: 0.8;
         }
-
-        .quote-text .author {
-            color: #b896f0;
-            font-weight: 600;
-            font-size: 16px;
-            margin-top: 12px;
-            font-family: "Inter", sans-serif;
-        }
-
+        .quote-text .author { color: #b896f0; font-weight: 600; font-size: 16px; margin-top: 12px; font-family: "Inter", sans-serif; }
         .quote-text .btn-quote {
             display: inline-block;
             margin-top: 20px;
@@ -1153,48 +1074,15 @@
             cursor: pointer;
             font-family: "Inter", sans-serif;
         }
-        .quote-text .btn-quote:hover {
-            background: #b896f0;
-            color: #4a1a6b;
-        }
-
-        .quote-image {
-            flex: 1;
-            min-width: 260px;
-            border-radius: 14px;
-            overflow: hidden;
-        }
-
-        .quote-image img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
+        .quote-text .btn-quote:hover { background: #b896f0; color: #4a1a6b; }
+        .quote-image { flex: 1; min-width: 260px; border-radius: 14px; overflow: hidden; }
+        .quote-image img { width: 100%; height: 280px; object-fit: cover; }
 
         /* STAY CONNECTED */
-        .app-section {
-            padding: 80px 20px;
-            background: #fff;
-            text-align: center;
-        }
-
+        .app-section { padding: 80px 20px; background: #fff; text-align: center; }
         .app-section-inner { max-width: 900px; margin: 0 auto; }
-
-        .app-section h2 {
-            font-size: 32px;
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            color: #1a0533;
-            margin-bottom: 6px;
-        }
-
-        .app-section p {
-            color: #666;
-            max-width: 500px;
-            margin: 0 auto 24px;
-            font-size: 15px;
-            font-family: "Inter", sans-serif;
-        }
-
+        .app-section h2 { font-size: 32px; font-family: "Playfair Display", Georgia, 'Times New Roman', serif; color: #1a0533; margin-bottom: 6px; }
+        .app-section p { color: #666; max-width: 500px; margin: 0 auto 24px; font-size: 15px; font-family: "Inter", sans-serif; }
         .app-section .btn-app {
             display: inline-block;
             padding: 14px 40px;
@@ -1234,7 +1122,6 @@
             max-width: 280px;
             font-family: "Inter", sans-serif;
         }
-
         .cb-shell-footer__brand div {
             color: #b896f0 !important;
             font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
@@ -1243,7 +1130,6 @@
             color: #fff !important;
             font-family: "Inter", sans-serif;
         }
-
         .cb-shell-footer__group h2 {
             font-size: 13px;
             font-weight: 600;
@@ -1262,19 +1148,9 @@
             font-family: "Inter", sans-serif;
         }
         .cb-shell-footer__group a:hover { color: #b896f0; }
-        .cb-shell-footer__meta {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            margin-top: 16px;
-            font-family: "Inter", sans-serif;
-        }
+        .cb-shell-footer__meta { color: rgba(255, 255, 255, 0.4); font-size: 12px; margin-top: 16px; font-family: "Inter", sans-serif; }
 
-        .cb-shell-socials {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
+        .cb-shell-socials { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
         .cb-shell-socials a {
             color: rgba(255, 255, 255, 0.4);
             font-size: 20px;
@@ -1282,8 +1158,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
         }
@@ -1293,18 +1168,16 @@
             transform: translateY(-2px);
         }
 
-        /* FLOATING SUPPORT BUTTON */
+        /* SUPPORT FLOAT */
         .support-float {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 24px; right: 24px;
             z-index: 500;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
             gap: 8px;
         }
-
         .support-float__label {
             background: rgba(255, 255, 255, 0.95);
             color: #1a0533;
@@ -1322,15 +1195,9 @@
             pointer-events: none;
             white-space: nowrap;
         }
-
-        .support-float:hover .support-float__label {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
+        .support-float:hover .support-float__label { opacity: 1; transform: translateX(0); }
         .support-float__btn {
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
             color: #fff;
@@ -1345,25 +1212,16 @@
             position: relative;
             animation: float-support 3s ease-in-out infinite;
         }
-
         @keyframes float-support {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-6px); }
         }
-
-        .support-float__btn:hover {
-            transform: scale(1.1) translateY(-4px);
-            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
-        }
-
+        .support-float__btn:hover { transform: scale(1.1) translateY(-4px); box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5); }
         .support-float__btn:active { transform: scale(0.95); }
-
         .support-float__dot {
             position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 14px;
-            height: 14px;
+            top: 2px; right: 2px;
+            width: 14px; height: 14px;
             border-radius: 50%;
             background: #28a745;
             border: 2.5px solid #fff;
@@ -1371,17 +1229,10 @@
             animation: pulse-online 1.8s infinite;
         }
 
-        @keyframes pulse-online {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.15); opacity: 0.7; }
-        }
-
         /* COOKIE CONSENT */
         .cookie-consent {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             padding: 16px 20px;
             background: rgba(26, 5, 51, 0.95);
             backdrop-filter: blur(12px);
@@ -1406,12 +1257,7 @@
             min-width: 180px;
             font-family: "Inter", sans-serif;
         }
-        .cookie-consent__link {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 13px;
-            transition: color 0.3s ease;
-            font-family: "Inter", sans-serif;
-        }
+        .cookie-consent__link { color: rgba(255, 255, 255, 0.4); font-size: 13px; transition: color 0.3s ease; font-family: "Inter", sans-serif; }
         .cookie-consent__link:hover { color: #b896f0; }
         .cookie-consent__accept {
             padding: 8px 24px;
@@ -1425,10 +1271,7 @@
             font-size: 13px;
             font-family: "Inter", sans-serif;
         }
-        .cookie-consent__accept:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(108, 60, 179, 0.3);
-        }
+        .cookie-consent__accept:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(108, 60, 179, 0.3); }
 
         /* RESPONSIVE */
         @media (max-width: 1024px) {
@@ -1469,11 +1312,16 @@
 
             .cta-image img { height: 220px; }
             .quote-text blockquote { font-size: 22px; }
-            .match-preview-grid { gap: 15px; }
-            .match-card { width: 160px; height: 240px; }
-            .match-card-overlay h3 { font-size: 15px; }
-            .match-card-overlay p { font-size: 11px; }
-            .badge-online { font-size: 9px; padding: 3px 6px; }
+
+            .fan-deck { height: 260px; max-width: 100%; }
+            .fan-card { width: 120px; height: 180px; }
+            .fan-card__overlay h4 { font-size: 12px; }
+            .fan-card__overlay p { font-size: 9.5px; }
+            .fan-info { padding: 16px 20px; border-radius: 16px; }
+            .fan-info__name { font-size: 20px; }
+            .fan-info__details { font-size: 12px; gap: 10px; }
+            .match-preview-section h2 { font-size: 24px; }
+            .match-preview-section .subtitle { font-size: 14px; }
 
             .support-float { bottom: 16px; right: 16px; }
             .support-float__btn { width: 54px; height: 54px; font-size: 22px; }
@@ -1483,39 +1331,30 @@
         @media (max-width: 480px) {
             .cb-hero-title { font-size: 28px; }
             .cb-shell-brand { font-size: 16px; }
-
             .stacked-card { width: 100px; }
             .stacked-card img { height: 120px; }
             .stacked-card .badge { font-size: 8px; padding: 2px 8px; bottom: 6px; left: 6px; }
-
             .stat-card__value { font-size: 32px; }
             .card-2up img { height: 160px; }
-
-            .match-card { width: 145px; height: 210px; }
-            .match-card-overlay { padding: 12px; }
-            .match-card-overlay h3 { font-size: 13px; }
-            .match-card-overlay p { font-size: 10px; }
-
             .hero-subtitle { font-size: 15px; }
             .hot-badge { font-size: 10px; padding: 4px 14px; }
             .social-proof { padding: 10px 16px; gap: 10px; }
             .social-proof__avatars img { width: 26px; height: 26px; }
             .social-proof p { font-size: 11px; }
-
             .quote-text blockquote { font-size: 18px; }
             .quote-image img { height: 200px; }
-
             .how-it-works-section h2, .match-preview-section h2,
             .trust-signals-section h2, .video-section h2,
             .stacked-cards-copy h2, .cta-content h2, .app-section h2 {
                 font-size: 24px;
             }
+            .fan-deck { height: 230px; }
+            .fan-card { width: 105px; height: 160px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header class="cb-shell-header" role="banner">
         <div class="cb-shell-header__inner">
             <div class="cb-shell-brand-group">
@@ -1537,7 +1376,6 @@
         </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="hero__backdrop"></div>
 
@@ -1607,7 +1445,6 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
     <section class="how-it-works-section">
         <div class="shell">
             <p class="section-kicker">Our Process</p>
@@ -1635,22 +1472,35 @@
         </div>
     </section>
 
-    <!-- FEATURED MEMBERS (Live from Supabase) -->
+    <!-- FEATURED MEMBERS — FAN DECK -->
     <section class="match-preview-section">
         <div class="shell">
             <p class="section-kicker">🔥 Exclusive Sneak Peek</p>
             <h2>Meet Our Featured Members</h2>
             <p class="subtitle">Discover a glimpse of the discerning singles waiting for you on ClassyDate. Our community is built on quality, not quantity.</p>
-            <div class="match-preview-grid" id="featured-members">
-                <div class="members-loading">
-                    <span class="loading-spinner"></span>
-                    <span>Loading featured members...</span>
+
+            <div class="fan-deck-wrapper">
+                <div class="fan-deck" id="featured-members">
+                    <div class="members-loading">
+                        <span class="loading-spinner"></span>
+                        <span>Loading featured members...</span>
+                    </div>
+                </div>
+
+                <div class="fan-info" id="fan-info" style="display:none;">
+                    <div class="fan-info__name" id="fan-info-name">—</div>
+                    <div class="fan-info__details" id="fan-info-details"></div>
+                </div>
+
+                <div class="fan-dots" id="fan-dots" style="display:none;"></div>
+
+                <div class="fan-cta">
+                    <a href="members.html" class="btn-see-all">🔍 See All Members →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TRUST SIGNALS -->
     <section class="trust-signals-section">
         <div class="shell">
             <p class="section-kicker">⭐ Why Members Trust Us</p>
@@ -1680,7 +1530,6 @@
         </div>
     </section>
 
-    <!-- VIDEO -->
     <section class="video-section">
         <div class="shell">
             <p class="section-kicker">❤️ Real Love Stories</p>
@@ -1692,7 +1541,6 @@
         </div>
     </section>
 
-    <!-- STACKED CARDS -->
     <section class="stacked-cards-section">
         <div class="stacked-cards-inner">
             <div class="stacked-cards-copy">
@@ -1718,7 +1566,6 @@
         </div>
     </section>
 
-    <!-- CTA IMAGE BOX -->
     <section class="cta-image-box">
         <div class="cta-image-box-inner">
             <div class="cta-content">
@@ -1734,7 +1581,6 @@
         </div>
     </section>
 
-    <!-- STATS -->
     <section class="stats">
         <div class="shell stats__grid">
             <article class="stat-card">
@@ -1755,7 +1601,6 @@
         </div>
     </section>
 
-    <!-- 2-UP CARDS -->
     <section class="cards-2up">
         <div class="cards-2up-grid">
             <div class="card-2up">
@@ -1777,7 +1622,6 @@
         </div>
     </section>
 
-    <!-- QUOTE -->
     <section class="quote-section">
         <div class="quote-section-inner">
             <div class="quote-text">
@@ -1792,7 +1636,6 @@
         </div>
     </section>
 
-    <!-- STAY CONNECTED -->
     <section class="app-section">
         <div class="app-section-inner">
             <p class="section-kicker">📱 Stay Connected</p>
@@ -1802,7 +1645,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="cb-shell-footer" role="contentinfo">
         <div class="cb-shell-footer__inner">
             <div class="cb-shell-footer__brand">
@@ -1847,7 +1689,6 @@
         </div>
     </footer>
 
-    <!-- FLOATING SUPPORT BUTTON -->
     <div class="support-float">
         <span class="support-float__label">💬 Chat with ClassyDate Support</span>
         <button class="support-float__btn" onclick="openSupport()" aria-label="Contact Support">
@@ -1856,7 +1697,6 @@
         </button>
     </div>
 
-    <!-- COOKIE CONSENT -->
     <div id="cookie-consent" class="cookie-consent">
         <div class="cookie-consent__content">
             <p>We use cookies to improve your experience on our site. By continuing to use our site, you agree to our use of cookies.</p>
@@ -1867,9 +1707,6 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS - SUPABASE + INTERACTIONS                            -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -1885,14 +1722,19 @@
         const SUPABASE_ANON_KEY = 'sb_publishable_oeCfBt8Ci0xQ4mg6o2mnnA_mbgnwRVS';
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         // ============================================================
-        // LOAD FEATURED MEMBERS
+        // FEATURED MEMBERS — FAN DECK
         // ============================================================
+        let fanMembers = [];
+        let fanActiveIndex = 0;
+        let fanTouchStartX = 0;
+
         async function loadFeaturedMembers() {
-            const container = document.getElementById('featured-members');
+            const deckContainer = document.getElementById('featured-members');
+            const infoBox = document.getElementById('fan-info');
+            const dotsContainer = document.getElementById('fan-dots');
 
             try {
                 const { data, error } = await supabase
@@ -1900,12 +1742,12 @@
                     .select('*')
                     .eq('verified', true)
                     .order('created_at', { ascending: false })
-                    .limit(8);
+                    .limit(5);
 
                 if (error) throw error;
 
                 if (!data || data.length === 0) {
-                    container.innerHTML = `
+                    deckContainer.innerHTML = `
                         <div class="members-empty">
                             <div class="icon">💎</div>
                             <h3>No featured members yet</h3>
@@ -1915,11 +1757,20 @@
                     return;
                 }
 
-                container.innerHTML = data.map(m => renderMemberCard(m)).join('');
+                fanMembers = data;
+                fanActiveIndex = 0;
+
+                renderFanDeck();
+                updateFanInfo();
+                renderFanDots();
+                setupFanSwipe();
+
+                infoBox.style.display = 'block';
+                dotsContainer.style.display = 'flex';
 
             } catch (err) {
                 console.error('Error loading featured members:', err);
-                container.innerHTML = `
+                deckContainer.innerHTML = `
                     <div class="members-empty">
                         <div class="icon">⚠️</div>
                         <h3>Could not load members</h3>
@@ -1929,57 +1780,156 @@
             }
         }
 
-        function renderMemberCard(member) {
-            const memberName = member.name || 'Member';
-            const memberAge = member.age || '';
-            const currentLocation = member.current_location || 'Location Unknown';
-            const occupation = member.occupation || 'Not specified';
-            const isOnline = member.online;
-            const isVerified = member.verified;
-
-            // Get photo URL from first file_id in member_photos bucket
-            let photoUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=400`;
+        function getMemberPhoto(member) {
+            const name = member.name || 'Member';
+            let url = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`;
             if (member.photo_file_ids && member.photo_file_ids.length > 0) {
                 const { data } = supabase.storage
                     .from('member_photos')
                     .getPublicUrl(member.photo_file_ids[0]);
-                if (data && data.publicUrl) {
-                    photoUrl = data.publicUrl;
-                }
+                if (data && data.publicUrl) url = data.publicUrl;
             }
+            return url;
+        }
 
-            const onlineBadge = isOnline ? '<span class="badge-online">🟢 Online</span>' : '';
-            const verifiedBadge = isVerified ? '<span class="badge-verified">💎 Verified</span>' : '';
+        function renderFanDeck() {
+            const deckContainer = document.getElementById('featured-members');
+            const total = fanMembers.length;
 
-            return `
-                <div class="match-card" onclick="window.location.href='profile.html?id=${member.id}'">
-                    <img src="${photoUrl}" alt="${memberName}" loading="lazy"
-                         onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=400'">
-                    ${onlineBadge}
-                    ${verifiedBadge}
-                    <div class="match-card-overlay">
-                        <h3>✨ ${memberName}${memberAge ? ', ' + memberAge : ''}</h3>
-                        <p>📍 ${currentLocation}</p>
-                        <p>💼 ${occupation}</p>
+            deckContainer.innerHTML = fanMembers.map((member, i) => {
+                const name = member.name || 'Member';
+                const age = member.age || '';
+                const location = member.current_location || 'Unknown';
+                const isOnline = member.online === true;
+                const isVerified = member.verified === true;
+                const photo = getMemberPhoto(member);
+
+                let offset = i - fanActiveIndex;
+                if (offset > total / 2) offset -= total;
+                if (offset < -total / 2) offset += total;
+
+                const angle = offset * 8;
+                const translateX = offset * 55;
+                const translateY = Math.abs(offset) * 18;
+                const scale = offset === 0 ? 1.1 : 1 - Math.abs(offset) * 0.12;
+                const zIndex = 10 - Math.abs(offset);
+                const opacity = offset === 0 ? 1 : Math.max(0.35, 1 - Math.abs(offset) * 0.25);
+                const isActive = offset === 0 ? 'is-active' : '';
+
+                const onlineBadge = (isOnline && offset === 0) ? '<span class="fan-card__online">🟢 Online</span>' : '';
+                const verifiedBadge = (isVerified && offset === 0) ? '<span class="fan-card__verified">💎 Verified</span>' : '';
+
+                return `
+                    <div class="fan-card ${isActive}"
+                         data-index="${i}"
+                         onclick="setFanActive(${i})"
+                         style="
+                            transform: translateX(${translateX}px) translateY(${translateY}px) rotate(${angle}deg) scale(${scale});
+                            z-index: ${zIndex};
+                            opacity: ${opacity};
+                         ">
+                        <img src="${photo}" alt="${name}" loading="lazy"
+                             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400'">
+                        ${onlineBadge}
+                        ${verifiedBadge}
+                        <div class="fan-card__overlay">
+                            <h4>${name}${age ? ', ' + age : ''}</h4>
+                            <p>📍 ${location}</p>
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }).join('');
+        }
+
+        function updateFanInfo() {
+            const member = fanMembers[fanActiveIndex];
+            if (!member) return;
+
+            const nameEl = document.getElementById('fan-info-name');
+            const detailsEl = document.getElementById('fan-info-details');
+            const infoBox = document.getElementById('fan-info');
+
+            infoBox.classList.add('fade-out');
+
+            setTimeout(() => {
+                const name = member.name || 'Member';
+                const age = member.age || '';
+                const location = member.current_location || 'Unknown';
+                const occupation = member.occupation || 'Not specified';
+                const isOnline = member.online === true;
+                const isVerified = member.verified === true;
+
+                nameEl.innerHTML = `
+                    ✨ ${name}${age ? ', ' + age : ''}
+                    ${isVerified ? '<span class="verified-icon">✓</span>' : ''}
+                `;
+
+                detailsEl.innerHTML = `
+                    <span>📍 ${location}</span>
+                    <span>💼 ${occupation}</span>
+                    <span class="${isOnline ? 'fan-info__online' : 'fan-info__offline'}">
+                        ${isOnline ? '🟢 Online' : '⚪ Offline'}
+                    </span>
+                `;
+
+                infoBox.classList.remove('fade-out');
+            }, 200);
+        }
+
+        function renderFanDots() {
+            const dotsContainer = document.getElementById('fan-dots');
+            dotsContainer.innerHTML = fanMembers.map((_, i) => `
+                <button class="fan-dot ${i === fanActiveIndex ? 'active' : ''}"
+                        onclick="setFanActive(${i})"
+                        aria-label="Show member ${i + 1}"></button>
+            `).join('');
+        }
+
+        window.setFanActive = function(index) {
+            if (index === fanActiveIndex) {
+                const member = fanMembers[index];
+                if (member) window.location.href = `profile.html?id=${member.id}`;
+                return;
+            }
+            fanActiveIndex = index;
+            renderFanDeck();
+            updateFanInfo();
+            renderFanDots();
+        }
+
+        function setupFanSwipe() {
+            const deck = document.getElementById('featured-members');
+
+            deck.addEventListener('touchstart', (e) => {
+                fanTouchStartX = e.touches[0].clientX;
+            }, { passive: true });
+
+            deck.addEventListener('touchend', (e) => {
+                const diff = e.changedTouches[0].clientX - fanTouchStartX;
+                if (Math.abs(diff) < 40) return;
+
+                if (diff < 0) {
+                    fanActiveIndex = (fanActiveIndex + 1) % fanMembers.length;
+                } else {
+                    fanActiveIndex = (fanActiveIndex - 1 + fanMembers.length) % fanMembers.length;
+                }
+                renderFanDeck();
+                updateFanInfo();
+                renderFanDots();
+            }, { passive: true });
         }
 
         // ============================================================
-        // FLOATING SUPPORT BUTTON
+        // SUPPORT BUTTON
         // ============================================================
         window.openSupport = async function() {
-            // Check if user is logged in
             const { data: { session } } = await supabase.auth.getSession();
 
             if (!session) {
-                // Not logged in — send them to login
                 window.location.href = 'login.html';
                 return;
             }
 
-            // Logged in — find their conversation
             const { data: conv, error } = await supabase
                 .from('conversations')
                 .select('id')
@@ -1989,8 +1939,6 @@
                 .maybeSingle();
 
             if (error || !conv) {
-                // No conversation yet — send to login/signup flow
-                // (they can reach support from any member's profile "Connect" button)
                 window.location.href = 'members.html';
                 return;
             }
@@ -2015,9 +1963,10 @@
         }
 
         // ============================================================
-        // SPARKLE CURSOR EFFECT
+        // SPARKLE CURSOR
         // ============================================================
         document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.15) return;
             const sparkle = document.createElement('div');
             const emojis = ['✨', '❤️', '💕', '⭐', '💖'];
             sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -2046,7 +1995,7 @@
         document.head.appendChild(styleSheet);
 
         // ============================================================
-        // SCROLL REVEAL ANIMATION
+        // SCROLL REVEAL
         // ============================================================
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -2069,10 +2018,8 @@
         // ============================================================
         loadFeaturedMembers();
 
-        console.log('💎 ClassyDate❤️ Homepage updated');
-        console.log('✅ Featured Members pull from Supabase');
-        console.log('✅ Support button ready');
-        console.log('✅ All links updated');
+        console.log('💎 ClassyDate homepage ready');
+        console.log('✅ Fan deck loaded');
     </script>
 </body>
 </html>

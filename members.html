@@ -214,7 +214,7 @@
             width: 100%;
         }
 
-        /* ⭐ NEW: TRUST BANNER */
+        /* TRUST BANNER */
         .trust-banner {
             background: linear-gradient(135deg, rgba(40, 167, 69, 0.08), rgba(108, 60, 179, 0.06));
             border: 1px solid rgba(40, 167, 69, 0.2);
@@ -248,7 +248,7 @@
             background: rgba(26, 5, 51, 0.2);
         }
 
-        /* ⭐ NEW: HOW-TO GUIDE */
+        /* HOW-TO GUIDE */
         .how-to-guide {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -320,9 +320,7 @@
 
         .how-to-step__text strong { color: #6c3cb3; font-weight: 700; }
 
-        /* ============================================================ */
-        /* MEMBERS HEADER (title + live count)                          */
-        /* ============================================================ */
+        /* MEMBERS HEADER */
         .members-header {
             display: flex;
             justify-content: space-between;
@@ -340,17 +338,6 @@
             font-weight: 700;
         }
 
-        .members-header .member-count {
-            color: rgba(26, 5, 51, 0.5);
-            font-size: 12px;
-        }
-
-        .members-header .member-count strong {
-            color: #1a0533;
-            font-weight: 700;
-        }
-
-        /* ⭐ NEW: Live counter chips */
         .members-live-chips {
             display: flex;
             flex-wrap: wrap;
@@ -392,7 +379,7 @@
         }
 
         /* ============================================================ */
-        /* BENTO GRID - MOBILE-FIRST                                   */
+        /* BENTO GRID                                                   */
         /* ============================================================ */
         .bento-grid {
             display: grid;
@@ -407,7 +394,7 @@
         .bento-tile--wide { grid-column: span 2; grid-row: span 1; }
 
         /* ============================================================ */
-        /* CARD (shared for all tiles)                                  */
+        /* CARD                                                         */
         /* ============================================================ */
         .member-card {
             background: rgba(255, 255, 255, 0.6);
@@ -434,9 +421,6 @@
 
         .member-card:active { transform: scale(0.98); }
 
-        /* ============================================================ */
-        /* IMAGE WRAPPER                                               */
-        /* ============================================================ */
         .member-card__image-wrapper {
             position: relative;
             overflow: hidden;
@@ -548,14 +532,11 @@
         }
         .like-pill .heart { font-size: 10px; }
 
-        /* ============================================================ */
-        /* CARD INFO                                                    */
-        /* ============================================================ */
         .member-card__info {
             padding: 8px 10px 10px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
             flex: 1;
             min-width: 0;
         }
@@ -569,21 +550,39 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            margin-bottom: 2px;
         }
 
         .bento-tile--big .member-card__name { font-size: 17px; }
         .bento-tile--wide .member-card__name { font-size: 15px; }
 
-        .member-card__detail {
+        /* ⭐ NEW: Home + Current country lines */
+        .member-card__origin {
             font-size: 11px;
-            color: rgba(26, 5, 51, 0.6);
-            font-weight: 500;
+            color: rgba(26, 5, 51, 0.55);
+            font-weight: 600;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .bento-tile--big .member-card__detail { font-size: 12px; }
+        .member-card__location {
+            font-size: 11px;
+            color: rgba(26, 5, 51, 0.65);
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .bento-tile--big .member-card__origin,
+        .bento-tile--big .member-card__location { font-size: 12px; }
 
         .member-card__occupation {
             display: none;
@@ -619,6 +618,7 @@
             width: 100%;
             min-height: 40px;
             letter-spacing: 0.3px;
+            margin-top: 8px;
         }
 
         .btn-connect:hover {
@@ -695,7 +695,7 @@
         .toast.error { background: #dc3545; }
 
         /* ============================================================ */
-        /* FLOATING SUPPORT BUTTON + UNREAD BADGE                       */
+        /* SUPPORT FLOAT                                                */
         /* ============================================================ */
         .support-float {
             position: fixed;
@@ -774,7 +774,7 @@
         }
 
         /* ============================================================ */
-        /* TABLET + DESKTOP                                            */
+        /* RESPONSIVE                                                   */
         /* ============================================================ */
         @media (min-width: 600px) {
             .cb-shell-header__inner { height: 60px; padding: 0 16px; }
@@ -785,7 +785,6 @@
 
             .members-wrapper { padding: 120px 14px 90px; }
             .members-header h1 { font-size: 24px; }
-            .members-header .member-count { font-size: 13px; }
 
             .trust-banner { font-size: 13.5px; padding: 14px 20px; gap: 10px 22px; }
             .trust-banner__item .icon { font-size: 16px; }
@@ -803,7 +802,10 @@
             .member-card__name { font-size: 15px; }
             .bento-tile--big .member-card__name { font-size: 20px; }
 
-            .member-card__detail { font-size: 12px; }
+            .member-card__origin,
+            .member-card__location { font-size: 12px; }
+            .bento-tile--big .member-card__origin,
+            .bento-tile--big .member-card__location { font-size: 13px; }
             .member-card__occupation { font-size: 12px; }
 
             .btn-connect { font-size: 13px; padding: 11px 14px; }
@@ -842,6 +844,8 @@
         @media (max-width: 360px) {
             .members-header h1 { font-size: 18px; }
             .member-card__name { font-size: 13px; }
+            .member-card__origin,
+            .member-card__location { font-size: 10px; }
             .btn-connect { font-size: 11px; padding: 9px 10px; min-height: 36px; }
         }
     </style>
@@ -877,7 +881,7 @@
     <!-- MAIN -->
     <main class="members-wrapper">
 
-        <!-- ⭐ NEW: TRUST BANNER -->
+        <!-- TRUST BANNER -->
         <div class="trust-banner">
             <span class="trust-banner__item"><span class="icon">✅</span> 1,200+ members</span>
             <span class="trust-banner__separator"></span>
@@ -886,7 +890,7 @@
             <span class="trust-banner__item"><span class="icon">🔒</span> Verified profiles</span>
         </div>
 
-        <!-- ⭐ NEW: HOW-TO GUIDE -->
+        <!-- HOW-TO GUIDE -->
         <div class="how-to-guide">
             <div class="how-to-guide__title">
                 <span class="icon">💡</span>
@@ -933,7 +937,7 @@
         </div>
     </main>
 
-    <!-- SUPPORT FLOAT (with unread badge) -->
+    <!-- SUPPORT FLOAT -->
     <div class="support-float">
         <button class="support-float__btn" id="support-btn" onclick="openSupport()" aria-label="Contact Support">
             💬
@@ -945,9 +949,6 @@
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPTS                                                      -->
-    <!-- ============================================================ -->
     <script type="importmap">
         {
             "imports": {
@@ -972,6 +973,7 @@
         let currentConversationId = null;
         let unreadChannel = null;
         let unreadPollingInterval = null;
+        let onlineCountInterval = null;
 
         const likeCounts = JSON.parse(sessionStorage.getItem('classydate_likes') || '{}');
         const carouselIntervals = {};
@@ -1061,7 +1063,6 @@
         async function initUserAndUnread() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session || !session.user) {
-                console.log('👤 No user — no unread badge');
                 return;
             }
             currentUser = session.user;
@@ -1074,10 +1075,7 @@
                 .limit(1)
                 .maybeSingle();
 
-            if (!conv) {
-                console.log('💬 No conversation yet');
-                return;
-            }
+            if (!conv) return;
             currentConversationId = conv.id;
 
             await refreshUnreadCount();
@@ -1192,6 +1190,31 @@
         }
 
         // ============================================================
+        // ⭐ DYNAMIC ONLINE COUNT (fake-but-realistic)
+        // ============================================================
+        function updateOnlineCount(totalMembers) {
+            if (!totalMembers || totalMembers < 1) {
+                onlineCount.textContent = '0';
+                return;
+            }
+
+            // Random between 20% and 40% of total members
+            const min = Math.max(1, Math.round(totalMembers * 0.20));
+            const max = Math.max(min + 1, Math.round(totalMembers * 0.40));
+            const fakeOnline = Math.floor(Math.random() * (max - min + 1)) + min;
+
+            onlineCount.textContent = fakeOnline;
+        }
+
+        function startOnlineCountRefresh(totalMembers) {
+            if (onlineCountInterval) clearInterval(onlineCountInterval);
+            // Re-roll every 8 seconds
+            onlineCountInterval = setInterval(() => {
+                updateOnlineCount(totalMembers);
+            }, 8000);
+        }
+
+        // ============================================================
         // LOAD MEMBERS
         // ============================================================
         async function loadMembers() {
@@ -1208,11 +1231,12 @@
                 isLoading = false;
                 console.log('📊 Members loaded:', allMembers.length);
 
-                // ⭐ NEW: real member counts
                 const total = allMembers.length;
-                const online = allMembers.filter(m => m.online === true).length;
                 totalCount.textContent = total;
-                onlineCount.textContent = online;
+
+                // ⭐ Fake-but-dynamic online count
+                updateOnlineCount(total);
+                startOnlineCountRefresh(total);
 
                 renderMembers(allMembers);
             } catch (err) {
@@ -1265,7 +1289,8 @@
         function renderMemberTile(member, tileSize) {
             const name = member.name || 'Member';
             const age = member.age || '';
-            const location = member.current_location || 'Location unknown';
+            const currentLocation = member.current_location || member.location || 'Unknown';
+            const homeCountry = member.home_country || member.origin || '';
             const occupation = member.occupation || '';
             const isOnline = member.online === true;
             const isVerified = member.verified === true;
@@ -1294,6 +1319,12 @@
 
             const tileClass = `bento-tile--${tileSize}`;
 
+            // ⭐ Home country + Current location
+            const originHTML = homeCountry
+                ? `<div class="member-card__origin">🌍 From ${homeCountry}</div>`
+                : '';
+            const locationHTML = `<div class="member-card__location">📍 In ${currentLocation}</div>`;
+
             return `
                 <div class="${tileClass} member-card" data-id="${member.id}">
                     <div class="member-card__image-wrapper" data-member="${member.id}">
@@ -1304,7 +1335,8 @@
                     </div>
                     <div class="member-card__info">
                         <div class="member-card__name">${name}${age ? ', ' + age : ''}</div>
-                        <div class="member-card__detail">📍 ${location}</div>
+                        ${originHTML}
+                        ${locationHTML}
                         ${occupation ? `<div class="member-card__occupation">💼 ${occupation}</div>` : ''}
                         <button class="btn-connect" onclick="connectWith(event, '${member.id}')">
                             💬 Connect
@@ -1415,7 +1447,7 @@
 
         window.addEventListener('beforeunload', saveLikes);
 
-        console.log('💎 ClassyDate — Bento Box Members with trust banner + how-to guide');
+        console.log('💎 ClassyDate — Bento Box Members (dynamic online count + home/current country)');
     </script>
 
 </body>

@@ -27,6 +27,7 @@
 
         a { text-decoration: none; color: inherit; }
 
+        /* HEADER */
         .profile-header {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -122,118 +123,250 @@
 
         .profile-wrapper {
             flex: 1;
-            padding: 68px 0 90px;
+            padding: 56px 0 90px;
             width: 100%;
-            background: #f3e8ff;
         }
 
         .profile-container {
-            max-width: 640px;
+            max-width: 720px;
             margin: 0 auto;
-            padding: 0 14px;
+            padding: 0;
         }
 
-        .profile-top {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 22px 4px 26px;
+        /* ⭐ HERO IMAGE — FULL WIDTH */
+        .hero-image-wrap {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background: #e8d5f5;
+            cursor: pointer;
         }
 
-        .profile-avatar-wrap { position: relative; flex-shrink: 0; }
-
-        .profile-avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 14px;
+        .hero-image-wrap img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 3px solid #fff;
-            box-shadow: 0 4px 20px rgba(108, 60, 179, 0.2);
+            object-position: center;
             display: block;
+            transition: transform 0.6s ease;
         }
 
-        .status-ring {
+        .hero-image-wrap:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero-image-wrap::after {
+            content: '';
             position: absolute;
-            bottom: -2px;
-            right: -2px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            background: #28a745;
-            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.5);
-            animation: pulse-ring 2s infinite;
-            transition: background 0.4s ease;
-        }
-        .status-ring.offline { background: #adb5bd; animation: none; box-shadow: none; }
-
-        @keyframes pulse-ring {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.15); opacity: 0.7; }
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 5, 51, 0.85) 0%, rgba(26, 5, 51, 0.4) 35%, rgba(26, 5, 51, 0) 65%);
+            pointer-events: none;
         }
 
-        .profile-top-info { flex: 1; min-width: 0; }
-
-        .profile-name {
-            font-family: "Playfair Display", Georgia, 'Times New Roman', serif;
-            font-size: 22px;
+        /* Badges on the image */
+        .hero-badge {
+            position: absolute;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
             font-weight: 700;
-            color: #1a0533;
+            font-family: "Inter", sans-serif;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge--verified {
+            top: 16px;
+            left: 16px;
+            background: rgba(29, 161, 242, 0.95);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(29, 161, 242, 0.4);
+        }
+
+        .hero-badge--online {
+            top: 16px;
+            right: 16px;
+            background: rgba(40, 167, 69, 0.95);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(40, 167, 69, 0.4);
+        }
+
+        .hero-badge--offline {
+            background: rgba(120, 120, 120, 0.85);
+            box-shadow: 0 4px 14px rgba(120, 120, 120, 0.3);
+        }
+
+        .hero-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #fff;
+            animation: dotPulse 1.8s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.15); }
+        }
+
+        /* Overlay info at bottom of hero */
+        .hero-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 22px 22px 20px;
+            z-index: 5;
+            color: #fff;
+        }
+
+        .hero-name {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
-            line-height: 1.2;
-            margin-bottom: 4px;
         }
 
-        .verified-badge {
+        .hero-name .verified-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background: #1DA1F2;
             color: #fff;
             border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
             font-weight: 700;
             border: 2px solid #fff;
-            box-shadow: 0 1px 4px rgba(29, 161, 242, 0.4);
+            box-shadow: 0 2px 8px rgba(29, 161, 242, 0.5);
             flex-shrink: 0;
-            cursor: help;
         }
 
-        .profile-status-line {
-            font-size: 13px;
-            color: rgba(26, 5, 51, 0.6);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 2px;
-            font-weight: 600;
-            transition: color 0.4s ease;
-        }
-
-        .profile-status-line .online-text { color: #28a745; }
-        .profile-status-line .offline-text { color: rgba(26, 5, 51, 0.4); }
-
-        .profile-location-line {
-            font-size: 13px;
-            color: rgba(26, 5, 51, 0.55);
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        .hero-meta {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
+            font-family: "Inter", sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 3px;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-meta .sep {
+            opacity: 0.4;
+        }
+
+        /* ⭐ WhatsApp CTA — ROUND button */
+        .cta-section {
+            text-align: center;
+            padding: 30px 20px 34px;
+            background: #f3e8ff;
+        }
+
+        .cta-arrow {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 12px;
+            animation: arrowBounce 1.6s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .btn-whatsapp-round {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            border: 4px solid #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45);
+            position: relative;
+            animation: pulseWhatsApp 2.5s infinite;
+        }
+
+        .btn-whatsapp-round::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: rgba(37, 211, 102, 0.3);
+            z-index: -1;
+            animation: ringPulse 2.4s infinite;
+        }
+
+        @keyframes ringPulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        @keyframes pulseWhatsApp {
+            0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45); }
+            50% { box-shadow: 0 14px 40px rgba(37, 211, 102, 0.65); }
+        }
+
+        .btn-whatsapp-round:hover {
+            transform: translateY(-4px) scale(1.05);
+            background: linear-gradient(135deg, #128C7E, #25D366);
+            box-shadow: 0 15px 45px rgba(37, 211, 102, 0.7);
+        }
+
+        .btn-whatsapp-round:active { transform: scale(0.96); }
+
+        .wa-icon-svg {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        }
+
+        .cta-label {
+            margin-top: 16px;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a0533;
+            letter-spacing: 0.2px;
+        }
+
+        .cta-sublabel {
+            font-size: 12.5px;
+            color: rgba(26, 5, 51, 0.55);
+            font-weight: 500;
+            margin-top: 4px;
+            font-family: "Inter", sans-serif;
+        }
+
+        /* SECTIONS */
+        .content-section {
+            padding: 0 20px;
         }
 
         .mag-section {
             padding: 22px 0 24px;
             border-top: 1px solid rgba(108, 60, 179, 0.12);
-        }
-
-        .mag-section:first-of-type {
-            border-top: 2px solid rgba(108, 60, 179, 0.2);
         }
 
         .mag-header {
@@ -265,7 +398,6 @@
             color: #1a0533;
             text-transform: uppercase;
             letter-spacing: 1px;
-            flex: 1;
         }
 
         .mag-line {
@@ -309,7 +441,6 @@
             font-size: 14px;
             color: rgba(26, 5, 51, 0.85);
             line-height: 1.65;
-            font-weight: 400;
             margin-top: 4px;
         }
 
@@ -400,93 +531,6 @@
             background: rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             border: 1px dashed rgba(108, 60, 179, 0.15);
-        }
-
-        /* ⭐ NEW CTA — WhatsApp style */
-        .profile-cta {
-            padding: 28px 0 8px;
-            border-top: 2px solid rgba(108, 60, 179, 0.2);
-            margin-top: 22px;
-            text-align: center;
-        }
-
-        .cta-arrow {
-            font-size: 32px;
-            display: block;
-            margin-bottom: 12px;
-            animation: arrowBounce 1.6s ease-in-out infinite;
-        }
-
-        @keyframes arrowBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
-
-        .cta-hint {
-            font-size: 13px;
-            color: rgba(26, 5, 51, 0.6);
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-family: "Inter", sans-serif;
-        }
-
-        .btn-whatsapp {
-            width: 100%;
-            padding: 18px 20px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Inter", sans-serif;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
-            position: relative;
-            overflow: hidden;
-            animation: pulseWhatsApp 2.5s infinite;
-        }
-
-        .btn-whatsapp::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-            animation: sheen 3s infinite;
-        }
-
-        @keyframes sheen {
-            0% { left: -100%; }
-            50%, 100% { left: 100%; }
-        }
-
-        @keyframes pulseWhatsApp {
-            0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35); }
-            50% { box-shadow: 0 14px 40px rgba(37, 211, 102, 0.55); }
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(135deg, #128C7E, #25D366);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
-        }
-
-        .btn-whatsapp:active { transform: scale(0.98); }
-
-        .wa-icon-svg {
-            width: 26px;
-            height: 26px;
-            flex-shrink: 0;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
         }
 
         /* MODAL SYSTEM */
@@ -673,8 +717,7 @@
 
         .modal-form-group label .required { color: #dc3545; margin-left: 2px; }
 
-        .modal-form-group input,
-        .modal-form-group .country-select-wrap input {
+        .modal-form-group input {
             width: 100%;
             padding: 13px 15px;
             background: rgba(250, 245, 255, 0.85);
@@ -688,8 +731,7 @@
             min-height: 48px;
         }
 
-        .modal-form-group input:focus,
-        .modal-form-group .country-select-wrap input:focus {
+        .modal-form-group input:focus {
             border-color: #6c3cb3;
             background: #fff;
             box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.1);
@@ -697,7 +739,6 @@
 
         .modal-form-group input::placeholder { color: rgba(26, 5, 51, 0.3); }
 
-        /* Searchable country dropdown */
         .country-select-wrap {
             position: relative;
         }
@@ -755,7 +796,6 @@
             cursor: default;
         }
 
-        /* Modal 2 divider */
         .modal-divider {
             height: 1px;
             background: linear-gradient(to right, transparent, rgba(108, 60, 179, 0.2), transparent);
@@ -937,51 +977,6 @@
         }
         .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
 
-        /* Support float */
-        .support-float {
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-            z-index: 500;
-        }
-
-        .support-float__btn {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            animation: float-support 3s ease-in-out infinite;
-        }
-
-        @keyframes float-support {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .support-float__btn:active { transform: scale(0.92); }
-
-        .support-float__dot {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #28a745;
-            border: 2px solid #fff;
-            animation: pulse-ring 1.8s infinite;
-        }
-
         /* Toast */
         .toast {
             position: fixed;
@@ -1007,16 +1002,24 @@
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
 
+        /* RESPONSIVE */
         @media (min-width: 600px) {
             .profile-header { height: 60px; padding: 0 16px; }
             .brand { font-size: 20px; }
-            .profile-wrapper { padding: 76px 0 100px; }
-            .profile-container { padding: 0 20px; }
+            .profile-wrapper { padding: 60px 0 100px; }
 
-            .profile-avatar { width: 130px; height: 130px; border-radius: 18px; }
-            .profile-name { font-size: 26px; }
-            .profile-status-line { font-size: 14px; }
-            .profile-location-line { font-size: 14px; }
+            .hero-image-wrap { height: 460px; border-radius: 0; }
+
+            .hero-name { font-size: 34px; }
+            .hero-meta { font-size: 15px; }
+            .hero-info { padding: 28px 28px 26px; }
+
+            .btn-whatsapp-round { width: 90px; height: 90px; }
+            .wa-icon-svg { width: 46px; height: 46px; }
+            .cta-label { font-size: 19px; }
+            .cta-sublabel { font-size: 13px; }
+
+            .content-section { padding: 0 28px; }
 
             .mag-section { padding: 26px 0 28px; }
             .mag-number { width: 36px; height: 36px; font-size: 16px; }
@@ -1028,24 +1031,22 @@
 
             .collage { grid-auto-rows: 160px; gap: 8px; }
 
-            .btn-whatsapp { font-size: 17px; padding: 20px 24px; }
-            .cta-arrow { font-size: 38px; }
-
             .modal { padding: 38px 32px 30px; max-width: 460px; }
             .modal__title { font-size: 26px; }
         }
 
         @media (min-width: 900px) {
-            .profile-avatar { width: 150px; height: 150px; border-radius: 20px; }
-            .profile-name { font-size: 30px; }
+            .hero-image-wrap { height: 520px; }
+            .hero-name { font-size: 38px; }
             .collage { grid-auto-rows: 190px; gap: 10px; }
         }
 
         @media (max-width: 360px) {
-            .profile-avatar { width: 95px; height: 95px; border-radius: 12px; }
-            .profile-name { font-size: 19px; }
+            .hero-name { font-size: 24px; }
+            .hero-image-wrap { height: 340px; }
             .collage { grid-auto-rows: 100px; }
-            .btn-whatsapp { font-size: 14px; padding: 16px 16px; }
+            .btn-whatsapp-round { width: 70px; height: 70px; }
+            .wa-icon-svg { width: 34px; height: 34px; }
         }
     </style>
 </head>
@@ -1076,94 +1077,102 @@
     <main class="profile-wrapper">
         <div class="profile-container">
 
-            <section class="profile-top">
-                <div class="profile-avatar-wrap">
-                    <img class="profile-avatar" id="profile-avatar" src="" alt="Profile">
-                    <div class="status-ring offline" id="status-ring"></div>
-                </div>
-                <div class="profile-top-info">
-                    <h1 class="profile-name" id="profile-name">Loading...</h1>
-                    <div class="profile-status-line" id="profile-status-line">
-                        <span class="offline-text">⚪ Offline</span>
-                    </div>
-                    <div class="profile-location-line" id="profile-location-line">
-                        📍 Loading...
-                    </div>
-                </div>
-            </section>
+            <!-- ⭐ HERO IMAGE — FULL WIDTH -->
+            <div class="hero-image-wrap" id="hero-image-wrap" onclick="openHeroLightbox()">
+                <img id="hero-image" src="" alt="Profile">
+                <span class="hero-badge hero-badge--verified" id="hero-verified" style="display:none;">
+                    💎 Verified
+                </span>
+                <span class="hero-badge hero-badge--online" id="hero-online">
+                    <span class="dot"></span>
+                    <span id="hero-online-text">Online</span>
+                </span>
 
-            <section class="mag-section">
-                <div class="mag-header">
-                    <span class="mag-number">01</span>
-                    <span class="mag-title">About</span>
-                    <span class="mag-line"></span>
+                <div class="hero-info">
+                    <div class="hero-name" id="hero-name">Loading...</div>
+                    <div class="hero-meta" id="hero-meta">📍 Loading...</div>
                 </div>
-                <div class="about-list">
-                    <div class="about-item">
-                        <span class="icon">📍</span>
-                        <span class="text"><span class="label">Current Location:</span> <span id="info-location">—</span></span>
-                    </div>
-                    <div class="about-item">
-                        <span class="icon">🌍</span>
-                        <span class="text"><span class="label">Origin Country:</span> <span id="info-origin">—</span></span>
-                    </div>
-                    <div class="about-item">
-                        <span class="icon">🎂</span>
-                        <span class="text"><span class="label">Age:</span> <span id="info-age">—</span></span>
-                    </div>
-                    <div class="about-item">
-                        <span class="icon">👤</span>
-                        <span class="text"><span class="label">Gender:</span> <span id="info-gender">—</span></span>
-                    </div>
-                    <div class="about-item">
-                        <span class="icon">💼</span>
-                        <span class="text"><span class="label">Occupation:</span> <span id="info-occupation">—</span></span>
-                    </div>
-                </div>
-                <p class="about-bio" id="info-bio">No bio available.</p>
-            </section>
+            </div>
 
-            <section class="mag-section">
-                <div class="mag-header">
-                    <span class="mag-number">02</span>
-                    <span class="mag-title">Looking For</span>
-                    <span class="mag-line"></span>
-                </div>
-                <p class="looking-text" id="info-looking">Not specified</p>
-            </section>
-
-            <section class="mag-section">
-                <div class="mag-header">
-                    <span class="mag-number">03</span>
-                    <span class="mag-title">Interests</span>
-                    <span class="mag-line"></span>
-                </div>
-                <div class="tags-wrap" id="info-interests">
-                    <span class="tags-empty">No interests listed</span>
-                </div>
-            </section>
-
-            <section class="mag-section">
-                <div class="mag-header">
-                    <span class="mag-number">04</span>
-                    <span class="mag-title">Photos</span>
-                    <span class="mag-line"></span>
-                </div>
-                <div class="collage" id="collage">
-                    <div class="collage-empty" style="grid-column: 1 / -1;">Loading photos...</div>
-                </div>
-            </section>
-
-            <!-- ⭐ NEW CTA: WhatsApp button with bouncing arrow -->
-            <div class="profile-cta">
+            <!-- ⭐ WHATSAPP CTA — ROUND BUTTON -->
+            <div class="cta-section">
                 <span class="cta-arrow">⬇️</span>
-                <div class="cta-hint">Tap below to get their WhatsApp number</div>
-                <button class="btn-whatsapp" id="whatsapp-btn" onclick="openIntroModal()">
+
+                <button class="btn-whatsapp-round" id="whatsapp-btn" onclick="openIntroModal()" aria-label="Get WhatsApp number">
                     <svg class="wa-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                     </svg>
-                    <span>Get WhatsApp number for <span id="cta-name">this member</span></span>
                 </button>
+
+                <div class="cta-label">Get WhatsApp number</div>
+                <div class="cta-sublabel">for <span id="cta-name">this member</span></div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content-section">
+
+                <section class="mag-section">
+                    <div class="mag-header">
+                        <span class="mag-number">01</span>
+                        <span class="mag-title">About</span>
+                        <span class="mag-line"></span>
+                    </div>
+                    <div class="about-list">
+                        <div class="about-item">
+                            <span class="icon">📍</span>
+                            <span class="text"><span class="label">Current Location:</span> <span id="info-location">—</span></span>
+                        </div>
+                        <div class="about-item">
+                            <span class="icon">🌍</span>
+                            <span class="text"><span class="label">Origin Country:</span> <span id="info-origin">—</span></span>
+                        </div>
+                        <div class="about-item">
+                            <span class="icon">🎂</span>
+                            <span class="text"><span class="label">Age:</span> <span id="info-age">—</span></span>
+                        </div>
+                        <div class="about-item">
+                            <span class="icon">👤</span>
+                            <span class="text"><span class="label">Gender:</span> <span id="info-gender">—</span></span>
+                        </div>
+                        <div class="about-item">
+                            <span class="icon">💼</span>
+                            <span class="text"><span class="label">Occupation:</span> <span id="info-occupation">—</span></span>
+                        </div>
+                    </div>
+                    <p class="about-bio" id="info-bio">No bio available.</p>
+                </section>
+
+                <section class="mag-section">
+                    <div class="mag-header">
+                        <span class="mag-number">02</span>
+                        <span class="mag-title">Looking For</span>
+                        <span class="mag-line"></span>
+                    </div>
+                    <p class="looking-text" id="info-looking">Not specified</p>
+                </section>
+
+                <section class="mag-section">
+                    <div class="mag-header">
+                        <span class="mag-number">03</span>
+                        <span class="mag-title">Interests</span>
+                        <span class="mag-line"></span>
+                    </div>
+                    <div class="tags-wrap" id="info-interests">
+                        <span class="tags-empty">No interests listed</span>
+                    </div>
+                </section>
+
+                <section class="mag-section">
+                    <div class="mag-header">
+                        <span class="mag-number">04</span>
+                        <span class="mag-title">Photos</span>
+                        <span class="mag-line"></span>
+                    </div>
+                    <div class="collage" id="collage">
+                        <div class="collage-empty" style="grid-column: 1 / -1;">Loading photos...</div>
+                    </div>
+                </section>
+
             </div>
 
         </div>
@@ -1248,7 +1257,7 @@
         </div>
     </div>
 
-    <!-- Cashier overlay (non-Kenya) -->
+    <!-- Cashier overlay -->
     <div class="cashier-overlay" id="cashierOverlay">
         <div class="cashier-overlay__avatar">💬</div>
         <div class="cashier-overlay__title">Connecting you to our Cashier</div>
@@ -1262,13 +1271,6 @@
             <span></span>
             <span></span>
         </div>
-    </div>
-
-    <div class="support-float">
-        <button class="support-float__btn" onclick="openSupport(event)" aria-label="Support">
-            💬
-            <span class="support-float__dot"></span>
-        </button>
     </div>
 
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -1294,7 +1296,6 @@
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // ⭐ CONFIG — from cd-config.js if available
         const CFG = window.CD_CONFIG || {};
         const PAYSTACK_PUBLIC_KEY = CFG.PAYSTACK_PUBLIC_KEY || 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
         const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
@@ -1306,9 +1307,10 @@
         let memberData = null;
         let profilePhotos = [];
         let onlineStatusInterval = null;
+        let heroPhoto = null;
 
         // ============================================================
-        // FULL COUNTRY LIST (195+ countries)
+        // FULL COUNTRY LIST
         // ============================================================
         const COUNTRIES = [
             'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria',
@@ -1397,16 +1399,16 @@
         }
 
         function applyOnlineStatus(isOnline) {
-            const ring = document.getElementById('status-ring');
-            const statusLine = document.getElementById('profile-status-line');
-            if (!ring || !statusLine) return;
+            const badge = document.getElementById('hero-online');
+            const text = document.getElementById('hero-online-text');
+            if (!badge || !text) return;
 
             if (isOnline) {
-                ring.className = 'status-ring';
-                statusLine.innerHTML = '<span class="online-text">🟢 Online</span>';
+                badge.className = 'hero-badge hero-badge--online';
+                text.textContent = 'Online now';
             } else {
-                ring.className = 'status-ring offline';
-                statusLine.innerHTML = '<span class="offline-text">⚪ Offline</span>';
+                badge.className = 'hero-badge hero-badge--offline';
+                text.textContent = 'Offline';
             }
         }
 
@@ -1426,21 +1428,35 @@
                     .filter(u => u);
             }
             if (photos.length === 0) {
-                photos = [`https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`];
+                photos = [`https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=800`];
             }
             profilePhotos = photos;
+            heroPhoto = photos[0];
 
-            const avatarImg = document.getElementById('profile-avatar');
-            avatarImg.src = photos[0];
-            avatarImg.onerror = function() {
-                this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=400`;
+            const heroImg = document.getElementById('hero-image');
+            heroImg.src = photos[0];
+            heroImg.onerror = function() {
+                this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6c3cb3&color=fff&size=800`;
             };
 
-            const nameEl = document.getElementById('profile-name');
-            nameEl.innerHTML = `✨ ${name}${age ? ', ' + age : ''}` +
-                (isVerified ? ' <span class="verified-badge" title="Verified by ClassyDate">✓</span>' : '');
+            // Verified badge on hero
+            const verifyBadge = document.getElementById('hero-verified');
+            if (isVerified) verifyBadge.style.display = 'inline-flex';
+            else verifyBadge.style.display = 'none';
 
-            document.getElementById('profile-location-line').textContent = `📍 ${location}`;
+            // Hero name
+            const nameEl = document.getElementById('hero-name');
+            nameEl.innerHTML = `✨ ${name}${age ? ', ' + age : ''}` +
+                (isVerified ? ' <span class="verified-icon">✓</span>' : '');
+
+            // Hero meta
+            const metaEl = document.getElementById('hero-meta');
+            const parts = [];
+            parts.push(`📍 ${location}`);
+            if (origin && origin !== 'Not specified') {
+                parts.push(`🌍 From ${origin}`);
+            }
+            metaEl.innerHTML = parts.join(' <span class="sep">·</span> ');
 
             document.getElementById('info-location').textContent = location;
             document.getElementById('info-origin').textContent = origin;
@@ -1499,7 +1515,7 @@
             const html = photos.map((url, i) => {
                 const pattern = patternClasses[i % 5];
                 return `
-                    <div class="collage-item ${pattern}" onclick="openLightbox('${url}')">
+                    <div class="collage-item ${pattern}" onclick="event.stopPropagation(); openLightbox('${url}')">
                         <img src="${url}" alt="${memberName} photo ${i + 1}" loading="lazy"
                              onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=6c3cb3&color=fff&size=400'">
                     </div>
@@ -1507,6 +1523,10 @@
             }).join('');
 
             collage.innerHTML = html;
+        }
+
+        window.openHeroLightbox = function() {
+            if (heroPhoto) openLightbox(heroPhoto);
         }
 
         window.openLightbox = function(url) {
@@ -1551,7 +1571,6 @@
         window.openDetailsModal = function() {
             document.getElementById('modal-intro').classList.remove('show');
             document.getElementById('modal-details').classList.add('show');
-            // Small delay so transition feels good
             setTimeout(() => {
                 document.getElementById('form-name').focus();
             }, 300);
@@ -1563,7 +1582,6 @@
             document.body.style.overflow = '';
         }
 
-        // Close modal on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeAllModals();
@@ -1627,7 +1645,6 @@
             const homeCountry = document.getElementById('form-home-country').value.trim();
             const currentCountry = document.getElementById('form-current-country').value.trim();
 
-            // Validation
             if (!fullName || fullName.length < 2) {
                 showToast('⚠️ Please enter your full name', 'error');
                 document.getElementById('form-name').focus();
@@ -1653,14 +1670,13 @@
                 return;
             }
 
-            // Get current user session (may be null — guest allowed)
             let userId = null;
             try {
                 const { data: { session } } = await supabase.auth.getSession();
                 if (session?.user) userId = session.user.id;
             } catch (e) {}
 
-            // ⭐ Save to Supabase — happens on BOTH Yes and No
+            // Save to Supabase (both Yes and No)
             try {
                 const { data: conv, error } = await supabase
                     .from('conversations')
@@ -1678,34 +1694,24 @@
                     .select()
                     .single();
 
-                if (error) {
-                    console.error('Save conversation error:', error);
-                } else {
-                    console.log('✅ Saved to Supabase:', conv.id);
-                }
+                if (error) console.error('Save conversation error:', error);
+                else console.log('✅ Saved to Supabase:', conv.id);
             } catch (err) {
                 console.error('Supabase save failed:', err);
-                // Don't block the flow — continue even if save fails
             }
 
-            // Close modal
             closeAllModals();
 
-            // Route based on choice
             if (choice === 'no') {
-                // ❌ No → go back to members
                 setTimeout(() => {
                     window.location.href = 'members.html';
                 }, 300);
                 return;
             }
 
-            // ✅ Yes → route by home country
             if (homeCountry === 'Kenya') {
-                // Kenya → Paystack
                 executeKenyaPaystack(fullName, currentCountry);
             } else {
-                // Non-Kenya → Cashier → WhatsApp
                 openCashierAndWhatsApp(homeCountry, currentCountry, fullName, ageNum);
             }
         };
@@ -1739,7 +1745,6 @@
                     onSuccess: (transaction) => {
                         console.log('✅ Payment successful:', transaction);
                         showToast('✅ Payment received! Our team will contact you shortly.', 'success');
-                        // Redirect to chat if we have a conversation, else members
                         setTimeout(() => {
                             window.location.href = `chat.html`;
                         }, 1500);
@@ -1755,17 +1760,16 @@
         }
 
         // ============================================================
-        // NON-KENYA → CASHIER OVERLAY → WHATSAPP
+        // NON-KENYA → CASHIER → WHATSAPP
         // ============================================================
         function openCashierAndWhatsApp(homeCountry, currentCountry, fullName, age) {
             const overlay = document.getElementById('cashierOverlay');
             const countryEl = document.getElementById('cashierCountry');
             const memberName = memberData.name || 'this member';
 
-            countryEl.textContent = `🇺🇳 ${homeCountry}`;
+            countryEl.textContent = `🌍 ${homeCountry}`;
             overlay.classList.add('show');
 
-            // Build WhatsApp message
             const waMessage = `Hi ClassyDate 👋
 
 I'm ${fullName}, ${age} years old.
@@ -1790,7 +1794,7 @@ Thank you!`;
         }
 
         // ============================================================
-        // SHARE with image
+        // SHARE
         // ============================================================
         window.shareProfile = async function() {
             if (!memberData) return;
@@ -1891,7 +1895,7 @@ ${url}
 
         loadProfile();
 
-        console.log('💎 Profile — WhatsApp button + 3-step flow + Save to Supabase');
+        console.log('💎 Profile — full-width hero + round WhatsApp button');
     </script>
 
 </body>

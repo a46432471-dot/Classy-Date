@@ -30,9 +30,7 @@
 
         a { text-decoration: none; color: inherit; }
 
-        /* ============================================================ */
-        /* HEADER                                                       */
-        /* ============================================================ */
+        /* HEADER */
         .cb-shell-header {
             position: fixed;
             top: 0;
@@ -136,9 +134,7 @@
             margin: 4px 0;
         }
 
-        /* ============================================================ */
-        /* TICKER                                                       */
-        /* ============================================================ */
+        /* TICKER */
         .activity-ticker {
             position: fixed;
             top: 56px;
@@ -204,9 +200,7 @@
 
         .activity-ticker:hover .ticker-content { animation-play-state: paused; }
 
-        /* ============================================================ */
-        /* MEMBERS WRAPPER                                              */
-        /* ============================================================ */
+        /* MEMBERS WRAPPER */
         .members-wrapper {
             flex: 1;
             padding: 108px 8px 80px;
@@ -378,9 +372,7 @@
             animation: live-pulse 1.5s infinite;
         }
 
-        /* ============================================================ */
-        /* BENTO GRID                                                   */
-        /* ============================================================ */
+        /* BENTO GRID */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -393,9 +385,7 @@
         .bento-tile--small { grid-column: span 1; grid-row: span 1; }
         .bento-tile--wide { grid-column: span 2; grid-row: span 1; }
 
-        /* ============================================================ */
-        /* CARD                                                         */
-        /* ============================================================ */
+        /* CARD */
         .member-card {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
@@ -403,7 +393,6 @@
             border: 1px solid rgba(108, 60, 179, 0.1);
             border-radius: 12px;
             transition: all 0.3s ease;
-            cursor: pointer;
             user-select: none;
             -webkit-user-select: none;
             width: 100%;
@@ -419,14 +408,13 @@
             box-shadow: 0 8px 30px rgba(108, 60, 179, 0.15);
         }
 
-        .member-card:active { transform: scale(0.98); }
-
         .member-card__image-wrapper {
             position: relative;
             overflow: hidden;
             width: 100%;
             background: #e8d5f5;
             flex-shrink: 0;
+            cursor: pointer;
         }
 
         .bento-tile--med .member-card__image-wrapper,
@@ -551,12 +539,12 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             margin-bottom: 2px;
+            cursor: pointer;
         }
 
         .bento-tile--big .member-card__name { font-size: 17px; }
         .bento-tile--wide .member-card__name { font-size: 15px; }
 
-        /* ⭐ NEW: Home + Current country lines */
         .member-card__origin {
             font-size: 11px;
             color: rgba(26, 5, 51, 0.55);
@@ -631,9 +619,7 @@
 
         .bento-tile--big .btn-connect { font-size: 13px; padding: 12px; }
 
-        /* ============================================================ */
-        /* EMPTY STATE                                                  */
-        /* ============================================================ */
+        /* EMPTY STATE */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
@@ -667,9 +653,7 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ============================================================ */
-        /* TOAST                                                        */
-        /* ============================================================ */
+        /* TOAST */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -694,88 +678,7 @@
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
 
-        /* ============================================================ */
-        /* SUPPORT FLOAT                                                */
-        /* ============================================================ */
-        .support-float {
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-            z-index: 500;
-        }
-
-        .support-float__btn {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            animation: float-support 3s ease-in-out infinite;
-        }
-
-        @keyframes float-support {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .support-float__btn:active { transform: scale(0.92); }
-
-        .support-float__badge {
-            display: none;
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            min-width: 22px;
-            height: 22px;
-            padding: 0 6px;
-            border-radius: 50px;
-            background: #ff3b30;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 800;
-            font-family: "Inter", sans-serif;
-            align-items: center;
-            justify-content: center;
-            border: 2.5px solid #f3e8ff;
-            box-shadow: 0 2px 8px rgba(255, 59, 48, 0.5);
-            animation: badge-pop 0.3s ease;
-        }
-        .support-float__badge.show { display: flex; }
-
-        @keyframes badge-pop {
-            0% { transform: scale(0); }
-            60% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .support-float__dot {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #28a745;
-            border: 2px solid #fff;
-            animation: pulse-online 1.8s infinite;
-        }
-
-        .support-float__btn.has-unread .support-float__dot {
-            display: none;
-        }
-
-        /* ============================================================ */
-        /* RESPONSIVE                                                   */
-        /* ============================================================ */
+        /* RESPONSIVE */
         @media (min-width: 600px) {
             .cb-shell-header__inner { height: 60px; padding: 0 16px; }
             .cb-shell-brand { font-size: 20px; }
@@ -814,9 +717,6 @@
             .online-dot { width: 14px; height: 14px; top: 8px; right: 8px; }
             .verified-badge { width: 22px; height: 22px; font-size: 12px; top: 8px; left: 8px; }
             .like-pill { font-size: 11px; padding: 3px 10px; bottom: 8px; left: 8px; }
-
-            .support-float__btn { width: 60px; height: 60px; font-size: 24px; }
-            .support-float__badge { min-width: 24px; height: 24px; font-size: 12px; }
         }
 
         @media (min-width: 768px) {
@@ -937,15 +837,6 @@
         </div>
     </main>
 
-    <!-- SUPPORT FLOAT -->
-    <div class="support-float">
-        <button class="support-float__btn" id="support-btn" onclick="openSupport()" aria-label="Contact Support">
-            💬
-            <span class="support-float__dot" id="support-dot"></span>
-            <span class="support-float__badge" id="support-badge">0</span>
-        </button>
-    </div>
-
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
@@ -969,20 +860,13 @@
 
         let allMembers = [];
         let isLoading = true;
-        let currentUser = null;
-        let currentConversationId = null;
-        let unreadChannel = null;
-        let unreadPollingInterval = null;
         let onlineCountInterval = null;
 
-        const likeCounts = JSON.parse(sessionStorage.getItem('classydate_likes') || '{}');
         const carouselIntervals = {};
 
         const grid = document.getElementById('members-grid');
         const totalCount = document.getElementById('total-count');
         const onlineCount = document.getElementById('online-count');
-        const supportBtn = document.getElementById('support-btn');
-        const supportBadge = document.getElementById('support-badge');
 
         // ============================================================
         // TICKER
@@ -1058,127 +942,6 @@
         }
 
         // ============================================================
-        // UNREAD MESSAGE BADGE
-        // ============================================================
-        async function initUserAndUnread() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session || !session.user) {
-                return;
-            }
-            currentUser = session.user;
-
-            const { data: conv } = await supabase
-                .from('conversations')
-                .select('id')
-                .eq('user_id', currentUser.id)
-                .order('updated_at', { ascending: false })
-                .limit(1)
-                .maybeSingle();
-
-            if (!conv) return;
-            currentConversationId = conv.id;
-
-            await refreshUnreadCount();
-            subscribeToUnreadUpdates();
-
-            if (unreadPollingInterval) clearInterval(unreadPollingInterval);
-            unreadPollingInterval = setInterval(refreshUnreadCount, 15000);
-        }
-
-        async function refreshUnreadCount() {
-            if (!currentUser || !currentConversationId) return;
-
-            try {
-                const { count, error } = await supabase
-                    .from('messages')
-                    .select('*', { count: 'exact', head: true })
-                    .eq('conversation_id', currentConversationId)
-                    .eq('sender_type', 'admin')
-                    .eq('read_by_user', false);
-
-                if (error) throw error;
-                updateUnreadBadge(count || 0);
-            } catch (err) {
-                console.warn('Unread count failed:', err);
-            }
-        }
-
-        function updateUnreadBadge(count) {
-            if (count > 0) {
-                supportBadge.textContent = count > 9 ? '9+' : String(count);
-                supportBadge.classList.add('show');
-                supportBtn.classList.add('has-unread');
-            } else {
-                supportBadge.classList.remove('show');
-                supportBtn.classList.remove('has-unread');
-            }
-        }
-
-        function subscribeToUnreadUpdates() {
-            if (unreadChannel) supabase.removeChannel(unreadChannel);
-            if (!currentConversationId) return;
-
-            unreadChannel = supabase
-                .channel('unread:' + currentConversationId)
-                .on('postgres_changes', {
-                    event: '*',
-                    schema: 'public',
-                    table: 'messages',
-                    filter: `conversation_id=eq.${currentConversationId}`
-                }, () => {
-                    refreshUnreadCount();
-                })
-                .subscribe();
-        }
-
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) refreshUnreadCount();
-        });
-
-        // ============================================================
-        // SUPPORT FLOAT
-        // ============================================================
-        window.openSupport = async function() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                window.location.href = 'login.html?redirect=chat.html';
-                return;
-            }
-            const { data: conv } = await supabase
-                .from('conversations')
-                .select('id')
-                .eq('user_id', session.user.id)
-                .order('updated_at', { ascending: false })
-                .limit(1)
-                .maybeSingle();
-
-            if (conv) {
-                window.location.href = `chat.html?conversation=${conv.id}`;
-            } else {
-                window.location.href = 'chat.html';
-            }
-        }
-
-        // ============================================================
-        // LIKES
-        // ============================================================
-        function seedLikeCount(memberId) {
-            if (likeCounts[memberId]) return likeCounts[memberId];
-            const r = Math.random();
-            let count;
-            if (r < 0.1) count = Math.floor(Math.random() * 200) + 200;
-            else if (r < 0.3) count = Math.floor(Math.random() * 100) + 100;
-            else if (r < 0.6) count = Math.floor(Math.random() * 70) + 30;
-            else count = Math.floor(Math.random() * 26) + 4;
-            likeCounts[memberId] = count;
-            return count;
-        }
-
-        function saveLikes() {
-            try { sessionStorage.setItem('classydate_likes', JSON.stringify(likeCounts)); } catch (e) {}
-        }
-
-        // ============================================================
         // PHOTO URL HELPER
         // ============================================================
         function getPhotoUrl(fileId) {
@@ -1190,7 +953,7 @@
         }
 
         // ============================================================
-        // ⭐ DYNAMIC ONLINE COUNT (fake-but-realistic)
+        // DYNAMIC ONLINE COUNT (fake-but-realistic)
         // ============================================================
         function updateOnlineCount(totalMembers) {
             if (!totalMembers || totalMembers < 1) {
@@ -1198,7 +961,6 @@
                 return;
             }
 
-            // Random between 20% and 40% of total members
             const min = Math.max(1, Math.round(totalMembers * 0.20));
             const max = Math.max(min + 1, Math.round(totalMembers * 0.40));
             const fakeOnline = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -1208,7 +970,6 @@
 
         function startOnlineCountRefresh(totalMembers) {
             if (onlineCountInterval) clearInterval(onlineCountInterval);
-            // Re-roll every 8 seconds
             onlineCountInterval = setInterval(() => {
                 updateOnlineCount(totalMembers);
             }, 8000);
@@ -1234,7 +995,6 @@
                 const total = allMembers.length;
                 totalCount.textContent = total;
 
-                // ⭐ Fake-but-dynamic online count
                 updateOnlineCount(total);
                 startOnlineCountRefresh(total);
 
@@ -1279,8 +1039,6 @@
                 return renderMemberTile(member, tileSize);
             }).join('');
 
-            document.querySelectorAll('.member-card').forEach(card => setupLongPress(card));
-
             members.forEach(member => {
                 startCarousel(member.id);
             });
@@ -1294,7 +1052,6 @@
             const occupation = member.occupation || '';
             const isOnline = member.online === true;
             const isVerified = member.verified === true;
-            const likeCount = seedLikeCount(member.id);
 
             let photos = [];
             if (member.photo_file_ids && member.photo_file_ids.length > 0) {
@@ -1315,11 +1072,9 @@
 
             const onlineDot = `<span class="online-dot ${isOnline ? '' : 'offline'}"></span>`;
             const verifiedBadge = isVerified ? `<span class="verified-badge">✓</span>` : '';
-            const likePill = `<span class="like-pill"><span class="heart">❤️</span> ${likeCount}</span>`;
 
             const tileClass = `bento-tile--${tileSize}`;
 
-            // ⭐ Home country + Current location
             const originHTML = homeCountry
                 ? `<div class="member-card__origin">🌍 From ${homeCountry}</div>`
                 : '';
@@ -1327,18 +1082,17 @@
 
             return `
                 <div class="${tileClass} member-card" data-id="${member.id}">
-                    <div class="member-card__image-wrapper" data-member="${member.id}">
+                    <div class="member-card__image-wrapper" onclick="goToProfile(event, '${member.id}')">
                         <div class="carousel-slides" data-slides="${member.id}">${slidesHTML}</div>
                         ${onlineDot}
                         ${verifiedBadge}
-                        ${likePill}
                     </div>
                     <div class="member-card__info">
-                        <div class="member-card__name">${name}${age ? ', ' + age : ''}</div>
+                        <div class="member-card__name" onclick="goToProfile(event, '${member.id}')">${name}${age ? ', ' + age : ''}</div>
                         ${originHTML}
                         ${locationHTML}
                         ${occupation ? `<div class="member-card__occupation">💼 ${occupation}</div>` : ''}
-                        <button class="btn-connect" onclick="connectWith(event, '${member.id}')">
+                        <button class="btn-connect" onclick="goToProfile(event, '${member.id}')">
                             💬 Connect
                         </button>
                     </div>
@@ -1376,52 +1130,11 @@
         }
 
         // ============================================================
-        // CONNECT
+        // GO TO PROFILE — any tap on card image/name/button
         // ============================================================
-        window.connectWith = function(event, memberId) {
-            event.stopPropagation();
+        window.goToProfile = function(event, memberId) {
+            if (event) event.stopPropagation();
             window.location.href = `profile.html?id=${memberId}`;
-        }
-
-        // ============================================================
-        // LONG PRESS TO SHARE
-        // ============================================================
-        let longPressTimer = null;
-
-        function setupLongPress(card) {
-            const memberId = card.dataset.id;
-
-            card.addEventListener('touchstart', function() {
-                longPressTimer = setTimeout(() => {
-                    shareMember(memberId);
-                }, 600);
-            });
-            card.addEventListener('touchend', () => clearTimeout(longPressTimer));
-            card.addEventListener('touchmove', () => clearTimeout(longPressTimer));
-
-            card.addEventListener('mousedown', function() {
-                longPressTimer = setTimeout(() => {
-                    shareMember(memberId);
-                }, 800);
-            });
-            card.addEventListener('mouseup', () => clearTimeout(longPressTimer));
-            card.addEventListener('mouseleave', () => clearTimeout(longPressTimer));
-        }
-
-        function shareMember(memberId) {
-            const member = allMembers.find(m => m.id === memberId);
-            if (!member) return;
-            const name = member.name || 'Member';
-            const url = `${window.location.origin}/profile.html?id=${member.id}`;
-            const msg = `Check out ${name} on ClassyDate! 💎\n${url}`;
-
-            if (navigator.share) {
-                navigator.share({ title: name, text: msg, url }).catch(() => {});
-            } else {
-                const wa = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-                window.open(wa, '_blank');
-            }
-            if (navigator.vibrate) navigator.vibrate(30);
         }
 
         // ============================================================
@@ -1442,12 +1155,8 @@
         // ============================================================
         renderTicker();
         loadMembers();
-        initUserAndUnread();
-        saveLikes();
 
-        window.addEventListener('beforeunload', saveLikes);
-
-        console.log('💎 ClassyDate — Bento Box Members (dynamic online count + home/current country)');
+        console.log('💎 ClassyDate — Members (card image tap → profile, no support float)');
     </script>
 
 </body>

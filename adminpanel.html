@@ -177,7 +177,7 @@
         /* STATS ROW */
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 8px;
             margin-bottom: 14px;
         }
@@ -384,13 +384,13 @@
             animation: pulse-dot 1.5s infinite;
         }
 
-        /* ⭐ PAID MATCHMAKING CARD */
-        .conv-card.paid-mm {
+        /* PAID conversation */
+        .conv-card.paid {
             border-left: 4px solid #28a745;
             background: rgba(40, 167, 69, 0.04);
         }
 
-        .conv-card.paid-mm:hover {
+        .conv-card.paid:hover {
             box-shadow: 0 6px 20px rgba(40, 167, 69, 0.15);
         }
 
@@ -450,13 +450,13 @@
 
         .conv-info .wants { color: #6c3cb3; font-weight: 700; }
 
-        /* ⭐ PAYMENT DETAILS ROW */
+        /* Payment details row */
         .payment-details {
             display: flex;
             flex-wrap: wrap;
             gap: 4px 12px;
             font-size: 11px;
-            color: rgba(40, 167, 69, 0.9);
+            color: rgba(40, 167, 69, 0.95);
             background: rgba(40, 167, 69, 0.06);
             border-radius: 6px;
             padding: 6px 10px;
@@ -532,6 +532,12 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(108, 60, 179, 0.3);
         }
+
+        .btn-conv-wa {
+            background: rgba(37, 211, 102, 0.15);
+            color: #128C7E;
+        }
+        .btn-conv-wa:hover { background: rgba(37, 211, 102, 0.25); }
 
         .btn-conv-delete {
             background: rgba(220, 53, 69, 0.08);
@@ -932,11 +938,10 @@
         }
 
         @media (max-width: 480px) {
-            .stats-row { grid-template-columns: repeat(3, 1fr); }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 380px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
             .cb-shell-brand { font-size: 16px; }
             .admin-badge-nav { font-size: 9px; padding: 3px 8px; }
             .heartbeat-badge { font-size: 9px; padding: 2px 8px; }
@@ -972,9 +977,6 @@
                         <a href="#" onclick="showTab('conversations'); closeMenu(); return false;">
                             <span>💬</span> Conversations <span class="tab-count" id="menu-conv-count" style="background:rgba(108,60,179,0.1);padding:0 8px;border-radius:50px;font-size:11px;font-weight:700;color:#6c3cb3;margin-left:4px;">0</span>
                         </a>
-                        <a href="#" onclick="showTab('matchmaking'); closeMenu(); return false;">
-                            <span>💍</span> Matchmaking <span class="tab-count" id="menu-mm-count" style="background:rgba(108,60,179,0.1);padding:0 8px;border-radius:50px;font-size:11px;font-weight:700;color:#6c3cb3;margin-left:4px;">0</span>
-                        </a>
                         <div style="height:1px;background:rgba(108,60,179,0.06);margin:4px 0;"></div>
                         <a href="#" onclick="enableNotifications(); closeMenu(); return false;">
                             <span>🔔</span> <span id="notif-menu-text">Enable Alerts</span>
@@ -996,7 +998,7 @@
         <div class="notif-banner" id="notif-banner">
             <span style="font-size:22px;">🔔</span>
             <div class="notif-text">
-                Enable alerts to get notified when users send you messages or book matchmaking
+                Enable alerts to get notified when users send you messages
             </div>
             <button class="notif-btn" onclick="enableNotifications()">Enable</button>
             <button class="notif-dismiss" onclick="dismissNotifBanner()">✕</button>
@@ -1020,14 +1022,9 @@
                 <div class="stat-label">Unread</div>
             </div>
             <div class="stat-card" onclick="showTab('conversations')" style="cursor:pointer;">
-                <span class="stat-icon">⏳</span>
-                <div class="stat-value" id="stat-pending">0</div>
-                <div class="stat-label">Pending</div>
-            </div>
-            <div class="stat-card" id="stat-card-mm" onclick="showTab('matchmaking')" style="cursor:pointer;">
-                <span class="stat-icon">💍</span>
-                <div class="stat-value" id="stat-matchmaking">0</div>
-                <div class="stat-label">Matchmaking</div>
+                <span class="stat-icon">💰</span>
+                <div class="stat-value" id="stat-paid">0</div>
+                <div class="stat-label">Paid</div>
             </div>
         </div>
 
@@ -1041,11 +1038,6 @@
                 💬 Chats
                 <span class="badge-count" id="tab-conv-count">0</span>
                 <span class="unread-dot" id="tab-conv-unread" style="display:none;"></span>
-            </button>
-            <button class="tab-btn" id="tab-btn-matchmaking" onclick="showTab('matchmaking')">
-                💍 Matchmaking
-                <span class="badge-count" id="tab-mm-count">0</span>
-                <span class="unread-dot" id="tab-mm-unread" style="display:none;"></span>
             </button>
         </div>
 
@@ -1075,6 +1067,7 @@
                 <select class="filter-select" id="filter-status" onchange="filterConversations()">
                     <option value="all">All</option>
                     <option value="unread">🔵 Unread</option>
+                    <option value="paid">💰 Paid</option>
                     <option value="open">🟢 Open</option>
                     <option value="pending">🟡 Pending</option>
                     <option value="closed">⚪ Closed</option>
@@ -1089,30 +1082,6 @@
             </div>
 
             <div class="pagination-bar" id="conversations-pagination"></div>
-        </div>
-
-        <!-- MATCHMAKING TAB -->
-        <div id="tab-content-matchmaking" style="display:none;">
-            <div class="filter-row">
-                <input type="text" class="search-input" id="search-mm" placeholder="🔍 Search matchmaking requests..." oninput="filterMatchmaking()">
-                <select class="filter-select" id="filter-mm-status" onchange="filterMatchmaking()">
-                    <option value="all">All</option>
-                    <option value="paid">✅ Paid</option>
-                    <option value="unpaid">💳 Unpaid</option>
-                    <option value="pending">🟡 Pending</option>
-                    <option value="contacted">🟢 Contacted</option>
-                    <option value="completed">✅ Completed</option>
-                </select>
-            </div>
-
-            <div class="list-wrapper" id="matchmaking-list">
-                <div class="empty-state">
-                    <span class="loading-spinner"></span>
-                    <p style="margin-top:10px;">Loading matchmaking requests...</p>
-                </div>
-            </div>
-
-            <div class="pagination-bar" id="matchmaking-pagination"></div>
         </div>
 
     </main>
@@ -1294,7 +1263,7 @@
         });
 
         // ============================================================
-        // 🔔 NOTIFICATION SYSTEM
+        // NOTIFICATION SYSTEM
         // ============================================================
         const ALERT_PREFS_KEY = 'classydate_admin_alert_prefs';
 
@@ -1327,7 +1296,7 @@
 
                     try {
                         new Notification('🎉 ClassyDate Admin Alerts ON', {
-                            body: 'You will now receive alerts for new messages and matchmaking requests.',
+                            body: 'You will now receive alerts for new messages.',
                             icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>"
                         });
                     } catch (e) {}
@@ -1371,26 +1340,7 @@
 
                 osc.start(ctx.currentTime);
                 osc.stop(ctx.currentTime + 0.4);
-
-                setTimeout(() => {
-                    try {
-                        const ctx2 = new (window.AudioContext || window.webkitAudioContext)();
-                        const osc2 = ctx2.createOscillator();
-                        const gain2 = ctx2.createGain();
-                        osc2.connect(gain2);
-                        gain2.connect(ctx2.destination);
-                        osc2.type = 'sine';
-                        osc2.frequency.value = 1320;
-                        gain2.gain.setValueAtTime(0, ctx2.currentTime);
-                        gain2.gain.linearRampToValueAtTime(0.12, ctx2.currentTime + 0.02);
-                        gain2.gain.exponentialRampToValueAtTime(0.001, ctx2.currentTime + 0.3);
-                        osc2.start(ctx2.currentTime);
-                        osc2.stop(ctx2.currentTime + 0.35);
-                    } catch (e) {}
-                }, 150);
-            } catch (err) {
-                console.warn('Sound play failed:', err);
-            }
+            } catch (err) {}
         }
 
         let titleFlashInterval = null;
@@ -1423,19 +1373,14 @@
                 const notification = new Notification(title, {
                     body: messageText || '',
                     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>",
-                    badge: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>",
-                    tag: 'classydate-alert',
-                    renotify: true,
-                    requireInteraction: false
+                    tag: 'classydate-alert'
                 });
 
                 notification.onclick = () => {
                     window.focus();
                     notification.close();
                 };
-            } catch (err) {
-                console.warn('Browser notification failed:', err);
-            }
+            } catch (err) {}
         }
 
         let faviconOriginal = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>";
@@ -1447,15 +1392,13 @@
         }
 
         // ============================================================
-        // 🔔 REALTIME SUBSCRIPTIONS
+        // REALTIME SUBSCRIPTIONS
         // ============================================================
         let globalRealtimeChannel = null;
-        let globalMmRealtimeChannel = null;
+        let globalConvRealtimeChannel = null;
 
         function subscribeToNewMessages() {
-            if (globalRealtimeChannel) {
-                supabase.removeChannel(globalRealtimeChannel);
-            }
+            if (globalRealtimeChannel) supabase.removeChannel(globalRealtimeChannel);
 
             globalRealtimeChannel = supabase
                 .channel('admin-new-messages')
@@ -1465,8 +1408,7 @@
                     table: 'messages',
                     filter: 'sender_type=eq.user'
                 }, async (payload) => {
-                    console.log('🔔 New user message received:', payload.new);
-
+                    console.log('🔔 New user message:', payload.new);
                     const newMsg = payload.new;
 
                     let userName = 'User';
@@ -1486,76 +1428,54 @@
 
                     await loadConversations();
                 })
-                .subscribe((status) => {
-                    console.log('🔔 Realtime new messages:', status);
-                });
+                .subscribe();
         }
 
-        function subscribeToMatchmakingRequests() {
-            if (globalMmRealtimeChannel) {
-                supabase.removeChannel(globalMmRealtimeChannel);
-            }
+        function subscribeToNewConversations() {
+            if (globalConvRealtimeChannel) supabase.removeChannel(globalConvRealtimeChannel);
 
-            globalMmRealtimeChannel = supabase
-                .channel('admin-mm-requests')
+            globalConvRealtimeChannel = supabase
+                .channel('admin-new-conversations')
                 .on('postgres_changes', {
-                    event: '*',
+                    event: 'INSERT',
                     schema: 'public',
-                    table: 'matchmaking_requests'
+                    table: 'conversations'
                 }, async (payload) => {
-                    console.log('💍 Matchmaking request change:', payload.eventType, payload.new);
+                    console.log('🔔 New conversation:', payload.new);
+                    const newConv = payload.new;
 
-                    const newReq = payload.new;
-                    if (!newReq) return;
+                    vibrate();
+                    playPing();
+                    showBrowserNotification(
+                        `💎 New connection request`,
+                        `${newConv.full_name || 'Someone'} wants to connect with ${newConv.member_name || 'a member'}!`
+                    );
+                    flashTitle(`💎 New request from ${newConv.full_name || 'User'}`);
 
-                    // Only notify on new INSERT
-                    if (payload.eventType === 'INSERT') {
-                        const userName = newReq.full_name || 'User';
-                        const isPaid = newReq.payment_status === 'paid';
-
-                        vibrate();
-                        playPing();
-                        showBrowserNotification(
-                            isPaid ? '💰 New PAID Matchmaking Booking!' : '💍 New Matchmaking Request',
-                            `${userName} just ${isPaid ? 'paid for' : 'requested'} a private matchmaking session!`
-                        );
-                        flashTitle(`💍 New matchmaking from ${userName}`);
-                    }
-
-                    await loadMatchmaking();
+                    await loadConversations();
                 })
-                .subscribe((status) => {
-                    console.log('💍 Realtime matchmaking:', status);
-                });
+                .subscribe();
         }
 
         document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                stopFlashTitle();
-            }
+            if (!document.hidden) stopFlashTitle();
         });
-        window.addEventListener('focus', () => {
-            stopFlashTitle();
-        });
+        window.addEventListener('focus', () => stopFlashTitle());
 
         // ============================================================
         // STATE
         // ============================================================
         let adminMembers = [];
         let conversations = [];
-        let matchmakingRequests = [];
 
         let filteredMembers = [];
         let filteredConversations = [];
-        let filteredMatchmaking = [];
 
         let currentMemberPage = 1;
         let currentConvPage = 1;
-        let currentMmPage = 1;
 
         const membersPerPage = 10;
         const convPerPage = 10;
-        const mmPerPage = 10;
 
         let currentTab = 'members';
         let uploadedFileIds = [];
@@ -1608,15 +1528,12 @@
 
             document.getElementById('tab-content-members').style.display = tab === 'members' ? 'block' : 'none';
             document.getElementById('tab-content-conversations').style.display = tab === 'conversations' ? 'block' : 'none';
-            document.getElementById('tab-content-matchmaking').style.display = tab === 'matchmaking' ? 'block' : 'none';
 
             document.getElementById('tab-btn-members').classList.toggle('active', tab === 'members');
             document.getElementById('tab-btn-conversations').classList.toggle('active', tab === 'conversations');
-            document.getElementById('tab-btn-matchmaking').classList.toggle('active', tab === 'matchmaking');
 
             if (tab === 'members') renderMembers();
             else if (tab === 'conversations') renderConversations();
-            else if (tab === 'matchmaking') renderMatchmaking();
         }
 
         // ============================================================
@@ -1667,6 +1584,7 @@
                 conversations = convData || [];
 
                 for (const conv of conversations) {
+                    // Last message
                     const { data: msgs } = await supabase
                         .from('messages')
                         .select('text, sender_type, created_at, attachment_url, read_by_admin')
@@ -1677,6 +1595,7 @@
                     if (msgs && msgs[0]) conv.lastMessage = msgs[0];
                     else conv.lastMessage = null;
 
+                    // Unread count
                     const { count } = await supabase
                         .from('messages')
                         .select('*', { count: 'exact', head: true })
@@ -1708,57 +1627,14 @@
         }
 
         // ============================================================
-        // LOAD MATCHMAKING REQUESTS
-        // ============================================================
-        async function loadMatchmaking() {
-            try {
-                const { data, error } = await supabase
-                    .from('matchmaking_requests')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                matchmakingRequests = data || [];
-                filteredMatchmaking = [...matchmakingRequests];
-
-                document.getElementById('stat-matchmaking').textContent = matchmakingRequests.length;
-                document.getElementById('tab-mm-count').textContent = matchmakingRequests.length;
-                document.getElementById('menu-mm-count').textContent = matchmakingRequests.length;
-
-                // Count paid
-                const paidCount = matchmakingRequests.filter(r => r.payment_status === 'paid').length;
-                const pendingCount = matchmakingRequests.filter(r => r.status === 'pending').length;
-
-                // Show unread dot if any paid
-                document.getElementById('tab-mm-unread').style.display = paidCount > 0 ? 'block' : 'none';
-
-                const totalUnreadConvs = conversations.reduce((sum, c) => sum + (c.unreadCount || 0), 0);
-                document.getElementById('menu-dot').style.display = (paidCount > 0 || pendingCount > 0 || totalUnreadConvs > 0) ? 'block' : 'none';
-
-                updateStats();
-                renderMatchmaking();
-            } catch (err) {
-                console.error('Error loading matchmaking:', err);
-                document.getElementById('matchmaking-list').innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">⚠️</div>
-                        <h3>Could not load matchmaking requests</h3>
-                        <p>Please refresh the page.</p>
-                    </div>
-                `;
-            }
-        }
-
-        // ============================================================
         // UPDATE STATS
         // ============================================================
         function updateStats() {
             const unread = conversations.reduce((sum, c) => sum + (c.unreadCount || 0), 0);
-            const pending = conversations.filter(c => c.status === 'pending').length;
+            const paid = conversations.filter(c => c.payment_status === 'paid').length;
 
             document.getElementById('stat-unread').textContent = unread;
-            document.getElementById('stat-pending').textContent = pending;
+            document.getElementById('stat-paid').textContent = paid;
 
             const unreadCard = document.getElementById('stat-card-unread');
             if (unread > 0) unreadCard.classList.add('has-unread');
@@ -1767,6 +1643,9 @@
             document.getElementById('tab-conv-unread').style.display = unread > 0 ? 'block' : 'none';
 
             setFaviconWithBadge(unread > 0);
+
+            // Menu dot if unread
+            document.getElementById('menu-dot').style.display = unread > 0 ? 'block' : 'none';
         }
 
         // ============================================================
@@ -1793,10 +1672,13 @@
                     (c.full_name || '').toLowerCase().includes(q) ||
                     (c.email || '').toLowerCase().includes(q) ||
                     (c.member_name || '').toLowerCase().includes(q) ||
-                    (c.whatsapp_no || '').includes(q);
+                    (c.whatsapp_no || '').includes(q) ||
+                    (c.home_country || '').toLowerCase().includes(q) ||
+                    (c.current_country || '').toLowerCase().includes(q);
 
                 let matchesStatus = true;
                 if (status === 'unread') matchesStatus = (c.unreadCount || 0) > 0;
+                else if (status === 'paid') matchesStatus = c.payment_status === 'paid';
                 else if (status !== 'all') matchesStatus = c.status === status;
 
                 return matchesSearch && matchesStatus;
@@ -1804,31 +1686,6 @@
 
             currentConvPage = 1;
             renderConversations();
-        }
-
-        window.filterMatchmaking = function() {
-            const q = (document.getElementById('search-mm').value || '').toLowerCase().trim();
-            const status = document.getElementById('filter-mm-status').value;
-
-            filteredMatchmaking = matchmakingRequests.filter(r => {
-                const matchesSearch =
-                    (r.full_name || '').toLowerCase().includes(q) ||
-                    (r.email || '').toLowerCase().includes(q) ||
-                    (r.whatsapp_no || '').includes(q) ||
-                    (r.tiktok_username || '').toLowerCase().includes(q);
-
-                let matchesStatus = true;
-                if (status === 'pending') matchesStatus = r.status === 'pending';
-                else if (status === 'contacted') matchesStatus = r.status === 'contacted';
-                else if (status === 'completed') matchesStatus = r.status === 'completed';
-                else if (status === 'unpaid') matchesStatus = r.payment_status !== 'paid';
-                else if (status === 'paid') matchesStatus = r.payment_status === 'paid';
-
-                return matchesSearch && matchesStatus;
-            });
-
-            currentMmPage = 1;
-            renderMatchmaking();
         }
 
         // ============================================================
@@ -1894,7 +1751,7 @@
         }
 
         // ============================================================
-        // RENDER CONVERSATIONS
+        // RENDER CONVERSATIONS (⭐ updated to show all new fields)
         // ============================================================
         function renderConversations() {
             const container = document.getElementById('conversations-list');
@@ -1904,7 +1761,7 @@
                     <div class="empty-state">
                         <div class="icon">💬</div>
                         <h3>No conversations</h3>
-                        <p>When users tap "Connect", their details appear here.</p>
+                        <p>When users request a connection, their details appear here.</p>
                     </div>
                 `;
                 document.getElementById('conversations-pagination').innerHTML = '';
@@ -1917,12 +1774,17 @@
 
             container.innerHTML = page.map(c => {
                 const isUnread = (c.unreadCount || 0) > 0;
+                const isPaid = c.payment_status === 'paid';
                 const statusClass = c.status === 'open' ? 'open' : c.status === 'pending' ? 'pending' : 'closed';
                 const statusLabel = c.status === 'open' ? '🟢 Open' : c.status === 'pending' ? '🟡 Pending' : '⚪ Closed';
 
                 const timeAgo = c.lastMessage?.created_at
                     ? formatTimeAgo(new Date(c.lastMessage.created_at))
                     : formatTimeAgo(new Date(c.created_at));
+
+                // Location line — new flow uses current_country; old flow used location
+                const currentLoc = c.current_country || c.location || '';
+                const homeCountry = c.home_country || '';
 
                 let previewHTML = '';
                 if (c.lastMessage) {
@@ -1945,18 +1807,29 @@
                 }
 
                 return `
-                    <div class="conv-card ${isUnread ? 'unread' : ''}" onclick="openChat('${c.id}')">
+                    <div class="conv-card ${isUnread ? 'unread' : ''} ${isPaid ? 'paid' : ''}" onclick="openChat('${c.id}')">
                         <div class="conv-top">
                             <div class="conv-name">👤 ${escapeHtml(c.full_name || 'Unknown')}</div>
                             <span class="conv-status ${statusClass}">${statusLabel}</span>
+                            ${isPaid ? '<span class="conv-status paid">💰 PAID</span>' : ''}
                             <span class="conv-time">${timeAgo}</span>
                         </div>
 
                         <div class="conv-info">
                             <span class="wants">💎 Wants: <strong>${escapeHtml(c.member_name || '—')}</strong></span>
+                            ${c.age ? `<span>🎂 Age ${c.age}</span>` : ''}
                             ${c.whatsapp_no ? `<span>📱 ${escapeHtml(c.whatsapp_no)}</span>` : ''}
-                            ${c.location ? `<span>📍 ${escapeHtml(c.location)}</span>` : ''}
+                            ${homeCountry ? `<span>🌍 From ${escapeHtml(homeCountry)}</span>` : ''}
+                            ${currentLoc ? `<span>📍 In ${escapeHtml(currentLoc)}</span>` : ''}
                         </div>
+
+                        ${isPaid ? `
+                            <div class="payment-details">
+                                <span>💰 Payment Received</span>
+                                ${c.amount_paid ? `<span>KES ${(c.amount_paid / 100).toLocaleString()}</span>` : ''}
+                                ${c.payment_reference ? `<span>Ref: <span class="ref">${escapeHtml(c.payment_reference)}</span></span>` : ''}
+                            </div>
+                        ` : ''}
 
                         ${previewHTML}
 
@@ -1964,6 +1837,11 @@
                             <button class="btn-conv btn-conv-chat" onclick="event.stopPropagation(); openChat('${c.id}')">
                                 💬 Open Chat
                             </button>
+                            ${c.whatsapp_no ? `
+                                <button class="btn-conv btn-conv-wa" onclick="event.stopPropagation(); openWhatsApp('${escapeHtml(c.whatsapp_no)}', '${escapeHtml(c.full_name || '')}')">
+                                    📱
+                                </button>
+                            ` : ''}
                             <button class="btn-conv btn-conv-delete" onclick="event.stopPropagation(); deleteConversation('${c.id}', '${(c.full_name || '').replace(/'/g, "\\'")}')">
                                 🗑️
                             </button>
@@ -1973,95 +1851,6 @@
             }).join('');
 
             renderConversationsPagination(totalPages);
-        }
-
-        // ============================================================
-        // RENDER MATCHMAKING (⭐ updated with payment info)
-        // ============================================================
-        function renderMatchmaking() {
-            const container = document.getElementById('matchmaking-list');
-
-            if (filteredMatchmaking.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">💍</div>
-                        <h3>No matchmaking requests</h3>
-                        <p>When users book a matchmaking session, their details appear here.</p>
-                    </div>
-                `;
-                document.getElementById('matchmaking-pagination').innerHTML = '';
-                return;
-            }
-
-            const totalPages = Math.ceil(filteredMatchmaking.length / mmPerPage);
-            const start = (currentMmPage - 1) * mmPerPage;
-            const page = filteredMatchmaking.slice(start, start + mmPerPage);
-
-            container.innerHTML = page.map(r => {
-                const isPaid = r.payment_status === 'paid';
-
-                const statusClass = r.status === 'pending' ? 'pending' : r.status === 'contacted' ? 'open' : 'closed';
-                const statusLabel = r.status === 'pending' ? '🟡 Pending' : r.status === 'contacted' ? '🟢 Contacted' : '✅ Completed';
-
-                const payClass = isPaid ? 'paid' : 'unpaid';
-                const payLabel = isPaid ? '✅ PAID' : '💳 Unpaid';
-
-                const timeAgo = formatTimeAgo(new Date(r.created_at));
-
-                const preferredDate = r.preferred_date
-                    ? new Date(r.preferred_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
-                    : '—';
-
-                const methodLabel = r.payment_method === 'mpesa' ? '📱 M-PESA' : r.payment_method === 'card' ? '💳 Card' : '';
-
-                return `
-                    <div class="conv-card ${isPaid ? 'paid-mm' : ''}" onclick="openChatFromMatchmaking('${r.user_id}')">
-                        <div class="conv-top">
-                            <div class="conv-name">💍 ${escapeHtml(r.full_name || 'Unknown')}</div>
-                            <span class="conv-status ${statusClass}">${statusLabel}</span>
-                            <span class="conv-status ${payClass}">${payLabel}</span>
-                            <span class="conv-time">${timeAgo}</span>
-                        </div>
-
-                        <div class="conv-info">
-                            <span>📧 ${escapeHtml(r.email || '—')}</span>
-                            <span>📱 ${escapeHtml(r.whatsapp_no || '—')}</span>
-                            ${r.tiktok_username ? `<span>🎵 ${escapeHtml(r.tiktok_username)}</span>` : ''}
-                            <span>📅 Preferred: ${preferredDate}</span>
-                            <span class="wants">💎 Amount: $${r.amount || 10}</span>
-                        </div>
-
-                        ${isPaid ? `
-                            <div class="payment-details">
-                                <span>💰 Payment Received</span>
-                                ${methodLabel ? `<span>${methodLabel}</span>` : ''}
-                                ${r.payment_reference ? `<span>Ref: <span class="ref">${escapeHtml(r.payment_reference)}</span></span>` : ''}
-                            </div>
-                        ` : ''}
-
-                        ${r.message ? `
-                            <div class="conv-preview user">
-                                <span class="sender-tag">💬 Message:</span>
-                                <span class="conv-preview-text">${escapeHtml(r.message)}</span>
-                            </div>
-                        ` : ''}
-
-                        <div class="conv-actions">
-                            <button class="btn-conv btn-conv-chat" onclick="event.stopPropagation(); openChatFromMatchmaking('${r.user_id}')">
-                                💬 Open Chat
-                            </button>
-                            <button class="btn-conv btn-conv-chat" style="background: linear-gradient(135deg, #28a745, #1e7e34); flex: 0 0 auto;" onclick="event.stopPropagation(); openWhatsApp('${escapeHtml(r.whatsapp_no || '')}', '${escapeHtml(r.full_name || '')}')">
-                                📱
-                            </button>
-                            <button class="btn-conv btn-conv-delete" onclick="event.stopPropagation(); deleteMatchmaking('${r.id}', '${(r.full_name || '').replace(/'/g, "\\'")}')">
-                                🗑️
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            renderMatchmakingPagination(totalPages);
         }
 
         // ============================================================
@@ -2103,19 +1892,8 @@
             el.innerHTML = html;
         }
 
-        function renderMatchmakingPagination(totalPages) {
-            const el = document.getElementById('matchmaking-pagination');
-            if (totalPages <= 1) { el.innerHTML = ''; return; }
-            let html = '';
-            for (let i = 1; i <= totalPages; i++) {
-                html += `<button class="${i === currentMmPage ? 'active' : ''}" onclick="goToMmPage(${i})">${i}</button>`;
-            }
-            el.innerHTML = html;
-        }
-
         window.goToMemberPage = (p) => { currentMemberPage = p; renderMembers(); };
         window.goToConvPage = (p) => { currentConvPage = p; renderConversations(); };
-        window.goToMmPage = (p) => { currentMmPage = p; renderMatchmaking(); };
 
         // ============================================================
         // OPEN CHAT
@@ -2124,39 +1902,16 @@
             window.location.href = `chat.html?conversation=${id}`;
         }
 
-        window.openChatFromMatchmaking = async (userId) => {
-            if (!userId) {
-                showToast('⚠️ Cannot open chat — user has no account yet', 'error');
-                return;
-            }
-
-            try {
-                const { data: conv } = await supabase
-                    .from('conversations')
-                    .select('id')
-                    .eq('user_id', userId)
-                    .order('updated_at', { ascending: false })
-                    .limit(1)
-                    .maybeSingle();
-
-                if (conv) {
-                    window.location.href = `chat.html?conversation=${conv.id}`;
-                } else {
-                    showToast('⚠️ This user has no chat conversation yet', 'error');
-                }
-            } catch (err) {
-                console.error('Open chat failed:', err);
-                showToast('Error opening chat: ' + err.message, 'error');
-            }
-        }
-
+        // ============================================================
+        // OPEN WHATSAPP
+        // ============================================================
         window.openWhatsApp = (number, name) => {
             if (!number) {
                 showToast('⚠️ No WhatsApp number for this user', 'error');
                 return;
             }
             const cleanNumber = number.replace(/[^\d]/g, '');
-            const msg = encodeURIComponent(`Hi ${name}, this is ClassyDate Matchmaking Team regarding your matchmaking request.`);
+            const msg = encodeURIComponent(`Hi ${name}, this is ClassyDate Support regarding your connection request.`);
             window.open(`https://wa.me/${cleanNumber}?text=${msg}`, '_blank');
         }
 
@@ -2173,17 +1928,6 @@
                 await supabase.from('conversations').delete().eq('id', id);
                 showToast('🗑️ Conversation deleted', 'success');
                 await loadConversations();
-            } catch (err) {
-                showToast('Error: ' + err.message, 'error');
-            }
-        }
-
-        window.deleteMatchmaking = async (id, name) => {
-            if (!confirm(`Delete matchmaking request from ${name}? This cannot be undone.`)) return;
-            try {
-                await supabase.from('matchmaking_requests').delete().eq('id', id);
-                showToast('🗑️ Matchmaking request deleted', 'success');
-                await loadMatchmaking();
             } catch (err) {
                 showToast('Error: ' + err.message, 'error');
             }
@@ -2378,7 +2122,7 @@
             stopHeartbeat();
             stopFlashTitle();
             if (globalRealtimeChannel) supabase.removeChannel(globalRealtimeChannel);
-            if (globalMmRealtimeChannel) supabase.removeChannel(globalMmRealtimeChannel);
+            if (globalConvRealtimeChannel) supabase.removeChannel(globalConvRealtimeChannel);
             try { await supabase.auth.signOut(); } catch (e) {}
             window.location.href = 'adminlogin.html';
         }
@@ -2438,18 +2182,16 @@
 
             await loadMembers();
             await loadConversations();
-            await loadMatchmaking();
             showTab('members');
 
             subscribeToNewMessages();
-            subscribeToMatchmakingRequests();
+            subscribeToNewConversations();
 
             setInterval(() => {
                 if (currentTab === 'conversations') loadConversations();
-                else if (currentTab === 'matchmaking') loadMatchmaking();
             }, 30000);
 
-            console.log('💎 Admin Panel ready with PAID matchmaking support');
+            console.log('💎 Admin Panel ready — shows home country, current country, age, paid status');
         })();
     </script>
 

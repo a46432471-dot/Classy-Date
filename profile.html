@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -163,11 +165,7 @@
             animation: pulse-ring 2s infinite;
             transition: background 0.4s ease;
         }
-        .status-ring.offline {
-            background: #adb5bd;
-            animation: none;
-            box-shadow: none;
-        }
+        .status-ring.offline { background: #adb5bd; animation: none; box-shadow: none; }
 
         @keyframes pulse-ring {
             0%, 100% { transform: scale(1); opacity: 1; }
@@ -404,16 +402,38 @@
             border: 1px dashed rgba(108, 60, 179, 0.15);
         }
 
+        /* ⭐ NEW CTA — WhatsApp style */
         .profile-cta {
-            padding: 22px 0 8px;
+            padding: 28px 0 8px;
             border-top: 2px solid rgba(108, 60, 179, 0.2);
             margin-top: 22px;
+            text-align: center;
         }
 
-        .btn-connect-big {
+        .cta-arrow {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 12px;
+            animation: arrowBounce 1.6s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .cta-hint {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-family: "Inter", sans-serif;
+        }
+
+        .btn-whatsapp {
             width: 100%;
-            padding: 16px 20px;
-            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: #fff;
             border: none;
             border-radius: 14px;
@@ -426,89 +446,456 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3);
-            animation: pulse-btn 2.5s infinite;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
+            position: relative;
+            overflow: hidden;
+            animation: pulseWhatsApp 2.5s infinite;
         }
 
-        @keyframes pulse-btn {
-            0%, 100% { box-shadow: 0 8px 30px rgba(108, 60, 179, 0.3); }
-            50% { box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5); }
+        .btn-whatsapp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            animation: sheen 3s infinite;
         }
 
-        .btn-connect-big:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
-            box-shadow: 0 12px 40px rgba(108, 60, 179, 0.5);
+        @keyframes sheen {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
         }
 
-        .btn-connect-big:active { transform: scale(0.98); }
+        @keyframes pulseWhatsApp {
+            0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35); }
+            50% { box-shadow: 0 14px 40px rgba(37, 211, 102, 0.55); }
+        }
 
-        .tiktok-live-section {
-            margin-top: 22px;
-            padding: 24px 20px;
-            background: linear-gradient(135deg, rgba(37, 244, 238, 0.08), rgba(254, 44, 85, 0.06));
-            border: 1px solid rgba(37, 244, 238, 0.2);
-            border-radius: 16px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #128C7E, #25D366);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        .btn-whatsapp:active { transform: scale(0.98); }
+
+        .wa-icon-svg {
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        }
+
+        /* MODAL SYSTEM */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 5, 51, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
             align-items: center;
-            gap: 14px;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow-y: auto;
         }
 
-        .tiktok-live-text {
-            font-family: "Playfair Display", Georgia, serif;
-            font-size: 17px;
-            font-weight: 700;
-            color: #1a0533;
-            line-height: 1.4;
-            max-width: 320px;
+        .modal-overlay.show { display: flex; opacity: 1; }
+
+        .modal {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 32px 26px 26px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(108, 60, 179, 0.35);
+            border: 1px solid rgba(108, 60, 179, 0.1);
+            text-align: center;
+            position: relative;
+            animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
         }
 
-        .tiktok-live-text .member-highlight {
-            color: #6c3cb3;
-            font-style: italic;
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .tiktok-live-hint {
-            font-size: 12.5px;
-            color: rgba(26, 5, 51, 0.55);
-            line-height: 1.5;
-            max-width: 300px;
-        }
-
-        .tiktok-live-btn {
-            background: #000000;
-            border: none;
-            width: 64px;
-            height: 64px;
+        .modal__close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
+            background: rgba(108, 60, 179, 0.08);
+            border: none;
             cursor: pointer;
+            font-size: 16px;
+            color: #6c3cb3;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s ease;
+            font-family: "Inter", sans-serif;
+        }
+        .modal__close:hover { background: rgba(108, 60, 179, 0.15); transform: rotate(90deg); }
+
+        .modal__icon {
+            font-size: 52px;
+            margin-bottom: 14px;
+            display: block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .modal__title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .modal__subtitle {
+            font-size: 14px;
+            color: rgba(26, 5, 51, 0.65);
+            line-height: 1.55;
+            margin-bottom: 22px;
+            font-family: "Inter", sans-serif;
+        }
+
+        .modal__trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .modal__trust-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: rgba(26, 5, 51, 0.7);
+            background: rgba(108, 60, 179, 0.06);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-family: "Inter", sans-serif;
+        }
+
+        .modal__btn {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
             transition: all 0.3s ease;
-            padding: 0;
+            font-family: "Inter", sans-serif;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .modal__btn--primary {
+            background: linear-gradient(135deg, #6c3cb3, #4a1a6b);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(108, 60, 179, 0.35);
+        }
+
+        .modal__btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(108, 60, 179, 0.5);
+            background: linear-gradient(135deg, #4a1a6b, #6c3cb3);
+        }
+
+        .modal__btn--ghost {
+            background: rgba(108, 60, 179, 0.06);
+            color: rgba(26, 5, 51, 0.6);
+            margin-top: 10px;
+        }
+
+        .modal__btn--ghost:hover { background: rgba(108, 60, 179, 0.12); }
+
+        .modal__btn--yes {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.35);
+        }
+
+        .modal__btn--yes:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.5);
+        }
+
+        .modal__btn--no {
+            background: rgba(108, 60, 179, 0.06);
+            color: rgba(26, 5, 51, 0.65);
+            margin-top: 10px;
+        }
+
+        .modal__btn--no:hover { background: rgba(108, 60, 179, 0.14); }
+
+        /* Form */
+        .modal-form-group {
+            text-align: left;
+            margin-bottom: 14px;
+        }
+
+        .modal-form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(26, 5, 51, 0.7);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-family: "Inter", sans-serif;
+        }
+
+        .modal-form-group label .required { color: #dc3545; margin-left: 2px; }
+
+        .modal-form-group input,
+        .modal-form-group .country-select-wrap input {
+            width: 100%;
+            padding: 13px 15px;
+            background: rgba(250, 245, 255, 0.85);
+            border: 1.5px solid rgba(108, 60, 179, 0.15);
+            border-radius: 11px;
+            color: #1a0533;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: "Inter", sans-serif;
+            min-height: 48px;
+        }
+
+        .modal-form-group input:focus,
+        .modal-form-group .country-select-wrap input:focus {
+            border-color: #6c3cb3;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 60, 179, 0.1);
+        }
+
+        .modal-form-group input::placeholder { color: rgba(26, 5, 51, 0.3); }
+
+        /* Searchable country dropdown */
+        .country-select-wrap {
             position: relative;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
-            animation: tiktok-pulse 2.5s infinite;
         }
 
-        @keyframes tiktok-pulse {
-            0%, 100% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(37, 244, 238, 0.4); }
-            50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15), 0 0 0 12px rgba(37, 244, 238, 0); }
+        .country-select-wrap input {
+            padding-right: 40px;
+            cursor: text;
         }
 
-        .tiktok-live-btn:hover {
-            transform: translateY(-3px) scale(1.06);
-            box-shadow: 0 10px 30px rgba(37, 244, 238, 0.5), 0 10px 30px rgba(254, 44, 85, 0.35);
+        .country-select-chevron {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #6c3cb3;
+            pointer-events: none;
         }
 
-        .tiktok-live-btn:active { transform: scale(0.95); }
+        .country-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            max-height: 220px;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(108, 60, 179, 0.18);
+            border: 1px solid rgba(108, 60, 179, 0.12);
+            z-index: 30;
+        }
 
-        .tiktok-live-btn svg { width: 32px; height: 32px; display: block; }
+        .country-dropdown.show { display: block; }
 
+        .country-option {
+            padding: 10px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #1a0533;
+            font-family: "Inter", sans-serif;
+            transition: background 0.15s ease;
+            border-bottom: 1px solid rgba(108, 60, 179, 0.05);
+        }
+
+        .country-option:last-child { border-bottom: none; }
+        .country-option:hover,
+        .country-option.active { background: rgba(108, 60, 179, 0.08); }
+
+        .country-option.empty {
+            text-align: center;
+            color: rgba(26, 5, 51, 0.4);
+            font-style: italic;
+            cursor: default;
+        }
+
+        /* Modal 2 divider */
+        .modal-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(108, 60, 179, 0.2), transparent);
+            margin: 22px 0 18px;
+            position: relative;
+        }
+
+        .modal-divider::after {
+            content: '💫';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+        .ready-question {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Cashier overlay */
+        .cashier-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f3e8ff 0%, #e8d5f5 100%);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 24px;
+            text-align: center;
+        }
+        .cashier-overlay.show { display: flex; opacity: 1; }
+
+        .cashier-overlay__avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            color: #fff;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.4);
+            position: relative;
+            animation: cashierPulse 1.6s ease-in-out infinite;
+        }
+        .cashier-overlay__avatar::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 3px solid rgba(37, 211, 102, 0.3);
+            animation: cashierRing 1.6s ease-out infinite;
+        }
+        @keyframes cashierPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        @keyframes cashierRing {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.4); }
+        }
+
+        .cashier-overlay__title {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a0533;
+            letter-spacing: 0.2px;
+        }
+        .cashier-overlay__sub {
+            font-size: 13px;
+            color: rgba(26, 5, 51, 0.6);
+            font-weight: 600;
+            max-width: 320px;
+            line-height: 1.5;
+        }
+        .cashier-overlay__country {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #6c3cb3;
+            background: rgba(108, 60, 179, 0.08);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(108, 60, 179, 0.15);
+        }
+        .cashier-overlay__progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(108, 60, 179, 0.12);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .cashier-overlay__progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6c3cb3, #25D366);
+            width: 0%;
+            border-radius: 50px;
+            transition: width 3s linear;
+        }
+        .cashier-overlay.show .cashier-overlay__progress-bar { width: 100%; }
+        .cashier-overlay__dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .cashier-overlay__dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #6c3cb3;
+            opacity: 0.3;
+            animation: cashierDot 1.2s ease-in-out infinite;
+        }
+        .cashier-overlay__dots span:nth-child(2) { animation-delay: 0.2s; }
+        .cashier-overlay__dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes cashierDot {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-6px); }
+        }
+
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -550,6 +937,7 @@
         }
         .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
 
+        /* Support float */
         .support-float {
             position: fixed;
             bottom: 16px;
@@ -594,6 +982,7 @@
             animation: pulse-ring 1.8s infinite;
         }
 
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -639,13 +1028,11 @@
 
             .collage { grid-auto-rows: 160px; gap: 8px; }
 
-            .btn-connect-big { font-size: 18px; padding: 18px 24px; }
+            .btn-whatsapp { font-size: 17px; padding: 20px 24px; }
+            .cta-arrow { font-size: 38px; }
 
-            .tiktok-live-section { padding: 28px 24px; }
-            .tiktok-live-text { font-size: 20px; max-width: 400px; }
-            .tiktok-live-hint { font-size: 13.5px; }
-            .tiktok-live-btn { width: 74px; height: 74px; }
-            .tiktok-live-btn svg { width: 38px; height: 38px; }
+            .modal { padding: 38px 32px 30px; max-width: 460px; }
+            .modal__title { font-size: 26px; }
         }
 
         @media (min-width: 900px) {
@@ -658,7 +1045,7 @@
             .profile-avatar { width: 95px; height: 95px; border-radius: 12px; }
             .profile-name { font-size: 19px; }
             .collage { grid-auto-rows: 100px; }
-            .tiktok-live-text { font-size: 15px; }
+            .btn-whatsapp { font-size: 14px; padding: 16px 16px; }
         }
     </style>
 </head>
@@ -767,32 +1154,115 @@
                 </div>
             </section>
 
-            <!-- ⭐ MOVED: TikTok section now comes AFTER photos, BEFORE connect button -->
-            <section class="tiktok-live-section">
-                <div class="tiktok-live-text" id="tiktok-live-text">
-                    Want to get connected with <span class="member-highlight" id="tiktok-member-name">this member</span> on Live TikTok?
-                </div>
-                <div class="tiktok-live-hint">
-                    Book a private matchmaking session to get connected live
-                </div>
-
-                <button class="tiktok-live-btn" onclick="goToMatchmaking()" aria-label="Book Matchmaking on TikTok">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#25F4EE" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" transform="translate(-1, -1)"/>
-                        <path fill="#FE2C55" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" transform="translate(1, 1)"/>
-                        <path fill="#FFFFFF" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                    </svg>
-                </button>
-            </section>
-
+            <!-- ⭐ NEW CTA: WhatsApp button with bouncing arrow -->
             <div class="profile-cta">
-                <button class="btn-connect-big" id="connect-btn" onclick="connectWith()">
-                    💬 Connect with <span id="cta-name">this member</span>
+                <span class="cta-arrow">⬇️</span>
+                <div class="cta-hint">Tap below to get their WhatsApp number</div>
+                <button class="btn-whatsapp" id="whatsapp-btn" onclick="openIntroModal()">
+                    <svg class="wa-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    <span>Get WhatsApp number for <span id="cta-name">this member</span></span>
                 </button>
             </div>
 
         </div>
     </main>
+
+    <!-- MODAL 1: Intro -->
+    <div class="modal-overlay" id="modal-intro">
+        <div class="modal">
+            <button class="modal__close" onclick="closeAllModals()">✕</button>
+            <span class="modal__icon">💬</span>
+            <h2 class="modal__title">Get <span id="intro-name">their</span>'s WhatsApp</h2>
+            <p class="modal__subtitle">
+                You're one step away from connecting with <strong id="intro-name-2">them</strong> directly on WhatsApp. We'll send you their number instantly.
+            </p>
+
+            <div class="modal__trust-badges">
+                <span class="modal__trust-item">✅ Verified member</span>
+                <span class="modal__trust-item">🔒 Secure process</span>
+                <span class="modal__trust-item">⚡ Instant unlock</span>
+            </div>
+
+            <button class="modal__btn modal__btn--primary" onclick="openDetailsModal()">
+                ✨ Proceed →
+            </button>
+            <button class="modal__btn modal__btn--ghost" onclick="closeAllModals()">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Details + Yes/No -->
+    <div class="modal-overlay" id="modal-details">
+        <div class="modal">
+            <button class="modal__close" onclick="closeAllModals()">✕</button>
+            <span class="modal__icon">💎</span>
+            <h2 class="modal__title">Tell us about you</h2>
+            <p class="modal__subtitle">
+                We need a few quick details before unlocking <strong id="details-name">their</strong>'s WhatsApp number.
+            </p>
+
+            <div class="modal-form-group">
+                <label for="form-name">Full Name <span class="required">*</span></label>
+                <input type="text" id="form-name" placeholder="e.g. Jane Doe" autocomplete="name">
+            </div>
+
+            <div class="modal-form-group">
+                <label for="form-age">Age <span class="required">*</span></label>
+                <input type="number" id="form-age" placeholder="e.g. 28" min="18" max="99">
+            </div>
+
+            <div class="modal-form-group">
+                <label for="form-home-country">Home Country <span class="required">*</span></label>
+                <div class="country-select-wrap">
+                    <input type="text" id="form-home-country" placeholder="Type or select country..." autocomplete="off">
+                    <span class="country-select-chevron">▼</span>
+                    <div class="country-dropdown" id="home-country-dropdown"></div>
+                </div>
+            </div>
+
+            <div class="modal-form-group">
+                <label for="form-current-country">Current Country <span class="required">*</span></label>
+                <div class="country-select-wrap">
+                    <input type="text" id="form-current-country" placeholder="Type or select country..." autocomplete="off">
+                    <span class="country-select-chevron">▼</span>
+                    <div class="country-dropdown" id="current-country-dropdown"></div>
+                </div>
+            </div>
+
+            <div class="modal-divider"></div>
+
+            <div class="ready-question">
+                <span>💫</span>
+                <span>Are you ready?</span>
+            </div>
+
+            <button class="modal__btn modal__btn--yes" onclick="handleReady('yes')">
+                ✅ Yes, I'm ready
+            </button>
+            <button class="modal__btn modal__btn--no" onclick="handleReady('no')">
+                ❌ No, go back
+            </button>
+        </div>
+    </div>
+
+    <!-- Cashier overlay (non-Kenya) -->
+    <div class="cashier-overlay" id="cashierOverlay">
+        <div class="cashier-overlay__avatar">💬</div>
+        <div class="cashier-overlay__title">Connecting you to our Cashier</div>
+        <div class="cashier-overlay__sub">Please hold on a moment… we're connecting you to a secure WhatsApp chat to finalise your connection.</div>
+        <div class="cashier-overlay__country" id="cashierCountry"></div>
+        <div class="cashier-overlay__progress">
+            <div class="cashier-overlay__progress-bar"></div>
+        </div>
+        <div class="cashier-overlay__dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 
     <div class="support-float">
         <button class="support-float__btn" onclick="openSupport(event)" aria-label="Support">
@@ -824,11 +1294,44 @@
 
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // ⭐ CONFIG — from cd-config.js if available
+        const CFG = window.CD_CONFIG || {};
+        const PAYSTACK_PUBLIC_KEY = CFG.PAYSTACK_PUBLIC_KEY || 'pk_live_4fb6e4cd39c85021b0ea1f07731619714dfbeab3';
+        const WHATSAPP_NUMBER = CFG.WHATSAPP_NUMBER || '254707001191';
+        const BOOKING_FEE_KES = 843;
+        const BOOKING_FEE_KES_CENTS = BOOKING_FEE_KES * 100;
+
         console.log('🔗 Supabase connected:', SUPABASE_URL);
 
         let memberData = null;
         let profilePhotos = [];
         let onlineStatusInterval = null;
+
+        // ============================================================
+        // FULL COUNTRY LIST (195+ countries)
+        // ============================================================
+        const COUNTRIES = [
+            'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria',
+            'Azerbaijan','Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan',
+            'Bolivia','Bosnia and Herzegovina','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi','Cabo Verde','Cambodia',
+            'Cameroon','Canada','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo (DRC)','Congo (Republic)',
+            'Costa Rica','Croatia','Cuba','Cyprus','Czechia','Denmark','Djibouti','Dominica','Dominican Republic','Ecuador',
+            'Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia','Fiji','Finland','France',
+            'Gabon','Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau',
+            'Guyana','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran','Iraq','Ireland',
+            'Israel','Italy','Ivory Coast','Jamaica','Japan','Jordan','Kazakhstan','Kenya','Kiribati','Kosovo',
+            'Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania',
+            'Luxembourg','Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius',
+            'Mexico','Micronesia','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar','Namibia',
+            'Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Korea','North Macedonia','Norway',
+            'Oman','Pakistan','Palau','Palestine','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland',
+            'Portugal','Qatar','Romania','Russia','Rwanda','Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino',
+            'Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands',
+            'Somalia','South Africa','South Korea','South Sudan','Spain','Sri Lanka','Sudan','Suriname','Sweden','Switzerland',
+            'Syria','Taiwan','Tajikistan','Tanzania','Thailand','Timor-Leste','Togo','Tonga','Trinidad and Tobago','Tunisia',
+            'Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan',
+            'Vanuatu','Vatican City','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'
+        ];
 
         function getMemberIdFromURL() {
             const params = new URLSearchParams(window.location.search);
@@ -876,19 +1379,16 @@
         }
 
         // ============================================================
-        // ⭐ FAKE ONLINE STATUS SIMULATOR — 70% online, re-roll every 45s
+        // FAKE ONLINE STATUS SIMULATOR
         // ============================================================
         function startOnlineStatusSimulator() {
-            // Initial roll
             applyOnlineStatus(Math.random() < 0.7);
 
-            // Re-roll every 45 seconds
             if (onlineStatusInterval) clearInterval(onlineStatusInterval);
             onlineStatusInterval = setInterval(() => {
                 applyOnlineStatus(Math.random() < 0.7);
             }, 45000);
 
-            // Also re-roll when user returns to the tab (feels alive)
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden) {
                     applyOnlineStatus(Math.random() < 0.7);
@@ -977,7 +1477,9 @@
             }
 
             document.getElementById('cta-name').textContent = name;
-            document.getElementById('tiktok-member-name').textContent = name;
+            document.getElementById('intro-name').textContent = name;
+            document.getElementById('intro-name-2').textContent = name;
+            document.getElementById('details-name').textContent = name;
 
             renderCollage(photos, name);
 
@@ -1022,6 +1524,7 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeLightbox();
+                closeAllModals();
             }
         });
 
@@ -1036,13 +1539,258 @@
             }
         });
 
-        window.connectWith = function() {
+        // ============================================================
+        // MODALS
+        // ============================================================
+        window.openIntroModal = function() {
             if (!memberData) return;
-            window.location.href = `connect.html?member=${memberData.id}`;
+            document.getElementById('modal-intro').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.openDetailsModal = function() {
+            document.getElementById('modal-intro').classList.remove('show');
+            document.getElementById('modal-details').classList.add('show');
+            // Small delay so transition feels good
+            setTimeout(() => {
+                document.getElementById('form-name').focus();
+            }, 300);
+        }
+
+        window.closeAllModals = function() {
+            document.getElementById('modal-intro').classList.remove('show');
+            document.getElementById('modal-details').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeAllModals();
+            });
+        });
+
+        // ============================================================
+        // COUNTRY SEARCHABLE DROPDOWN
+        // ============================================================
+        function setupCountryDropdown(inputId, dropdownId) {
+            const input = document.getElementById(inputId);
+            const dropdown = document.getElementById(dropdownId);
+
+            function renderOptions(filter = '') {
+                const q = filter.trim().toLowerCase();
+                const filtered = q ? COUNTRIES.filter(c => c.toLowerCase().includes(q)) : COUNTRIES;
+
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = '<div class="country-option empty">No matches</div>';
+                    return;
+                }
+
+                dropdown.innerHTML = filtered.slice(0, 100).map(c =>
+                    `<div class="country-option" data-value="${c}">${c}</div>`
+                ).join('');
+
+                dropdown.querySelectorAll('.country-option').forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        input.value = opt.dataset.value;
+                        dropdown.classList.remove('show');
+                    });
+                });
+            }
+
+            input.addEventListener('focus', () => {
+                renderOptions(input.value);
+                dropdown.classList.add('show');
+            });
+
+            input.addEventListener('input', () => {
+                renderOptions(input.value);
+                dropdown.classList.add('show');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!input.parentElement.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+
+        setupCountryDropdown('form-home-country', 'home-country-dropdown');
+        setupCountryDropdown('form-current-country', 'current-country-dropdown');
+
+        // ============================================================
+        // HANDLE YES / NO — Save to Supabase in BOTH cases
+        // ============================================================
+        window.handleReady = async function(choice) {
+            const fullName = document.getElementById('form-name').value.trim();
+            const age = document.getElementById('form-age').value.trim();
+            const homeCountry = document.getElementById('form-home-country').value.trim();
+            const currentCountry = document.getElementById('form-current-country').value.trim();
+
+            // Validation
+            if (!fullName || fullName.length < 2) {
+                showToast('⚠️ Please enter your full name', 'error');
+                document.getElementById('form-name').focus();
+                return;
+            }
+
+            const ageNum = parseInt(age);
+            if (!ageNum || ageNum < 18 || ageNum > 99) {
+                showToast('⚠️ Please enter a valid age (18–99)', 'error');
+                document.getElementById('form-age').focus();
+                return;
+            }
+
+            if (!homeCountry) {
+                showToast('⚠️ Please select your home country', 'error');
+                document.getElementById('form-home-country').focus();
+                return;
+            }
+
+            if (!currentCountry) {
+                showToast('⚠️ Please select your current country', 'error');
+                document.getElementById('form-current-country').focus();
+                return;
+            }
+
+            // Get current user session (may be null — guest allowed)
+            let userId = null;
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session?.user) userId = session.user.id;
+            } catch (e) {}
+
+            // ⭐ Save to Supabase — happens on BOTH Yes and No
+            try {
+                const { data: conv, error } = await supabase
+                    .from('conversations')
+                    .insert([{
+                        user_id: userId,
+                        member_id: memberData.id,
+                        member_name: memberData.name || 'Member',
+                        full_name: fullName,
+                        age: ageNum,
+                        home_country: homeCountry,
+                        current_country: currentCountry,
+                        status: 'pending',
+                        payment_status: 'unpaid'
+                    }])
+                    .select()
+                    .single();
+
+                if (error) {
+                    console.error('Save conversation error:', error);
+                } else {
+                    console.log('✅ Saved to Supabase:', conv.id);
+                }
+            } catch (err) {
+                console.error('Supabase save failed:', err);
+                // Don't block the flow — continue even if save fails
+            }
+
+            // Close modal
+            closeAllModals();
+
+            // Route based on choice
+            if (choice === 'no') {
+                // ❌ No → go back to members
+                setTimeout(() => {
+                    window.location.href = 'members.html';
+                }, 300);
+                return;
+            }
+
+            // ✅ Yes → route by home country
+            if (homeCountry === 'Kenya') {
+                // Kenya → Paystack
+                executeKenyaPaystack(fullName, currentCountry);
+            } else {
+                // Non-Kenya → Cashier → WhatsApp
+                openCashierAndWhatsApp(homeCountry, currentCountry, fullName, ageNum);
+            }
+        };
+
+        // ============================================================
+        // KENYA → PAYSTACK
+        // ============================================================
+        function executeKenyaPaystack(fullName, currentCountry) {
+            const memberName = memberData.name || 'this member';
+
+            try {
+                const paystack = new PaystackPop();
+                paystack.newTransaction({
+                    key: PAYSTACK_PUBLIC_KEY,
+                    email: (window.CD_CONFIG?.SUPPORT_EMAIL || 'customer@classydate.com'),
+                    amount: BOOKING_FEE_KES_CENTS,
+                    currency: 'KES',
+                    channels: ['mobile_money', 'card'],
+                    metadata: {
+                        member_id: memberData.id,
+                        member_name: memberName,
+                        customer_name: fullName,
+                        home_country: 'Kenya',
+                        current_country: currentCountry,
+                        payment_reason: 'Private connection booking fee',
+                        custom_fields: [
+                            { display_name: "Connecting With", variable_name: "connecting_with", value: memberName },
+                            { display_name: "Customer Name", variable_name: "customer_name", value: fullName }
+                        ]
+                    },
+                    onSuccess: (transaction) => {
+                        console.log('✅ Payment successful:', transaction);
+                        showToast('✅ Payment received! Our team will contact you shortly.', 'success');
+                        // Redirect to chat if we have a conversation, else members
+                        setTimeout(() => {
+                            window.location.href = `chat.html`;
+                        }, 1500);
+                    },
+                    onCancel: () => {
+                        showToast('Payment cancelled', 'info');
+                    }
+                });
+            } catch (err) {
+                console.error('Paystack error:', err);
+                showToast('Could not open payment: ' + err.message, 'error');
+            }
         }
 
         // ============================================================
-        // ⭐ SHARE with image (Web Share API Level 2 + fallback)
+        // NON-KENYA → CASHIER OVERLAY → WHATSAPP
+        // ============================================================
+        function openCashierAndWhatsApp(homeCountry, currentCountry, fullName, age) {
+            const overlay = document.getElementById('cashierOverlay');
+            const countryEl = document.getElementById('cashierCountry');
+            const memberName = memberData.name || 'this member';
+
+            countryEl.textContent = `🇺🇳 ${homeCountry}`;
+            overlay.classList.add('show');
+
+            // Build WhatsApp message
+            const waMessage = `Hi ClassyDate 👋
+
+I'm ${fullName}, ${age} years old.
+
+🌍 From ${homeCountry}
+📍 Currently in ${currentCountry}
+
+I'd like to connect with ${memberName}.
+
+Please share the payment details so I can complete this.
+
+Thank you!`;
+
+            const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`;
+
+            setTimeout(() => {
+                window.open(waLink, '_blank');
+                setTimeout(() => {
+                    overlay.classList.remove('show');
+                }, 400);
+            }, 3000);
+        }
+
+        // ============================================================
+        // SHARE with image
         // ============================================================
         window.shareProfile = async function() {
             if (!memberData) return;
@@ -1060,12 +1808,10 @@
 ${url}
             `.trim();
 
-            // Try Web Share API Level 2 with image
             if (navigator.share && navigator.canShare) {
                 try {
                     const imageUrl = profilePhotos[0];
                     if (imageUrl && !imageUrl.includes('ui-avatars.com')) {
-                        // Fetch image as blob
                         const response = await fetch(imageUrl);
                         const blob = await response.blob();
                         const file = new File([blob], 'profile.jpg', { type: blob.type });
@@ -1081,18 +1827,15 @@ ${url}
                         }
                     }
 
-                    // Fallback: share without image
                     await navigator.share({ title: name, text: msg, url });
                     return;
 
                 } catch (err) {
-                    // If user cancelled, do nothing
                     if (err.name === 'AbortError') return;
-                    console.warn('Share with image failed, falling back:', err);
+                    console.warn('Share failed, falling back:', err);
                 }
             }
 
-            // Final fallback: WhatsApp text-only share
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -1136,10 +1879,6 @@ ${url}
             }
         }
 
-        window.goToMatchmaking = function() {
-            window.location.href = 'matchmaking.html';
-        }
-
         let toastTimeout;
         function showToast(msg, type = 'success') {
             const t = document.getElementById('toast');
@@ -1152,7 +1891,7 @@ ${url}
 
         loadProfile();
 
-        console.log('💎 Profile — fake online status + image share + TikTok after photos');
+        console.log('💎 Profile — WhatsApp button + 3-step flow + Save to Supabase');
     </script>
 
 </body>
